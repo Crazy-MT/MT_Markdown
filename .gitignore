@@ -1,0 +1,192 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+lib/generated/*
+!lib/generated/empty.init
+
+# IntelliJ related# from cocos2d-x
+
+# ios
+xcuserstate
+*.xcsettings
+frameworks/runtime-src/proj.ios_mac/xyzpeilian.xcodeproj/project.xcworkspace/xcshareddata/*
+frameworks/runtime-src/proj.ios_mac/xyzpeilian.xcodeproj/project.xcworkspace/xcuserdata/*
+frameworks/runtime-src/proj.ios_mac/xyzpeilian.xcodeproj/xcuserdata/*
+frameworks/runtime-src/proj.ios_mac/xyzpeilian.xcworkspace/xcshareddata/*
+frameworks/runtime-src/proj.ios_mac/xyzpeilian.xcworkspace/xcuserdata/*
+frameworks/runtime-src/proj.ios_mac/scripts/build/*
+
+
+# android
+frameworks/runtime-src/proj.android/bin
+gen
+obj
+armeabi
+# assets
+proguard
+local.properties
+*.apk
+.settings
+
+# android-studio
+frameworks/runtime-src/proj.android-studio/build/*
+frameworks/runtime-src/proj.android-studio/.idea
+frameworks/runtime-src/proj.android-studio/app/.externalNativeBuild
+frameworks/runtime-src/proj.android-studio/app/build/*
+frameworks/runtime-src/proj.android-studio/app/obj/*
+frameworks/runtime-src/proj.android-studio/app/libs/armeabi-v7a/*
+frameworks/runtime-src/proj.android-studio/app/libs/x86/*
+*.iml
+frameworks/runtime-src/proj.android-studio/scripts/version.txt
+
+# win32
+Debug.win32
+Release.win32
+Debug.obj
+Release.obj
+DVD-5
+SingleImage
+*.pdb
+*.aps
+
+*.user
+*.sdf
+*.opensdf
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+
+# python
+*.pyc
+
+# runtime
+runtime
+
+# simulator
+simulator/mac
+simulator/ios
+simulator/win32
+crash_dump
+frameworks/music-core
+frameworks/music-core-lib
+frameworks/runtime-src/tools/tolua/userconf.ini
+frameworks/runtime-src/dist
+frameworks/runtime-src/proj.android/version.txt
+
+src/music-core
+src/cocos2d-x
+src/framework
+tmp
+temp
+res/code.zip
+res/images/*
+res/ccb/*
+res/unpack/*
+res/sounds/*
+res/fonts/*
+res/srclist.txt
+res/md5.json
+
+# reverse ignore for android res
+!frameworks/runtime-src/proj.android/res
+
+# log
+debug.log
+
+# ignore the spritebuilder path
+raw/spritebuilder.spritebuilder/Packages/SpriteBuilder\ Resources.sbpack/images/*
+raw/spritebuilder.spritebuilder/Packages/SpriteBuilder\ Resources.sbpack/fonts/*
+raw/spritebuilder.spritebuilder/Packages/SpriteBuilder\ Resources.sbpack/unpack/*
+raw/fonts/Strings.json
+raw/fonts/font_zh-Hans_hd.fnt
+raw/fonts/font_zh-Hans_hd.png
+
+# ignore cocoapods files
+frameworks/runtime-src/proj.ios_mac/Pods/Pods.xcodeproj/xcuserdata/*
+
+frameworks/wanaka-framework/build/proj.android/build/*
+frameworks/wanaka-framework/build/proj.ios_mac/wanaka-framework.xcodeproj/xcuserdata/*
+
+job.json
+
+.DS_Store
+
+# for idea
+.idea
+
+frameworks/runtime-src/proj.ios_mac/xyzpeilian.xcworkspace/xcuserdata
+frameworks/runtime-src/proj.ios_mac/xyzpeilian.xcworkspace/xcshareddata
+frameworks/runtime-src/proj.ios_mac/xyzpeilian.xcodeproj/xcuserdata
+
+
+frameworks/runtime-src/proj.ios_mac/Pods
+
+frameworks/runtime-src/proj.ios_mac/xyzpeilian.xcodeproj/project.xcworkspace/xcuserdata/*
+
+
+build/*
+pubspec.lock
+.dart_tool/*
+.packages
+*.lock
+.flutter*
+.metadata
+
+.dart_tool
+
+ios/Flutter/.last_build_id
+ios/build
+
+generated_plugin_registrant.dart
+macos/Flutter/GeneratedPluginRegistrant.swift
+
+android/build/native/midi-utils/*
+
+android/build/native/midicore/*
+
+android/build/*
+
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+
+# Web related
+lib/generated_plugin_registrant.dart
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+
+*.dart
+*.sh

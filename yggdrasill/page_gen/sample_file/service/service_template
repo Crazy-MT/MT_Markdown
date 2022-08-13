@@ -1,0 +1,4 @@
+abstract class $ServiceName {
+  String get serviceName;
+}
+

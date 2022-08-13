@@ -1,0 +1,8 @@
+name: ftr
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+dependencies:
+  analyzer: ^3.4.1
+  cli_dialog: ^0.5.0
+  dart_style: ^2.2.2

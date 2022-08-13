@@ -1,0 +1,7 @@
+import '../FTServices/$ServiceName/$ServiceName.dart';
+
+class $ServiceNameImp implements $ServiceName {
+  @override
+  String get serviceName => "$ServiceName";
+
+}
