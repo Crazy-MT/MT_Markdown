@@ -1,4 +1,4 @@
-// ignore_for_file: annotate_overrides
+// ignore_for_file: annotate_overrides, overridden_fields
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,11 +31,11 @@ class CommonAppBar extends AppBar {
                   style: TextStyle(
                     fontSize: fontSize ?? 18.sp,
                     color: AppColors.text_dark,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                   )),
           iconTheme:
               IconThemeData(color: iconThemeColor ?? AppColors.text_dark),
-          actionsIconTheme: IconThemeData(color: AppColors.text_dark),
+          actionsIconTheme: const IconThemeData(color: AppColors.text_dark),
           leading: leading,
           backgroundColor: Colors.white,
           centerTitle: centerTitle,

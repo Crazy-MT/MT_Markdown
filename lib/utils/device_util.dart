@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:device_info/device_info.dart';
 
 class DeviceUtil {
-  DeviceInfoPlugin _deviceInfo = DeviceInfoPlugin();
+  final DeviceInfoPlugin _deviceInfo = DeviceInfoPlugin();
   IosDeviceInfo? _iosDeviceInfo;
   AndroidDeviceInfo? _androidDeviceInfo;
   DeviceUtil._();

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_new
+
 import '../../network/convert_interface.dart';
 
 class UserModel extends ConvertInterface {
@@ -38,7 +40,7 @@ class UserModel extends ConvertInterface {
 
   @override
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['isGuest'] = isGuest;
     data['isVip'] = isVip;
     data['email'] = email;

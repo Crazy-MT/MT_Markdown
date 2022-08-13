@@ -29,7 +29,7 @@ class LRequest {
   // static String token = "mEoLdDAQeNUgdIfcCT97Yg==";
 
   LRequest._();
-  static LRequest _lRequest = LRequest._();
+  static final LRequest _lRequest = LRequest._();
   static LRequest get instance => _lRequest;
 
   void init() {
@@ -86,11 +86,11 @@ class LRequest {
       // if (!skipError) await handleError(response, context: context, url: url);
       BaseModel<T> baseModel = BaseModel.fromJson(response.data, t);
       handleBaseModel?.call(baseModel);
-      ResultData<T> resultData = new ResultData();
+      ResultData<T> resultData = ResultData();
       if (baseModel.data is List) {
         List<T> valueList = baseModel.data;
         resultData.valueList = valueList;
-        resultData.value = valueList.length > 0 ? valueList.first : null;
+        resultData.value = valueList.isNotEmpty ? valueList.first : null;
       } else if (baseModel.data is String) {
         resultData.message = baseModel.data;
       } else {
