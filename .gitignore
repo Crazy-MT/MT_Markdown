@@ -187,6 +187,3 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-
-*.dart
-*.sh
