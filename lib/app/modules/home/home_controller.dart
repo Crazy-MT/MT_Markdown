@@ -7,6 +7,7 @@ class HomeController extends GetxController {
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
   RxList<_FenquItem> fenquList = RxList<_FenquItem>();
+  RxList<String> recommendList = RxList<String>();
 
   @override
   void onInit() {
@@ -17,6 +18,20 @@ class HomeController extends GetxController {
   initData() {
     pageStatus.value = FTStatusPageType.success;
     initFenquList();
+    getRecommendList();
+  }
+
+  getRecommendList() {
+    recommendList.add("1019翡翠玻璃种镶玫瑰金叶子吊坠");
+    recommendList.add("1019翡翠玻璃种镶玫瑰金叶子吊坠");
+    recommendList.add("1019翡翠玻璃种镶玫瑰金叶子吊坠");
+    recommendList.add("1019翡翠玻璃种镶玫瑰金叶子吊坠");
+    recommendList.add("1019翡翠玻璃种镶玫瑰金叶子吊坠");
+    recommendList.add("1019翡翠玻璃种镶玫瑰金叶子吊坠");
+    recommendList.add("1019翡翠玻璃种镶玫瑰金叶子吊坠");
+    recommendList.add("1019翡翠玻璃种镶玫瑰金叶子吊坠");
+    recommendList.add("1019翡翠玻璃种镶玫瑰金叶子吊坠");
+    recommendList.add("1019翡翠玻璃种镶玫瑰金叶子吊坠");
   }
 
   initFenquList() {

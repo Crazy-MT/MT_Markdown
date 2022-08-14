@@ -3,6 +3,7 @@ import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'home_controller.dart';
@@ -25,15 +26,9 @@ class HomePage extends GetView<HomeController> {
                 _buildSearchContainer(),
                 _buildSwiperContainer(),
                 _buildFenquGridView(),
-                SliverToBoxAdapter(
-                  child: Container(
-                    height: 1000.h,
-                    width: double.infinity,
-                    color: Colors.red,
-                    alignment: Alignment.center,
-                    child: Text("test"),
-                  ),
-                ),
+                _buildAdContainer(),
+                _buildRecommendDivider(),
+                _buildRecommendGrid(),
               ],
             );
           },
@@ -155,6 +150,151 @@ class HomePage extends GetView<HomeController> {
             width: 25.w,
             height: 32.w,
             fit: BoxFit.contain,
+          ),
+        ],
+      ),
+    );
+  }
+
+  //Above recommend
+  _buildAdContainer() {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(horizontal: 15.w),
+      sliver: SliverToBoxAdapter(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+                width: 167.w,
+                height: 200.w,
+                decoration: BoxDecoration(
+                  color: AppColors.bg_gray,
+                  borderRadius: BorderRadius.circular(8.w),
+                )),
+            SizedBox(
+              width: 10.w,
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  Container(
+                    width: 167.w,
+                    height: 95.w,
+                    decoration: BoxDecoration(
+                      color: AppColors.bg_gray,
+                      borderRadius: BorderRadius.circular(8.w),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.w,
+                  ),
+                  Container(
+                    width: 167.w,
+                    height: 95.w,
+                    decoration: BoxDecoration(
+                      color: AppColors.bg_gray,
+                      borderRadius: BorderRadius.circular(8.w),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildRecommendDivider() {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(vertical: 15.w),
+      sliver: SliverToBoxAdapter(
+        child: Column(children: [
+          Image.asset(
+            Assets.imagesRecommendDivider,
+          ),
+          Text(
+            "猜你喜欢的",
+            style: TextStyle(
+              color: Color(0xFFD0A06D),
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ]),
+      ),
+    );
+  }
+
+  _buildRecommendGrid() {
+    return SliverPadding(
+      padding: EdgeInsets.all(15.w).copyWith(top: 0),
+      sliver: SliverGrid(
+          delegate: SliverChildBuilderDelegate((context, index) {
+            return _buildRecommendItem(index);
+          }, childCount: controller.recommendList.length),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 165 / 280,
+            crossAxisSpacing: 15.w,
+            mainAxisSpacing: 17.w,
+          )),
+    );
+  }
+
+  _buildRecommendItem(index) {
+    String item = controller.recommendList[index];
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              Container(
+                width: 165.w,
+                height: 210.w,
+                decoration: BoxDecoration(
+                  color: AppColors.bg_gray,
+                  borderRadius: BorderRadius.circular(8.w),
+                ),
+              ),
+              Positioned(
+                left: 0,
+                top: 0,
+                child: SvgPicture.asset(
+                  Assets.imagesSelectedGoods,
+                  width: 48.w,
+                  height: 18.w,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10.w,
+          ),
+          Text(
+            item,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: AppColors.text_dark,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          SizedBox(
+            height: 5.w,
+          ),
+          Text(
+            "¥3000000.00",
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: Color(0xFFD0A06D),
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),
