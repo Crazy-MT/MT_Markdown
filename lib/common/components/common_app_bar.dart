@@ -41,20 +41,4 @@ class CommonAppBar extends AppBar {
           centerTitle: centerTitle,
           actions: actions,
         );
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return AppBar(
-  //     elevation: 0.2,
-  //     shadowColor: AppColors.gray_light,
-  //     title: Text(title ?? '',
-  //         style: TextStyle(
-  //           fontSize: 30.sp,
-  //           color: AppColors.text_dark,
-  //           fontWeight: FontWeight.bold,
-  //         )),
-  //     backgroundColor: Colors.white,
-  //     centerTitle: centerTitle ?? false,
-  //   );
-  // }
 }

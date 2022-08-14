@@ -22,8 +22,10 @@ class AppColors {
 
   static const input_fill = Color(0xFFF0F0F0);
 
-  static const text_dark = Color(0xFF202020);
+  static const text_dark = Color(0xFF111111);
   static const text_light = Color(0xFFECECEC);
 
-  static const page_bg = Color(0xFFFDFDFD);
+  static const page_bg = Color(0xFFF8F9FB);
+
+  static const bg_gray = Color(0xFFF0F1F2);
 }
