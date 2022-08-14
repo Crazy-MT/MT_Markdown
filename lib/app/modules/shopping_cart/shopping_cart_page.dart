@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
+import 'package:code_zero/utils/device_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'shopping_cart_controller.dart';
@@ -26,7 +27,7 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
                   controller: controller.scrollController,
                   slivers: [
                     _buildSliverAppBar(),
-                    _buildOrderContent(),
+                    _buildOrderContent(context),
                   ],
                 );
               },
@@ -43,6 +44,9 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
       pinned: true,
       expandedHeight: 48.w,
       backgroundColor: Colors.transparent,
+      actions: [
+        _rightManage(),
+      ],
       flexibleSpace: FlexibleSpaceBar(
         title: Text('购物车'),
         background: Image.asset(
@@ -53,26 +57,43 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
     );
   }
 
-  Widget _buildOrderContent() {
-    print(ScreenUtil.defaultSize.height);
+  Widget _rightManage() {
+    return GestureDetector(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        alignment: Alignment.center,
+        color: Colors.transparent,
+        child: Text(
+          '管理',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOrderContent(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
         width: 375.w,
-        height: ScreenUtil().screenHeight -
-            ScreenUtil().statusBarHeight -
-            ScreenUtil().bottomBarHeight -
+        height: 812.w -
             48.w -
-            64.w,
-        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.w),
+            60.w -
+            64.w -
+            MediaQuery.of(context).padding.bottom -
+            MediaQuery.of(context).padding.top,
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
         child: ListView.separated(
-          padding: EdgeInsets.zero,
+          padding: EdgeInsets.symmetric(vertical: 15.w),
           itemBuilder: (BuildContext context, int index) {
             return _orderItem();
           },
           separatorBuilder: (BuildContext context, int index) {
             return SizedBox(height: 10);
           },
-          itemCount: 3,
+          itemCount: 13,
         ),
       ),
     );
@@ -199,7 +220,7 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
       right: 0,
       bottom: 0,
       child: Container(
-        height: 60,
+        height: 60.w,
         color: Colors.white,
         child: Row(
           children: [
