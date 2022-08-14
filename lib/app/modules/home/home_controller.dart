@@ -1,5 +1,6 @@
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -8,6 +9,8 @@ class HomeController extends GetxController {
   final pageStatus = FTStatusPageType.loading.obs;
   RxList<_FenquItem> fenquList = RxList<_FenquItem>();
   RxList<String> recommendList = RxList<String>();
+  ScrollController scrollController = ScrollController();
+  final showScrollToTop = false.obs;
 
   @override
   void onInit() {
@@ -19,6 +22,14 @@ class HomeController extends GetxController {
     pageStatus.value = FTStatusPageType.success;
     initFenquList();
     getRecommendList();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >= 200 && !showScrollToTop.value) {
+        showScrollToTop.value = true;
+      } else if (scrollController.position.pixels < 200 &&
+          showScrollToTop.value) {
+        showScrollToTop.value = false;
+      }
+    });
   }
 
   getRecommendList() {
@@ -42,6 +53,11 @@ class HomeController extends GetxController {
     fenquList.add(_FenquItem("戒指", Assets.imagesJiezhi));
     fenquList.add(_FenquItem("手镯", Assets.imagesShouzhuo));
     fenquList.add(_FenquItem("手镯", Assets.imagesErzhui));
+  }
+
+  scrollerToTop() {
+    scrollController.animateTo(0,
+        duration: Duration(seconds: 1), curve: Curves.ease);
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:code_zero/common/colors.dart';
+import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter/material.dart';
@@ -15,25 +16,43 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.page_bg,
-      body: Obx(
-        () => FTStatusPage(
-          type: controller.pageStatus.value,
-          errorMsg: controller.errorMsg.value,
-          builder: (BuildContext context) {
-            return CustomScrollView(
-              slivers: [
-                _buildSliverAppBar(),
-                _buildSearchContainer(),
-                _buildSwiperContainer(),
-                _buildFenquGridView(),
-                _buildAdContainer(),
-                _buildRecommendDivider(),
-                _buildRecommendGrid(),
-              ],
-            );
-          },
-        ),
-      ),
+      body: Obx(() => Stack(
+            children: [
+              FTStatusPage(
+                type: controller.pageStatus.value,
+                errorMsg: controller.errorMsg.value,
+                builder: (BuildContext context) {
+                  return CustomScrollView(
+                    controller: controller.scrollController,
+                    slivers: [
+                      _buildSliverAppBar(),
+                      _buildSearchContainer(),
+                      _buildSwiperContainer(),
+                      _buildFenquGridView(),
+                      _buildAdContainer(),
+                      _buildRecommendDivider(),
+                      _buildRecommendGrid(),
+                    ],
+                  );
+                },
+              ),
+              if (controller.showScrollToTop.value)
+                Positioned(
+                  child: SafeTapWidget(
+                    onTap: () {
+                      controller.scrollerToTop();
+                    },
+                    child: Container(
+                      width: 30.w,
+                      height: 30.w,
+                      child: SvgPicture.asset(Assets.imagesScrollToTop),
+                    ),
+                  ),
+                  bottom: 15.w,
+                  right: 15.w,
+                )
+            ],
+          )),
     );
   }
 
