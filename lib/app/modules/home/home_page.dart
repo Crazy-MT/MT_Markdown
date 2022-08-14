@@ -81,17 +81,42 @@ class HomePage extends GetView<HomeController> {
           children: [
             Expanded(
               child: Container(
+                height: 33.w,
                 decoration: BoxDecoration(
                   color: AppColors.bg_gray,
                   borderRadius: BorderRadius.circular(20.w),
+                ),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 14.w,
+                        right: 10.w,
+                      ),
+                      child: SvgPicture.asset(
+                        Assets.iconsSearch,
+                        width: 15.w,
+                        height: 15.w,
+                      ),
+                    ),
+                    Text(
+                      "搜索感兴趣的商品",
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: Color(0xFFA5A5A5),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
             SizedBox(width: 18.w),
             Container(
-              width: 20.w,
-              height: 20.w,
-              color: Colors.red,
+              width: 24.w,
+              height: 24.w,
+              child: SvgPicture.asset(
+                Assets.iconsChat,
+              ),
             ),
           ],
         ),
