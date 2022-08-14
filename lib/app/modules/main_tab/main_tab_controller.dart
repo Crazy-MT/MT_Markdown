@@ -1,6 +1,7 @@
 import 'package:code_zero/app/modules/home/home_page.dart';
 import 'package:code_zero/app/modules/snap_up/snap_up_page.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -30,7 +31,8 @@ class MainTabController extends GetxController {
       _HomeTabInfo(
         index: 0,
         title: '首页',
-        icon: const Icon(Icons.home_rounded),
+        icon: Assets.iconsHome,
+        selectIcon: Assets.iconsHomeSelect,
         tabPage: const HomePage(),
         clickTabItem: clickTab,
       ),
@@ -38,8 +40,9 @@ class MainTabController extends GetxController {
     tabs.add(
       _HomeTabInfo(
         index: 1,
-        title: '报表',
-        icon: const Icon(Icons.upcoming_rounded),
+        title: '抢购',
+        icon: Assets.iconsSnapUp,
+        selectIcon: Assets.iconsSnapUpSelect,
         tabPage: const SnapUpPage(),
         clickTabItem: clickTab,
       ),
@@ -48,7 +51,8 @@ class MainTabController extends GetxController {
       _HomeTabInfo(
         index: 2,
         title: '购物车',
-        icon: const Icon(Icons.shopping_cart_rounded),
+        icon: Assets.iconsShoppingCart,
+        selectIcon: Assets.iconsShoppingCartSelect,
         tabPage: const ShoppingCartPage(),
         clickTabItem: clickTab,
       ),
@@ -57,7 +61,8 @@ class MainTabController extends GetxController {
       _HomeTabInfo(
         index: 3,
         title: '我的',
-        icon: const Icon(Icons.person_rounded),
+        icon: Assets.iconsMine,
+        selectIcon: Assets.iconsMineSelect,
         tabPage: const MinePage(),
         clickTabItem: clickTab,
       ),
@@ -77,7 +82,8 @@ class MainTabController extends GetxController {
 
 class _HomeTabInfo {
   final int index;
-  final Widget icon;
+  final String icon;
+  final String selectIcon;
   final String title;
   final ValueChanged<int>? clickTabItem;
   final Widget tabPage;
@@ -85,6 +91,7 @@ class _HomeTabInfo {
   _HomeTabInfo({
     required this.index,
     required this.icon,
+    required this.selectIcon,
     required this.title,
     required this.clickTabItem,
     required this.tabPage,
