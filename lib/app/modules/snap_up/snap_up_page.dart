@@ -1,3 +1,4 @@
+import 'package:code_zero/app/modules/snap_up/widget/snap_up_item_title.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
@@ -24,6 +25,7 @@ class SnapUpPage extends GetView<SnapUpController> {
                 _buildSliverAppBar(),
                 _buildHeaderContainer(),
                 _buildListDivider(),
+                _buildSnapUpList(),
               ],
             );
           },
@@ -140,6 +142,87 @@ class SnapUpPage extends GetView<SnapUpController> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  _buildSnapUpList() {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(horizontal: 15.w),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (content, index) {
+            return _buildSnapUpItem(index);
+          },
+          childCount: controller.snapUpList.length,
+        ),
+      ),
+    );
+  }
+
+  _buildSnapUpItem(index) {
+    return Container(
+      width: 345.w,
+      height: 100.w,
+      margin: EdgeInsets.only(bottom: 15.w),
+      decoration: BoxDecoration(
+        color: AppColors.bg_gray,
+        borderRadius: BorderRadius.circular(8.w),
+        image: DecorationImage(
+          image: AssetImage(
+            Assets.iconsSnapBg1,
+          ),
+          fit: BoxFit.fill,
+        ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(10.w),
+            child: SnapUpTitle(name: controller.snapUpList[index]),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 5.w),
+            child: Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "开抢时间",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13.sp,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Container(
+                    width: 165.w,
+                    height: 30.w,
+                    decoration: BoxDecoration(
+                        color: Color(0xFF050505).withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(30.w),
+                        border: Border.all(
+                            width: 1.w,
+                            color: index < 2
+                                ? AppColors.green
+                                : Color(0xFF757575))),
+                    alignment: Alignment.center,
+                    child: Text(
+                      index < 2 ? "2022年8月30日  00:00" : "未开放",
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: index < 2 ? AppColors.green : Colors.white,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
