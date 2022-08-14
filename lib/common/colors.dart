@@ -25,9 +25,13 @@ class AppColors {
   static const text_dark = Color(0xFF111111);
   static const text_light = Color(0xFFECECEC);
 
+  static const green = Color(0xFF1BDB8A);
+
   static const gold = Color(0xFFDAB071);
   static const gold_light = Color(0xFFE7D4B4);
   static const gold_dark = Color(0xFF886B3D);
+
+  static const gold_d0a06d = Color(0xFFD0A06D);
 
   static const page_bg = Color(0xFFF8F9FB);
 

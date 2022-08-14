@@ -15,6 +15,16 @@ class SnapUpController extends GetxController {
 
   initData() {
     pageStatus.value = FTStatusPageType.success;
+    initSnapUpList();
+  }
+
+  initSnapUpList() {
+    snapUpList.add("抢购专区");
+    snapUpList.add("新品零售");
+    snapUpList.add("积分专区");
+    snapUpList.add("零售专区");
+    snapUpList.add("新品零售");
+    snapUpList.add("积分专区");
   }
 
   @override
