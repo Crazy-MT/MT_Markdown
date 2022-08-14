@@ -43,7 +43,7 @@ class SnapUpTitle extends StatelessWidget {
               ),
             ),
           ),
-          left: i * 22.w,
+          left: i * 21.w,
         ),
       );
     }
