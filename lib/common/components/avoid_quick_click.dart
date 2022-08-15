@@ -1,4 +1,3 @@
-import 'package:aiplite/utils/track_utils_manager.dart';
 import 'package:flutter/material.dart';
 
 class SafeClickGesture extends StatefulWidget {
@@ -23,7 +22,6 @@ class _SafeClickGesture extends State<SafeClickGesture> {
       behavior: HitTestBehavior.opaque,
       onTap: () {
         if (widget.onTap != null && _isCan) {
-          trackUtils.trackClickTag = widget.trackClickTag;
           widget.onTap!();
           _isCan = false;
           // milliseconds毫秒内 不能多次点击

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -11,6 +12,13 @@ import 'package:oktoast/oktoast.dart';
 import 'app/routes/app_pages.dart';
 import 'app/routes/app_routes.dart';
 import 'utils/log_utils.dart';
+import 'package:flutter_ume/flutter_ume.dart'; // UME 框架
+import 'package:flutter_ume_kit_ui/flutter_ume_kit_ui.dart'; // UI 插件包
+import 'package:flutter_ume_kit_perf/flutter_ume_kit_perf.dart'; // 性能插件包
+import 'package:flutter_ume_kit_show_code/flutter_ume_kit_show_code.dart'; // 代码查看插件包
+import 'package:flutter_ume_kit_device/flutter_ume_kit_device.dart'; // 设备信息插件包
+import 'package:flutter_ume_kit_console/flutter_ume_kit_console.dart'; // debugPrint 插件包
+import 'package:flutter_ume_kit_dio/flutter_ume_kit_dio.dart'; // Dio 网络请求调试工具
 
 void main() {
   runZonedGuarded(() {
@@ -24,7 +32,26 @@ void main() {
           statusBarIconBrightness: Brightness.light);
       SystemChrome.setSystemUIOverlayStyle(style);
     }
-    runApp(const App());
+    if (kDebugMode) {
+      PluginManager.instance                                 // 注册插件
+        ..register(WidgetInfoInspector())
+        ..register(WidgetDetailInspector())
+        ..register(ColorSucker())
+        ..register(AlignRuler())
+        ..register(ColorPicker())                            // 新插件
+        ..register(TouchIndicator())                         // 新插件
+        ..register(Performance())
+        ..register(ShowCode())
+        ..register(MemoryInfoPage())
+        ..register(CpuInfoPage())
+        ..register(DeviceInfoPanel())
+        ..register(Console());
+      // flutter_ume 0.3.0 版本之后
+      runApp(UMEWidget(child: App(), enable: true)); // 初始化
+      // flutter_ume 0.3.0 版本之前
+    } else {
+      runApp(App());
+    }
   }, (error, stackTrace) {
     errorLog(error.toString());
   });

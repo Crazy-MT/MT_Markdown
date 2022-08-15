@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.code_zero">
    <application
-        android:label="code_zero"
+        android:label="传翠"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
