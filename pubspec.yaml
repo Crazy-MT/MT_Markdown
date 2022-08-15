@@ -38,6 +38,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/images/shopping_cart/
   uses-material-design: true
 
 flutter_assets:
