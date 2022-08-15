@@ -15,6 +15,8 @@ import '../modules/shopping_cart/shopping_cart_binding.dart';
 import '../modules/shopping_cart/shopping_cart_page.dart';
 import '../modules/snap_up/snap_up_binding.dart';
 import '../modules/snap_up/snap_up_page.dart';
+import '../modules/home/goods_detail/goods_detail_binding.dart';
+import '../modules/home/goods_detail/goods_detail_page.dart';
 
 class AppPages {
   AppPages._();
@@ -22,6 +24,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // goods_detail
+    GetPage(
+      name: RoutesID.GOODS_DETAIL_PAGE,
+      page: () => const GoodsDetailPage(),
+      binding: GoodsDetailBinding(),
+    ),
+
     // snap_up
     GetPage(
       name: RoutesID.SNAP_UP_PAGE,

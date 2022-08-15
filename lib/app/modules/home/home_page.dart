@@ -1,3 +1,4 @@
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -289,58 +290,63 @@ class HomePage extends GetView<HomeController> {
 
   _buildRecommendItem(index) {
     String item = controller.recommendList[index];
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              Container(
-                width: 165.w,
-                height: 210.w,
-                decoration: BoxDecoration(
-                  color: AppColors.bg_gray,
-                  borderRadius: BorderRadius.circular(8.w),
+    return SafeTapWidget(
+      onTap: () {
+        Get.toNamed(RoutesID.GOODS_DETAIL_PAGE);
+      },
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  width: 165.w,
+                  height: 210.w,
+                  decoration: BoxDecoration(
+                    color: AppColors.bg_gray,
+                    borderRadius: BorderRadius.circular(8.w),
+                  ),
                 ),
-              ),
-              Positioned(
-                left: 0,
-                top: 0,
-                child: SvgPicture.asset(
-                  Assets.imagesSelectedGoods,
-                  width: 48.w,
-                  height: 18.w,
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  child: SvgPicture.asset(
+                    Assets.imagesSelectedGoods,
+                    width: 48.w,
+                    height: 18.w,
+                  ),
                 ),
+              ],
+            ),
+            SizedBox(
+              height: 10.w,
+            ),
+            Text(
+              item,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: AppColors.text_dark,
+                fontWeight: FontWeight.w500,
               ),
-            ],
-          ),
-          SizedBox(
-            height: 10.w,
-          ),
-          Text(
-            item,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 14.sp,
-              color: AppColors.text_dark,
-              fontWeight: FontWeight.w500,
             ),
-          ),
-          SizedBox(
-            height: 5.w,
-          ),
-          Text(
-            "¥3000000.00",
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: Color(0xFFD0A06D),
-              fontWeight: FontWeight.w700,
+            SizedBox(
+              height: 5.w,
             ),
-          ),
-        ],
+            Text(
+              "¥3000000.00",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 12.sp,
+                color: Color(0xFFD0A06D),
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

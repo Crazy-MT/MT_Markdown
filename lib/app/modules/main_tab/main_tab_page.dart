@@ -14,8 +14,7 @@ class MainTabPage extends GetView<MainTabController> {
     return Obx(
       (() => Scaffold(
             bottomNavigationBar: _buildBottomAppBar(),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
             body: IndexedStack(
               index: controller.currentTab.value,
               children: controller.tabs.map((tab) {
@@ -32,7 +31,6 @@ class MainTabPage extends GetView<MainTabController> {
         minHeight: 64.w,
       ),
       child: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: controller.tabs
@@ -44,9 +42,7 @@ class MainTabPage extends GetView<MainTabController> {
                         height: 5.w,
                       ),
                       Image.asset(
-                        e.index == controller.currentTab.value
-                            ? e.selectIcon
-                            : e.icon,
+                        e.index == controller.currentTab.value ? e.selectIcon : e.icon,
                         width: 22.w,
                         height: 22.w,
                       ),
