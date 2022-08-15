@@ -67,6 +67,43 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
         decoration: BoxDecoration(
           color: AppColors.bg_gray,
         ),
+        child: Stack(children: [
+          PageView(
+            controller: controller.pageController,
+            children: controller.detailPicList
+                .map(
+                  (element) => CachedNetworkImage(
+                    imageUrl: element,
+                    width: 375.w,
+                    height: 375.w,
+                    fit: BoxFit.contain,
+                  ),
+                )
+                .toList(),
+          ),
+          Positioned(
+            bottom: 20.w,
+            right: 20.w,
+            child: Container(
+              child: Obx(
+                () => Text(
+                  "${controller.currentIndex.value + 1}/${controller.detailPicList.length}",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12.sp,
+                    shadows: [
+                      Shadow(
+                        color: AppColors.text_dark,
+                        offset: Offset(1.w, 1.w),
+                        blurRadius: 3.0,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )
+        ]),
       ),
     );
   }
