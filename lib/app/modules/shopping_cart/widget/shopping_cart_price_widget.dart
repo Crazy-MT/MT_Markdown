@@ -28,7 +28,7 @@ class ShoppingCartPriceWidget extends StatelessWidget {
         children: [
           SizedBox(width: 25.w),
           Image.asset(
-            Assets.imagesShoppingCartShoppingCartGoodsUnselected,
+            Assets.imagesShoppingCartGoodsUnselected,
             width: 19.w,
             height: 19.w,
           ),
