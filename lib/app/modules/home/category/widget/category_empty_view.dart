@@ -30,7 +30,7 @@ class CategoryEmptyView extends StatelessWidget {
         children: [
           SizedBox(height: 75.w),
           Image.asset(
-            Assets.imagesShoppingCartShoppingCartEmptyView,
+            Assets.imagesShoppingCartEmptyView,
             width: 100.w,
             height: 100.w,
           ),
