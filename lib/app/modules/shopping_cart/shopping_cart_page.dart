@@ -1,3 +1,4 @@
+import 'package:code_zero/app/modules/shopping_cart/widget/shopping_cart_empty_view.dart';
 import 'package:code_zero/app/modules/shopping_cart/widget/shopping_cart_goods_item.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
@@ -16,6 +17,7 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
       backgroundColor: AppColors.page_bg,
       body: Obx(
         () => Stack(
+          alignment: Alignment.center,
           children: [
             FTStatusPage(
               type: controller.pageStatus.value,
@@ -30,7 +32,10 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
                 );
               },
             ),
-            _totalPrice(),
+            Visibility(
+              visible: controller.goodsList.isNotEmpty,
+              child: _totalPrice(),
+            ),
           ],
         ),
       ),
@@ -76,19 +81,20 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
     return SliverToBoxAdapter(
       child: Container(
         width: 375.w,
-        height:
-            812.w - 64.w - 60.w - 64.w - MediaQuery.of(context).padding.bottom,
+        height: 812.w - 64.w - 60.w - 64.w - MediaQuery.of(context).padding.bottom,
         padding: EdgeInsets.symmetric(horizontal: 15.w),
-        child: ListView.separated(
-          padding: EdgeInsets.symmetric(vertical: 15.w),
-          itemBuilder: (BuildContext context, int index) {
-            return ShoppingCartGoodsItem();
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return SizedBox(height: 10.w);
-          },
-          itemCount: 13,
-        ),
+        child: controller.goodsList.isEmpty
+            ? ShoppingCartEmptyView()
+            : ListView.separated(
+                padding: EdgeInsets.symmetric(vertical: 15.w),
+                itemBuilder: (BuildContext context, int index) {
+                  return ShoppingCartGoodsItem();
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return SizedBox(height: 10.w);
+                },
+                itemCount: 13,
+              ),
       ),
     );
   }

@@ -18,7 +18,7 @@ class ShoppingCartGoodsItem extends StatelessWidget {
       child: Row(
         children: [
           Image.asset(
-            Assets.imagesShoppingCartGoodsUnselected,
+            Assets.imagesShoppingCartShoppingCartGoodsUnselected,
             width: 19.w,
             height: 19.w,
           ),
