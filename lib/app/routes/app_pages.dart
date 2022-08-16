@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/home/category/category_binding.dart';
+import '../modules/home/category/category_page.dart';
 import '../modules/home/home_binding.dart';
 import '../modules/home/home_page.dart';
 import '../modules/others/login/login_binding.dart';
@@ -31,6 +33,12 @@ class AppPages {
       name: RoutesID.SETTING_PAGE,
       page: () => const SettingPage(),
       binding: SettingBinding(),
+    ),
+    // category
+    GetPage(
+      name: RoutesID.CATEGORY_PAGE,
+      page: () => const CategoryPage(),
+      binding: CategoryBinding(),
     ),
 
     // goods_detail

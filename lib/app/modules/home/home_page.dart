@@ -168,35 +168,40 @@ class HomePage extends GetView<HomeController> {
   _buildTypeItem(int index) {
     var name = controller.fenquList[index].name;
     var image = controller.fenquList[index].image;
-    return Container(
-      width: 108.w,
-      height: 48.w,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(
-            Assets.imagesFenquBg,
+    return SafeTapWidget(
+      onTap: () {
+        Get.toNamed(RoutesID.CATEGORY_PAGE);
+      },
+      child: Container(
+        width: 108.w,
+        height: 48.w,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              Assets.imagesFenquBg,
+            ),
+            fit: BoxFit.fill,
           ),
-          fit: BoxFit.fill,
         ),
-      ),
-      padding: EdgeInsets.only(left: 21.w, right: 15.w),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(name,
-              style: TextStyle(
-                color: AppColors.text_dark,
-                fontSize: 14.sp,
-              )),
-          Image.asset(
-            image,
-            width: 25.w,
-            height: 32.w,
-            fit: BoxFit.contain,
-          ),
-        ],
+        padding: EdgeInsets.only(left: 21.w, right: 15.w),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(name,
+                style: TextStyle(
+                  color: AppColors.text_dark,
+                  fontSize: 14.sp,
+                )),
+            Image.asset(
+              image,
+              width: 25.w,
+              height: 32.w,
+              fit: BoxFit.contain,
+            ),
+          ],
+        ),
       ),
     );
   }

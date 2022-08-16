@@ -4,6 +4,7 @@
 
 class RoutesID {
   static const SETTING_PAGE = "/setting_page";
+  static const CATEGORY_PAGE = "/category_page";
   static const GOODS_DETAIL_PAGE = "/goods_detail_page";
   static const SNAP_UP_PAGE = "/snap_up_page";
   static const SHOPPING_CART_PAGE = "/shopping_cart_page";
