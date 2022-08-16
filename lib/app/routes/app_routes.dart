@@ -3,6 +3,7 @@
 // ignore_for_file: constant_identifier_names
 
 class RoutesID {
+  static const C2C_RISK_PAGE = "/c2c_risk_page";
   static const SETTING_PAGE = "/setting_page";
   static const CATEGORY_PAGE = "/category_page";
   static const GOODS_DETAIL_PAGE = "/goods_detail_page";

@@ -1,5 +1,6 @@
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
+import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
@@ -116,31 +117,36 @@ class SettingPage extends GetView<SettingController> {
       child: Column(
         children: [
           if (item.showTopDivider) _buildDivider(height: 10.w),
-          Container(
-            height: 50.w,
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(horizontal: 15.w),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    item.title,
-                    textAlign: item.isCenter ? TextAlign.center : TextAlign.start,
-                    style: TextStyle(
-                      color: item.titleColor,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
+          SafeTapWidget(
+            onTap: () {
+              item.onClick?.call();
+            },
+            child: Container(
+              height: 50.w,
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      item.title,
+                      textAlign: item.isCenter ? TextAlign.center : TextAlign.start,
+                      style: TextStyle(
+                        color: item.titleColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                ),
-                item.showArrow
-                    ? Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color(0xFFABAAB9),
-                        size: 18.w,
-                      )
-                    : SizedBox(),
-              ],
+                  item.showArrow
+                      ? Icon(
+                          Icons.arrow_forward_ios,
+                          color: Color(0xFFABAAB9),
+                          size: 18.w,
+                        )
+                      : SizedBox(),
+                ],
+              ),
             ),
           ),
           if (item.showDivider) _buildDivider(),

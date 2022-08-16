@@ -1,3 +1,4 @@
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,11 @@ class SettingController extends GetxController {
     menuList.add(_MenuItem(title: "支付密码管理", showDivider: false));
 
     menuList.add(_MenuItem(title: "功能反馈", showTopDivider: true));
-    menuList.add(_MenuItem(title: "C2C个人支付风险提示"));
+    menuList.add(_MenuItem(
+        title: "C2C个人支付风险提示",
+        onClick: () {
+          Get.toNamed(RoutesID.C2C_RISK_PAGE);
+        }));
     menuList.add(_MenuItem(title: "委托寄售服务协议"));
     menuList.add(_MenuItem(title: "用户需知"));
     menuList.add(_MenuItem(title: "用户隐私政策"));
