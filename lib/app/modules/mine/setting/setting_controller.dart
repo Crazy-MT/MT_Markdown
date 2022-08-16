@@ -1,5 +1,6 @@
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
+import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,13 +41,17 @@ class SettingController extends GetxController {
     menuList.add(_MenuItem(title: "注销账号"));
 
     menuList.add(_MenuItem(
-      title: "退出登录",
-      showTopDivider: true,
-      showDivider: false,
-      isCenter: true,
-      titleColor: Color(0xFFFF3939),
-      showArrow: false,
-    ));
+        title: "退出登录",
+        showTopDivider: true,
+        showDivider: false,
+        isCenter: true,
+        titleColor: Color(0xFFFF3939),
+        showArrow: false,
+        onClick: () {
+          showConfirmDialog(
+            content: "确定退出登录吗？",
+          );
+        }));
   }
 
   @override
