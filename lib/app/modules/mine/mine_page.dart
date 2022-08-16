@@ -1,3 +1,4 @@
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:code_zero/main.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,11 @@ import 'package:get/get.dart';
 
 class MinePage extends GetView<MineController> {
   const MinePage({Key? key}) : super(key: key);
+
+  // 跳转设置页
+  void _onSettingClicked() {
+    Get.toNamed(RoutesID.SETTING_PAGE);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,19 +57,15 @@ class MinePage extends GetView<MineController> {
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(10.w),
                                           ),
-                                          child:
-                                              Image.asset(Assets.iconsMineUser),
+                                          child: Image.asset(Assets.iconsMineUser),
                                         ),
                                       ),
                                     ),
                                     Container(
-                                      margin: EdgeInsets.only(
-                                          left: 10.w, top: 10.w, bottom: 10.w),
+                                      margin: EdgeInsets.only(left: 10.w, top: 10.w, bottom: 10.w),
                                       child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Container(
                                             child: Text(
@@ -72,8 +74,7 @@ class MinePage extends GetView<MineController> {
                                               style: TextStyle(
                                                 fontSize: 20.sp,
                                                 fontWeight: FontWeight.bold,
-                                                color: Color.fromRGBO(
-                                                    68, 68, 68, 1),
+                                                color: Color.fromRGBO(68, 68, 68, 1),
                                               ),
                                             ),
                                           )
@@ -95,11 +96,16 @@ class MinePage extends GetView<MineController> {
                                       SizedBox(
                                         width: 20.w,
                                       ),
-                                      Image.asset(
-                                        Assets.iconsMineSetting,
-                                        fit: BoxFit.cover,
-                                        width: 30.w,
-                                      )
+                                      GestureDetector(
+                                        onTap: () {
+                                          _onSettingClicked();
+                                        },
+                                        child: Image.asset(
+                                          Assets.iconsMineSetting,
+                                          fit: BoxFit.cover,
+                                          width: 30.w,
+                                        ),
+                                      ),
                                     ],
                                   ))
                             ],
@@ -144,16 +150,11 @@ class MinePage extends GetView<MineController> {
                                 width: 340.w,
                                 padding: EdgeInsets.only(left: 10.w, top: 10.w),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20.w),
-                                      topRight: Radius.circular(20.w)),
+                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20.w), topRight: Radius.circular(20.w)),
                                   gradient: LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
-                                    colors: [
-                                      Color(0x801BDB8A),
-                                      Color(0x001BDB8A)
-                                    ],
+                                    colors: [Color(0x801BDB8A), Color(0x001BDB8A)],
                                   ),
                                 ),
                                 child: Text(
@@ -200,16 +201,11 @@ class MinePage extends GetView<MineController> {
                                 width: 340.w,
                                 padding: EdgeInsets.only(left: 10.w, top: 10.w),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10.w),
-                                      topRight: Radius.circular(10.w)),
+                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10.w), topRight: Radius.circular(10.w)),
                                   gradient: LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
-                                    colors: [
-                                      Color(0x80FFD029),
-                                      Color(0x00FFD029)
-                                    ],
+                                    colors: [Color(0x80FFD029), Color(0x00FFD029)],
                                   ),
                                 ),
                                 child: Text(
@@ -256,9 +252,7 @@ class MinePage extends GetView<MineController> {
                                 width: 340.w,
                                 padding: EdgeInsets.only(left: 10.w, top: 10.w),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20.w),
-                                      topRight: Radius.circular(20.w)),
+                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20.w), topRight: Radius.circular(20.w)),
                                 ),
                                 child: Text(
                                   "我的服务",
@@ -272,8 +266,7 @@ class MinePage extends GetView<MineController> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Expanded(
                                         child: buildItem("我的收益", Assets.iconsMineMessage),
@@ -293,8 +286,7 @@ class MinePage extends GetView<MineController> {
                                     height: 20.w,
                                   ),
                                   Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Expanded(
                                         child: buildItem("收款设置", Assets.iconsMineMessage),
