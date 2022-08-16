@@ -1,8 +1,7 @@
+import 'package:code_zero/common/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../colors.dart';
 
 enum InputTheme {
   cerulean,
@@ -19,13 +18,9 @@ class CommonInput extends StatelessWidget {
   final bool obscureText;
   final TextStyle? style;
   final Color? fillColor;
+  final Color? cursorColor;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
-  final OutlineInputBorder? enabledBorder,
-      errorBorder,
-      focusedBorder,
-      focusedErrorBorder;
-  final InputTheme theme;
 
   const CommonInput({
     Key? key,
@@ -38,13 +33,9 @@ class CommonInput extends StatelessWidget {
     this.style,
     this.fillColor,
     this.obscureText = false,
-    this.enabledBorder,
-    this.errorBorder,
-    this.focusedBorder,
-    this.focusedErrorBorder,
     this.inputFormatters,
     this.keyboardType,
-    this.theme = InputTheme.orange,
+    this.cursorColor,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -60,52 +51,31 @@ class CommonInput extends StatelessWidget {
           ),
       inputFormatters: inputFormatters,
       keyboardType: keyboardType,
-      cursorColor: getColors()[0],
+      cursorColor: cursorColor ?? AppColors.green,
       decoration: InputDecoration(
         hintText: hintText,
-        fillColor: fillColor ?? const Color(0xFFF0F0F0),
-        filled: true,
-        floatingLabelBehavior: FloatingLabelBehavior.never,
-        labelText: labelText,
-        labelStyle: TextStyle(
-          color: Colors.grey,
-          fontSize: 14.sp,
-          fontWeight: FontWeight.w400,
+        hintStyle: TextStyle(
+          color: Color(0xFFD9D9D9),
+          fontSize: 20.w,
+          fontWeight: FontWeight.w600,
         ),
-        contentPadding: EdgeInsets.only(left: 15.w),
-        errorText: errorText,
-        enabledBorder: enabledBorder ??
-            OutlineInputBorder(
-              borderSide:
-                  BorderSide(width: 1.w, color: const Color(0xFFF0F0F0)),
-              borderRadius: BorderRadius.circular(6.w),
-            ),
-        errorBorder: errorBorder ??
-            OutlineInputBorder(
-              borderSide: BorderSide(width: 2.w, color: Colors.red),
-              borderRadius: BorderRadius.circular(6.w),
-            ),
-        focusedErrorBorder: focusedErrorBorder ??
-            OutlineInputBorder(
-              borderSide: BorderSide(width: 2.w, color: getColors()[1]),
-              borderRadius: BorderRadius.circular(6.w),
-            ),
-        focusedBorder: focusedBorder ??
-            OutlineInputBorder(
-              borderSide: BorderSide(width: 2.w, color: getColors()[1]),
-              borderRadius: BorderRadius.circular(6.w),
-            ),
-        suffixIcon: suffixIcon,
+        fillColor: fillColor ?? Colors.white, //背景颜色，必须结合filled: true,才有效
+        filled: true, //重点，必须设置为true，fillColor才有效
+        isCollapsed: true, //重点，相当于高度包裹的意思，必须设置为true，不然有默认奇妙的最小高度
+        contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 7), //内容内边距，影响高度
+        border: _outlineInputBorder, //边框，一般下面的几个边框一起设置
+        focusedBorder: _outlineInputBorder,
+        enabledBorder: _outlineInputBorder,
+        disabledBorder: _outlineInputBorder,
+        focusedErrorBorder: _outlineInputBorder,
+        errorBorder: _outlineInputBorder,
       ),
     );
   }
-
-  List<Color> getColors() {
-    switch (theme) {
-      case InputTheme.cerulean:
-        return [AppColors.cerulean, AppColors.cerulean_light];
-      case InputTheme.orange:
-        return [AppColors.orange, AppColors.orange_light];
-    }
-  }
 }
+
+//无边框样式
+OutlineInputBorder _outlineInputBorder = OutlineInputBorder(
+  gapPadding: 0,
+  borderSide: BorderSide.none,
+);
