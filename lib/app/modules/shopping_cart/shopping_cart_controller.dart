@@ -8,7 +8,7 @@ class ShoppingCartController extends GetxController {
   final pageStatus = FTStatusPageType.loading.obs;
   ScrollController scrollController = ScrollController();
 
-  List goodsList = [].obs;
+  List goodsList = ['1'].obs;
 
   @override
   void onInit() {

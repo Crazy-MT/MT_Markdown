@@ -1,5 +1,6 @@
 import 'package:code_zero/app/modules/shopping_cart/widget/shopping_cart_empty_view.dart';
 import 'package:code_zero/app/modules/shopping_cart/widget/shopping_cart_goods_item.dart';
+import 'package:code_zero/app/modules/shopping_cart/widget/shopping_cart_price_widget.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,10 +33,7 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
                 );
               },
             ),
-            Visibility(
-              visible: controller.goodsList.isNotEmpty,
-              child: _totalPrice(),
-            ),
+            _totalPrice(),
           ],
         ),
       ),
@@ -61,20 +59,22 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
   }
 
   Widget _rightManage() {
-    return GestureDetector(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.w),
-        alignment: Alignment.center,
-        color: Colors.transparent,
-        child: Text(
-          '管理',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 14.sp,
-          ),
-        ),
-      ),
-    );
+    return controller.goodsList.isEmpty
+        ? Container()
+        : GestureDetector(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              alignment: Alignment.center,
+              color: Colors.transparent,
+              child: Text(
+                '管理',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14.sp,
+                ),
+              ),
+            ),
+          );
   }
 
   Widget _buildOrderContent(BuildContext context) {
@@ -104,66 +104,9 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
       left: 0,
       right: 0,
       bottom: 0,
-      child: Container(
-        height: 60.w,
-        color: Colors.white,
-        child: Row(
-          children: [
-            SizedBox(width: 25.w),
-            Icon(
-              Icons.check_box_rounded,
-              color: Colors.green,
-            ),
-            SizedBox(width: 10.w),
-            Text(
-              '全选',
-              style: TextStyle(
-                color: Color(0xff757575),
-                fontSize: 15.sp,
-              ),
-            ),
-            Expanded(child: SizedBox()),
-            Text(
-              '总计:',
-              style: TextStyle(
-                color: Color(0xff757575),
-                fontSize: 15.sp,
-              ),
-            ),
-            Text(
-              '￥',
-              style: TextStyle(
-                color: Color(0xff1BDB8A),
-                fontSize: 15.sp,
-              ),
-            ),
-            Text(
-              '30000',
-              style: TextStyle(
-                color: Color(0xff1BDB8A),
-                fontSize: 18.sp,
-              ),
-            ),
-            SizedBox(width: 10.w),
-            Container(
-              width: 100.w,
-              height: 40.w,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Color(0xff1BDB8A),
-                borderRadius: BorderRadius.circular(20.w),
-              ),
-              child: Text(
-                '结算',
-                style: TextStyle(
-                  color: Color(0xffffffff),
-                  fontSize: 15.sp,
-                ),
-              ),
-            ),
-            SizedBox(width: 15.w),
-          ],
-        ),
+      child: Visibility(
+        visible: controller.goodsList.isNotEmpty,
+        child: ShoppingCartPriceWidget(),
       ),
     );
   }
