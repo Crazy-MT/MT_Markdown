@@ -4,6 +4,7 @@ import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'snap_up_controller.dart';
@@ -163,7 +164,7 @@ class SnapUpPage extends GetView<SnapUpController> {
   _buildSnapUpItem(index) {
     return Container(
       width: 345.w,
-      height: 100.w,
+      height: 200.w,
       margin: EdgeInsets.only(bottom: 15.w),
       decoration: BoxDecoration(
         color: AppColors.bg_gray,
@@ -176,6 +177,7 @@ class SnapUpPage extends GetView<SnapUpController> {
         ),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
@@ -183,42 +185,42 @@ class SnapUpPage extends GetView<SnapUpController> {
             child: SnapUpTitle(name: controller.snapUpList[index]),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 5.w),
-            child: Center(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "开抢时间",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13.sp,
-                    ),
+            padding: EdgeInsets.only(top: 10.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(Assets.iconsSnapTime),
+                Text(
+                  "开抢时间",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 13.sp,
                   ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Container(
-                    width: 165.w,
-                    height: 30.w,
-                    decoration: BoxDecoration(
-                        color: Color(0xFF050505).withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(30.w),
-                        border: Border.all(
-                            width: 1.w,
-                            color: index < 2
-                                ? AppColors.green
-                                : Color(0xFF757575))),
-                    alignment: Alignment.center,
-                    child: Text(
-                      index < 2 ? "2022年8月30日  00:00" : "未开放",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: index < 2 ? AppColors.green : Colors.white,
-                      ),
+                ),
+                Image.asset(Assets.iconsSnapTime,),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 15.w),
+            child: Container(
+              width: 165.w,
+              height: 30.w,
+              decoration: BoxDecoration(
+                  color: Color(0xFF050505).withOpacity(0.5),
+                  image: DecorationImage(
+                    image: AssetImage(
+                      Assets.iconsSnapOpen,
                     ),
-                  )
-                ],
+                    fit: BoxFit.fill,
+                  )),
+              alignment: Alignment.center,
+              child: Text(
+                index < 1 ? "2022年8月30日  00:00" : "未开放",
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: index < 2 ? AppColors.green : Colors.white,
+                ),
               ),
             ),
           ),

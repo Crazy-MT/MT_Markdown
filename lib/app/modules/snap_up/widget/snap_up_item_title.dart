@@ -10,6 +10,7 @@ class SnapUpTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 28.w,
+      width: 22.w * name.length,
       child: Stack(
         children: _getChild(),
       ),
