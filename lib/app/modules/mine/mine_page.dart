@@ -13,11 +13,6 @@ import 'mine_controller.dart';
 class MinePage extends GetView<MineController> {
   const MinePage({Key? key}) : super(key: key);
 
-  // 跳转设置页
-  void _onSettingClicked() {
-    Get.toNamed(RoutesID.SETTING_PAGE);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,17 +110,24 @@ class MinePage extends GetView<MineController> {
                                   right: 10.w,
                                   child: Row(
                                     children: [
-                                      Image.asset(
-                                        Assets.iconsMineMessage,
-                                        fit: BoxFit.cover,
-                                        width: 30.w,
+                                      GestureDetector(
+                                        onTap: () {
+                                          // 跳转消息页
+                                          Get.toNamed(RoutesID.MESSAGE_PAGE);
+                                        },
+                                        child: Image.asset(
+                                          Assets.iconsMineMessage,
+                                          fit: BoxFit.cover,
+                                          width: 30.w,
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 20.w,
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          _onSettingClicked();
+                                          // 跳转设置页
+                                          Get.toNamed(RoutesID.SETTING_PAGE);
                                         },
                                         child: Image.asset(
                                           Assets.iconsMineSetting,

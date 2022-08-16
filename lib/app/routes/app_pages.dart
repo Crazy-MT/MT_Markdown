@@ -25,6 +25,8 @@ import '../modules/mine/setting/c2c_risk/c2c_risk_binding.dart';
 import '../modules/mine/setting/c2c_risk/c2c_risk_page.dart';
 import '../modules/mine/setting/user_information/user_information_binding.dart';
 import '../modules/mine/setting/user_information/user_information_page.dart';
+import '../modules/mine/message/message_binding.dart';
+import '../modules/mine/message/message_page.dart';
 
 class AppPages {
   AppPages._();
@@ -32,6 +34,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // message
+    GetPage(
+      name: RoutesID.MESSAGE_PAGE,
+      page: () => const MessagePage(),
+      binding: MessageBinding(),
+    ),
+
     // user_information
     GetPage(
       name: RoutesID.USER_INFORMATION_PAGE,
