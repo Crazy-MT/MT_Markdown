@@ -28,7 +28,7 @@ class SplashController extends GetxController {
     common.initCommon().timeout(const Duration(seconds: 3)).then((value) async {
       if (userHelper.userToken.isEmpty) {
         Future.delayed(const Duration(seconds: 1))
-            .then((value) => Get.offNamed(RoutesID.LOGIN_PAGE));
+            .then((value) => Get.offNamed(RoutesID.MAIN_TAB_PAGE));
       } else {
         ResultData<UserModel>? _result = await LRequest.instance
             .request<UserModel>(
@@ -38,23 +38,23 @@ class SplashController extends GetxController {
           handleBaseModel: (_) {
             if (_.status != 200) {
               Utils.showToastMsg("自动登录失败：${_.message}");
-              Get.offNamed(RoutesID.LOGIN_PAGE);
+              Get.offNamed(RoutesID.MAIN_TAB_PAGE);
             }
           },
         )
             .catchError((e) {
-          Get.offNamed(RoutesID.LOGIN_PAGE);
+          Get.offNamed(RoutesID.MAIN_TAB_PAGE);
         });
         if (_result?.value == null) {
-          Get.offNamed(RoutesID.LOGIN_PAGE);
+          Get.offNamed(RoutesID.MAIN_TAB_PAGE);
           return;
         }
         userHelper.whenLogin(_result!.value!);
-        Get.offAllNamed(RoutesID.HOME_PAGE);
+        Get.offAllNamed(RoutesID.MAIN_TAB_PAGE);
       }
     }).catchError((e) {
       errorLog(e);
-      Get.offNamed(RoutesID.LOGIN_PAGE);
+      Get.offNamed(RoutesID.MAIN_TAB_PAGE);
     });
   }
 

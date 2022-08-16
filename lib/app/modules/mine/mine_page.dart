@@ -1,14 +1,14 @@
 import 'package:code_zero/app/routes/app_routes.dart';
+import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
-import 'package:code_zero/main.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../common/colors.dart';
 import '../../../common/components/avoid_quick_click.dart';
 import 'mine_controller.dart';
-import 'package:code_zero/common/components/status_page/status_page.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class MinePage extends GetView<MineController> {
   const MinePage({Key? key}) : super(key: key);
@@ -57,30 +57,57 @@ class MinePage extends GetView<MineController> {
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(10.w),
                                           ),
-                                          child: Image.asset(Assets.iconsMineUser),
+                                          child:
+                                              Image.asset(Assets.iconsMineUser),
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      margin: EdgeInsets.only(left: 10.w, top: 10.w, bottom: 10.w),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              "传翠",
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontSize: 20.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color.fromRGBO(68, 68, 68, 1),
-                                              ),
-                                            ),
-                                          )
-                                        ],
+                                    Obx(
+                                      () => Container(
+                                        margin: EdgeInsets.only(
+                                            left: 10.w,
+                                            top: 10.w,
+                                            bottom: 10.w),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            !userHelper.isLogin.value
+                                                ? TextButton(
+                                                    onPressed: () {
+                                                      Get.toNamed(
+                                                          RoutesID.LOGIN_PAGE);
+                                                    },
+                                                    child: Text(
+                                                      "登录/注册",
+                                                      style: TextStyle(
+                                                        color:
+                                                            AppColors.text_dark,
+                                                        fontSize: 18.sp,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ))
+                                                : Container(
+                                                    child: Text(
+                                                      "传翠",
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                        fontSize: 20.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Color.fromRGBO(
+                                                            68, 68, 68, 1),
+                                                      ),
+                                                    ),
+                                                  )
+                                          ],
+                                        ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
@@ -150,11 +177,16 @@ class MinePage extends GetView<MineController> {
                                 width: 340.w,
                                 padding: EdgeInsets.only(left: 10.w, top: 10.w),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20.w), topRight: Radius.circular(20.w)),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20.w),
+                                      topRight: Radius.circular(20.w)),
                                   gradient: LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
-                                    colors: [Color(0x801BDB8A), Color(0x001BDB8A)],
+                                    colors: [
+                                      Color(0x801BDB8A),
+                                      Color(0x001BDB8A)
+                                    ],
                                   ),
                                 ),
                                 child: Text(
@@ -169,16 +201,20 @@ class MinePage extends GetView<MineController> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Expanded(
-                                    child: buildItem("我的仓库", Assets.iconsMineMessage),
+                                    child: buildItem(
+                                        "我的仓库", Assets.iconsMineMessage),
                                   ),
                                   Expanded(
-                                    child: buildItem("待付款", Assets.iconsMineMessage),
+                                    child: buildItem(
+                                        "待付款", Assets.iconsMineMessage),
                                   ),
                                   Expanded(
-                                    child: buildItem("已付款", Assets.iconsMineMessage),
+                                    child: buildItem(
+                                        "已付款", Assets.iconsMineMessage),
                                   ),
                                   Expanded(
-                                    child: buildItem("待上架", Assets.iconsMineMessage),
+                                    child: buildItem(
+                                        "待上架", Assets.iconsMineMessage),
                                   )
                                 ],
                               ),
@@ -201,11 +237,16 @@ class MinePage extends GetView<MineController> {
                                 width: 340.w,
                                 padding: EdgeInsets.only(left: 10.w, top: 10.w),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10.w), topRight: Radius.circular(10.w)),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10.w),
+                                      topRight: Radius.circular(10.w)),
                                   gradient: LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
-                                    colors: [Color(0x80FFD029), Color(0x00FFD029)],
+                                    colors: [
+                                      Color(0x80FFD029),
+                                      Color(0x00FFD029)
+                                    ],
                                   ),
                                 ),
                                 child: Text(
@@ -220,16 +261,20 @@ class MinePage extends GetView<MineController> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Expanded(
-                                    child: buildItem("我的仓库", Assets.iconsMineMessage),
+                                    child: buildItem(
+                                        "我的仓库", Assets.iconsMineMessage),
                                   ),
                                   Expanded(
-                                    child: buildItem("待收款", Assets.iconsMineMessage),
+                                    child: buildItem(
+                                        "待收款", Assets.iconsMineMessage),
                                   ),
                                   Expanded(
-                                    child: buildItem("待确认", Assets.iconsMineMessage),
+                                    child: buildItem(
+                                        "待确认", Assets.iconsMineMessage),
                                   ),
                                   Expanded(
-                                    child: buildItem("已完成", Assets.iconsMineMessage),
+                                    child: buildItem(
+                                        "已完成", Assets.iconsMineMessage),
                                   )
                                 ],
                               ),
@@ -252,7 +297,9 @@ class MinePage extends GetView<MineController> {
                                 width: 340.w,
                                 padding: EdgeInsets.only(left: 10.w, top: 10.w),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20.w), topRight: Radius.circular(20.w)),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20.w),
+                                      topRight: Radius.circular(20.w)),
                                 ),
                                 child: Text(
                                   "我的服务",
@@ -266,19 +313,24 @@ class MinePage extends GetView<MineController> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Expanded(
-                                        child: buildItem("我的收益", Assets.iconsMineMessage),
+                                        child: buildItem(
+                                            "我的收益", Assets.iconsMineMessage),
                                       ),
                                       Expanded(
-                                        child: buildItem("我的钱包", Assets.iconsMineMessage),
+                                        child: buildItem(
+                                            "我的钱包", Assets.iconsMineMessage),
                                       ),
                                       Expanded(
-                                        child: buildItem("邀请好友", Assets.iconsMineMessage),
+                                        child: buildItem(
+                                            "邀请好友", Assets.iconsMineMessage),
                                       ),
                                       Expanded(
-                                        child: buildItem("收货地址", Assets.iconsMineMessage),
+                                        child: buildItem(
+                                            "收货地址", Assets.iconsMineMessage),
                                       )
                                     ],
                                   ),
@@ -286,19 +338,24 @@ class MinePage extends GetView<MineController> {
                                     height: 20.w,
                                   ),
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Expanded(
-                                        child: buildItem("收款设置", Assets.iconsMineMessage),
+                                        child: buildItem(
+                                            "收款设置", Assets.iconsMineMessage),
                                       ),
                                       Expanded(
-                                        child: buildItem("分销中心", Assets.iconsMineMessage),
+                                        child: buildItem(
+                                            "分销中心", Assets.iconsMineMessage),
                                       ),
                                       Expanded(
-                                        child: buildItem("绑定推荐人", Assets.iconsMineMessage),
+                                        child: buildItem(
+                                            "绑定推荐人", Assets.iconsMineMessage),
                                       ),
                                       Expanded(
-                                        child: buildItem("客服热线", Assets.iconsMineMessage),
+                                        child: buildItem(
+                                            "客服热线", Assets.iconsMineMessage),
                                       )
                                     ],
                                   ),
