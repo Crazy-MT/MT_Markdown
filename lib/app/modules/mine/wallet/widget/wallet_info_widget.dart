@@ -53,7 +53,7 @@ class WalletInfoWidget extends StatelessWidget {
                     color: Color(0xff111111),
                     fontSize: 13,
                     fontWeight: FontWeight.w400)),
-            SizedBox(height: 24.w),
+            SizedBox(height: 29.w),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -69,7 +69,7 @@ class WalletInfoWidget extends StatelessWidget {
                         fontWeight: FontWeight.w400)),
               ],
             ),
-            SizedBox(height: 10.w),
+            SizedBox(height: 4.w),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

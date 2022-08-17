@@ -1,7 +1,6 @@
 import 'package:code_zero/app/modules/mine/wallet/widget/wallet_info_widget.dart';
-import 'package:code_zero/common/colors.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
-import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'wallet_controller.dart';
@@ -17,7 +16,7 @@ class WalletPage extends GetView<WalletController> {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       appBar: CommonAppBar(
-        titleText: "消息",
+        titleText: "我的钱包",
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -60,7 +59,11 @@ class WalletPage extends GetView<WalletController> {
   Widget _walletItem(int index) {
     var item = controller.menuList[index];
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        if (index == 1) {
+          Get.toNamed(RoutesID.TRANSACTIONS_PAGE);
+        }
+      },
       child: Container(
         padding: EdgeInsets.only(left: 15.w, right: 22.w),
         margin: EdgeInsets.only(
