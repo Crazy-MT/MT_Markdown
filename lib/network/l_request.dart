@@ -41,12 +41,9 @@ class LRequest {
     dio.options.sendTimeout = 10000;
     dio.options.headers[NetConstant.VERSION] = common.packageInfo?.version;
     dio.options.headers[NetConstant.APP] = "1";
-    dio.options.headers[NetConstant.PLATFORM] =
-        Platform.isAndroid ? "android" : "ios";
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (client) {
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) {
+    dio.options.headers[NetConstant.PLATFORM] = Platform.isAndroid ? "android" : "ios";
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+      client.badCertificateCallback = (X509Certificate cert, String host, int port) {
         return true;
       };
       return client;
@@ -79,38 +76,40 @@ class LRequest {
       if (requestType == RequestType.GET) {
         response = await dio.get(url, queryParameters: queryParameters);
       } else {
-        response = await dio.post(url, data: FormData.fromMap(data ?? {}));
+        response = await dio.post(url, data: /* FormData.fromMap(data ?? {})*/ data);
       }
       lLog("request get over =======>net: $url");
       //同一错误处理，如果需要可以后面放开
       // if (!skipError) await handleError(response, context: context, url: url);
       BaseModel<T> baseModel = BaseModel.fromJson(response.data, t);
       handleBaseModel?.call(baseModel);
+      if (baseModel.code != 0) {
+        errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg", "baseModel.code is not 0,this value is ${baseModel.code}");
+      }
       ResultData<T> resultData = ResultData();
       if (baseModel.data is List) {
         List<T> valueList = baseModel.data;
         resultData.valueList = valueList;
         resultData.value = valueList.isNotEmpty ? valueList.first : null;
+        resultData.message = baseModel.message;
       } else if (baseModel.data is String) {
         resultData.message = baseModel.data;
       } else {
         resultData.value = baseModel.data;
         resultData.valueList = [resultData.value];
+        resultData.message = baseModel.message;
       }
       onSuccess?.call(resultData);
       return resultData;
     } on DioError catch (e) {
-      debugLog((e.response?.statusCode ?? -1).toString() +
-          "${e.response?.data['message']}" +
-          e.toString());
+      debugLog((e.response?.statusCode ?? -1).toString() + "${e.response?.data['message']}" + e.toString());
       errorLog(e.toString());
       if (e.response != null && e.response?.data["code"] == 2001) {
         userOutLoginError();
         return null;
       }
       if (errorBack != null) {
-        errorBack(e.response?.statusCode ?? -1, e.response?.data["message"],
-            e.toString());
+        errorBack(e.response?.statusCode ?? -1, e.response?.data["message"], e.toString());
       } else {
         handleError(e.response?.statusCode ?? -1, e.message, isShowErrorToast);
       }

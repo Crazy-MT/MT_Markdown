@@ -3,52 +3,52 @@
 import '../../network/convert_interface.dart';
 
 class UserModel extends ConvertInterface {
-  bool? isGuest;
-  bool? isVip;
-  String? email;
-  String? token;
-  int? phoneNumber;
-  String? avatarUrl;
-  String? name;
   int? id;
+  String? nickname;
+  int? gender;
+  String? avatarUrl;
+  int? hasPhone;
+  String? phone;
+  int? isCaptain;
+  int? isMember;
+  int? hasBirthday;
+  String? birthday;
+  String? token;
 
   @override
   fromJson(Map<String, dynamic> json) {
     return UserModel.fromJson(json);
   }
 
-  UserModel(
-      {this.isGuest,
-      this.isVip,
-      this.email,
-      this.token,
-      this.phoneNumber,
-      this.avatarUrl,
-      this.name,
-      this.id});
+  UserModel({this.id, this.nickname, this.gender, this.avatarUrl, this.hasPhone, this.phone, this.isCaptain, this.isMember, this.hasBirthday, this.birthday, this.token});
 
   UserModel.fromJson(Map<String, dynamic> json) {
-    isGuest = json['isGuest'];
-    isVip = json['isVip'];
-    email = json['email'];
-    token = json['token'];
-    phoneNumber = json['phoneNumber'];
-    avatarUrl = json['avatarUrl'];
-    name = json['name'];
     id = json['id'];
+    nickname = json['nickname'];
+    gender = json['gender'];
+    avatarUrl = json['avatarUrl'];
+    hasPhone = json['hasPhone'];
+    phone = json['phone'];
+    isCaptain = json['isCaptain'];
+    isMember = json['isMember'];
+    hasBirthday = json['hasBirthday'];
+    birthday = json['birthday'];
+    token = json['token'];
   }
 
-  @override
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['isGuest'] = isGuest;
-    data['isVip'] = isVip;
-    data['email'] = email;
-    data['token'] = token;
-    data['phoneNumber'] = phoneNumber;
-    data['avatarUrl'] = avatarUrl;
-    data['name'] = name;
-    data['id'] = id;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['nickname'] = this.nickname;
+    data['gender'] = this.gender;
+    data['avatarUrl'] = this.avatarUrl;
+    data['hasPhone'] = this.hasPhone;
+    data['phone'] = this.phone;
+    data['isCaptain'] = this.isCaptain;
+    data['isMember'] = this.isMember;
+    data['hasBirthday'] = this.hasBirthday;
+    data['birthday'] = this.birthday;
+    data['token'] = this.token;
     return data;
   }
 }

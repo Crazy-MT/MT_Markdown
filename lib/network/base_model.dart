@@ -1,15 +1,14 @@
 import 'convert_interface.dart';
 
 class BaseModel<T extends ConvertInterface> {
-  int? status;
+  int? code;
   String? message;
   dynamic data;
-  int? timestamp;
 
-  BaseModel({this.status, this.message, this.data, this.timestamp});
+  BaseModel({this.code, this.message, this.data});
 
   BaseModel.fromJson(Map<String, dynamic> json, T? t) {
-    status = json['status'];
+    code = json['code'];
     message = json['message'];
     if (json['data'] is Map) {
       data = t!.fromJson(json['data']);
@@ -21,19 +20,17 @@ class BaseModel<T extends ConvertInterface> {
     } else {
       data = json['data'];
     }
-    timestamp = json['timestamp'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['status'] = status;
+    data['code'] = code;
     data['message'] = message;
     if (this.data is List) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     } else {
       data['data'] = this.data?.toJson();
     }
-    data['timestamp'] = timestamp;
     return data;
   }
 }

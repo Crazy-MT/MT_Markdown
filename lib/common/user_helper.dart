@@ -7,7 +7,7 @@ import 'sp_const.dart';
 class _UserHelper {
   _UserHelper();
   RxBool isLogin = false.obs;
-  RxBool guestLogin = false.obs;
+  // RxBool guestLogin = false.obs;
   String userToken = "";
   Rx<UserModel?> userInfo = Rx<UserModel?>(null);
 
@@ -18,14 +18,14 @@ class _UserHelper {
   void whenLogin(UserModel userInfo) {
     this.userInfo.value = userInfo;
     isLogin.value = true;
-    guestLogin.value = userInfo.isGuest ?? true;
+    // guestLogin.value = userInfo.isGuest ?? true;
     userToken = userInfo.token ?? "";
     SpUtil.putString(SpConst.USER_TOKEN, userToken);
   }
 
   void whenLogout() {
     isLogin.value = false;
-    guestLogin.value = false;
+    // guestLogin.value = false;
     userInfo.value = null;
     userToken = "";
     SpUtil.putString(SpConst.USER_TOKEN, "");

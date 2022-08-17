@@ -111,17 +111,14 @@ class LoginPage extends GetView<LoginController> {
       controller: controller.passwordController,
       hintText: controller.isPasswordLogin.value ? "输入登录密码" : "输入验证码",
       padding: EdgeInsets.symmetric(horizontal: 20.w).copyWith(top: 18.w),
-      obscureText:
-          controller.isPasswordLogin.value && !controller.showPassword.value,
+      obscureText: controller.isPasswordLogin.value && !controller.showPassword.value,
       suffixWidget: controller.isPasswordLogin.value
           ? IconButton(
               onPressed: () {
                 controller.showPassword.value = !controller.showPassword.value;
               },
               icon: SvgPicture.asset(
-                controller.showPassword.value
-                    ? Assets.iconsVisible
-                    : Assets.iconsInvisible,
+                controller.showPassword.value ? Assets.iconsVisible : Assets.iconsInvisible,
                 width: 22.w,
                 height: 22.w,
               ),
@@ -133,9 +130,7 @@ class LoginPage extends GetView<LoginController> {
                       controller.startCountDown();
                     },
               child: Text(
-                controller.sendCodeCountDown.value <= 0
-                    ? "获取验证码"
-                    : "${controller.sendCodeCountDown.value}s",
+                controller.sendCodeCountDown.value <= 0 ? "获取验证码" : "${controller.sendCodeCountDown.value}s",
                 style: TextStyle(
                   fontSize: 14.sp,
                   color: AppColors.text_dark,
@@ -212,15 +207,12 @@ class LoginPage extends GetView<LoginController> {
         children: [
           TextButton(
               onPressed: () {
-                controller.isPasswordLogin.value =
-                    !controller.isPasswordLogin.value;
+                controller.isPasswordLogin.value = !controller.isPasswordLogin.value;
               },
               child: Row(
                 children: [
                   SvgPicture.asset(
-                    controller.isPasswordLogin.value
-                        ? Assets.iconsSmsLogin
-                        : Assets.iconsPasswordLogin,
+                    controller.isPasswordLogin.value ? Assets.iconsSmsLogin : Assets.iconsPasswordLogin,
                     width: 16.w,
                     height: 16.w,
                   ),
@@ -263,15 +255,12 @@ class LoginPage extends GetView<LoginController> {
         children: [
           SafeTapWidget(
             onTap: () {
-              controller.agreePrivacyPolicy.value =
-                  !controller.agreePrivacyPolicy.value;
+              controller.agreePrivacyPolicy.value = !controller.agreePrivacyPolicy.value;
             },
             child: Padding(
               padding: EdgeInsets.all(5.w),
               child: Image.asset(
-                controller.agreePrivacyPolicy.value
-                    ? Assets.imagesShoppingCartGoodsSelected
-                    : Assets.imagesShoppingCartGoodsUnselected,
+                controller.agreePrivacyPolicy.value ? Assets.imagesShoppingCartGoodsSelected : Assets.imagesShoppingCartGoodsUnselected,
                 width: 16.w,
               ),
             ),
@@ -313,9 +302,7 @@ class LoginPage extends GetView<LoginController> {
         child: ElevatedButton(
           onPressed: controller.enableLogin.value
               ? () {
-                  userHelper.whenLogin(UserModel());
-                  userHelper.isLogin.value = true;
-                  Get.back();
+                  controller.login();
                 }
               : () {
                   userHelper.whenLogin(UserModel());

@@ -1,9 +1,17 @@
 import 'dart:async';
 
-import 'package:code_zero/app/routes/app_routes.dart';
+import 'package:code_zero/app/modules/others/user_apis.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/model/user_model.dart';
+import 'package:code_zero/common/user_helper.dart';
+import 'package:code_zero/network/base_model.dart';
+import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+//测试账号 15510015550  密码 123456
 
 class LoginController extends GetxController {
   final pageName = 'Login'.obs;
@@ -33,8 +41,37 @@ class LoginController extends GetxController {
   }
 
   login() {
-    pageStatus.value = FTStatusPageType.loading;
-    Future.delayed(const Duration(seconds: 2)).then((value) => Get.offNamed(RoutesID.MAIN_TAB_PAGE));
+    if (isPasswordLogin.value) {
+      _passwordLogin();
+    } else {
+      _smsCodeLogin();
+    }
+  }
+
+  _passwordLogin() async {
+    ResultData<UserModel>? _result = await LRequest.instance.request<UserModel>(
+      url: UserApis.LOGIN,
+      t: UserModel(),
+      data: {
+        "phone": phoneController.text,
+        "password": passwordController.text,
+      },
+      requestType: RequestType.POST,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        Utils.showToastMsg("登录失败：${errorCode == -1 ? expMsg : errorMsg}");
+        errorLog("登录失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+      },
+    );
+
+    if (_result?.value == null) {
+      return;
+    }
+    userHelper.whenLogin(_result!.value!);
+    Get.back();
+  }
+
+  _smsCodeLogin() {
+    Utils.showToastMsg("验证码登录失败，请使用密码登录");
   }
 
   startCountDown() {
