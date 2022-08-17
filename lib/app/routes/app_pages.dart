@@ -33,6 +33,8 @@ import '../modules/mine/income_list/income_list_binding.dart';
 import '../modules/mine/income_list/income_list_page.dart';
 import '../modules/mine/wallet/transactions/transactions_binding.dart';
 import '../modules/mine/wallet/transactions/transactions_page.dart';
+import '../modules/mine/order/order_binding.dart';
+import '../modules/mine/order/order_page.dart';
 
 class AppPages {
   AppPages._();
@@ -52,6 +54,11 @@ class AppPages {
       name: RoutesID.INCOME_LIST_PAGE,
       page: () => const IncomeListPage(),
       binding: IncomeListBinding(),
+    ),
+    GetPage(
+      name: RoutesID.ORDER_PAGE,
+      page: () => const OrderPage(),
+      binding: OrderBinding(),
     ),
 
     // wallet

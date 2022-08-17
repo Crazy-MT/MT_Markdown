@@ -160,8 +160,13 @@ class MinePage extends GetView<MineController> {
                               child: buildItem("待收货", Assets.iconsMineMessage),
                             ),
                             Expanded(
-                              child: buildItem("我的订单", Assets.iconsMineMessage),
-                            )
+                              child: GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(RoutesID.ORDER_PAGE);
+                                  },
+                                  child: buildItem(
+                                      "我的订单", Assets.iconsMineMessage)),
+                            ),
                           ],
                         ),
                       ),
