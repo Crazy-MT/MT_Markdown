@@ -63,10 +63,11 @@ class WalletPage extends GetView<WalletController> {
       onTap: () {},
       child: Container(
         padding: EdgeInsets.only(left: 15.w, right: 22.w),
-        margin: EdgeInsets.only(top: index == 0 ? 0 : 10.w, left: 15.w, right: 15.w),
+        margin: EdgeInsets.only(
+            top: index == 0 ? 15.w : 10.w, left: 15.w, right: 15.w),
         height: 60.w,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Color(0xffF3F9FB),
           borderRadius: BorderRadius.circular(10.w),
         ),
         child: Row(
@@ -76,7 +77,7 @@ class WalletPage extends GetView<WalletController> {
               height: 40.w,
               padding: EdgeInsets.all(10.w),
               decoration: BoxDecoration(
-                color: Color(0xffF3F9FB),
+                color: Color(0xffffffff),
                 borderRadius: BorderRadius.circular(20.w),
               ),
               child: Image.asset(item.image),
@@ -85,7 +86,7 @@ class WalletPage extends GetView<WalletController> {
             Text(
               item.title,
               style: TextStyle(
-                color: AppColors.text_dark,
+                color: Color(0xff111111),
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
