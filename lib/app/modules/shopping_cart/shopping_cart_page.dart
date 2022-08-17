@@ -78,23 +78,18 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
   }
 
   Widget _buildOrderContent(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Container(
-        width: 375.w,
-        height: 812.w - 64.w - 60.w - 64.w - MediaQuery.of(context).padding.bottom,
-        padding: EdgeInsets.symmetric(horizontal: 15.w),
-        child: controller.goodsList.isEmpty
-            ? ShoppingCartEmptyView()
-            : ListView.separated(
-                padding: EdgeInsets.symmetric(vertical: 15.w),
-                itemBuilder: (BuildContext context, int index) {
-                  return ShoppingCartGoodsItem();
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(height: 10.w);
-                },
-                itemCount: 13,
-              ),
+    return SliverPadding(
+      padding: EdgeInsets.only(bottom: 70.w),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (content, index) {
+            if (controller.goodsList.isEmpty) {
+              return ShoppingCartEmptyView();
+            }
+            return ShoppingCartGoodsItem();
+          },
+          childCount: controller.goodsList.isEmpty ? 1 : 12,
+        ),
       ),
     );
   }

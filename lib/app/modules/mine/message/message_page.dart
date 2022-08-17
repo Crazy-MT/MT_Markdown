@@ -57,14 +57,12 @@ class MessagePage extends GetView<MessageController> {
     var item = controller.messageList[index];
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.all(20.w),
+      padding: EdgeInsets.fromLTRB(20.w, 10.w, 20.w, 10.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Image.asset(
-            index == 0
-                ? Assets.imagesMessagePlatform
-                : Assets.imagesMessagePrivate,
+            index == 0 ? Assets.imagesMessagePlatform : Assets.imagesMessagePrivate,
             width: 50,
             height: 50,
           ),

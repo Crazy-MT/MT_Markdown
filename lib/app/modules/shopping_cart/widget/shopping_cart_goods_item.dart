@@ -11,6 +11,7 @@ class ShoppingCartGoodsItem extends StatelessWidget {
     return Container(
       height: 120.w,
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.w),
+      margin: EdgeInsets.only(top: 10.w, left: 15.w, right: 15.w),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10.w),
