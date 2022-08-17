@@ -4,7 +4,6 @@ import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'snap_up_controller.dart';
@@ -173,7 +172,7 @@ class SnapUpPage extends GetView<SnapUpController> {
           image: AssetImage(
             Assets.iconsSnapBg1,
           ),
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
         ),
       ),
       child: Column(
@@ -197,7 +196,9 @@ class SnapUpPage extends GetView<SnapUpController> {
                     fontSize: 13.sp,
                   ),
                 ),
-                Image.asset(Assets.iconsSnapTime,),
+                Image.asset(
+                  Assets.iconsSnapTime,
+                ),
               ],
             ),
           ),

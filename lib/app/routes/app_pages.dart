@@ -29,6 +29,8 @@ import '../modules/mine/message/message_binding.dart';
 import '../modules/mine/message/message_page.dart';
 import '../modules/mine/wallet/wallet_binding.dart';
 import '../modules/mine/wallet/wallet_page.dart';
+import '../modules/mine/income_list/income_list_binding.dart';
+import '../modules/mine/income_list/income_list_page.dart';
 
 class AppPages {
   AppPages._();
@@ -36,6 +38,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // income_list
+    GetPage(
+      name: RoutesID.INCOME_LIST_PAGE,
+      page: () => const IncomeListPage(),
+      binding: IncomeListBinding(),
+    ),
+
     // wallet
     GetPage(
       name: RoutesID.WALLET_PAGE,
