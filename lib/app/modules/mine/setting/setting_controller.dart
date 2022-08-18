@@ -31,7 +31,11 @@ class SettingController extends GetxController {
           Get.toNamed(RoutesID.USER_INFORMATION_PAGE);
         }));
     menuList.add(_MenuItem(title: "收货地址管理", showDivider: false));
-    menuList.add(_MenuItem(title: "修改登录密码", showTopDivider: true));
+    menuList.add(_MenuItem(
+      title: "修改登录密码",
+      showTopDivider: true,
+      onClick: _toResetPasswordPage,
+    ));
     menuList.add(_MenuItem(title: "支付密码管理", showDivider: false));
 
     menuList.add(_MenuItem(title: "功能反馈", showTopDivider: true));
@@ -56,6 +60,13 @@ class SettingController extends GetxController {
         onClick: _logout,
       ),
     );
+  }
+
+  _toResetPasswordPage() {
+    Get.toNamed(RoutesID.RESET_PASSWORD_PAGE, arguments: {
+      'is_forget': false,
+      'phone_number': userHelper.userInfo.value?.phone ?? "",
+    });
   }
 
   _logout() async {
