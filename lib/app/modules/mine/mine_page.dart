@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../common/S.dart';
 import '../../../common/colors.dart';
 import '../../../common/components/avoid_quick_click.dart';
 import 'mine_controller.dart';
@@ -27,7 +28,7 @@ class MinePage extends GetView<MineController> {
               children: [
                 Image.asset(
                   Assets.iconsMineTop,
-                  height: 200.w,
+                  height: 158.w,
                   fit: BoxFit.cover,
                 ),
                 SingleChildScrollView(
@@ -36,7 +37,7 @@ class MinePage extends GetView<MineController> {
                       Container(
                           // color:  Colors.redAccent,
                           alignment: Alignment.center,
-                          height: 180.w,
+                          height: 138.w,
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
@@ -45,8 +46,8 @@ class MinePage extends GetView<MineController> {
                                   children: [
                                     Container(
                                       margin: EdgeInsets.only(left: 20.w),
-                                      width: 80.w,
-                                      height: 80.w,
+                                      width: 60.w,
+                                      height: 60.w,
                                       child: SafeClickGesture(
                                         onTap: () {},
                                         child: ClipRRect(
@@ -108,7 +109,7 @@ class MinePage extends GetView<MineController> {
                                 ),
                               ),
                               Positioned(
-                                  right: 10.w,
+                                  right: 22.w,
                                   child: Row(
                                     children: [
                                       GestureDetector(
@@ -119,7 +120,7 @@ class MinePage extends GetView<MineController> {
                                         child: Image.asset(
                                           Assets.iconsMineMessage,
                                           fit: BoxFit.cover,
-                                          width: 30.w,
+                                          width: 20.w,
                                         ),
                                       ),
                                       SizedBox(
@@ -133,7 +134,7 @@ class MinePage extends GetView<MineController> {
                                         child: Image.asset(
                                           Assets.iconsMineSetting,
                                           fit: BoxFit.cover,
-                                          width: 30.w,
+                                          width: 20.w,
                                         ),
                                       ),
                                     ],
@@ -141,23 +142,23 @@ class MinePage extends GetView<MineController> {
                             ],
                           )),
                       Container(
-                        height: 100.w,
-                        width: 340.w,
+                        height: 87.w,
+                        width: 345.w,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.w),
+                          borderRadius: BorderRadius.circular(10.w),
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Expanded(
-                              child: buildItem("待付款", Assets.iconsMineMessage),
+                              child: buildItem("待付款", Assets.iconsMineDaifukuan),
                             ),
                             Expanded(
-                              child: buildItem("待发货", Assets.iconsMineMessage),
+                              child: buildItem("待发货", Assets.iconsMineDaifahuo),
                             ),
                             Expanded(
-                              child: buildItem("待收货", Assets.iconsMineMessage),
+                              child: buildItem("待收货", Assets.iconsMineDaishouhuo),
                             ),
                             Expanded(
                               child: GestureDetector(
@@ -165,7 +166,7 @@ class MinePage extends GetView<MineController> {
                                     Get.toNamed(RoutesID.ORDER_PAGE);
                                   },
                                   child: buildItem(
-                                      "我的订单", Assets.iconsMineMessage)),
+                                      "我的订单", Assets.iconsMineWodedingdan)),
                             ),
                           ],
                         ),
@@ -174,20 +175,21 @@ class MinePage extends GetView<MineController> {
                         height: 10.w,
                       ),
                       Container(
-                        width: 340.w,
+                        width: 345.w,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.w),
+                          borderRadius: BorderRadius.circular(10.w),
                         ),
                         child: Column(
                           children: [
                             Container(
-                                width: 340.w,
+                                width: 345.w,
+                                height: 32.w,
                                 padding: EdgeInsets.only(left: 10.w, top: 10.w),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20.w),
-                                      topRight: Radius.circular(20.w)),
+                                      topLeft: Radius.circular(10.w),
+                                      topRight: Radius.circular(10.w)),
                                   gradient: LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
@@ -204,25 +206,25 @@ class MinePage extends GetView<MineController> {
                                   ),
                                 )),
                             Container(
-                              height: 100.w,
+                              height: 84.w,
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Expanded(
                                     child: buildItem(
-                                        "我的仓库", Assets.iconsMineMessage),
+                                        "我的仓库", Assets.iconsMineMaiWodecangku),
                                   ),
                                   Expanded(
                                     child: buildItem(
-                                        "待付款", Assets.iconsMineMessage),
+                                        "待付款", Assets.iconsMineMaiDaifukuan),
                                   ),
                                   Expanded(
                                     child: buildItem(
-                                        "已付款", Assets.iconsMineMessage),
+                                        "已付款", Assets.iconsMineMaiYifukuan),
                                   ),
                                   Expanded(
                                     child: buildItem(
-                                        "待上架", Assets.iconsMineMessage),
+                                        "待上架", Assets.iconsMineMaiDaishangjia),
                                   )
                                 ],
                               ),
@@ -234,7 +236,7 @@ class MinePage extends GetView<MineController> {
                         height: 10.w,
                       ),
                       Container(
-                        width: 340.w,
+                        width: 345.w,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10.w),
@@ -242,7 +244,8 @@ class MinePage extends GetView<MineController> {
                         child: Column(
                           children: [
                             Container(
-                                width: 340.w,
+                                width: 345.w,
+                                height: 32.w,
                                 padding: EdgeInsets.only(left: 10.w, top: 10.w),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
@@ -264,25 +267,25 @@ class MinePage extends GetView<MineController> {
                                   ),
                                 )),
                             Container(
-                              height: 100.w,
+                              height: 84.w,
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Expanded(
                                     child: buildItem(
-                                        "我的仓库", Assets.iconsMineMessage),
+                                        "我的仓库", Assets.iconsMineMaiMaiWodecangku),
                                   ),
                                   Expanded(
                                     child: buildItem(
-                                        "待收款", Assets.iconsMineMessage),
+                                        "待收款", Assets.iconsMineMaiMaiDaishoukuan),
                                   ),
                                   Expanded(
                                     child: buildItem(
-                                        "待确认", Assets.iconsMineMessage),
+                                        "待确认", Assets.iconsMineMaiMaiDaiqueren),
                                   ),
                                   Expanded(
                                     child: buildItem(
-                                        "已完成", Assets.iconsMineMessage),
+                                        "已完成", Assets.iconsMineMaiMaiYiwancheng),
                                   )
                                 ],
                               ),
@@ -294,7 +297,7 @@ class MinePage extends GetView<MineController> {
                         height: 10.w,
                       ),
                       Container(
-                        width: 340.w,
+                        width: 345.w,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10.w),
@@ -302,12 +305,12 @@ class MinePage extends GetView<MineController> {
                         child: Column(
                           children: [
                             Container(
-                                width: 340.w,
+                                width: 345.w,
                                 padding: EdgeInsets.only(left: 10.w, top: 10.w),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20.w),
-                                      topRight: Radius.circular(20.w)),
+                                      topLeft: Radius.circular(10.w),
+                                      topRight: Radius.circular(10.w)),
                                 ),
                                 child: Text(
                                   "我的服务",
@@ -316,7 +319,7 @@ class MinePage extends GetView<MineController> {
                                   ),
                                 )),
                             Container(
-                              height: 150.w,
+                              height: 130.5.w,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -332,7 +335,7 @@ class MinePage extends GetView<MineController> {
                                           },
                                           child: buildItem(
                                             "我的收益",
-                                            Assets.iconsMineMessage,
+                                            Assets.iconsMineWodeshouyi,
                                           ),
                                         ),
                                       ),
@@ -342,16 +345,16 @@ class MinePage extends GetView<MineController> {
                                             Get.toNamed(RoutesID.WALLET_PAGE);
                                           },
                                           child: buildItem(
-                                              "我的钱包", Assets.iconsMineMessage),
+                                              "我的钱包", Assets.iconsMineWodeqianbao),
                                         ),
                                       ),
                                       Expanded(
                                         child: buildItem(
-                                            "邀请好友", Assets.iconsMineMessage),
+                                            "邀请好友", Assets.iconsMineYaoqinghaoyou),
                                       ),
                                       Expanded(
                                         child: buildItem(
-                                            "收货地址", Assets.iconsMineMessage),
+                                            "收货地址", Assets.iconsMineShouhuodizhi),
                                       )
                                     ],
                                   ),
@@ -364,19 +367,19 @@ class MinePage extends GetView<MineController> {
                                     children: [
                                       Expanded(
                                         child: buildItem(
-                                            "收款设置", Assets.iconsMineMessage),
+                                            "收款设置", Assets.iconsMineShoukuanshezhi),
                                       ),
                                       Expanded(
                                         child: buildItem(
-                                            "分销中心", Assets.iconsMineMessage),
+                                            "分销中心", Assets.iconsMineFenxiaozhongxin),
                                       ),
                                       Expanded(
                                         child: buildItem(
-                                            "绑定推荐人", Assets.iconsMineMessage),
+                                            "绑定推荐人", Assets.iconsMineBangdingtuiianren),
                                       ),
                                       Expanded(
                                         child: buildItem(
-                                            "客服热线", Assets.iconsMineMessage),
+                                            "客服热线", Assets.iconsMineKefurexian),
                                       )
                                     ],
                                   ),
@@ -408,7 +411,8 @@ class MinePage extends GetView<MineController> {
           icon,
           width: 20.w,
         ),
-        Text(title)
+        SizedBox(height: 5.w,),
+        Text(title, style: S.textStyles.grey,)
       ],
     );
   }

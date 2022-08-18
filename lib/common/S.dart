@@ -29,6 +29,11 @@ class _TextStyles {
   final red = TextStyle(
     color: S.colors.red,
   );
+
+  final grey = TextStyle(
+    color: Color(0xff757575),
+    fontSize: 12
+  );
 }
 
 class _Shadows {
