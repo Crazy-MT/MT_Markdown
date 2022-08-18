@@ -1,3 +1,5 @@
+import 'package:code_zero/app/modules/mine/collection_settings/collection_settings_page.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/common_input.dart';
@@ -59,6 +61,9 @@ class DrawingPage extends GetView<DrawingController> {
             ),
           ),
           GestureDetector(
+            onTap: () {
+              Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE);
+            },
             child: Row(
               children: [
                 Text(
