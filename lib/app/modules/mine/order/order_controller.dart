@@ -21,6 +21,7 @@ class OrderController extends GetxController
     super.onInit();
     initData();
     tabController = TabController(vsync: this, length: myTabs.length);
+    tabController?.index = Get.arguments['index'] as int;
     tabController?.addListener(() {
       ///避免addListener调用2次
       if (tabController?.index == tabController?.animation?.value) {
