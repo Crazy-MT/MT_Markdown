@@ -60,7 +60,9 @@ class WalletPage extends GetView<WalletController> {
     var item = controller.menuList[index];
     return GestureDetector(
       onTap: () {
-        if (index == 1) {
+        if (index == 0) {
+          Get.toNamed(RoutesID.DRAWING_PAGE);
+        } else {
           Get.toNamed(RoutesID.TRANSACTIONS_PAGE);
         }
       },

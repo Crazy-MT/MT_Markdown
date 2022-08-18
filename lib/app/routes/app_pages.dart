@@ -37,6 +37,8 @@ import '../modules/mine/order/order_binding.dart';
 import '../modules/mine/order/order_page.dart';
 import '../modules/others/login/reset_password/reset_password_binding.dart';
 import '../modules/others/login/reset_password/reset_password_page.dart';
+import '../modules/mine/wallet/drawing/drawing_binding.dart';
+import '../modules/mine/wallet/drawing/drawing_page.dart';
 
 class AppPages {
   AppPages._();
@@ -44,6 +46,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // drawing
+    GetPage(
+      name: RoutesID.DRAWING_PAGE,
+      page: () => const DrawingPage(),
+      binding: DrawingBinding(),
+    ),
+
     // reset_password
     GetPage(
       name: RoutesID.RESET_PASSWORD_PAGE,
