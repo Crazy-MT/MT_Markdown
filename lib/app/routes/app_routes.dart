@@ -3,6 +3,7 @@
 // ignore_for_file: constant_identifier_names
 
 class RoutesID {
+  static const RESET_PASSWORD_PAGE = "/reset_password_page";
   static const ORDER_PAGE = "/order_page";
   static const TRANSACTIONS_PAGE = "/transactions_page";
   static const INCOME_LIST_PAGE = "/income_list_page";

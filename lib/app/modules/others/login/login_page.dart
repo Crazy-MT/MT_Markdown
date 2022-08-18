@@ -4,8 +4,6 @@ import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/common_input.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
-import 'package:code_zero/common/model/user_model.dart';
-import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -88,7 +86,7 @@ class LoginPage extends GetView<LoginController> {
   _buildPhoneInput() {
     return _buildInput(
       "手机号",
-      controller: controller.phoneController,
+      inputController: controller.phoneController,
       hintText: "输入手机号",
       padding: EdgeInsets.symmetric(horizontal: 20.w).copyWith(top: 50.w),
       suffixWidget: controller.showClearPhoneInput.value
@@ -108,7 +106,7 @@ class LoginPage extends GetView<LoginController> {
   _buildPasswordInput() {
     return _buildInput(
       controller.isPasswordLogin.value ? "登录密码" : "验证码",
-      controller: controller.passwordController,
+      inputController: controller.passwordController,
       hintText: controller.isPasswordLogin.value ? "输入登录密码" : "输入验证码",
       padding: EdgeInsets.symmetric(horizontal: 20.w).copyWith(top: 18.w),
       obscureText: controller.isPasswordLogin.value && !controller.showPassword.value,
@@ -143,7 +141,7 @@ class LoginPage extends GetView<LoginController> {
   _buildInput(
     String title, {
     EdgeInsetsGeometry? padding,
-    TextEditingController? controller,
+    TextEditingController? inputController,
     String? hintText,
     Widget? suffixWidget,
     bool obscureText = false,
@@ -173,7 +171,7 @@ class LoginPage extends GetView<LoginController> {
                 Expanded(
                   child: CommonInput(
                     obscureText: obscureText,
-                    controller: controller,
+                    controller: inputController,
                     fillColor: Colors.transparent,
                     style: TextStyle(
                       fontSize: 20.sp,
@@ -208,6 +206,7 @@ class LoginPage extends GetView<LoginController> {
           TextButton(
               onPressed: () {
                 controller.isPasswordLogin.value = !controller.isPasswordLogin.value;
+                controller.passwordController.clear();
               },
               child: Row(
                 children: [
@@ -231,7 +230,15 @@ class LoginPage extends GetView<LoginController> {
               )),
           Expanded(child: SizedBox()),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(
+                RoutesID.RESET_PASSWORD_PAGE,
+                arguments: {
+                  "phone_number": "18812341234",
+                  "is_forget": true,
+                },
+              );
+            },
             child: Text(
               "忘记密码",
               style: TextStyle(
@@ -256,6 +263,7 @@ class LoginPage extends GetView<LoginController> {
           SafeTapWidget(
             onTap: () {
               controller.agreePrivacyPolicy.value = !controller.agreePrivacyPolicy.value;
+              controller.checkCanLogin();
             },
             child: Padding(
               padding: EdgeInsets.all(5.w),
@@ -304,10 +312,7 @@ class LoginPage extends GetView<LoginController> {
               ? () {
                   controller.login();
                 }
-              : () {
-                  userHelper.whenLogin(UserModel());
-                  Get.offAllNamed(RoutesID.MAIN_TAB_PAGE);
-                },
+              : null,
           // style: ButtonStyle(
           //   padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
           //   backgroundColor: MaterialStateProperty.all(AppColors.green),
@@ -319,12 +324,15 @@ class LoginPage extends GetView<LoginController> {
             shape: StadiumBorder(),
           ).copyWith(
             padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
-            backgroundColor: MaterialStateProperty.all(AppColors.green),
+            backgroundColor: MaterialStateProperty.all(
+              AppColors.green.withOpacity(controller.enableLogin.value ? 1 : 0.5),
+            ),
+            elevation: MaterialStateProperty.all(0),
           ),
           child: Text(
             "立即登录",
             style: TextStyle(
-              color: AppColors.text_dark,
+              color: AppColors.text_dark.withOpacity(controller.enableLogin.value ? 1 : 0.5),
               fontSize: 16.sp,
             ),
           ),

@@ -24,7 +24,7 @@ class LoginController extends GetxController {
   final isPasswordLogin = false.obs;
   final showPassword = false.obs;
   final agreePrivacyPolicy = false.obs;
-  final enableLogin = true.obs;
+  final enableLogin = false.obs;
   Timer? timer;
 
   @override
@@ -33,6 +33,10 @@ class LoginController extends GetxController {
     initData();
     phoneController.addListener(() {
       showClearPhoneInput.value = phoneController.text.isNotEmpty;
+      checkCanLogin();
+    });
+    passwordController.addListener(() {
+      checkCanLogin();
     });
   }
 
@@ -45,6 +49,14 @@ class LoginController extends GetxController {
       _passwordLogin();
     } else {
       _smsCodeLogin();
+    }
+  }
+
+  checkCanLogin() {
+    if (phoneController.text.isNotEmpty && passwordController.text.isNotEmpty && agreePrivacyPolicy.value) {
+      enableLogin.value = true;
+    } else {
+      enableLogin.value = false;
     }
   }
 
