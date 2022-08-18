@@ -33,13 +33,13 @@ void main() {
       SystemChrome.setSystemUIOverlayStyle(style);
     }
     if (kDebugMode) {
-      PluginManager.instance                                 // 注册插件
+      PluginManager.instance
         ..register(WidgetInfoInspector())
         ..register(WidgetDetailInspector())
         ..register(ColorSucker())
         ..register(AlignRuler())
-        ..register(ColorPicker())                            // 新插件
-        ..register(TouchIndicator())                         // 新插件
+        ..register(ColorPicker())
+        ..register(TouchIndicator())
         ..register(Performance())
         ..register(ShowCode())
         ..register(MemoryInfoPage())
@@ -47,8 +47,7 @@ void main() {
         ..register(DeviceInfoPanel())
         ..register(Console());
       // flutter_ume 0.3.0 版本之后
-      runApp(UMEWidget(child: App(), enable: true)); // 初始化
-      // flutter_ume 0.3.0 版本之前
+      runApp(UMEWidget(child: App(), enable: true));
     } else {
       runApp(App());
     }

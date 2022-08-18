@@ -5,6 +5,7 @@
 class RoutesID {
   static const COLLECTION_SETTINGS_PAGE = "/collection_settings_page";
   static const DRAWING_PAGE = "/drawing_page";
+  static const DISTRIBUTION_PAGE = "/distribution_page";
   static const RESET_PASSWORD_PAGE = "/reset_password_page";
   static const ORDER_PAGE = "/order_page";
   static const TRANSACTIONS_PAGE = "/transactions_page";

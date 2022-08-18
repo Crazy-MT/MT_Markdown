@@ -41,6 +41,8 @@ import '../modules/mine/wallet/drawing/drawing_binding.dart';
 import '../modules/mine/wallet/drawing/drawing_page.dart';
 import '../modules/mine/collection_settings/collection_settings_binding.dart';
 import '../modules/mine/collection_settings/collection_settings_page.dart';
+import '../modules/mine/distribution/distribution_binding.dart';
+import '../modules/mine/distribution/distribution_page.dart';
 
 class AppPages {
   AppPages._();
@@ -60,6 +62,12 @@ class AppPages {
       name: RoutesID.DRAWING_PAGE,
       page: () => const DrawingPage(),
       binding: DrawingBinding(),
+    ),
+    // distribution
+    GetPage(
+      name: RoutesID.DISTRIBUTION_PAGE,
+      page: () => const DistributionPage(),
+      binding: DistributionBinding(),
     ),
 
     // reset_password
