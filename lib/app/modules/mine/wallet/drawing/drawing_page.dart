@@ -56,7 +56,7 @@ class DrawingPage extends GetView<DrawingController> {
             '提取类型',
             style: TextStyle(
               color: Color(0xff111111),
-              fontSize: 13,
+              fontSize: 13.sp,
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -70,7 +70,7 @@ class DrawingPage extends GetView<DrawingController> {
                   '设置收款信息',
                   style: TextStyle(
                     color: Color(0xff111111),
-                    fontSize: 13,
+                    fontSize: 13.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -108,7 +108,7 @@ class DrawingPage extends GetView<DrawingController> {
                     '提取金额',
                     style: TextStyle(
                       color: Color(0xff111111),
-                      fontSize: 13,
+                      fontSize: 13.sp,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -119,7 +119,7 @@ class DrawingPage extends GetView<DrawingController> {
                         '￥',
                         style: TextStyle(
                           color: Color(0xff111111),
-                          fontSize: 26,
+                          fontSize: 26.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -129,7 +129,7 @@ class DrawingPage extends GetView<DrawingController> {
                               TextInputType.numberWithOptions(decimal: true),
                           style: TextStyle(
                             color: Color(0xff111111),
-                            fontSize: 26,
+                            fontSize: 26.sp,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -145,7 +145,7 @@ class DrawingPage extends GetView<DrawingController> {
                         '可提现金额：',
                         style: TextStyle(
                           color: Color(0xff434446),
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -153,7 +153,7 @@ class DrawingPage extends GetView<DrawingController> {
                         '453256.88',
                         style: TextStyle(
                           color: Color(0xff434446),
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -175,7 +175,7 @@ class DrawingPage extends GetView<DrawingController> {
                   '提现至银行卡',
                   style: TextStyle(
                     color: Color(0xffffffff),
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

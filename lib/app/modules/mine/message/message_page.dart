@@ -62,7 +62,9 @@ class MessagePage extends GetView<MessageController> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Image.asset(
-            index == 0 ? Assets.imagesMessagePlatform : Assets.imagesMessagePrivate,
+            index == 0
+                ? Assets.imagesMessagePlatform
+                : Assets.imagesMessagePrivate,
             width: 50,
             height: 50,
           ),
@@ -76,7 +78,7 @@ class MessagePage extends GetView<MessageController> {
                   item,
                   style: TextStyle(
                     color: AppColors.text_dark,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -85,7 +87,7 @@ class MessagePage extends GetView<MessageController> {
                   item,
                   style: TextStyle(
                     color: Color(0xffABAAB9),
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 ),

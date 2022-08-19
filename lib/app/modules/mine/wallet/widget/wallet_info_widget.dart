@@ -51,7 +51,7 @@ class WalletInfoWidget extends StatelessWidget {
             Text('我的资产（元）',
                 style: TextStyle(
                     color: Color(0xff111111),
-                    fontSize: 13,
+                    fontSize: 13.sp,
                     fontWeight: FontWeight.w400)),
             SizedBox(height: 29.w),
             Row(
@@ -60,12 +60,12 @@ class WalletInfoWidget extends StatelessWidget {
                 Text('余额（元）',
                     style: TextStyle(
                         color: Color(0xff111111).withOpacity(0.5),
-                        fontSize: 13,
+                        fontSize: 13.sp,
                         fontWeight: FontWeight.w400)),
                 Text('积分',
                     style: TextStyle(
                         color: Color(0xff111111).withOpacity(0.5),
-                        fontSize: 13,
+                        fontSize: 13.sp,
                         fontWeight: FontWeight.w400)),
               ],
             ),
@@ -76,12 +76,12 @@ class WalletInfoWidget extends StatelessWidget {
                 Text('453256.88',
                     style: TextStyle(
                         color: Color(0xff111111),
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w500)),
                 Text('56788.05',
                     style: TextStyle(
                         color: Color(0xff111111),
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w500)),
               ],
             ),

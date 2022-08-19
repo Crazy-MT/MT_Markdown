@@ -66,7 +66,7 @@ class TransactionsPage extends GetView<TransactionsController> {
         '2022年8月',
         style: TextStyle(
           color: Color(0xff111111),
-          fontSize: 13,
+          fontSize: 13.sp,
           fontWeight: FontWeight.w400,
         ),
       ),
@@ -100,7 +100,7 @@ class TransactionsPage extends GetView<TransactionsController> {
                         '提现-至招商银行（5667）',
                         style: TextStyle(
                           color: Color(0xff434446),
-                          fontSize: 15,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -109,7 +109,7 @@ class TransactionsPage extends GetView<TransactionsController> {
                       '30000.00',
                       style: TextStyle(
                         color: Color(0xff111111),
-                        fontSize: 15,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -120,7 +120,7 @@ class TransactionsPage extends GetView<TransactionsController> {
                   '2022.08.17 12:34:54',
                   style: TextStyle(
                     color: Color(0xffABAAB9),
-                    fontSize: 12,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
                   ),
                 )
