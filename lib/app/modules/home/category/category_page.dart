@@ -53,25 +53,25 @@ class CategoryPage extends GetView<CategoryController> {
     return SliverToBoxAdapter(
       child: Container(
         width: 375.w,
-        height: 812.w - 64.w - 60.w - 64.w - MediaQuery.of(context).padding.bottom,
+        height:
+            812.w - 64.w - 60.w - 64.w - MediaQuery.of(context).padding.bottom,
         padding: EdgeInsets.symmetric(horizontal: 15.w),
         margin: EdgeInsets.only(top: 15.w),
         child: controller.goodsList.isEmpty
             ? CategoryEmptyView()
             : ListView.separated(
-          padding: EdgeInsets.symmetric(vertical: 15.w),
-          itemBuilder: (BuildContext context, int index) {
-            return CategoryGoodsItem();
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return SizedBox(height: 10.w);
-          },
-          itemCount: 13,
-        ),
+                padding: EdgeInsets.symmetric(vertical: 15.w),
+                itemBuilder: (BuildContext context, int index) {
+                  return CategoryGoodsItem();
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return SizedBox(height: 10.w);
+                },
+                itemCount: 13,
+              ),
       ),
     );
   }
-
 
   _buildSearchContainer() {
     return SliverToBoxAdapter(
@@ -129,9 +129,54 @@ class CategoryPage extends GetView<CategoryController> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(child: Center(child: Text("全部"))),
-              Expanded(child: Center(child: Text("销量"))),
-              Expanded(child: Center(child: Text("价格"))),
+              Expanded(
+                  child: Center(
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          value: '全部',
+                          items: [
+                            DropdownMenuItem(
+                              child: Text("全部"),
+                              value: "全部",
+                            ),
+                          ],
+                          onChanged: (Object? value) {},
+                        ),
+                      )
+                  )
+              ),
+              Expanded(
+                  child: Center(
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          value: '销量',
+                          items: [
+                            DropdownMenuItem(
+                              child: Text("销量"),
+                              value: "销量",
+                            ),
+                          ],
+                          onChanged: (Object? value) {},
+                        ),
+                      )
+                  )
+              ),
+              Expanded(
+                  child: Center(
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          value: '价格',
+                          items: [
+                            DropdownMenuItem(
+                              child: Text("价格"),
+                              value: "价格",
+                            ),
+                          ],
+                          onChanged: (Object? value) {},
+                        ),
+                      )
+                  )
+              ),
             ],
           ),
         ),
