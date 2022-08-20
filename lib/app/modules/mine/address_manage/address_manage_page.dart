@@ -1,3 +1,4 @@
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
@@ -139,7 +140,9 @@ class AddressManagePage extends GetView<AddressManageController> {
           ),
         ),
         SafeTapWidget(
-          onTap: () {},
+          onTap: () {
+            Get.toNamed(RoutesID.ADDRESS_EDIT_PAGE, arguments: {'type': 1});
+          },
           child: Image.asset(
             Assets.imagesAddressEditIcon,
             width: 20.w,
@@ -180,7 +183,9 @@ class AddressManagePage extends GetView<AddressManageController> {
 
   Widget _addAddressWidget(BuildContext context) {
     return SafeTapWidget(
-      onTap: () {},
+      onTap: () {
+        Get.toNamed(RoutesID.ADDRESS_EDIT_PAGE, arguments: {'type': 0});
+      },
       child: Container(
         height: 44.w,
         margin: EdgeInsets.fromLTRB(20.w, 10.w, 20.w, 0),
