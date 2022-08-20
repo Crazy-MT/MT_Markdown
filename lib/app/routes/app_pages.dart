@@ -45,6 +45,8 @@ import '../modules/mine/distribution/distribution_binding.dart';
 import '../modules/mine/distribution/distribution_page.dart';
 import '../modules/mine/distribution/my_commission/my_commission_binding.dart';
 import '../modules/mine/distribution/my_commission/my_commission_page.dart';
+import '../modules/mine/bind_recommend/bind_recommend_binding.dart';
+import '../modules/mine/bind_recommend/bind_recommend_page.dart';
 
 class AppPages {
   AppPages._();
@@ -52,6 +54,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // bind_recommend
+    GetPage(
+      name: RoutesID.BIND_RECOMMEND_PAGE,
+      page: () => const BindRecommendPage(),
+      binding: BindRecommendBinding(),
+    ),
+
     // my_commission
     GetPage(
       name: RoutesID.MY_COMMISSION_PAGE,

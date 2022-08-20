@@ -393,18 +393,20 @@ class MinePage extends GetView<MineController> {
                                             () {}),
                                       ),
                                       Expanded(
-                                        child: buildItem(
-                                            "分销中心",
+                                        child: buildItem("分销中心",
                                             Assets.iconsMineFenxiaozhongxin,
                                             () {
-                                              Get.toNamed(RoutesID.DISTRIBUTION_PAGE);
-                                            }),
+                                          Get.toNamed(
+                                              RoutesID.DISTRIBUTION_PAGE);
+                                        }),
                                       ),
                                       Expanded(
-                                        child: buildItem(
-                                            "绑定推荐人",
+                                        child: buildItem("绑定推荐人",
                                             Assets.iconsMineBangdingtuiianren,
-                                            () {}),
+                                            () {
+                                          Get.toNamed(
+                                              RoutesID.BIND_RECOMMEND_PAGE);
+                                        }),
                                       ),
                                       Expanded(
                                         child: buildItem("客服热线",
