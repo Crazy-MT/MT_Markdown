@@ -14,6 +14,7 @@ import '../../../common/components/avoid_quick_click.dart';
 import '../../../utils/log_utils.dart';
 import 'mine_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 class MinePage extends GetView<MineController> {
   const MinePage({Key? key}) : super(key: key);
 
@@ -409,10 +410,12 @@ class MinePage extends GetView<MineController> {
                                             () {}),
                                       ),
                                       Expanded(
-                                        child: buildItem(
-                                            "收货地址",
-                                            Assets.iconsMineShouhuodizhi,
-                                            () {}),
+                                        child: buildItem("收货地址",
+                                            Assets.iconsMineShouhuodizhi, () {
+                                          // 跳转地址管理页
+                                          Get.toNamed(
+                                              RoutesID.ADDRESS_MANAGE_PAGE);
+                                        }),
                                       )
                                     ],
                                   ),
@@ -500,23 +503,35 @@ class MinePage extends GetView<MineController> {
                                                               MainAxisAlignment
                                                                   .center,
                                                           children: [
-                                                            Text("客服热线", style: TextStyle(
-                                                              fontSize: 16.sp,
-                                                              color: Color(0xFFABAAB9)
-                                                            ),),
-                                                            SizedBox(height: 10.w,),
                                                             Text(
-                                                                "188-8888-8888", style: TextStyle(
-                                                              fontSize: 22.sp
-                                                            ),),
-                                                            SizedBox(height: 10.w,),
+                                                              "客服热线",
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      16.sp,
+                                                                  color: Color(
+                                                                      0xFFABAAB9)),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10.w,
+                                                            ),
+                                                            Text(
+                                                              "188-8888-8888",
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      22.sp),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10.w,
+                                                            ),
                                                             SizedBox(
                                                               width: 335.w,
                                                               height: 44.w,
                                                               child:
                                                                   ElevatedButton(
                                                                 onPressed: () {
-                                                                  launchUrl(Uri.parse('tel://18888888888'));
+                                                                  launchUrl(
+                                                                      Uri.parse(
+                                                                          'tel://18888888888'));
                                                                 },
                                                                 // style: ButtonStyle(
                                                                 //   padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
@@ -531,8 +546,8 @@ class MinePage extends GetView<MineController> {
                                                                       StadiumBorder(),
                                                                 ).copyWith(
                                                                   padding: MaterialStateProperty.all(
-                                                                      const EdgeInsets.all(
-                                                                          0)),
+                                                                      const EdgeInsets
+                                                                          .all(0)),
                                                                   backgroundColor:
                                                                       MaterialStateProperty
                                                                           .all(
@@ -543,7 +558,8 @@ class MinePage extends GetView<MineController> {
                                                                   ),
                                                                   elevation:
                                                                       MaterialStateProperty
-                                                                          .all(0),
+                                                                          .all(
+                                                                              0),
                                                                 ),
                                                                 child: Text(
                                                                   "拨打电话",

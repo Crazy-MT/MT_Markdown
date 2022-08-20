@@ -49,6 +49,8 @@ import '../modules/mine/bind_recommend/bind_recommend_binding.dart';
 import '../modules/mine/bind_recommend/bind_recommend_page.dart';
 import '../modules/mine/distribution/fans_order/fans_order_binding.dart';
 import '../modules/mine/distribution/fans_order/fans_order_page.dart';
+import '../modules/mine/address_manage/address_manage_binding.dart';
+import '../modules/mine/address_manage/address_manage_page.dart';
 
 class AppPages {
   AppPages._();
@@ -56,6 +58,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // address_manage
+    GetPage(
+      name: RoutesID.ADDRESS_MANAGE_PAGE,
+      page: () => const AddressManagePage(),
+      binding: AddressManageBinding(),
+    ),
+
     // fans_order
     GetPage(
       name: RoutesID.FANS_ORDER_PAGE,
