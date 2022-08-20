@@ -178,7 +178,7 @@ class FansOrderPage extends GetView<FansOrderController> {
         width: 345,
         margin: EdgeInsets.symmetric(
           horizontal: 15.w,
-          vertical: 3.w,
+          vertical: 5.w,
         ),
         decoration: BoxDecoration(
           color: Colors.white,
