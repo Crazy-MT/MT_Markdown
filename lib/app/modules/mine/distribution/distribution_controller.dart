@@ -30,7 +30,9 @@ class DistributionController extends GetxController {
         onClick: () {
           Get.toNamed(RoutesID.MY_COMMISSION_PAGE);
         }));
-    menuList.add(_MenuItem(title: "提现记录", showDivider: false));
+    menuList.add(_MenuItem(title: "提现记录", showDivider: false, onClick: () {
+      Get.toNamed(RoutesID.TRANSACTIONS_PAGE);
+    }));
     menuList.add(_MenuItem(
       title: "我的粉丝",
       showTopDivider: true,
