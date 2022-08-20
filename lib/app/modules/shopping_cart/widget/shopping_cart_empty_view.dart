@@ -1,7 +1,10 @@
+import 'package:code_zero/app/modules/main_tab/main_tab_controller.dart';
 import 'package:code_zero/common/colors.dart';
+import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ShoppingCartEmptyView extends StatelessWidget {
   const ShoppingCartEmptyView({Key? key}) : super(key: key);
@@ -43,11 +46,16 @@ class ShoppingCartEmptyView extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10.w),
-          Text(
-            '去逛逛',
-            style: TextStyle(
-              color: AppColors.green,
-              fontSize: 16.sp,
+          SafeTapWidget(
+            onTap: () {
+              Get.find<MainTabController>().clickTab(0);
+            },
+            child: Text(
+              '去逛逛',
+              style: TextStyle(
+                color: AppColors.green,
+                fontSize: 16.sp,
+              ),
             ),
           ),
         ],
