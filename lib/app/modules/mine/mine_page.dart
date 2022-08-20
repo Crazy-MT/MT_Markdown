@@ -11,8 +11,9 @@ import 'package:get/get.dart';
 import '../../../common/S.dart';
 import '../../../common/colors.dart';
 import '../../../common/components/avoid_quick_click.dart';
+import '../../../utils/log_utils.dart';
 import 'mine_controller.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 class MinePage extends GetView<MineController> {
   const MinePage({Key? key}) : super(key: key);
 
@@ -36,6 +37,7 @@ class MinePage extends GetView<MineController> {
                   child: Column(
                     children: [
                       Container(
+                          padding: EdgeInsets.only(top: 20.w),
                           // color:  Colors.redAccent,
                           alignment: Alignment.center,
                           height: 138.w,
@@ -444,8 +446,128 @@ class MinePage extends GetView<MineController> {
                                         }),
                                       ),
                                       Expanded(
-                                        child: buildItem("客服热线",
-                                            Assets.iconsMineKefurexian, () {}),
+                                        child: buildItem(
+                                            "客服热线", Assets.iconsMineKefurexian,
+                                            () {
+                                          showModalBottomSheet(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              context: context,
+                                              builder: (context) {
+                                                return Container(
+                                                  color: Colors.transparent,
+                                                  height: 171.w,
+                                                  child: Stack(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                top: 10.w,
+                                                                left: 10.w),
+                                                        child: TextButton(
+                                                            child: Text(
+                                                              "取消",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            style: ButtonStyle(
+                                                              shape: MaterialStateProperty.all<
+                                                                      RoundedRectangleBorder>(
+                                                                  RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              20.w))),
+                                                              backgroundColor:
+                                                                  MaterialStateProperty.all<
+                                                                          Color>(
+                                                                      Color(
+                                                                          0xFFD8E2EA)),
+                                                            )),
+                                                      ),
+                                                      Container(
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text("客服热线", style: TextStyle(
+                                                              fontSize: 16.sp,
+                                                              color: Color(0xFFABAAB9)
+                                                            ),),
+                                                            SizedBox(height: 10.w,),
+                                                            Text(
+                                                                "188-8888-8888", style: TextStyle(
+                                                              fontSize: 22.sp
+                                                            ),),
+                                                            SizedBox(height: 10.w,),
+                                                            SizedBox(
+                                                              width: 335.w,
+                                                              height: 44.w,
+                                                              child:
+                                                                  ElevatedButton(
+                                                                onPressed: () {
+                                                                  launchUrl(Uri.parse('tel://18888888888'));
+                                                                },
+                                                                // style: ButtonStyle(
+                                                                //   padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+                                                                //   backgroundColor: MaterialStateProperty.all(AppColors.green),
+                                                                // ),
+                                                                style: ElevatedButton
+                                                                    .styleFrom(
+                                                                  // shape: RoundedRectangleBorder(
+                                                                  //   borderRadius: BorderRadius.circular(12), // <-- Radius
+                                                                  // ),
+                                                                  shape:
+                                                                      StadiumBorder(),
+                                                                ).copyWith(
+                                                                  padding: MaterialStateProperty.all(
+                                                                      const EdgeInsets.all(
+                                                                          0)),
+                                                                  backgroundColor:
+                                                                      MaterialStateProperty
+                                                                          .all(
+                                                                    AppColors
+                                                                        .green
+                                                                        .withOpacity(
+                                                                            1),
+                                                                  ),
+                                                                  elevation:
+                                                                      MaterialStateProperty
+                                                                          .all(0),
+                                                                ),
+                                                                child: Text(
+                                                                  "拨打电话",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: AppColors
+                                                                        .text_white
+                                                                        .withOpacity(
+                                                                            1),
+                                                                    fontSize:
+                                                                        16.sp,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                        width: double.infinity,
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              });
+                                        }),
                                       )
                                     ],
                                   ),

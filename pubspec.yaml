@@ -19,6 +19,7 @@ dependencies:
   oktoast: 3.1.5
   flutter_svg: 1.0.3
   device_info: 2.0.3
+  url_launcher: 6.1.5
   flutter:
     sdk: flutter
 

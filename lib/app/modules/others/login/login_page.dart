@@ -5,6 +5,7 @@ import 'package:code_zero/common/components/common_input.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -320,7 +321,7 @@ class LoginPage extends GetView<LoginController> {
           child: Text(
             "立即登录",
             style: TextStyle(
-              color: AppColors.text_dark.withOpacity(controller.enableLogin.value ? 1 : 0.5),
+              color: AppColors.text_white.withOpacity(controller.enableLogin.value ? 1 : 0.5),
               fontSize: 16.sp,
             ),
           ),

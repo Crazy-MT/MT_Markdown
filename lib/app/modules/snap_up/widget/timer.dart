@@ -33,7 +33,7 @@ class _TimerTestState extends State<TimerTest> {
 
   @override
   Widget build(BuildContext context) {
-    lLog('MTMTMT _TimerTestState.build ${seconds}');
+    // lLog('MTMTMT _TimerTestState.build ${seconds}');
     constructTime(seconds);
 
     return Row(

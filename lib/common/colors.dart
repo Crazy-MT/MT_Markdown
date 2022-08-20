@@ -24,6 +24,7 @@ class AppColors {
 
   static const text_dark = Color(0xFF141519);
   static const text_light = Color(0xFFECECEC);
+  static const text_white = Color(0xFFFFFFFF);
 
   static const green = Color(0xFF1BDB8A);
 
