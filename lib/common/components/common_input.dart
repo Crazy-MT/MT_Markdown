@@ -89,3 +89,60 @@ OutlineInputBorder _outlineInputBorder = OutlineInputBorder(
   gapPadding: 0,
   borderSide: BorderSide.none,
 );
+
+buildInputWithTitle(
+  Widget titleWidget, {
+  EdgeInsetsGeometry? padding,
+  TextEditingController? inputController,
+  String? hintText,
+  Widget? suffixWidget,
+  bool obscureText = false,
+}) {
+  return Padding(
+    padding: padding ?? EdgeInsets.zero,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+            padding: EdgeInsets.only(left: 5.w, bottom: 8), child: titleWidget),
+        Container(
+          height: 44.w,
+          decoration: BoxDecoration(
+            color: Color(0xFFF5F5F5),
+            borderRadius: BorderRadius.circular(22.w),
+          ),
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(7.w).copyWith(left: 16.w),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: CommonInput(
+                  obscureText: obscureText,
+                  controller: inputController,
+                  fillColor: Colors.transparent,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.text_dark,
+                    height: 1,
+                  ),
+                  hintText: hintText,
+                  hintStyle: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.text_dark.withOpacity(0.3),
+                    height: 1,
+                  ),
+                ),
+              ),
+              suffixWidget != null ? suffixWidget : Container(),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}

@@ -59,7 +59,7 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
   }
 
   _buildVerifyCodeInput() {
-    return _buildInput(
+    return buildInputWithTitle(
       Row(
         children: [
           Text(
@@ -115,13 +115,15 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
             padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
             elevation: MaterialStateProperty.all(0),
             backgroundColor: MaterialStateProperty.all(
-              AppColors.green.withOpacity(controller.sendSmsCountdown.value <= 0 ? 1 : 0.5),
+              AppColors.green.withOpacity(
+                  controller.sendSmsCountdown.value <= 0 ? 1 : 0.5),
             ),
           ),
           child: Text(
             "获取验证码",
             style: TextStyle(
-              color: Colors.white.withOpacity(controller.sendSmsCountdown.value <= 0 ? 1 : 0.5),
+              color: Colors.white.withOpacity(
+                  controller.sendSmsCountdown.value <= 0 ? 1 : 0.5),
               fontSize: 12.sp,
             ),
           ),
@@ -131,7 +133,7 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
   }
 
   _buildNewPassword() {
-    return _buildInput(
+    return buildInputWithTitle(
       Text(
         "新密码",
         style: TextStyle(
@@ -150,7 +152,9 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
         },
         padding: EdgeInsets.zero,
         icon: SvgPicture.asset(
-          controller.showNewPassword.value ? Assets.iconsVisible : Assets.iconsInvisible,
+          controller.showNewPassword.value
+              ? Assets.iconsVisible
+              : Assets.iconsInvisible,
           width: 22.w,
           height: 22.w,
         ),
@@ -159,7 +163,7 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
   }
 
   _buildConfirmPassword() {
-    return _buildInput(
+    return buildInputWithTitle(
       Text(
         "新密码确认",
         style: TextStyle(
@@ -174,11 +178,14 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
       obscureText: !controller.showConfirmPassword.value,
       suffixWidget: IconButton(
         onPressed: () {
-          controller.showConfirmPassword.value = !controller.showConfirmPassword.value;
+          controller.showConfirmPassword.value =
+              !controller.showConfirmPassword.value;
         },
         padding: EdgeInsets.zero,
         icon: SvgPicture.asset(
-          controller.showConfirmPassword.value ? Assets.iconsVisible : Assets.iconsInvisible,
+          controller.showConfirmPassword.value
+              ? Assets.iconsVisible
+              : Assets.iconsInvisible,
           width: 22.w,
           height: 22.w,
         ),
@@ -206,74 +213,20 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
           ).copyWith(
             padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
             backgroundColor: MaterialStateProperty.all(
-              AppColors.green.withOpacity(controller.resetBtnEnable.value ? 1 : 0.5),
+              AppColors.green
+                  .withOpacity(controller.resetBtnEnable.value ? 1 : 0.5),
             ),
             elevation: MaterialStateProperty.all(0),
           ),
           child: Text(
             "重置密码",
             style: TextStyle(
-              color: AppColors.text_dark.withOpacity(controller.resetBtnEnable.value ? 1 : 0.5),
+              color: AppColors.text_dark
+                  .withOpacity(controller.resetBtnEnable.value ? 1 : 0.5),
               fontSize: 16.sp,
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  _buildInput(
-    Widget titleWidget, {
-    EdgeInsetsGeometry? padding,
-    TextEditingController? inputController,
-    String? hintText,
-    Widget? suffixWidget,
-    bool obscureText = false,
-  }) {
-    return Padding(
-      padding: padding ?? EdgeInsets.zero,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(padding: EdgeInsets.only(left: 5.w, bottom: 8), child: titleWidget),
-          Container(
-            height: 44.w,
-            decoration: BoxDecoration(
-              color: Color(0xFFF5F5F5),
-              borderRadius: BorderRadius.circular(22.w),
-            ),
-            alignment: Alignment.center,
-            padding: EdgeInsets.all(7.w).copyWith(left: 16.w),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: CommonInput(
-                    obscureText: obscureText,
-                    controller: inputController,
-                    fillColor: Colors.transparent,
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.text_dark,
-                      height: 1,
-                    ),
-                    hintText: hintText,
-                    hintStyle: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.text_dark.withOpacity(0.3),
-                      height: 1,
-                    ),
-                  ),
-                ),
-                suffixWidget != null ? suffixWidget : Container(),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }
