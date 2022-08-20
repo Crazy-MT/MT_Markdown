@@ -36,7 +36,12 @@ class DistributionController extends GetxController {
       showTopDivider: true,
       // onClick: _toResetPasswordPage,
     ));
-    menuList.add(_MenuItem(title: "粉丝订单", showDivider: false));
+    menuList.add(_MenuItem(
+        title: "粉丝订单",
+        showDivider: false,
+        onClick: () {
+          Get.toNamed(RoutesID.FANS_ORDER_PAGE);
+        }));
   }
 
   @override
