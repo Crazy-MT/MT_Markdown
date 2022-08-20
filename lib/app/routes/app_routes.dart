@@ -3,6 +3,7 @@
 // ignore_for_file: constant_identifier_names
 
 class RoutesID {
+  static const MY_COMMISSION_PAGE = "/my_commission_page";
   static const COLLECTION_SETTINGS_PAGE = "/collection_settings_page";
   static const DRAWING_PAGE = "/drawing_page";
   static const DISTRIBUTION_PAGE = "/distribution_page";

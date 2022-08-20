@@ -1,6 +1,8 @@
+import 'dart:async';
+
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'dart:async';
 
 import '../../../../common/S.dart';
 
@@ -31,7 +33,7 @@ class _TimerTestState extends State<TimerTest> {
 
   @override
   Widget build(BuildContext context) {
-    print('MTMTMT _TimerTestState.build ${seconds}');
+    lLog('MTMTMT _TimerTestState.build ${seconds}');
     constructTime(seconds);
 
     return Row(

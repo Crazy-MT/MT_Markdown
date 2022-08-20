@@ -43,6 +43,8 @@ import '../modules/mine/collection_settings/collection_settings_binding.dart';
 import '../modules/mine/collection_settings/collection_settings_page.dart';
 import '../modules/mine/distribution/distribution_binding.dart';
 import '../modules/mine/distribution/distribution_page.dart';
+import '../modules/mine/distribution/my_commission/my_commission_binding.dart';
+import '../modules/mine/distribution/my_commission/my_commission_page.dart';
 
 class AppPages {
   AppPages._();
@@ -50,6 +52,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // my_commission
+    GetPage(
+      name: RoutesID.MY_COMMISSION_PAGE,
+      page: () => const MyCommissionPage(),
+      binding: MyCommissionBinding(),
+    ),
+
     // collection_settings
     GetPage(
       name: RoutesID.COLLECTION_SETTINGS_PAGE,

@@ -1,8 +1,8 @@
 import 'dart:ui';
 
+import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:code_zero/common/components/status_page/status_page.dart';
 
 import '../../../../common/colors.dart';
 import '../../../routes/app_routes.dart';
@@ -28,7 +28,7 @@ class DistributionController extends GetxController {
     menuList.add(_MenuItem(
         title: "我的佣金",
         onClick: () {
-          // Get.toNamed(RoutesID.USER_INFORMATION_PAGE);
+          Get.toNamed(RoutesID.MY_COMMISSION_PAGE);
         }));
     menuList.add(_MenuItem(title: "提现记录", showDivider: false));
     menuList.add(_MenuItem(
@@ -38,7 +38,6 @@ class DistributionController extends GetxController {
     ));
     menuList.add(_MenuItem(title: "粉丝订单", showDivider: false));
   }
-
 
   @override
   void onClose() {}
@@ -66,4 +65,3 @@ class _MenuItem {
     this.titleColor = AppColors.text_dark,
   });
 }
-
