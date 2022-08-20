@@ -52,7 +52,6 @@ class HomeController extends GetxController {
     fenquList.add(_FenquItem("耳坠", Assets.imagesErzhui));
     fenquList.add(_FenquItem("戒指", Assets.imagesJiezhi));
     fenquList.add(_FenquItem("手镯", Assets.imagesShouzhuo));
-    fenquList.add(_FenquItem("手镯", Assets.imagesErzhui));
   }
 
   scrollerToTop() {

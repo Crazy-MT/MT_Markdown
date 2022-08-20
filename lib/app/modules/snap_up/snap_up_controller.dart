@@ -21,6 +21,7 @@ class SnapUpController extends GetxController {
   initSnapUpList() {
     snapUpList.add("抢购专区");
     snapUpList.add("积分专区");
+    snapUpList.add("积分专区");
   }
 
   @override

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'colors.dart';
 
 class S {
   static final colors = _Colors();
@@ -30,10 +33,14 @@ class _TextStyles {
     color: S.colors.red,
   );
 
-  final grey = TextStyle(
-    color: Color(0xff757575),
-    fontSize: 12
+  final grey = TextStyle(color: Color(0xff757575), fontSize: 12.sp);
+
+  final green = TextStyle(
+    fontSize: 14.sp,
+    color: AppColors.green,
   );
+
+  final timer = TextStyle(color: Colors.black, fontSize: 14.sp);
 }
 
 class _Shadows {

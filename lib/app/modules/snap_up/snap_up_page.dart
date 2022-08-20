@@ -1,4 +1,5 @@
 import 'package:code_zero/app/modules/snap_up/widget/snap_up_item_title.dart';
+import 'package:code_zero/app/modules/snap_up/widget/timer.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../common/S.dart';
 import 'snap_up_controller.dart';
 
 class SnapUpPage extends GetView<SnapUpController> {
@@ -41,6 +43,7 @@ class SnapUpPage extends GetView<SnapUpController> {
       backgroundColor: Colors.transparent,
       flexibleSpace: FlexibleSpaceBar(
         title: Text('抢购'),
+        centerTitle: true,
         background: Image.asset(
           Assets.imagesAppBarBg,
           fit: BoxFit.cover,
@@ -216,11 +219,20 @@ class SnapUpPage extends GetView<SnapUpController> {
                     fit: BoxFit.fill,
                   )),
               alignment: Alignment.center,
-              child: Text(
+              child: index == 2 ? Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('倒计时', style: S.textStyles.green),
+                    SizedBox(width: 5.w,),
+                    TimerTest(seconds: 100,)
+                  ],
+                ),
+              ) : Text(
                 index < 1 ? "2022年8月30日  00:00" : "未开放",
                 style: TextStyle(
                   fontSize: 14.sp,
-                  color: index < 2 ? AppColors.green : Colors.white,
+                  color: AppColors.green,
                 ),
               ),
             ),

@@ -50,6 +50,7 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
       ],
       flexibleSpace: FlexibleSpaceBar(
         title: Text('购物车'),
+        centerTitle: true,
         background: Image.asset(
           Assets.imagesAppBarBg,
           fit: BoxFit.cover,
