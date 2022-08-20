@@ -51,4 +51,12 @@ class UserModel extends ConvertInterface {
     data['token'] = this.token;
     return data;
   }
+
+  bool member() {
+    return isMember == 1;
+  }
+
+  bool captain() {
+    return isCaptain == 1;
+  }
 }

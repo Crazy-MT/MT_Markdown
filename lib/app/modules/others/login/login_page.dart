@@ -38,18 +38,6 @@ class LoginPage extends GetView<LoginController> {
             Get.back();
           },
         ),
-        actions: [
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              "注册",
-              style: TextStyle(
-                fontSize: 14.sp,
-                color: AppColors.green,
-              ),
-            ),
-          ),
-        ],
       ),
       body: Obx(
         () => FTStatusPage(

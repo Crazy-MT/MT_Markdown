@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -41,71 +42,105 @@ class MinePage extends GetView<MineController> {
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
-                              Container(
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(left: 20.w),
-                                      width: 60.w,
-                                      height: 60.w,
-                                      child: SafeClickGesture(
-                                        onTap: () {},
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(10.w),
-                                          ),
-                                          child:
-                                              Image.asset(Assets.iconsMineUser),
+                              Obx(
+                                () => Container(
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            left: 20.w, top: 8.w),
+                                        width: 60.w,
+                                        height: 68.w,
+                                        // color: Colors.red,
+                                        child: Stack(
+                                          children: [
+                                            Container(
+                                              // height: 60.w,
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(10.w),
+                                                ),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: userHelper.userInfo
+                                                          .value?.avatarUrl ??
+                                                      "",
+                                                  width: 60.w,
+                                                  // height: 90.w,
+                                                  errorWidget: (_, __, ___) {
+                                                    return Image.asset(Assets
+                                                        .iconsAvatarPlaceholder);
+                                                  },
+                                                  placeholder: (_, __) {
+                                                    return Image.asset(Assets
+                                                        .iconsAvatarPlaceholder);
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                            (userHelper.isLogin.value &&
+                                                    userHelper.userInfo.value !=
+                                                        null &&
+                                                    userHelper.userInfo.value!
+                                                        .captain())
+                                                ? Positioned(
+                                                    bottom: 0,
+                                                    child: Image.asset(
+                                                      Assets.iconsCaptain,
+                                                      width: 30.w,
+                                                    ))
+                                                : SizedBox.shrink(),
+                                          ],
+                                          alignment:
+                                              AlignmentDirectional.topCenter,
                                         ),
                                       ),
-                                    ),
-                                    Obx(
-                                      () => Container(
+                                      Container(
                                         margin: EdgeInsets.only(
                                             left: 10.w,
                                             top: 10.w,
                                             bottom: 10.w),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            !userHelper.isLogin.value
-                                                ? TextButton(
-                                                    onPressed: () {
-                                                      Get.toNamed(
-                                                          RoutesID.LOGIN_PAGE);
-                                                    },
-                                                    child: Text(
-                                                      "登录/注册",
-                                                      style: TextStyle(
-                                                        color:
-                                                            AppColors.text_dark,
-                                                        fontSize: 18.sp,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                    ))
-                                                : Container(
-                                                    child: Text(
+                                        child: !userHelper.isLogin.value
+                                            ? TextButton(
+                                                onPressed: () {
+                                                  Get.toNamed(
+                                                      RoutesID.LOGIN_PAGE);
+                                                },
+                                                child: Text(
+                                                  "登录/注册",
+                                                  style: TextStyle(
+                                                    color: AppColors.text_dark,
+                                                    fontSize: 18.sp,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ))
+                                            : Container(
+                                                child: Text(
+                                                  userHelper.userInfo.value
+                                                          ?.nickname ??
                                                       "传翠",
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                        fontSize: 20.sp,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Color.fromRGBO(
-                                                            68, 68, 68, 1),
-                                                      ),
-                                                    ),
-                                                  )
-                                          ],
-                                        ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontSize: 20.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color.fromRGBO(
+                                                        68, 68, 68, 1),
+                                                  ),
+                                                ),
+                                              ),
                                       ),
-                                    ),
-                                  ],
+                                      (userHelper.isLogin.value &&
+                                              userHelper.userInfo.value !=
+                                                  null &&
+                                              userHelper.userInfo.value!
+                                                  .member())
+                                          ? Image.asset(
+                                              Assets.iconsMember,
+                                              width: 37.w,
+                                            )
+                                          : SizedBox.shrink(),
+                                    ],
+                                  ),
                                 ),
                               ),
                               Positioned(
