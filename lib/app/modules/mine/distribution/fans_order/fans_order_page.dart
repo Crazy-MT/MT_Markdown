@@ -17,7 +17,7 @@ class FansOrderPage extends GetView<FansOrderController> {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       appBar: CommonAppBar(
-        titleText: "我的佣金",
+        titleText: "粉丝订单",
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

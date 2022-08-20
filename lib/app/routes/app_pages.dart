@@ -53,6 +53,8 @@ import '../modules/mine/address_manage/address_manage_binding.dart';
 import '../modules/mine/address_manage/address_manage_page.dart';
 import '../modules/mine/address_manage/address_edit/address_edit_binding.dart';
 import '../modules/mine/address_manage/address_edit/address_edit_page.dart';
+import '../modules/mine/distribution/my_fans/my_fans_binding.dart';
+import '../modules/mine/distribution/my_fans/my_fans_page.dart';
 
 class AppPages {
   AppPages._();
@@ -72,6 +74,12 @@ class AppPages {
       name: RoutesID.ADDRESS_MANAGE_PAGE,
       page: () => const AddressManagePage(),
       binding: AddressManageBinding(),
+    ),
+    // my_fans
+    GetPage(
+      name: RoutesID.MY_FANS_PAGE,
+      page: () => const MyFansPage(),
+      binding: MyFansBinding(),
     ),
 
     // fans_order

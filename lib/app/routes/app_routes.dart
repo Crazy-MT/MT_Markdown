@@ -5,6 +5,7 @@
 class RoutesID {
   static const ADDRESS_EDIT_PAGE = "/address_edit_page";
   static const ADDRESS_MANAGE_PAGE = "/address_manage_page";
+  static const MY_FANS_PAGE = "/my_fans_page";
   static const FANS_ORDER_PAGE = "/fans_order_page";
   static const BIND_RECOMMEND_PAGE = "/bind_recommend_page";
   static const MY_COMMISSION_PAGE = "/my_commission_page";

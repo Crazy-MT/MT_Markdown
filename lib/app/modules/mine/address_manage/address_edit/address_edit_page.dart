@@ -51,6 +51,7 @@ class AddressEditPage extends GetView<AddressEditController> {
     return Visibility(
       visible: controller.type == AddressType.edit,
       child: SafeTapWidget(
+        onTap: () {  },
         child: Container(
           padding: EdgeInsets.only(right: 20.w),
           alignment: Alignment.center,
