@@ -122,8 +122,8 @@ class UserInformationController extends GetxController {
       },
       requestType: RequestType.POST,
       errorBack: (errorCode, errorMsg, expMsg) {
-        Utils.showToastMsg("上传失败：${errorCode == -1 ? expMsg : errorMsg}");
-        errorLog("上传失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        Utils.showToastMsg("修改失败：${errorCode == -1 ? expMsg : errorMsg}");
+        errorLog("修改失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
       },
       onSuccess: (_) {
         userHelper.userInfo.value?.birthday = birthday.value;
@@ -132,6 +132,8 @@ class UserInformationController extends GetxController {
         userHelper.userInfo.value?.nickname = nameController?.text;
         userHelper.userInfo.value?.avatarUrl = avatarImg.value;
         userHelper.userInfo.update((val) {});
+        Utils.showToastMsg("修改成功");
+        Get.back();
       }
     );
 

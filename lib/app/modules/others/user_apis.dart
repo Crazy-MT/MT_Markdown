@@ -12,6 +12,9 @@ class UserApis {
 
   static const String UPLOAD = NetConstant.HOST + "/file/uploads";
   static const String UPDATE_INFO = NetConstant.HOST + PREFIX + "/update-info";
+
+  static const String UPDATE_PASSWORD = NetConstant.HOST + PREFIX + "/update-password";
+
   // static const String GUEST_LOGIN = NetConstant.HOST + PREFIX + "/guest_login";
   // static const String REGISTER = NetConstant.HOST + PREFIX + "/register";
 }

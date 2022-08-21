@@ -1,3 +1,4 @@
+import 'package:code_zero/app/modules/others/login/login_controller.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/common_input.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../../../../utils/utils.dart';
 import 'reset_password_controller.dart';
 
 class ResetPasswordPage extends GetView<ResetPasswordController> {
@@ -106,7 +108,8 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
         child: ElevatedButton(
           onPressed: controller.sendSmsCountdown.value <= 0
               ? () {
-                  // controller.login();
+                  controller.startCountDown();
+                  controller.getSMS();
                 }
               : null,
           style: ElevatedButton.styleFrom(
@@ -120,7 +123,9 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
             ),
           ),
           child: Text(
-            "获取验证码",
+            controller.sendSmsCountdown.value <= 0
+                ? "获取验证码"
+                : "${controller.sendSmsCountdown.value}s",
             style: TextStyle(
               color: Colors.white.withOpacity(
                   controller.sendSmsCountdown.value <= 0 ? 1 : 0.5),
@@ -205,7 +210,14 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
         child: ElevatedButton(
           onPressed: controller.resetBtnEnable.value
               ? () {
-                  controller.resetPwd();
+                  if (controller.newPasswordController.text ==
+                      controller.confirmPasswordController.text) {
+                    controller.resetPwd();
+                  } else {
+                    Utils.showToastMsg("两次密码不一致，请重新输入");
+                    controller.newPasswordController.text = "";
+                    controller.confirmPasswordController.text = "";
+                  }
                 }
               : null,
           style: ElevatedButton.styleFrom(
@@ -221,7 +233,7 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
           child: Text(
             "重置密码",
             style: TextStyle(
-              color: AppColors.text_dark
+              color: AppColors.text_white
                   .withOpacity(controller.resetBtnEnable.value ? 1 : 0.5),
               fontSize: 16.sp,
             ),
