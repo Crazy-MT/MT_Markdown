@@ -9,6 +9,7 @@ import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'dart:ui' as ui;
 import 'dart:io';
+import 'package:flutter/services.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 
@@ -40,7 +41,10 @@ class InviteController extends GetxController {
   // 分享朋友圈
   shareWechatLine() {}
   // 复制连接
-  copyLink() {}
+  copyLink() {
+    Clipboard.setData(ClipboardData(text: ''));
+  }
+
   // 保存海报
   savaImage() async {
     RenderObject? obj = repaintWidgetKey.currentContext?.findRenderObject();

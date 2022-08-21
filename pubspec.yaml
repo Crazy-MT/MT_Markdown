@@ -23,6 +23,9 @@ dependencies:
   image_picker: 0.8.5+3
   image_cropper: 3.0.0
   date_format: 2.0.6
+  qr_flutter: ^4.0.0
+  permission_handler: ^10.0.0
+  image_gallery_saver: ^1.7.1
   flutter:
     sdk: flutter
 
@@ -40,7 +43,6 @@ dev_dependencies:
 
 flutter:
   assets:
-    - assets/icons/
     - assets/images/
     - assets/images/shopping_cart/
     - assets/
@@ -49,4 +51,4 @@ flutter:
 flutter_assets:
   assets_path: assets/
   output_path: lib/generated/assets
-  compress_images: false_images: false
+  compress_images: false

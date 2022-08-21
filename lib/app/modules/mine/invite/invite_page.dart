@@ -17,6 +17,7 @@ class InvitePage extends GetView<InviteController> {
   Widget build(BuildContext context) {
     return Obx(
       () => FTStatusPage(
+        physics: NeverScrollableScrollPhysics(),
         type: controller.pageStatus.value,
         errorMsg: controller.errorMsg.value,
         builder: (BuildContext context) {
