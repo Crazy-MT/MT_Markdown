@@ -20,6 +20,9 @@ dependencies:
   flutter_svg: 1.0.3
   device_info: 2.0.3
   url_launcher: 6.1.5
+  image_picker: 0.8.5+3
+  image_cropper: 3.0.0
+  date_format: 2.0.6
   flutter:
     sdk: flutter
 

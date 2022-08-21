@@ -66,19 +66,20 @@ class LRequest {
     ErrorCallback? errorBack,
     OnSuccess<T>? onSuccess,
     bool isShowErrorToast = true,
+    FormData? formData,
   }) async {
     Response response;
     dio.options.headers[NetConstant.TOKEN] = userHelper.userToken;
     dio.options.headers[NetConstant.UNIQUE_ID] = deviceUtil.getUniqueID();
-
+    dio.options.headers[NetConstant.AUTHORIZATION] = "Bearer " + userHelper.userToken;
     try {
       lLog("request get start =======>net: $url");
       if (requestType == RequestType.GET) {
         response = await dio.get(url, queryParameters: queryParameters);
       } else {
-        response = await dio.post(url, data: /* FormData.fromMap(data ?? {})*/ data);
+        response = await dio.post(url, data: formData ?? data);
       }
-      lLog("request get over =======>net: $url");
+      lLog("request get over =======>net: $response ");
       //同一错误处理，如果需要可以后面放开
       // if (!skipError) await handleError(response, context: context, url: url);
       BaseModel<T> baseModel = BaseModel.fromJson(response.data, t);

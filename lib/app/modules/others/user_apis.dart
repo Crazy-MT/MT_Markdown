@@ -9,6 +9,9 @@ class UserApis {
   static const String LOGIN = NetConstant.HOST + PREFIX + "/login";
   static const String PHONE_LOGIN = NetConstant.HOST + PREFIX + "/phone-login";
   static const String SMS = NetConstant.HOST + "/sms" + "/send-user-login-code";
+
+  static const String UPLOAD = NetConstant.HOST + "/file/uploads";
+  static const String UPDATE_INFO = NetConstant.HOST + PREFIX + "/update-info";
   // static const String GUEST_LOGIN = NetConstant.HOST + PREFIX + "/guest_login";
   // static const String REGISTER = NetConstant.HOST + PREFIX + "/register";
 }

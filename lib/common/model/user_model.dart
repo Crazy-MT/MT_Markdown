@@ -59,4 +59,8 @@ class UserModel extends ConvertInterface {
   bool captain() {
     return isCaptain == 1;
   }
+
+  String getGender() {
+    return gender == 0 ? "保密" : (gender == 1 ? "男" : "女");
+  }
 }

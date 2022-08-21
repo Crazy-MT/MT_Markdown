@@ -18,7 +18,7 @@ class BaseModel<T extends ConvertInterface> {
         data!.add(t!.fromJson(v));
       });
     } else {
-      data = json['data'];
+      // data = json['data'];
     }
   }
 

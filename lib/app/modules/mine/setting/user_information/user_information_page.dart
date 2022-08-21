@@ -5,12 +5,15 @@ import 'package:code_zero/common/components/common_input.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../../../../../utils/log_utils.dart';
 import 'user_information_controller.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:date_format/date_format.dart';
 class UserInformationPage extends GetView<UserInformationController> {
   const UserInformationPage({Key? key}) : super(key: key);
 
@@ -36,7 +39,10 @@ class UserInformationPage extends GetView<UserInformationController> {
           builder: (BuildContext context) {
             return CustomScrollView(
               slivers: [
-                _buildMenuList(),
+                _buildAvatarItem(),
+                _buildNameItem(),
+                _buildGenderItem(),
+                _buildDateItem(),
                 SliverToBoxAdapter(child: _buildConfirmButton()),
               ],
             );
@@ -46,73 +52,187 @@ class UserInformationPage extends GetView<UserInformationController> {
     );
   }
 
-  _buildMenuList() {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (content, index) {
-          return _buildMenuItem(index);
-        },
-        childCount: controller.menuList.length,
-      ),
-    );
-  }
-
-  _buildMenuItem(index) {
-    var item = controller.menuList[index];
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          SafeTapWidget(
-            onTap: () {
-              item.onClick?.call();
-            },
-            child: Container(
-              height: item.height,
+  _buildAvatarItem() {
+    return SliverToBoxAdapter(
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            Container(
+              height: 84.w,
               width: double.infinity,
               margin: EdgeInsets.symmetric(horizontal: 15.w),
               child: Row(
                 children: [
                   Text(
-                    item.title,
+                    "头像",
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                      color: item.titleColor,
+                      color: AppColors.text_dark,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                   Expanded(
-                    child: item.subTitle != null
-                        ? CommonInput(
-                            // controller: controller,
-                            enable: item.canEdit,
-                            fillColor: Colors.transparent,
-                            hintStyle: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: item.subTitleColor,
-                            ),
-                            hintText: item.subTitle,
-                            textAlign: TextAlign.end,
-                          )
-                        : SizedBox(),
+                    child: SizedBox(),
                   ),
-                  item.image != null
-                      ? ClipOval(
+                  SafeTapWidget(
+                    onTap: () async {
+                      controller.chooseAndUploadImage();
+                    },
+                    child: Obx(() => ClipOval(
                           child: CachedNetworkImage(
-                            imageUrl: item.image!,
-                            width: 60.w,
-                            height: 60.w,
-                          ),
-                        )
-                      : SizedBox(),
+                              imageUrl: controller.avatarImg.value,
+                              width: 60.w,
+                              height: 60.w,
+                              errorWidget: (_, __, ___) {
+                                return Image.asset(
+                                    Assets.iconsAvatarPlaceholder);
+                              }),
+                        )),
+                  )
                 ],
               ),
             ),
-          ),
-          if (item.showDivider) _buildDivider(),
-        ],
+            _buildDivider(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildNameItem() {
+    return SliverToBoxAdapter(
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            Container(
+              height: 50.w,
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Row(
+                children: [
+                  Text(
+                    "用户名",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: AppColors.text_dark,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Expanded(
+                      child: CommonInput(
+                    controller: controller.nameController,
+                    enable: true,
+                    fillColor: Colors.transparent,
+                    hintStyle: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.text_dark,
+                    ),
+                    textAlign: TextAlign.end,
+                  )),
+                ],
+              ),
+            ),
+            _buildDivider(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildGenderItem() {
+    return SliverToBoxAdapter(
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            Container(
+              height: 50.w,
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Row(
+                children: [
+                  Text(
+                    "性别",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: AppColors.text_dark,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Expanded(child: SizedBox()),
+                  Obx(() => DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          iconSize: 0,
+                          value: controller.gender.value,
+                          items: [
+                            DropdownMenuItem(
+                              child: Text('保密'),
+                              value: 0,
+                            ),
+                            DropdownMenuItem(child: Text('男'), value: 1),
+                            DropdownMenuItem(child: Text('女'), value: 2),
+                          ],
+                          onChanged: (value) {
+                            controller.gender.value = value as int;
+                          },
+                        ),
+                      )),
+                ],
+              ),
+            ),
+            _buildDivider(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildDateItem() {
+    return SliverToBoxAdapter(
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            Container(
+              height: 50.w,
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Row(
+                children: [
+                  Text(
+                    "生日",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: AppColors.text_dark,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Expanded(child: SizedBox()),
+                  SafeTapWidget(
+                      onTap: () async {
+                        DateTime? result = await showDatePicker(
+                            context: Get.context!,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime(DateTime.now().year + 1));
+                        if (result != null) {
+                          controller.birthday.value = formatDate(result, [yyyy, '-', mm, '-', dd]);
+                        }
+                      },
+                      child: Text("请选择出生日期")),
+                ],
+              ),
+            ),
+            _buildDivider(),
+          ],
+        ),
       ),
     );
   }
@@ -126,20 +246,25 @@ class UserInformationPage extends GetView<UserInformationController> {
   }
 
   _buildConfirmButton() {
-    return Container(
-      margin: EdgeInsets.all(20.w),
-      alignment: Alignment.center,
-      height: 44.w,
-      decoration: BoxDecoration(
-        color: AppColors.green,
-        borderRadius: BorderRadius.circular(22.w),
-      ),
-      child: Text(
-        '确认修改',
-        style: TextStyle(
-          color: AppColors.text_dark,
-          fontSize: 16.sp,
-          fontWeight: FontWeight.w500,
+    return SafeTapWidget(
+      onTap: () {
+       controller.updateInfo();
+      },
+      child: Container(
+        margin: EdgeInsets.all(20.w),
+        alignment: Alignment.center,
+        height: 44.w,
+        decoration: BoxDecoration(
+          color: AppColors.green,
+          borderRadius: BorderRadius.circular(22.w),
+        ),
+        child: Text(
+          '确认修改',
+          style: TextStyle(
+            color: AppColors.text_white,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );
