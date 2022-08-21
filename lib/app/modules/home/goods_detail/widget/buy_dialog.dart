@@ -143,7 +143,9 @@ class _BuyDialog extends StatelessWidget {
               width: 335.w,
               height: 44.w,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.back(result: "1");
+                },
                 style: ElevatedButton.styleFrom(
                   shape: StadiumBorder(),
                 ).copyWith(

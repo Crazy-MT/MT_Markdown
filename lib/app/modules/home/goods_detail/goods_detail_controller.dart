@@ -54,7 +54,8 @@ class GoodsDetailController extends GetxController {
   }
 
   doBuy() async {
-    var result = await showByDialog(isAddToCat: false);
+    String result = await showByDialog(isAddToCat: false);
+    if (result.isEmpty) return;
     Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE);
   }
 
