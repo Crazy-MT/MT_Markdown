@@ -43,9 +43,10 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/images/shopping_cart/
+    - assets/
   uses-material-design: true
 
 flutter_assets:
   assets_path: assets/
   output_path: lib/generated/assets
-  compress_images: false
+  compress_images: false_images: false

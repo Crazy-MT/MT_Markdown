@@ -57,6 +57,8 @@ import '../modules/mine/distribution/my_fans/my_fans_binding.dart';
 import '../modules/mine/distribution/my_fans/my_fans_page.dart';
 import '../modules/home/submit_order/submit_order_binding.dart';
 import '../modules/home/submit_order/submit_order_page.dart';
+import '../modules/mine/invite/invite_binding.dart';
+import '../modules/mine/invite/invite_page.dart';
 
 class AppPages {
   AppPages._();
@@ -64,6 +66,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // invite
+    GetPage(
+      name: RoutesID.INVITE_PAGE,
+      page: () => const InvitePage(),
+      binding: InviteBinding(),
+    ),
+
     // submit_order
     GetPage(
       name: RoutesID.SUBMIT_ORDER_PAGE,

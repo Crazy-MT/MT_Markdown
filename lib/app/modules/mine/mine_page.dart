@@ -132,7 +132,9 @@ class MinePage extends GetView<MineController> {
                                                 ),
                                               ),
                                       ),
-                                      SizedBox(width: 10.w,),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
                                       (userHelper.isLogin.value &&
                                               userHelper.userInfo.value !=
                                                   null &&
@@ -405,10 +407,10 @@ class MinePage extends GetView<MineController> {
                                         }),
                                       ),
                                       Expanded(
-                                        child: buildItem(
-                                            "邀请好友",
-                                            Assets.iconsMineYaoqinghaoyou,
-                                            () {}),
+                                        child: buildItem("邀请好友",
+                                            Assets.iconsMineYaoqinghaoyou, () {
+                                          Get.toNamed(RoutesID.INVITE_PAGE);
+                                        }),
                                       ),
                                       Expanded(
                                         child: buildItem("收货地址",
