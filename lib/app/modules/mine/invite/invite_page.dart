@@ -168,7 +168,7 @@ class InvitePage extends GetView<InviteController> {
         Navigator.pop(context);
       },
       child: Image.asset(
-        Assets.inviteCloseIcon,
+        Assets.imagesInviteCloseIcon,
         width: 22.w,
         height: 22.w,
       ),
