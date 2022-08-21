@@ -43,9 +43,9 @@ dev_dependencies:
 
 flutter:
   assets:
+    - assets/icons/
     - assets/images/
     - assets/images/shopping_cart/
-    - assets/
   uses-material-design: true
 
 flutter_assets:
