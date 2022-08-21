@@ -30,13 +30,13 @@ class SettingController extends GetxController {
         onClick: () {
           Get.toNamed(RoutesID.USER_INFORMATION_PAGE);
         }));
-    menuList.add(_MenuItem(title: "收货地址管理", showDivider: false));
+    // menuList.add(_MenuItem(title: "收货地址管理", showDivider: false));
     menuList.add(_MenuItem(
       title: "修改登录密码",
       showTopDivider: true,
       onClick: _toResetPasswordPage,
     ));
-    menuList.add(_MenuItem(title: "支付密码管理", showDivider: false));
+    // menuList.add(_MenuItem(title: "支付密码管理", showDivider: false));
 
     menuList.add(_MenuItem(title: "功能反馈", showTopDivider: true));
     menuList.add(_MenuItem(
