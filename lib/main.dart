@@ -11,6 +11,7 @@ import 'package:oktoast/oktoast.dart';
 
 import 'app/routes/app_pages.dart';
 import 'app/routes/app_routes.dart';
+import 'network/l_request.dart';
 import 'utils/log_utils.dart';
 import 'package:flutter_ume/flutter_ume.dart'; // UME 框架
 import 'package:flutter_ume_kit_ui/flutter_ume_kit_ui.dart'; // UI 插件包
@@ -45,7 +46,8 @@ void main() {
         ..register(MemoryInfoPage())
         ..register(CpuInfoPage())
         ..register(DeviceInfoPanel())
-        ..register(Console());
+        ..register(Console())
+        ..register(DioInspector(dio: LRequest.dio));
       // flutter_ume 0.3.0 版本之后
       runApp(UMEWidget(child: App(), enable: true));
     } else {

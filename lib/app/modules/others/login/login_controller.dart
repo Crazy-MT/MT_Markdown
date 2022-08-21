@@ -82,8 +82,26 @@ class LoginController extends GetxController {
     Get.back();
   }
 
-  _smsCodeLogin() {
-    Utils.showToastMsg("验证码登录失败，请使用密码登录");
+  _smsCodeLogin() async {
+    ResultData<UserModel>? _result = await LRequest.instance.request<UserModel>(
+      url: UserApis.PHONE_LOGIN,
+      t: UserModel(),
+      data: {
+        "phone": phoneController.text,
+        "authCode": passwordController.text,
+      },
+      requestType: RequestType.POST,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        Utils.showToastMsg("登录失败：${errorCode == -1 ? expMsg : errorMsg}");
+        errorLog("登录失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+      },
+    );
+
+    if (_result?.value == null) {
+      return;
+    }
+    userHelper.whenLogin(_result!.value!);
+    Get.back();
   }
 
   startCountDown() {
@@ -97,6 +115,28 @@ class LoginController extends GetxController {
         timer.cancel();
       }
     });
+  }
+
+  getSMS() async {
+    lLog('MTMTMT LoginController.getSMS ${phoneController.text}');
+    ResultData<UserModel>? _result = await LRequest.instance.request<UserModel>(
+      url: UserApis.SMS,
+      t: UserModel(),
+      queryParameters: {
+        "phone": phoneController.text,
+      },
+      requestType: RequestType.GET,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        sendCodeCountDown.value = 0;
+        timer?.cancel();
+        Utils.showToastMsg("获取验证码失败：${errorCode == -1 ? expMsg : errorMsg}");
+        errorLog("获取验证码失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+      },
+    );
+
+    if (_result?.value == null) {
+      return;
+    }
   }
 
   @override

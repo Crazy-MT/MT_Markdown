@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../common/user_helper.dart';
 import 'setting_controller.dart';
 
 class SettingPage extends GetView<SettingController> {
@@ -52,15 +54,28 @@ class SettingPage extends GetView<SettingController> {
             color: Colors.white,
             width: double.infinity,
             padding: EdgeInsets.all(20.w).copyWith(bottom: 10.w),
-            child: Row(
+            child: Obx(() => Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                ClipOval(
-                  child: Image.asset(
-                    Assets.iconsMineUser,
+                ClipRRect(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10.w),
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl: userHelper.userInfo
+                        .value?.avatarUrl ??
+                        "",
                     width: 60.w,
-                    height: 69.w,
+                    // height: 90.w,
+                    errorWidget: (_, __, ___) {
+                      return Image.asset(Assets
+                          .iconsAvatarPlaceholder);
+                    },
+                    placeholder: (_, __) {
+                      return Image.asset(Assets
+                          .iconsAvatarPlaceholder);
+                    },
                   ),
                 ),
                 SizedBox(
@@ -70,7 +85,8 @@ class SettingPage extends GetView<SettingController> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      "翡翠爱好者",
+                      userHelper.userInfo
+                          .value?.nickname ?? "",
                       style: TextStyle(
                         color: AppColors.text_dark,
                         fontSize: 18.sp,
@@ -81,7 +97,8 @@ class SettingPage extends GetView<SettingController> {
                       height: 5.w,
                     ),
                     Text(
-                      "19910736696",
+                      userHelper.userInfo
+                          .value?.phone ?? "",
                       style: TextStyle(
                         color: Color(0xFF757575),
                         fontSize: 14.sp,
@@ -91,7 +108,7 @@ class SettingPage extends GetView<SettingController> {
                   ],
                 ),
               ],
-            ),
+            )),
           ),
           _buildDivider(),
         ],

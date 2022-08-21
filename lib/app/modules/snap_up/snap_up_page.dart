@@ -1,6 +1,8 @@
 import 'package:code_zero/app/modules/snap_up/widget/snap_up_item_title.dart';
 import 'package:code_zero/app/modules/snap_up/widget/timer.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
+import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
@@ -86,38 +88,43 @@ class SnapUpPage extends GetView<SnapUpController> {
                   topRight: Radius.circular(8.w),
                 ),
               ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 13.w,
-                  ),
-                  Text(
-                    "10:50-12:00 可提前2分钟进入浏览",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.sp,
+              child: SafeTapWidget(
+                onTap: () {
+                  Get.toNamed(RoutesID.MESSAGE_PAGE);
+                },
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 13.w,
                     ),
-                  ),
-                  Expanded(child: SizedBox()),
-                  Container(
-                    width: 66.w,
-                    height: 22.w,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFFF6E7),
-                      borderRadius: BorderRadius.circular(4.w),
-                    ),
-                    margin: EdgeInsets.only(right: 8.w),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "查看详情",
+                    Text(
+                      "10:50-12:00 可提前2分钟进入浏览",
                       style: TextStyle(
-                        fontSize: 12.sp,
-                        color: AppColors.gold_dark,
-                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                        fontSize: 14.sp,
                       ),
                     ),
-                  ),
-                ],
+                    Expanded(child: SizedBox()),
+                    Container(
+                      width: 66.w,
+                      height: 22.w,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFFFF6E7),
+                        borderRadius: BorderRadius.circular(4.w),
+                      ),
+                      margin: EdgeInsets.only(right: 8.w),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "查看详情",
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: AppColors.gold_dark,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

@@ -132,6 +132,7 @@ class MinePage extends GetView<MineController> {
                                                 ),
                                               ),
                                       ),
+                                      SizedBox(width: 10.w,),
                                       (userHelper.isLogin.value &&
                                               userHelper.userInfo.value !=
                                                   null &&

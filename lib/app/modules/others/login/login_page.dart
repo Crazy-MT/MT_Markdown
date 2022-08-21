@@ -115,6 +115,7 @@ class LoginPage extends GetView<LoginController> {
                   ? null
                   : () {
                       controller.startCountDown();
+                      controller.getSMS();
                     },
               child: Text(
                 controller.sendCodeCountDown.value <= 0 ? "获取验证码" : "${controller.sendCodeCountDown.value}s",
