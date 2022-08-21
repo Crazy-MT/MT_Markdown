@@ -55,6 +55,8 @@ import '../modules/mine/address_manage/address_edit/address_edit_binding.dart';
 import '../modules/mine/address_manage/address_edit/address_edit_page.dart';
 import '../modules/mine/distribution/my_fans/my_fans_binding.dart';
 import '../modules/mine/distribution/my_fans/my_fans_page.dart';
+import '../modules/home/submit_order/submit_order_binding.dart';
+import '../modules/home/submit_order/submit_order_page.dart';
 
 class AppPages {
   AppPages._();
@@ -62,6 +64,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // submit_order
+    GetPage(
+      name: RoutesID.SUBMIT_ORDER_PAGE,
+      page: () => const SubmitOrderPage(),
+      binding: SubmitOrderBinding(),
+    ),
+
     // address_edit
     GetPage(
       name: RoutesID.ADDRESS_EDIT_PAGE,

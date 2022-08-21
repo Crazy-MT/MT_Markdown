@@ -1,3 +1,5 @@
+import 'package:code_zero/app/modules/home/goods_detail/widget/buy_dialog.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -49,6 +51,15 @@ class GoodsDetailController extends GetxController {
     for (var i = 0; i < 9; i++) {
       detailPicList.add(pic);
     }
+  }
+
+  doBuy() async {
+    var result = await showByDialog(isAddToCat: false);
+    Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE);
+  }
+
+  doAddToCart() async {
+    var result = await showByDialog(isAddToCat: true);
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/common/colors.dart';
+import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
@@ -356,42 +357,52 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
               SizedBox(
                 width: 35.w,
               ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 24.w,
-                  vertical: 11.w,
-                ).copyWith(top: 10.w),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.w),
-                    border: Border.all(
-                      width: 2.w,
-                      color: Colors.black,
-                    )),
-                child: Text(
-                  "加入购物车",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
+              SafeTapWidget(
+                onTap: () {
+                  controller.doAddToCart();
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 24.w,
+                    vertical: 11.w,
+                  ).copyWith(top: 10.w),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30.w),
+                      border: Border.all(
+                        width: 2.w,
+                        color: Colors.black,
+                      )),
+                  child: Text(
+                    "加入购物车",
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
               SizedBox(
                 width: 8.w,
               ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 32.w,
-                  vertical: 11.w,
-                ).copyWith(top: 10.w),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.w),
-                  color: AppColors.green,
-                ),
-                child: Text(
-                  "立即购买",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
+              SafeTapWidget(
+                onTap: () {
+                  controller.doBuy();
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 32.w,
+                    vertical: 11.w,
+                  ).copyWith(top: 10.w),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.w),
+                    color: AppColors.green,
+                  ),
+                  child: Text(
+                    "立即购买",
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
