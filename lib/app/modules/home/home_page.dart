@@ -22,6 +22,15 @@ class HomePage extends GetView<HomeController> {
               FTStatusPage(
                 type: controller.pageStatus.value,
                 errorMsg: controller.errorMsg.value,
+                enablePullUp: true,
+                enablePullDown: true,
+                controller: controller.refreshController,
+                onRefresh: () {
+                  controller.getRecommendList();
+                },
+                onLoading: () {
+                  controller.getRecommendList(isRefresh: false);
+                },
                 builder: (BuildContext context) {
                   return CustomScrollView(
                     controller: controller.scrollController,
@@ -284,19 +293,21 @@ class HomePage extends GetView<HomeController> {
   }
 
   _buildRecommendGrid() {
-    return SliverPadding(
-      padding: EdgeInsets.all(15.w).copyWith(top: 0),
-      sliver: SliverGrid(
-          delegate: SliverChildBuilderDelegate((context, index) {
-            return _buildRecommendItem(index);
-          }, childCount: controller.recommendList.length),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 165 / 280,
-            crossAxisSpacing: 15.w,
-            mainAxisSpacing: 17.w,
-          )),
-    );
+    return Obx(() {
+      return SliverPadding(
+        padding: EdgeInsets.all(15.w).copyWith(top: 0),
+        sliver: SliverGrid(
+            delegate: SliverChildBuilderDelegate((context, index) {
+              return _buildRecommendItem(index);
+            }, childCount: controller.recommendList.length),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 165 / 280,
+              crossAxisSpacing: 15.w,
+              mainAxisSpacing: 17.w,
+            )),
+      );
+    });
   }
 
   _buildRecommendItem(index) {
