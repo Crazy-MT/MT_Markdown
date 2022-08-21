@@ -37,7 +37,7 @@ class InvitePage extends GetView<InviteController> {
                 SizedBox(height: 47.w),
                 _sharePlatformWidget(),
                 SizedBox(height: 35.w),
-                _closeWidget(),
+                _closeWidget(context),
               ],
             ),
           );
@@ -162,9 +162,11 @@ class InvitePage extends GetView<InviteController> {
     );
   }
 
-  Widget _closeWidget() {
+  Widget _closeWidget(BuildContext context) {
     return SafeTapWidget(
-      onTap: () {},
+      onTap: () {
+        Navigator.pop(context);
+      },
       child: Image.asset(
         Assets.inviteCloseIcon,
         width: 22.w,
