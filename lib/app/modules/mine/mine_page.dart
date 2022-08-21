@@ -433,7 +433,9 @@ class MinePage extends GetView<MineController> {
                                         child: buildItem(
                                             "收款设置",
                                             Assets.iconsMineShoukuanshezhi,
-                                            () {}),
+                                            () {
+                                              Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE);
+                                            }),
                                       ),
                                       Expanded(
                                         child: buildItem("分销中心",

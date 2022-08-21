@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/snap_up/model/session_model.dart';
 import 'package:code_zero/app/modules/snap_up/widget/snap_up_item_title.dart';
 import 'package:code_zero/app/modules/snap_up/widget/timer.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
@@ -23,6 +25,15 @@ class SnapUpPage extends GetView<SnapUpController> {
         () => FTStatusPage(
           type: controller.pageStatus.value,
           errorMsg: controller.errorMsg.value,
+          enablePullUp: true,
+          enablePullDown: true,
+          controller: controller.refreshController,
+          onRefresh: () {
+            controller.getSnapUpList();
+          },
+          onLoading: () {
+            controller.getSnapUpList(isRefresh: false);
+          },
           builder: (BuildContext context) {
             return CustomScrollView(
               slivers: [
@@ -157,20 +168,23 @@ class SnapUpPage extends GetView<SnapUpController> {
   }
 
   _buildSnapUpList() {
-    return SliverPadding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w),
-      sliver: SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (content, index) {
-            return _buildSnapUpItem(index);
-          },
-          childCount: controller.snapUpList.length,
+    return Obx(() {
+      return SliverPadding(
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
+        sliver: SliverList(
+          delegate: SliverChildBuilderDelegate(
+                (content, index) {
+              return _buildSnapUpItem(index);
+            },
+            childCount: controller.snapUpList.length,
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   _buildSnapUpItem(index) {
+    Item item = controller.snapUpList[index];
     return Container(
       width: 345.w,
       height: 200.w,
@@ -179,9 +193,7 @@ class SnapUpPage extends GetView<SnapUpController> {
         color: AppColors.bg_gray,
         borderRadius: BorderRadius.circular(8.w),
         image: DecorationImage(
-          image: AssetImage(
-            Assets.iconsSnapBg1,
-          ),
+          image: CachedNetworkImageProvider(item.imageUrl ?? ""),
           fit: BoxFit.cover,
         ),
       ),
@@ -191,7 +203,7 @@ class SnapUpPage extends GetView<SnapUpController> {
         children: [
           Padding(
             padding: EdgeInsets.all(10.w),
-            child: SnapUpTitle(name: controller.snapUpList[index]),
+            child: SnapUpTitle(name: item.name ?? ""),
           ),
           Padding(
             padding: EdgeInsets.only(top: 10.w),
@@ -226,7 +238,7 @@ class SnapUpPage extends GetView<SnapUpController> {
                     fit: BoxFit.fill,
                   )),
               alignment: Alignment.center,
-              child: index == 2 ? Container(
+              child: item.isTimer() ? Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

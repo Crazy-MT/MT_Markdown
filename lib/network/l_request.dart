@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
 import 'package:code_zero/common/common.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
