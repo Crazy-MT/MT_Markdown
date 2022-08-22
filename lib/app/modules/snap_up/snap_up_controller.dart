@@ -32,31 +32,27 @@ class SnapUpController extends GetxController {
   }
 
   getSnapUpList({bool isRefresh = true}) async {
+    bool requestSuccess = true;
     if (isRefresh) {
-      bool requestSuccess = true;
-      ResultData<SessionModel>? _result = await LRequest.instance.request<SessionModel>(
-        url: SnapApis.LIST,
-        t: SessionModel(),
-        queryParameters: {
-          "page": currentPage,
-          "size": pageSize,
-        },
-        requestType: RequestType.GET,
-        errorBack: (errorCode, errorMsg, expMsg) {
-          Utils.showToastMsg("获取列表失败：${errorCode == -1 ? expMsg : errorMsg}");
-          errorLog("获取列表失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
-        },
-        onSuccess: (_) {
-          requestSuccess = true;
-        }
-      );
-
-      if (_result?.value == null) {
-        return;
-      }
+      currentPage = 1;
+      ResultData<SessionModel>? _result = await LRequest.instance.request<
+              SessionModel>(
+          url: SnapApis.LIST,
+          t: SessionModel(),
+          queryParameters: {
+            "page": currentPage,
+            "size": pageSize,
+          },
+          requestType: RequestType.GET,
+          errorBack: (errorCode, errorMsg, expMsg) {
+            Utils.showToastMsg("获取列表失败：${errorCode == -1 ? expMsg : errorMsg}");
+            errorLog("获取列表失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+          },
+          onSuccess: (_) {
+            requestSuccess = true;
+          });
 
       if (requestSuccess) {
-        currentPage == 1;
         snapUpList.value = [];
         snapUpList.addAll(_result!.value!.items!.toList());
         refreshController.refreshCompleted();
@@ -64,25 +60,40 @@ class SnapUpController extends GetxController {
         refreshController.refreshFailed();
       }
     } else {
-      await Future.delayed(Duration(seconds: 3));
       currentPage++;
-      bool requestSuccess = true;
+      ResultData<SessionModel>? _result = await LRequest.instance.request<
+              SessionModel>(
+          url: SnapApis.LIST,
+          t: SessionModel(),
+          queryParameters: {
+            "page": currentPage,
+            "size": pageSize,
+          },
+          requestType: RequestType.GET,
+          errorBack: (errorCode, errorMsg, expMsg) {
+            Utils.showToastMsg("获取列表失败：${errorCode == -1 ? expMsg : errorMsg}");
+            errorLog("获取列表失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+          },
+          onSuccess: (_) {
+            requestSuccess = true;
+          });
       if (requestSuccess) {
-        for (var i = 0; i < 10; i++) {
-          // snapUpList.add("积分专区");
-        }
+        snapUpList.addAll(_result!.value!.items!.toList());
         refreshController.loadComplete();
+
+        if (_result.value!.totalCount == 0) {
+          refreshController.loadNoData();
+        }
       } else {
         refreshController.loadFailed();
         refreshController.loadComplete();
       }
     }
-
-
   }
 
   @override
   void onClose() {}
+
   void setPageName(String newName) {
     pageName.value = newName;
   }

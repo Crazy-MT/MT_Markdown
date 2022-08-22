@@ -173,7 +173,7 @@ class SnapUpPage extends GetView<SnapUpController> {
         padding: EdgeInsets.symmetric(horizontal: 15.w),
         sliver: SliverList(
           delegate: SliverChildBuilderDelegate(
-                (content, index) {
+            (content, index) {
               return _buildSnapUpItem(index);
             },
             childCount: controller.snapUpList.length,
@@ -185,6 +185,11 @@ class SnapUpPage extends GetView<SnapUpController> {
 
   _buildSnapUpItem(index) {
     Item item = controller.snapUpList[index];
+    ImageProvider image = AssetImage(Assets.iconsSnapBg1);
+    if (Uri.parse(item.imageUrl ?? "").isAbsolute) {
+      image = CachedNetworkImageProvider(item.imageUrl!);
+    }
+
     return Container(
       width: 345.w,
       height: 200.w,
@@ -193,7 +198,7 @@ class SnapUpPage extends GetView<SnapUpController> {
         color: AppColors.bg_gray,
         borderRadius: BorderRadius.circular(8.w),
         image: DecorationImage(
-          image: CachedNetworkImageProvider(item.imageUrl ?? ""),
+          image: image,
           fit: BoxFit.cover,
         ),
       ),
@@ -238,22 +243,27 @@ class SnapUpPage extends GetView<SnapUpController> {
                     fit: BoxFit.fill,
                   )),
               alignment: Alignment.center,
-              child: item.isTimer() ? Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('倒计时', style: S.textStyles.green),
-                    SizedBox(width: 5.w,),
-                    TimerTest(seconds: 100,)
-                  ],
-                ),
-              ) : Text(
-                index < 1 ? "2022年8月30日  00:00" : "未开放",
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: AppColors.green,
-                ),
-              ),
+              child: item.status == 1
+                  ? Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('${item.startTime} -- ${item.endTime}', style: S.textStyles.green),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          // TimerTest(
+                          //   seconds: item.isTimer()["second"],
+                        ],
+                      ),
+                    )
+                  : Text(
+                      "未开放",
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: AppColors.green,
+                      ),
+                    ),
             ),
           ),
         ],

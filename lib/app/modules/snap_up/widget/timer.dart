@@ -93,6 +93,7 @@ class _TimerTestState extends State<TimerTest> {
     // int minute = seconds % 3600 ~/ 60;
     // int second = seconds % 60;
     hour = formatTime(seconds ~/ 3600);
+    // print('MTMTMT _TimerTestState.constructTime ${hour} ":" ${seconds}');
     minute = formatTime(seconds % 3600 ~/ 60);
     second = formatTime(seconds % 60);
   }

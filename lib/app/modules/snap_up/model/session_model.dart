@@ -72,12 +72,18 @@ class Item {
 
   /// 倒计时
   isTimer() {
+    Map map = {};
     String now = formatDate(DateTime.now(), [HH, ':', nn]);
     var nowArr = now.split(":");
     var startArr = startTime?.split(":");
-    /// TODO
-    // (nowArr[0] as int) > (startArr?[0] as int);
-    // ((nowArr[0] as int) == (startArr?[0] as int)) && (nowArr[1] as int) > (startArr?[1] as int);
-    return status == 1 ;
+    int nowHour = (int.parse(nowArr[0]));
+    int startHour = int.parse(startArr?[0] ?? "0");
+    int nowMinute = int.parse(nowArr[1]);
+    int startMinute = int.parse(startArr?[1] ?? "0");
+    map["open"] = status == 1  && ((startHour > nowHour) || ((nowHour == startHour) && startMinute > nowMinute));
+    if(map["open"]) {
+      map["second"] = (startHour - nowHour) * 60 * 60 + (startMinute - nowMinute) * 60;
+    }
+    return map;
   }
 }
