@@ -3,6 +3,7 @@ import 'package:code_zero/app/modules/mine/collection_settings/widget/bank_card_
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
 
 class BankCardListWidget extends StatelessWidget {
@@ -23,7 +24,7 @@ class BankCardListWidget extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      child: Get.find<CollectionSettingsController>().bankCardDidAdd.value == true ? _cardInfoWidget() : BankCardAddWidget(),
+      child: Obx(() => Get.find<CollectionSettingsController>().bankCardDidAdd.value ? _cardInfoWidget() : BankCardAddWidget()),
     );
   }
 

@@ -11,7 +11,7 @@ import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-//测试账号 15510015550  密码 123456
+//测试账号 17090311563      密码 123456
 
 class LoginController extends GetxController {
   final pageName = 'Login'.obs;
