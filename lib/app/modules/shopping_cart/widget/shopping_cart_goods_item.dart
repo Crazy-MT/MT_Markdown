@@ -3,6 +3,8 @@ import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'goods_number_widget.dart';
+
 class ShoppingCartGoodsItem extends StatelessWidget {
   const ShoppingCartGoodsItem({Key? key}) : super(key: key);
 
@@ -74,53 +76,9 @@ class ShoppingCartGoodsItem extends StatelessWidget {
           ),
         ),
         Expanded(child: SizedBox()),
-        GestureDetector(
-          onTap: () {},
-          child: Container(
-            alignment: Alignment.center,
-            width: 25.w,
-            height: 22.w,
-            color: Colors.transparent,
-            child: Text(
-              '-',
-              style: TextStyle(
-                color: Color(0xffD9D9D9),
-                fontSize: 18.sp,
-              ),
-            ),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 14.w),
-          alignment: Alignment.center,
-          height: 22.w,
-          decoration: BoxDecoration(
-            color: Color(0xffF5F5F5),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Text(
-            '1',
-            style: TextStyle(
-              color: Color(0xff111111),
-              fontSize: 15.sp,
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {},
-          child: Container(
-            color: Colors.transparent,
-            alignment: Alignment.center,
-            width: 25.w,
-            height: 22.w,
-            child: Text(
-              '+',
-              style: TextStyle(
-                color: Color(0xff111111),
-                fontSize: 18.sp,
-              ),
-            ),
-          ),
+        GoodsNumberWidget(
+          initNumber: 1,
+          maxNumber: 5,
         ),
       ],
     );

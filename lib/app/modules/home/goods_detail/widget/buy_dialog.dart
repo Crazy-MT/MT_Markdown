@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/shopping_cart/widget/goods_number_widget.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -125,11 +126,10 @@ class _BuyDialog extends StatelessWidget {
                             color: AppColors.text_dark,
                           ),
                         ),
-                        Container(
-                          width: 72.w,
-                          height: 22.w,
-                          color: Colors.red,
-                        )
+                        GoodsNumberWidget(
+                          initNumber: 1,
+                          maxNumber: 5,
+                        ),
                       ],
                     ),
                   ],

@@ -7,7 +7,7 @@ class SafeTapWidget extends StatefulWidget {
   final int milliseconds;
   final String trackClickTag;
 
-  const SafeTapWidget({Key? key, required this.onTap, this.milliseconds = 300, required this.child, this.trackClickTag = ""}) : super(key: key);
+  const SafeTapWidget({Key? key, required this.onTap, this.milliseconds = 150, required this.child, this.trackClickTag = ""}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SafeTapState();
