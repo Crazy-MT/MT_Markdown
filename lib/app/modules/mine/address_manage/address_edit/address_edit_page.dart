@@ -18,6 +18,7 @@ class AddressEditPage extends GetView<AddressEditController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFffffff),
+      resizeToAvoidBottomInset: false,
       appBar: CommonAppBar(
         titleText: controller.type == AddressType.add ? "新建收货地址" : "编辑地址管理",
         centerTitle: true,
@@ -51,7 +52,7 @@ class AddressEditPage extends GetView<AddressEditController> {
     return Visibility(
       visible: controller.type == AddressType.edit,
       child: SafeTapWidget(
-        onTap: () {  },
+        onTap: () {},
         child: Container(
           padding: EdgeInsets.only(right: 20.w),
           alignment: Alignment.center,
@@ -107,8 +108,7 @@ class AddressEditPage extends GetView<AddressEditController> {
                         item.showLocation
                             ? Row(
                                 children: [
-                                  Image.asset(Assets.imagesAddressLocationIcon,
-                                      width: 16.w, height: 16.w),
+                                  Image.asset(Assets.imagesAddressLocationIcon, width: 16.w, height: 16.w),
                                   SizedBox(width: 8.w),
                                   Text(
                                     '定位',

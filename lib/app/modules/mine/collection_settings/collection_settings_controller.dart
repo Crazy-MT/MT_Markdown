@@ -3,15 +3,14 @@ import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CollectionSettingsController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+class CollectionSettingsController extends GetxController with GetSingleTickerProviderStateMixin {
   final pageName = 'CollectionSettings'.obs;
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
 
   List<String> tabList = ['银行卡', '微信'];
   TabController? tabController;
-  RxInt currentIndex = 0.obs;
+  RxBool bankCardDidAdd = false.obs;
 
   @override
   void onInit() {
@@ -31,7 +30,6 @@ class CollectionSettingsController extends GetxController
       ///避免addListener调用2次
       if (tabController?.index == tabController?.animation?.value) {
         lLog("点击了下标为${tabController?.index}的tab");
-        currentIndex = tabController?.index == 0 ? 0.obs : 1.obs;
       }
     });
   }

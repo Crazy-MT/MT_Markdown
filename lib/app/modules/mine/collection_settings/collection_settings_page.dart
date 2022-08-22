@@ -16,6 +16,7 @@ class CollectionSettingsPage extends GetView<CollectionSettingsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
+      resizeToAvoidBottomInset: false,
       appBar: CommonAppBar(
         titleText: "收款方式",
         centerTitle: true,
@@ -68,8 +69,7 @@ class CollectionSettingsPage extends GetView<CollectionSettingsController> {
           labelColor: Color(0xff111111),
           unselectedLabelColor: Color(0xff434446),
           labelStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
-          unselectedLabelStyle:
-              TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
+          unselectedLabelStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
         ),
       ),
     );
