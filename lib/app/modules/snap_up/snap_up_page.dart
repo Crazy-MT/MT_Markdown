@@ -190,83 +190,88 @@ class SnapUpPage extends GetView<SnapUpController> {
       image = CachedNetworkImageProvider(item.imageUrl!);
     }
 
-    return Container(
-      width: 345.w,
-      height: 200.w,
-      margin: EdgeInsets.only(bottom: 15.w),
-      decoration: BoxDecoration(
-        color: AppColors.bg_gray,
-        borderRadius: BorderRadius.circular(8.w),
-        image: DecorationImage(
-          image: image,
-          fit: BoxFit.cover,
+    return SafeTapWidget(
+      onTap: () {
+
+      },
+      child: Container(
+        width: 345.w,
+        height: 200.w,
+        margin: EdgeInsets.only(bottom: 15.w),
+        decoration: BoxDecoration(
+          color: AppColors.bg_gray,
+          borderRadius: BorderRadius.circular(8.w),
+          image: DecorationImage(
+            image: image,
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(10.w),
-            child: SnapUpTitle(name: item.name ?? ""),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 10.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(Assets.iconsSnapTime),
-                Text(
-                  "开抢时间",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 13.sp,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(10.w),
+              child: SnapUpTitle(name: item.name ?? ""),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(Assets.iconsSnapTime),
+                  Text(
+                    "开抢时间",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13.sp,
+                    ),
                   ),
-                ),
-                Image.asset(
-                  Assets.iconsSnapTime,
-                ),
-              ],
+                  Image.asset(
+                    Assets.iconsSnapTime,
+                  ),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 15.w),
-            child: Container(
-              width: 165.w,
-              height: 30.w,
-              decoration: BoxDecoration(
-                  color: Color(0xFF050505).withOpacity(0.5),
-                  image: DecorationImage(
-                    image: AssetImage(
-                      Assets.iconsSnapOpen,
-                    ),
-                    fit: BoxFit.fill,
-                  )),
-              alignment: Alignment.center,
-              child: item.status == 1
-                  ? Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('${item.startTime} -- ${item.endTime}', style: S.textStyles.green),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          // TimerTest(
-                          //   seconds: item.isTimer()["second"],
-                        ],
+            Padding(
+              padding: EdgeInsets.only(top: 15.w),
+              child: Container(
+                width: 165.w,
+                height: 30.w,
+                decoration: BoxDecoration(
+                    color: Color(0xFF050505).withOpacity(0.5),
+                    image: DecorationImage(
+                      image: AssetImage(
+                        Assets.iconsSnapOpen,
                       ),
-                    )
-                  : Text(
-                      "未开放",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: AppColors.green,
+                      fit: BoxFit.fill,
+                    )),
+                alignment: Alignment.center,
+                child: item.status == 1
+                    ? Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('${item.startTime} -- ${item.endTime}', style: S.textStyles.green),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            // TimerTest(
+                            //   seconds: item.isTimer()["second"],
+                          ],
+                        ),
+                      )
+                    : Text(
+                        "未开放",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: AppColors.green,
+                        ),
                       ),
-                    ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

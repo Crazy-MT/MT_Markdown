@@ -158,34 +158,6 @@ class DistributionPage extends GetView<DistributionController> {
                   ],
                 )),
             Positioned(
-                right: 10.w,
-                top: 14.w,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15.w),
-                  ),
-                  padding: EdgeInsets.only(
-                      top: 5.w, bottom: 5.w, left: 6.w, right: 6.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "分销说明",
-                        style: TextStyle(
-                            fontSize: 11.sp, color: Color(0xFF111111)),
-                      ),
-                      SizedBox(
-                        width: 4.w,
-                      ),
-                      Image.asset(
-                        Assets.iconsArrRight,
-                        width: 7.w,
-                      )
-                    ],
-                  ),
-                )),
-            Positioned(
               bottom: 0,
               width: 345.w,
               child: Container(
