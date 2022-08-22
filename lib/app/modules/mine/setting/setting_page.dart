@@ -58,10 +58,7 @@ class SettingPage extends GetView<SettingController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10.w),
-                  ),
+                ClipOval(
                   child: CachedNetworkImage(
                     imageUrl: userHelper.userInfo
                         .value?.avatarUrl ??
@@ -83,6 +80,7 @@ class SettingPage extends GetView<SettingController> {
                 ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       userHelper.userInfo

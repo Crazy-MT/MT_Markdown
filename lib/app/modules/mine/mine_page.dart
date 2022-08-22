@@ -59,10 +59,7 @@ class MinePage extends GetView<MineController> {
                                           children: [
                                             Container(
                                               // height: 60.w,
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.w),
-                                                ),
+                                              child: ClipOval(
                                                 child: CachedNetworkImage(
                                                   imageUrl: userHelper.userInfo
                                                           .value?.avatarUrl ??
