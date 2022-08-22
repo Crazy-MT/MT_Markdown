@@ -4,7 +4,6 @@ import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 
 class BankCardListWidget extends StatelessWidget {
   const BankCardListWidget({Key? key}) : super(key: key);
