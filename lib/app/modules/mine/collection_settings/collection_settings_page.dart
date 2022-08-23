@@ -1,5 +1,5 @@
-import 'package:code_zero/app/modules/mine/collection_settings/widget/bank_card_list_widget.dart';
-import 'package:code_zero/app/modules/mine/collection_settings/widget/wechat_widget.dart';
+import 'package:code_zero/app/modules/mine/collection_settings/widget/bank_card_info_widget.dart';
+import 'package:code_zero/app/modules/mine/collection_settings/widget/wechat_info_widget.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/custom_indicator.dart';
@@ -87,8 +87,8 @@ class CollectionSettingsPage extends GetView<CollectionSettingsController> {
         physics: NeverScrollableScrollPhysics(),
         controller: controller.tabController,
         children: [
-          BankCardListWidget(),
-          WechatWidget(),
+          BankCardInfoWidget(),
+          WechatInfoWidget(),
         ],
       ),
     );

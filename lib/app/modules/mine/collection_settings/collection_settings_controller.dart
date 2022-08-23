@@ -12,6 +12,8 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
   TabController? tabController;
   RxBool bankCardDidAdd = false.obs;
 
+  final sendSmsCountdown = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
