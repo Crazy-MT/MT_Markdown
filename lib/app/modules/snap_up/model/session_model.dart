@@ -1,14 +1,9 @@
-// To parse this JSON data, do
-//
-//     final welcome = welcomeFromJson(jsonString);
-
 import 'dart:convert';
 
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../network/convert_interface.dart';
-
 
 class SessionModel extends ConvertInterface {
   SessionModel({
@@ -85,5 +80,39 @@ class Item {
       map["second"] = (startHour - nowHour) * 60 * 60 + (startMinute - nowMinute) * 60;
     }
     return map;
+  }
+
+  statusText() {
+    Map map = {};
+
+    if(status == 0) {
+      map["text"] = "未开放";
+      map["toast_text"] = "还未开放，敬请期待";
+      return map;
+    }
+    String now = formatDate(DateTime.now(), [HH, ':', nn]);
+    var nowArr = now.split(":");
+    var startArr = startTime?.split(":");
+    var endArr = endTime?.split(":");
+    int nowHour = (int.parse(nowArr[0]));
+    int nowMinute = int.parse(nowArr[1]);
+    int startHour = int.parse(startArr?[0] ?? "0");
+    int startMinute = int.parse(startArr?[1] ?? "0");
+    int endHour = int.parse(endArr?[0] ?? "0");
+    int endMinute = int.parse(endArr?[1] ?? "0");
+
+    if((nowHour > endHour) || (nowHour == endHour) && (nowMinute > endMinute)) {
+      map["text"] = "已结束";
+      map["toast_text"] = "已经结束，下次再来";
+      return map;
+    }
+
+    map["text"] = (startTime ?? "") + "--" + (endTime ?? "");;
+    // map["toast_text"] = "已经结束，下次再来";
+    return map;
+
+    // if(startHour > nowHour || ((startHour == nowHour) && (startMinute > nowMinute))) {
+    //   return (startTime ?? "") + "--" + (endTime ?? "");
+    // }
   }
 }

@@ -49,10 +49,30 @@ class SnapUpPage extends GetView<SnapUpController> {
     );
   }
 
+  Widget _rightManage() {
+    return GestureDetector(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.w),
+        alignment: Alignment.center,
+        color: Colors.transparent,
+        child: Text(
+          '提现说明',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14.sp,
+          ),
+        ),
+      ),
+    );
+  }
+
   _buildSliverAppBar() {
     return SliverAppBar(
       pinned: true,
       expandedHeight: 48.w,
+      actions: [
+        _rightManage(),
+      ],
       backgroundColor: Colors.transparent,
       flexibleSpace: FlexibleSpaceBar(
         title: Text('抢购'),
@@ -101,7 +121,7 @@ class SnapUpPage extends GetView<SnapUpController> {
               ),
               child: SafeTapWidget(
                 onTap: () {
-                  Get.toNamed(RoutesID.MESSAGE_PAGE);
+                  // Get.toNamed(RoutesID.MESSAGE_PAGE);
                 },
                 child: Row(
                   children: [
@@ -109,31 +129,13 @@ class SnapUpPage extends GetView<SnapUpController> {
                       width: 13.w,
                     ),
                     Text(
-                      "10:50-12:00 可提前2分钟进入浏览",
+                      "可提前20分钟进入浏览",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14.sp,
                       ),
                     ),
                     Expanded(child: SizedBox()),
-                    Container(
-                      width: 66.w,
-                      height: 22.w,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFFFF6E7),
-                        borderRadius: BorderRadius.circular(4.w),
-                      ),
-                      margin: EdgeInsets.only(right: 8.w),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "查看详情",
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: AppColors.gold_dark,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -192,7 +194,7 @@ class SnapUpPage extends GetView<SnapUpController> {
 
     return SafeTapWidget(
       onTap: () {
-
+        controller.snapClick(index);
       },
       child: Container(
         width: 345.w,
@@ -247,27 +249,13 @@ class SnapUpPage extends GetView<SnapUpController> {
                       fit: BoxFit.fill,
                     )),
                 alignment: Alignment.center,
-                child: item.status == 1
-                    ? Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('${item.startTime} -- ${item.endTime}', style: S.textStyles.green),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            // TimerTest(
-                            //   seconds: item.isTimer()["second"],
-                          ],
-                        ),
-                      )
-                    : Text(
-                        "未开放",
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: AppColors.green,
-                        ),
-                      ),
+                child: Text(
+                  item.statusText()["text"] ?? "",
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: AppColors.green,
+                  ),
+                ),
               ),
             ),
           ],

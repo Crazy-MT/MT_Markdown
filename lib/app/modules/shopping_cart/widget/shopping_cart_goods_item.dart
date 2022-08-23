@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'goods_number_widget.dart';
+import 'goods_number_widget.dart';
 
 class ShoppingCartGoodsItem extends StatelessWidget {
   const ShoppingCartGoodsItem({Key? key}) : super(key: key);

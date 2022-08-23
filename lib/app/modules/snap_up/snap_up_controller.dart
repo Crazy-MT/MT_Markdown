@@ -97,4 +97,13 @@ class SnapUpController extends GetxController {
   void setPageName(String newName) {
     pageName.value = newName;
   }
+
+  void snapClick(index) {
+    String toastText = snapUpList[index].statusText()["toast_text"] ?? "";
+    if(toastText.isEmpty) {
+      //
+    } else {
+      Utils.showToastMsg(toastText);
+    }
+  }
 }
