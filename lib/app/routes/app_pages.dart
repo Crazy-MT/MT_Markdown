@@ -63,6 +63,8 @@ import '../modules/others/local_html/local_html_binding.dart';
 import '../modules/others/local_html/local_html_page.dart';
 import '../modules/others/signature/signature_binding.dart';
 import '../modules/others/signature/signature_page.dart';
+import '../modules/snap_up/snap_detail/snap_detail_binding.dart';
+import '../modules/snap_up/snap_detail/snap_detail_page.dart';
 
 class AppPages {
   AppPages._();
@@ -82,6 +84,12 @@ class AppPages {
       name: RoutesID.LOCAL_HTML_PAGE,
       page: () => const LocalHtmlPage(),
       binding: LocalHtmlBinding(),
+    ),
+    // snap_detail
+    GetPage(
+      name: RoutesID.SNAP_DETAIL_PAGE,
+      page: () => const SnapDetailPage(),
+      binding: SnapDetailBinding(),
     ),
 
     // invite

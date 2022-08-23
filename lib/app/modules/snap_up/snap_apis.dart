@@ -6,4 +6,6 @@ class SnapApis {
   static const String PREFIX = "/session";
 
   static const String LIST = NetConstant.HOST + PREFIX + "/list";
+
+  static const String COMMODITY = NetConstant.HOST + "/commodity/list-buying-commodity";
 }

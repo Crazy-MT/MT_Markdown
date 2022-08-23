@@ -1,21 +1,21 @@
-import 'package:code_zero/app/modules/snap_up/model/session_model.dart';
-import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
-import 'package:code_zero/app/routes/app_routes.dart';
-import 'package:code_zero/common/components/status_page/status_page.dart';
-import 'package:date_format/date_format.dart';
+import 'package:code_zero/common/extend.dart';
 import 'package:get/get.dart';
+import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../network/base_model.dart';
-import '../../../network/l_request.dart';
-import '../../../utils/log_utils.dart';
-import '../../../utils/utils.dart';
+import '../../../../network/base_model.dart';
+import '../../../../network/l_request.dart';
+import '../../../../utils/log_utils.dart';
+import '../../../../utils/utils.dart';
+import '../model/session_model.dart';
+import '../snap_apis.dart';
+import 'model/commodity.dart' as c;
 
-class SnapUpController extends GetxController {
-  final pageName = 'SnapUp'.obs;
+class SnapDetailController extends GetxController {
+  final pageName = 'SnapDetail'.obs;
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
-  RxList<Item> snapUpList = RxList<Item>();
+  RxList<c.Item> commodityList = RxList<c.Item>();
 
   int currentPage = 1;
   int pageSize = 10;
@@ -29,19 +29,23 @@ class SnapUpController extends GetxController {
 
   initData() {
     pageStatus.value = FTStatusPageType.success;
-    getSnapUpList();
+    getRecommendList();
   }
 
-  getSnapUpList({bool isRefresh = true}) async {
+  getRecommendList({bool isRefresh = true}) async {
     if(isRefresh) {
       currentPage = 1;
     }
-    ResultData<SessionModel>? _result = await LRequest.instance.request<SessionModel>(
-        url: SnapApis.LIST,
-        t: SessionModel(),
+    await LRequest.instance.request<
+        c.CommodityModel>(
+        url: SnapApis.COMMODITY,
+        t: c.CommodityModel(),
         queryParameters: {
+          "session-id": 0,
+          /* TODO Get.arguments["id"]*/
           "page": currentPage,
           "size": pageSize,
+          "owner-is-admin": 0
         },
         requestType: RequestType.GET,
         errorBack: (errorCode, errorMsg, expMsg) {
@@ -57,14 +61,11 @@ class SnapUpController extends GetxController {
             return;
           }
           if(isRefresh) {
-            snapUpList.value = [];
+            commodityList.clear();
           } else {
             currentPage++;
           }
-          if (model.totalCount == 0) {
-            refreshController.loadNoData();
-          }
-          snapUpList.addAll(model.items!);
+          commodityList.addAll(model.items!);
           refreshController.refreshCompleted();
           refreshController.loadComplete();
         });
@@ -75,17 +76,5 @@ class SnapUpController extends GetxController {
 
   void setPageName(String newName) {
     pageName.value = newName;
-  }
-
-  void snapClick(index) {
-    String toastText = snapUpList[index].statusText()["toast_text"] ?? "";
-    if(toastText.isEmpty) {
-      Get.toNamed(RoutesID.SNAP_DETAIL_PAGE, arguments: {
-        "title": snapUpList[index].name,
-        "id": snapUpList[index].id
-      });
-    } else {
-      Utils.showToastMsg(toastText);
-    }
   }
 }
