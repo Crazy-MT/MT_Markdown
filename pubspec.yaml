@@ -26,13 +26,12 @@ dependencies:
   qr_flutter: ^4.0.0
   permission_handler: ^10.0.0
   image_gallery_saver: ^1.7.1
+  flutter_html: 3.0.0-alpha.2
   flutter:
     sdk: flutter
 
 dev_dependencies:
   flutter_lints: ^1.0.0
-  flutter_test:
-    sdk: flutter
   flutter_ume: ^1.0.2+1
   flutter_ume_kit_ui: ^1.0.0
   flutter_ume_kit_device: ^1.0.0
@@ -40,9 +39,12 @@ dev_dependencies:
   flutter_ume_kit_show_code: ^1.0.0
   flutter_ume_kit_console: ^1.0.0
   flutter_ume_kit_dio: ^1.0.0
+  flutter_test:
+    sdk: flutter
 
 flutter:
   assets:
+    - assets/html/
     - assets/icons/
     - assets/images/
     - assets/images/shopping_cart/

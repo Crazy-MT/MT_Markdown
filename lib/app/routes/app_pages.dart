@@ -59,6 +59,8 @@ import '../modules/home/submit_order/submit_order_binding.dart';
 import '../modules/home/submit_order/submit_order_page.dart';
 import '../modules/mine/invite/invite_binding.dart';
 import '../modules/mine/invite/invite_page.dart';
+import '../modules/others/local_html/local_html_binding.dart';
+import '../modules/others/local_html/local_html_page.dart';
 
 class AppPages {
   AppPages._();
@@ -66,6 +68,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // local_html
+    GetPage(
+      name: RoutesID.LOCAL_HTML_PAGE,
+      page: () => const LocalHtmlPage(),
+      binding: LocalHtmlBinding(),
+    ),
+
     // invite
     GetPage(
       name: RoutesID.INVITE_PAGE,
