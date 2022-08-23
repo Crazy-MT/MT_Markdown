@@ -1,3 +1,4 @@
+import 'package:code_zero/app/modules/others/widget/signature/signature_in_agreement.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/confirm_dialog.dart';
@@ -55,6 +56,7 @@ class SettingController extends GetxController {
             arguments: {
               "page_title": "用户注册协议",
               "html_file": "assets/html/user_registration_protocol.html",
+              "bottom_widget": SignatureInAgreement(),
             },
           );
         }));

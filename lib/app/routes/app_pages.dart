@@ -61,6 +61,8 @@ import '../modules/mine/invite/invite_binding.dart';
 import '../modules/mine/invite/invite_page.dart';
 import '../modules/others/local_html/local_html_binding.dart';
 import '../modules/others/local_html/local_html_page.dart';
+import '../modules/others/signature/signature_binding.dart';
+import '../modules/others/signature/signature_page.dart';
 
 class AppPages {
   AppPages._();
@@ -68,6 +70,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // signature
+    GetPage(
+      name: RoutesID.SIGNATURE_PAGE,
+      page: () => const SignaturePage(),
+      binding: SignatureBinding(),
+    ),
+
     // local_html
     GetPage(
       name: RoutesID.LOCAL_HTML_PAGE,

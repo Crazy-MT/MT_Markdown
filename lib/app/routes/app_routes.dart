@@ -3,6 +3,7 @@
 // ignore_for_file: constant_identifier_names
 
 class RoutesID {
+  static const SIGNATURE_PAGE = "/signature_page";
   static const LOCAL_HTML_PAGE = "/local_html_page";
   static const INVITE_PAGE = "/invite_page";
   static const SUBMIT_ORDER_PAGE = "/submit_order_page";
