@@ -1,7 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
-import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../../common/components/safe_tap_widget.dart';
 import '../../../routes/app_routes.dart';
@@ -10,8 +8,6 @@ import 'snap_detail_controller.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
-import 'package:code_zero/common/extend.dart';
-import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

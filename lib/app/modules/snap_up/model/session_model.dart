@@ -85,6 +85,9 @@ class Item {
   statusText() {
     Map map = {};
 
+    // startTime = "14:55";
+    // endTime = "23:00";
+
     if(status == 0) {
       map["text"] = "未开放";
       map["toast_text"] = "还未开放，敬请期待";
@@ -96,23 +99,29 @@ class Item {
     var endArr = endTime?.split(":");
     int nowHour = (int.parse(nowArr[0]));
     int nowMinute = int.parse(nowArr[1]);
+    int nowTime = nowHour * 60 + nowMinute; // 当前天分钟数
+
     int startHour = int.parse(startArr?[0] ?? "0");
     int startMinute = int.parse(startArr?[1] ?? "0");
+    int start = startHour * 60 + startMinute;
+
     int endHour = int.parse(endArr?[0] ?? "0");
     int endMinute = int.parse(endArr?[1] ?? "0");
+    int end = endHour * 60 + endMinute;
 
-    if((nowHour > endHour) || (nowHour == endHour) && (nowMinute > endMinute)) {
+    if(nowTime > end) {
       map["text"] = "已结束";
       map["toast_text"] = "已经结束，下次再来";
       return map;
     }
 
-    map["text"] = (startTime ?? "") + "--" + (endTime ?? "");;
-    // map["toast_text"] = "已经结束，下次再来";
-    return map;
+    if((start - nowTime) > 20) {
+      map["text"] = (startTime ?? "") + "--" + (endTime ?? "");;
+      map["toast_text"] = "还未开始，请稍后哦";
+      return map;
+    }
 
-    // if(startHour > nowHour || ((startHour == nowHour) && (startMinute > nowMinute))) {
-    //   return (startTime ?? "") + "--" + (endTime ?? "");
-    // }
+    map["text"] = (startTime ?? "") + "--" + (endTime ?? "");;
+    return map;
   }
 }
