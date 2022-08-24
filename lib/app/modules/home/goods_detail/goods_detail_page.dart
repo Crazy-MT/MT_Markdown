@@ -17,7 +17,6 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    print('MTMTMT GoodsDetailPage.build ${Get.arguments["from"]} ');
     return Scaffold(
       backgroundColor: AppColors.bg_gray,
       bottomNavigationBar: Get.arguments["from"] == RoutesID.SNAP_DETAIL_PAGE

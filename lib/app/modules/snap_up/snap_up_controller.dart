@@ -80,8 +80,8 @@ class SnapUpController extends GetxController {
   void snapClick(index) {
     String toastText = snapUpList[index].statusText()["toast_text"] ?? "";
     if(toastText.isEmpty) {
-      snapUpList[index].startTime = "15:19";
-      snapUpList[index].endTime = "15:45";
+      // snapUpList[index].startTime = "15:19";
+      // snapUpList[index].endTime = "15:45";
       Get.toNamed(RoutesID.SNAP_DETAIL_PAGE, arguments: {
         "title": snapUpList[index].name,
         "id": snapUpList[index].id,
