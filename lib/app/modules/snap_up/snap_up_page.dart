@@ -240,7 +240,7 @@ class SnapUpPage extends GetView<SnapUpController> {
                 width: 165.w,
                 height: 30.w,
                 decoration: BoxDecoration(
-                    color: Color(0xFF050505).withOpacity(0.5),
+                    // color: Color(0xFF050505),
                     image: DecorationImage(
                       image: AssetImage(
                         Assets.iconsSnapOpen,
