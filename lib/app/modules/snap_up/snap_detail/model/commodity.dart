@@ -6,7 +6,7 @@ class CommodityModel extends ConvertInterface {
         this.totalCount,
     });
 
-    List<Item>? items;
+    List<CommodityItem>? items;
     int? totalCount;
 
     Map<String, dynamic> toJson() => {
@@ -16,13 +16,13 @@ class CommodityModel extends ConvertInterface {
 
   @override
   ConvertInterface fromJson(Map<String, dynamic> json) => CommodityModel(
-      items: List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
+      items: List<CommodityItem>.from(json["items"].map((x) => CommodityItem.fromJson(x))),
       totalCount: json["totalCount"],
   );
 }
 
-class Item {
-    Item({
+class CommodityItem {
+    CommodityItem({
         this.id,
         this.name,
         this.commodityType,
@@ -58,12 +58,12 @@ class Item {
     String? originalPrice;
     String? currentPrice;
     int? orderNo;
-    List<ShowParam>? showParams;
+    List<Map>? showParams;
     int? isDelete;
     int? status;
     int? shelfId;
-    ShelfNickname? shelfNickname;
-    ShelfPhone? shelfPhone;
+    String? shelfNickname;
+    String? shelfPhone;
     DateTime? shelfAt;
     int? ownerIsAdmin;
     int? inventory;
@@ -72,7 +72,7 @@ class Item {
     List<String>? parameterImages;
     List<String>? images;
 
-    factory Item.fromJson(Map<String, dynamic> json) => Item(
+    factory CommodityItem.fromJson(Map<String, dynamic> json) => CommodityItem(
         id: json["id"],
         name: json["name"],
         commodityType: json["commodityType"],
@@ -83,12 +83,12 @@ class Item {
         originalPrice: json["originalPrice"],
         currentPrice: json["currentPrice"],
         orderNo: json["orderNo"],
-        showParams: List<ShowParam>.from(json["showParams"].map((x) => ShowParam.fromJson(x))),
+        showParams: List<Map>.from(json["showParams"]),
         isDelete: json["isDelete"],
         status: json["status"],
         shelfId: json["shelfId"],
-        shelfNickname: shelfNicknameValues.map[json["shelfNickname"]],
-        shelfPhone: shelfPhoneValues.map[json["shelfPhone"]],
+        shelfNickname: json["shelfNickname"],
+        shelfPhone: json["shelfPhone"],
         shelfAt: DateTime.parse(json["shelfAt"]),
         ownerIsAdmin: json["ownerIsAdmin"],
         inventory: json["inventory"],
@@ -100,21 +100,21 @@ class Item {
 
     Map<String, dynamic> toJson() => {
         "id": id,
-        "name": nameValues.reverse[name],
+        "name": name,
         "commodityType": commodityType,
         "sessionId": sessionId,
-        "sessionName": sessionNameValues.reverse[sessionName],
+        "sessionName": sessionName,
         "categoryId": categoryId,
         "categoryName": categoryName,
         "originalPrice": originalPrice,
         "currentPrice": currentPrice,
         "orderNo": orderNo,
-        "showParams": showParams != null ? List<dynamic>.from(showParams!.map((x) => x.toJson())) : [],
+        "showParams": showParams != null ? showParams : [],
         "isDelete": isDelete,
         "status": status,
         "shelfId": shelfId,
-        "shelfNickname": shelfNicknameValues.reverse[shelfNickname],
-        "shelfPhone": shelfPhoneValues.reverse[shelfPhone],
+        "shelfNickname": shelfNickname,
+        "shelfPhone": shelfPhone,
         "shelfAt": shelfAt?.toIso8601String(),
         "ownerIsAdmin": ownerIsAdmin,
         "inventory": inventory,
@@ -123,71 +123,4 @@ class Item {
         "parameterImages": parameterImages != null ? List<dynamic>.from(parameterImages!.map((x) => x))  : [],
         "images": images != null ? List<dynamic>.from(images!.map((x) => x)) : [],
     };
-}
-
-enum Name { THE_3 }
-
-final nameValues = EnumValues({
-    "大金镯子3": Name.THE_3
-});
-
-enum SessionName { EMPTY, SESSION_NAME }
-
-final sessionNameValues = EnumValues({
-    "黄金": SessionName.EMPTY,
-    "翡翠专区": SessionName.SESSION_NAME
-});
-
-enum ShelfNickname { SASAXIE, EMPTY }
-
-final shelfNicknameValues = EnumValues({
-    "商家自营": ShelfNickname.EMPTY,
-    "sasaxie": ShelfNickname.SASAXIE
-});
-
-enum ShelfPhone { THE_15510015550, EMPTY }
-
-final shelfPhoneValues = EnumValues({
-    "": ShelfPhone.EMPTY,
-    "15510015550": ShelfPhone.THE_15510015550
-});
-
-class ShowParam {
-    ShowParam({
-        this.empty,
-        this.isGood,
-    });
-
-    Empty? empty;
-    int? isGood;
-
-    factory ShowParam.fromJson(Map<String, dynamic> json) => ShowParam(
-        empty: json["名称"] == null ? null : emptyValues.map[json["名称"]],
-        isGood: json["isGood"] == null ? null : json["isGood"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "名称": empty == null ? null : emptyValues.reverse[empty],
-        "isGood": isGood == null ? null : isGood,
-    };
-}
-
-enum Empty { EMPTY }
-
-final emptyValues = EnumValues({
-    "大金镯子": Empty.EMPTY
-});
-
-class EnumValues<T> {
-    Map<String, T> map = {};
-    Map<T, String> reverseMap = {};
-
-    EnumValues(this.map);
-
-    Map<T, String> get reverse {
-        if (reverseMap == null) {
-            reverseMap = map.map((k, v) => new MapEntry(v, k));
-        }
-        return reverseMap;
-    }
 }

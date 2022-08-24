@@ -15,7 +15,7 @@ class SnapDetailController extends GetxController {
   final pageName = 'SnapDetail'.obs;
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
-  RxList<c.Item> commodityList = RxList<c.Item>();
+  RxList<c.CommodityItem> commodityList = RxList<c.CommodityItem>();
 
   int currentPage = 1;
   int pageSize = 10;

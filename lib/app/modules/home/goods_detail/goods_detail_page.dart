@@ -1,4 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/snap_up/model/session_model.dart';
+import 'package:code_zero/app/modules/snap_up/widget/count_down.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -14,9 +17,12 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
 
   @override
   Widget build(BuildContext context) {
+    print('MTMTMT GoodsDetailPage.build ${Get.arguments["from"]} ');
     return Scaffold(
       backgroundColor: AppColors.bg_gray,
-      bottomNavigationBar: _buildBottomAppBar(),
+      bottomNavigationBar: Get.arguments["from"] == RoutesID.SNAP_DETAIL_PAGE
+          ? _buildSnapBottomAppBar()
+          : _buildBottomAppBar(),
       appBar: AppBar(
         title: Text('商品详情',
             style: TextStyle(
@@ -31,13 +37,6 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
             Get.back();
           },
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.more_horiz_outlined),
-            color: Color(0xFF14181F),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: Obx(
         () => FTStatusPage(
@@ -51,6 +50,9 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                 _buildNameContainer(),
                 _buildGoodsParams(),
                 _buildIntroPicDivider(),
+                _buildThumbnailsPicList(),
+                _buildIntroParamsList(),
+                _buildParamPicList(),
                 _buildIntroPicList(),
               ],
             );
@@ -139,16 +141,9 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                     ),
                   ),
                   TextSpan(
-                    text: "30000",
+                    text: controller.goods.currentPrice ?? "",
                     style: TextStyle(
                       fontSize: 26.sp,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  TextSpan(
-                    text: ".00",
-                    style: TextStyle(
-                      fontSize: 22.sp,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -161,7 +156,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                     ),
                   ),
                   TextSpan(
-                    text: "¥60000.00",
+                    text: controller.goods.originalPrice ?? "",
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
@@ -189,27 +184,30 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
           text: TextSpan(
             children: [
               WidgetSpan(
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 6.w,
-                    vertical: 1.w,
-                  ),
-                  margin: EdgeInsets.only(right: 12.w, bottom: 1),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(4.w),
-                  ),
-                  child: Text(
-                    "自营",
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      color: Colors.white,
+                child: Visibility(
+                  visible: controller.goods.commodityType == 1,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 6.w,
+                      vertical: 1.w,
+                    ),
+                    margin: EdgeInsets.only(right: 12.w, bottom: 1),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(4.w),
+                    ),
+                    child: Text(
+                      "自营",
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
               ),
               TextSpan(
-                text: "以心参玉 A货翡翠吊坠 男女款飘花树叶玉石挂件 附送证书",
+                text: controller.goods.name ?? "",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 18.sp,
@@ -226,49 +224,34 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
   Widget _buildGoodsParams() {
     return SliverPadding(
       padding: EdgeInsets.symmetric(vertical: 10.w),
-      sliver: SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (content, index) {
-            return Container(
-              padding: EdgeInsets.symmetric(vertical: 9.w, horizontal: 15.w),
-              width: 375.w,
-              color: Colors.white,
-              child: Row(
-                children: [
-                  Text(
-                    "运费",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF757575),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  Expanded(
-                    child: Text(
-                      "商品参数",
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF757575),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    "500.0",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF141519),
-                    ),
-                  ),
-                ],
+      sliver: SliverToBoxAdapter(
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 9.w, horizontal: 15.w),
+          width: 375.w,
+          color: Colors.white,
+          child: Row(
+            children: [
+              Text(
+                "库存",
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF757575),
+                ),
               ),
-            );
-          },
-          childCount: controller.goodsParams.length,
+              Expanded(
+                child: SizedBox(),
+              ),
+              Text(
+                controller.goods.inventory.toString(),
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF141519),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -408,6 +391,162 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  /// 抢购进来
+  Widget _buildSnapBottomAppBar() {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minHeight: 58.w,
+      ),
+      child: Obx(() => BottomAppBar(
+            color: controller.timerRefresh.value ? Colors.white : Colors.white,
+            child: (controller.isCountDown()["isOpen"] &&
+                    controller.isCountDown()["seconds"] > 0)
+                ? Container(
+                    margin: EdgeInsets.only(
+                        right: 20.w, left: 20.w, top: 7.w, bottom: 7.w),
+                    height: 44.w,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30.w),
+                      color: AppColors.green,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "抢购倒计时",
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        CountDown(
+                          seconds: controller.isCountDown()["seconds"],
+                          changed: (_) {
+                            controller.timerRefresh.value = true;
+                          },
+                        )
+                      ],
+                    ),
+                  )
+                : Container(
+                    height: 58.w,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SafeTapWidget(
+                          onTap: () {
+                            // controller.doBuy();
+                          },
+                          child: Container(
+                            width: 335.w,
+                            height: 44.w,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30.w),
+                              color: AppColors.green,
+                            ),
+                            child: Text(
+                              controller.isCountDown()["text"],
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+          )),
+    );
+  }
+
+  _buildIntroParamsList() {
+    var param = [];
+    param.addAll(controller.goods.showParams ?? []);
+    // param.addAll(controller.goods.showParams ?? []);
+    return SliverPadding(
+      padding: EdgeInsets.all(15.w).copyWith(top: 0),
+      sliver: SliverGrid(
+          delegate: SliverChildBuilderDelegate((context, index) {
+            return _buildParamsItem(param[index]);
+          }, childCount: param.length),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 165 / 28,
+            // crossAxisSpacing: 15.w,
+            // mainAxisSpacing: 17.w,
+          )),
+    );
+  }
+
+  _buildParamsItem(Map param) {
+    return Container(
+        // width: 100.w,
+        // height: 100.w,
+        child: Text(
+      "【${param.keys.first}】${param.values.first}",
+      style: TextStyle(fontSize: 16.sp),
+    ));
+  }
+
+  _buildThumbnailsPicList() {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(vertical: 10.w),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (content, index) {
+            return Container(
+              width: 375.w,
+              color: Colors.white,
+              child: Row(
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: controller.thumbnailsList[index],
+                    width: 375.w,
+                  ),
+                ],
+              ),
+            );
+          },
+          childCount: controller.thumbnailsList.length,
+        ),
+      ),
+    );
+  }
+
+  _buildParamPicList() {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(vertical: 10.w),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (content, index) {
+            return Container(
+              width: 375.w,
+              color: Colors.white,
+              child: Row(
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: controller.paramsPicList[index],
+                    width: 375.w,
+                  ),
+                ],
+              ),
+            );
+          },
+          childCount: controller.paramsPicList.length,
         ),
       ),
     );

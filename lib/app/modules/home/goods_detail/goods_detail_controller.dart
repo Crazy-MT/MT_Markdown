@@ -1,6 +1,8 @@
 import 'package:code_zero/app/modules/home/goods_detail/widget/buy_dialog.dart';
+import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,15 +11,19 @@ class GoodsDetailController extends GetxController {
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
   PageController pageController = PageController();
-  RxList<String> goodsParams = RxList<String>();
+  RxList<String> thumbnailsList = RxList<String>();
+  RxList<String> paramsPicList = RxList<String>();
   RxList<String> introPicList = RxList<String>();
   RxList<String> detailPicList = RxList<String>();
+  CommodityItem goods = CommodityItem();
+  var timerRefresh = false.obs;
 
   final currentIndex = 0.obs;
 
   @override
   void onInit() {
     super.onInit();
+    goods = Get.arguments["good"];
     initData();
     pageController.addListener(() {
       currentIndex.value = pageController.page?.toInt() ?? 1;
@@ -26,31 +32,18 @@ class GoodsDetailController extends GetxController {
 
   initData() {
     pageStatus.value = FTStatusPageType.success;
-    initGoodsParams();
     initIntroPicList();
     initDetailPicList();
   }
 
-  initGoodsParams() {
-    goodsParams.add("item");
-    goodsParams.add("item");
-  }
-
   initIntroPicList() {
-    introPicList.add(
-        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg1.doubanio.com%2Fview%2Fgroup_topic%2Fl%2Fpublic%2Fp247525088.jpg&refer=http%3A%2F%2Fimg1.doubanio.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663143715&t=c2839982dc8a03d3a6a4987582de9342");
-    introPicList.add(
-        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg1.doubanio.com%2Fview%2Fgroup_topic%2Fl%2Fpublic%2Fp247525088.jpg&refer=http%3A%2F%2Fimg1.doubanio.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663143715&t=c2839982dc8a03d3a6a4987582de9342");
-    introPicList.add(
-        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg1.doubanio.com%2Fview%2Fgroup_topic%2Fl%2Fpublic%2Fp247525088.jpg&refer=http%3A%2F%2Fimg1.doubanio.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663143715&t=c2839982dc8a03d3a6a4987582de9342");
+    thumbnailsList.addAll(goods.thumbnails ?? []);
+    paramsPicList.addAll(goods.parameterImages ?? []);
+    introPicList.addAll(goods.images ?? []);
   }
 
   initDetailPicList() {
-    String pic =
-        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg1.doubanio.com%2Fview%2Fgroup_topic%2Fl%2Fpublic%2Fp247525088.jpg&refer=http%3A%2F%2Fimg1.doubanio.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663143715&t=c2839982dc8a03d3a6a4987582de9342";
-    for (var i = 0; i < 9; i++) {
-      detailPicList.add(pic);
-    }
+    detailPicList.addAll(goods.images ?? []);
   }
 
   doBuy() async {
@@ -67,5 +60,38 @@ class GoodsDetailController extends GetxController {
   void onClose() {}
   void setPageName(String newName) {
     pageName.value = newName;
+  }
+
+  isCountDown() {
+      Map map = {};
+      map['text'] = "立即抢购";
+      String now = formatDate(DateTime.now(), [HH, ':', nn, ':', ss]);
+      var nowArr = now.split(":");
+      var startTime = Get.arguments['startTime'];
+      var endTime = Get.arguments['endTime'];
+
+      var startArr = startTime?.split(":");
+      var endArr = endTime?.split(":");
+      int nowHour = (int.parse(nowArr[0]));
+      int nowMinute = int.parse(nowArr[1]);
+      int nowSecond = int.parse(nowArr[2]);
+      int nowTime = nowHour * 60 * 60 + nowMinute * 60 + nowSecond; // 当前天分钟数
+      int startHour = int.parse(startArr?[0] ?? "0");
+      int startMinute = int.parse(startArr?[1] ?? "0");
+      int start = startHour * 60 * 60 + startMinute * 60;
+
+      int endHour = int.parse(endArr?[0] ?? "0");
+      int endMinute = int.parse(endArr?[1] ?? "0");
+      int end = endHour * 60 * 60 + endMinute * 60;
+
+      /// 超时
+      if(nowTime > end) {
+        map['isOpen'] = false;
+        map['text'] = "已结束";
+      } else {
+        map['isOpen'] = true;
+      }
+      map['seconds'] = (start - nowTime);
+      return map;
   }
 }

@@ -74,11 +74,14 @@ class SnapDetailPage extends GetView<SnapDetailController> {
   }
 
   _buildRecommendItem(index) {
-    Item item = controller.commodityList[index];
+    CommodityItem item = controller.commodityList[index];
     return SafeTapWidget(
       onTap: () {
         Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
-          "from" : "抢购"
+          "from" : RoutesID.SNAP_DETAIL_PAGE,
+          "good" : item,
+          "startTime": Get.arguments['startTime'],
+          "endTime": Get.arguments['endTime'],
         });
       },
       child: Container(

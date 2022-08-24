@@ -1,20 +1,20 @@
 import 'dart:async';
 
-import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../common/S.dart';
 
-class TimerTest extends StatefulWidget {
-  TimerTest({Key? key, this.seconds}) : super(key: key);
+class CountDown extends StatefulWidget {
+  CountDown({Key? key, this.seconds, this.changed}) : super(key: key);
   final int? seconds;
+  final ValueChanged<bool>? changed;
 
   @override
-  createState() => new _TimerTestState();
+  createState() => new _CountDownState();
 }
 
-class _TimerTestState extends State<TimerTest> {
+class _CountDownState extends State<CountDown> {
   Timer? _timer;
   int seconds = 0;
 
@@ -33,7 +33,6 @@ class _TimerTestState extends State<TimerTest> {
 
   @override
   Widget build(BuildContext context) {
-    // lLog('MTMTMT _TimerTestState.build ${seconds}');
     constructTime(seconds);
 
     return Row(
@@ -42,10 +41,10 @@ class _TimerTestState extends State<TimerTest> {
           width: 22.w,
           height: 22.w,
           alignment: Alignment.center,
-          decoration: BoxDecoration(
+          /*decoration: BoxDecoration(
             color: Color(0xff1BDB8A),
             borderRadius: BorderRadius.circular(5.w),
-          ),
+          ),*/
           child: Text(
             "$hour",
             style: S.textStyles.timer,
@@ -59,10 +58,10 @@ class _TimerTestState extends State<TimerTest> {
           width: 22.w,
           height: 22.w,
           alignment: Alignment.center,
-          decoration: BoxDecoration(
+          /*decoration: BoxDecoration(
             color: Color(0xff1BDB8A),
             borderRadius: BorderRadius.circular(5.w),
-          ),
+          ),*/
           child: Text(
             "$minute",
             style: S.textStyles.timer,
@@ -76,10 +75,10 @@ class _TimerTestState extends State<TimerTest> {
           width: 22.w,
           height: 22.w,
           alignment: Alignment.center,
-          decoration: BoxDecoration(
+         /* decoration: BoxDecoration(
             color: Color(0xff1BDB8A),
             borderRadius: BorderRadius.circular(5.w),
-          ),
+          ),*/
           child: Text(
             "$second",
             style: S.textStyles.timer,
@@ -90,10 +89,7 @@ class _TimerTestState extends State<TimerTest> {
   }
 
   constructTime(int seconds) {
-    // int minute = seconds % 3600 ~/ 60;
-    // int second = seconds % 60;
     hour = formatTime(seconds ~/ 3600);
-    // print('MTMTMT _TimerTestState.constructTime ${hour} ":" ${seconds}');
     minute = formatTime(seconds % 3600 ~/ 60);
     second = formatTime(seconds % 60);
   }
@@ -119,6 +115,7 @@ class _TimerTestState extends State<TimerTest> {
       _timer?.cancel();
       _timer = null;
     }
+    widget.changed?.call(true);
   }
 
   @override

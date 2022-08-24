@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/snap_up/model/session_model.dart';
 import 'package:code_zero/app/modules/snap_up/widget/snap_up_item_title.dart';
-import 'package:code_zero/app/modules/snap_up/widget/timer.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';

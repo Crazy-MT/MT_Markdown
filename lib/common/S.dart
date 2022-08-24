@@ -40,7 +40,7 @@ class _TextStyles {
     color: AppColors.green,
   );
 
-  final timer = TextStyle(color: Colors.black, fontSize: 14.sp);
+  final timer = TextStyle(color: Colors.white, fontSize: 14.sp);
 }
 
 class _Shadows {
