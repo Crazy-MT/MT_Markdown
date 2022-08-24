@@ -173,9 +173,23 @@ class SignaturePage extends GetView<SignatureController> {
             color: Color(0xFFF5F5F5),
           ),
           child: Obx(
-            () => CustomPaint(
-              painter: SignatuePainter(controller.touchList, controller.test.value / 2),
-            ),
+            () => controller.touchList.isEmpty
+                ? RotatedBox(
+                    quarterTurns: 1,
+                    child: Padding(
+                      padding: EdgeInsets.all(15.w),
+                      child: Text(
+                        "请签字",
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFF111111),
+                        ),
+                      ),
+                    ))
+                : CustomPaint(
+                    painter: SignatuePainter(controller.touchList, controller.test.value / 2),
+                  ),
           ),
         ),
       ),

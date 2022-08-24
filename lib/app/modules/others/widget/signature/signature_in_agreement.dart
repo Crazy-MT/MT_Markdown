@@ -24,18 +24,18 @@ class SignatureInAgreement extends StatelessWidget {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10.w),
-            child: controller.signImgUrl.isEmpty
-                ? SafeTapWidget(
-                    onTap: () async {
-                      var result = await Get.toNamed(RoutesID.SIGNATURE_PAGE);
-                      if (result is String) {
-                        controller.signImgUrl.value = result;
-                      }
-                      lLog("signature result : $result");
-                    },
-                    child: Container(
+          SafeTapWidget(
+            onTap: () async {
+              var result = await Get.toNamed(RoutesID.SIGNATURE_PAGE);
+              if (result is String) {
+                controller.signImgUrl.value = result;
+              }
+              lLog("signature result : $result");
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.w),
+              child: controller.signImgUrl.isEmpty
+                  ? Container(
                       width: 335.w,
                       height: 178.w,
                       color: Color(0xFFF5F5F5),
@@ -48,19 +48,25 @@ class SignatureInAgreement extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                    ),
-                  )
-                : (controller.signImgUrl.value.startsWith("http")
-                    ? CachedNetworkImage(
-                        imageUrl: controller.signImgUrl.value,
-                        width: 335.w,
-                        height: 178.w,
-                      )
-                    : Image.file(
-                        File(controller.signImgUrl.value),
-                        width: 335.w,
-                        height: 178.w,
-                      )),
+                    )
+                  : (controller.signImgUrl.value.startsWith("http")
+                      ? RotatedBox(
+                          quarterTurns: 3,
+                          child: CachedNetworkImage(
+                            imageUrl: controller.signImgUrl.value,
+                            height: 335.w,
+                            width: 178.w,
+                          ),
+                        )
+                      : RotatedBox(
+                          quarterTurns: 3,
+                          child: Image.file(
+                            File(controller.signImgUrl.value),
+                            height: 335.w,
+                            width: 178.w,
+                          ),
+                        )),
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(
