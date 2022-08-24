@@ -44,6 +44,7 @@ class UserInformationController extends GetxController {
   initMenuList() {
     avatarImg.value = userHelper.userInfo.value?.avatarUrl ?? "";
     nameController?.text = userHelper.userInfo.value?.nickname ?? "";
+    birthday.value = userHelper.userInfo.value?.birthday ?? "";
   }
 
   @override

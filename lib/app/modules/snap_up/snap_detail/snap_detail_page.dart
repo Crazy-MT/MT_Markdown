@@ -77,7 +77,9 @@ class SnapDetailPage extends GetView<SnapDetailController> {
     Item item = controller.commodityList[index];
     return SafeTapWidget(
       onTap: () {
-        Get.toNamed(RoutesID.GOODS_DETAIL_PAGE);
+        Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
+          "from" : "抢购"
+        });
       },
       child: Container(
         child: Column(

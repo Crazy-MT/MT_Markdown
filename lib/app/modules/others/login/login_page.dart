@@ -221,13 +221,7 @@ class LoginPage extends GetView<LoginController> {
           Expanded(child: SizedBox()),
           TextButton(
             onPressed: () {
-              Get.toNamed(
-                RoutesID.RESET_PASSWORD_PAGE,
-                arguments: {
-                  "phone_number": "18812341234",
-                  "is_forget": true,
-                },
-              );
+              controller.forgetPasswordClick();
             },
             child: Text(
               "忘记密码",

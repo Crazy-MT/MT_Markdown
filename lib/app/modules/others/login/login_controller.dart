@@ -11,6 +11,8 @@ import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/app_routes.dart';
+
 //测试账号 17090311563      密码 123456
 
 class LoginController extends GetxController {
@@ -148,5 +150,19 @@ class LoginController extends GetxController {
 
   void setPageName(String newName) {
     pageName.value = newName;
+  }
+
+  void forgetPasswordClick() {
+    if(phoneController.value.text.isEmpty) {
+      Utils.showToastMsg("请输入手机号");
+      return;
+    }
+    Get.toNamed(
+      RoutesID.RESET_PASSWORD_PAGE,
+      arguments: {
+        "phone_number": phoneController.value.text,
+        "is_forget": true,
+      },
+    );
   }
 }

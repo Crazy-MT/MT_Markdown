@@ -4,6 +4,8 @@ import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/common_input.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
+import 'package:flutter_pickers/pickers.dart';
+import 'package:flutter_pickers/time_picker/model/date_mode.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -217,16 +219,15 @@ class UserInformationPage extends GetView<UserInformationController> {
                   Expanded(child: SizedBox()),
                   SafeTapWidget(
                       onTap: () async {
-                        DateTime? result = await showDatePicker(
-                            context: Get.context!,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime(DateTime.now().year + 1));
-                        if (result != null) {
-                          controller.birthday.value = formatDate(result, [yyyy, '-', mm, '-', dd]);
-                        }
+                        Pickers.showDatePicker(Get.context!, onConfirm: (p) {
+                          String month = (p.month!) < 10 ? "0"+p.month.toString() : p.month.toString();
+                          String day = (p.day!) < 10 ? "0"+p.day.toString() : p.day.toString();
+                          controller.birthday.value = "${p.year}-${month}-${day}";
+                        });
                       },
-                      child: Text("请选择出生日期")),
+                      child: Obx(() {
+                        return Text(controller.birthday.value);
+                      })),
                 ],
               ),
             ),
