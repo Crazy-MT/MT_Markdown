@@ -1,8 +1,11 @@
 import 'package:code_zero/app/modules/mine/address_manage/address_apis.dart';
+import 'package:code_zero/app/modules/mine/address_manage/model/address_list_model.dart';
 import 'package:code_zero/app/modules/mine/address_manage/model/create_address_model.dart';
+import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/network/base_model.dart';
+import 'package:code_zero/network/convert_interface.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
@@ -26,6 +29,8 @@ class AddressEditController extends GetxController {
   TextEditingController _region = TextEditingController();
   TextEditingController _address = TextEditingController();
 
+  AddressItem? addressItem;
+
   AddressType type = AddressType.add;
   RxList<_MenuItem> menuList = RxList<_MenuItem>();
 
@@ -39,6 +44,7 @@ class AddressEditController extends GetxController {
   initData() {
     pageStatus.value = FTStatusPageType.success;
     type = (Get.arguments['type'] as int) == 0 ? AddressType.add : AddressType.edit;
+    addressItem = (Get.arguments['item'] is AddressItem) ? Get.arguments['item'] : null;
   }
 
   initMenuList() {
@@ -88,6 +94,26 @@ class AddressEditController extends GetxController {
       Get.back(result: true);
       return;
     }
+  }
+
+  deleteAddress() {
+    showConfirmDialog(
+      onConfirm: () async {
+        ResultData<ConvertInterface>? _result = await LRequest.instance.request<CreateAddressModel>(
+          url: AddressApis.DELETE,
+          queryParameters: {
+            "id": addressItem?.id,
+          },
+          requestType: RequestType.GET,
+          errorBack: (errorCode, errorMsg, expMsg) {
+            Utils.showToastMsg("删除失败：${errorCode == -1 ? expMsg : errorMsg}");
+            errorLog("删除失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+          },
+        );
+        Get.back(result: true);
+      },
+      content: "确认删除该地址吗",
+    );
   }
 
   saveEdit() {}

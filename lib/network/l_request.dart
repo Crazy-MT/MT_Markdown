@@ -2,7 +2,6 @@
 
 import 'dart:io';
 
-import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
 import 'package:code_zero/common/common.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
@@ -110,7 +109,7 @@ class LRequest {
     } on DioError catch (e) {
       debugLog((e.response?.statusCode ?? -1).toString() + "${e.response?.data['message']}" + e.toString());
       errorLog(e.toString());
-      if (e.response != null && e.response?.data["code"] == 2001) {
+      if (e.response != null && e.response?.data["code"] == 20001) {
         userOutLoginError();
         return null;
       }

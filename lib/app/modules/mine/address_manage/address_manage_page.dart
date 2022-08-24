@@ -140,7 +140,15 @@ class AddressManagePage extends GetView<AddressManageController> {
         ),
         SafeTapWidget(
           onTap: () {
-            Get.toNamed(RoutesID.ADDRESS_EDIT_PAGE, arguments: {'type': 1});
+            Get.toNamed(RoutesID.ADDRESS_EDIT_PAGE, arguments: {
+              'type': 1,
+              'item': controller.addressList[index],
+            })?.then((value) {
+              if (value == true) {
+                controller.getAddressList();
+              }
+            });
+            ;
           },
           child: Image.asset(
             Assets.imagesAddressEditIcon,
