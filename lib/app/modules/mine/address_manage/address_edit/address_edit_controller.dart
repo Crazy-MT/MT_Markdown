@@ -12,6 +12,8 @@ import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../model/edit_address_model.dart';
+
 enum AddressType {
   add,
   edit,
@@ -44,7 +46,14 @@ class AddressEditController extends GetxController {
   initData() {
     pageStatus.value = FTStatusPageType.success;
     type = (Get.arguments['type'] as int) == 0 ? AddressType.add : AddressType.edit;
-    addressItem = (Get.arguments['item'] is AddressItem) ? Get.arguments['item'] : null;
+    if (Get.arguments['item'] is AddressItem) {
+      addressItem = Get.arguments['item'];
+      _consignee.text = addressItem?.consignee ?? "";
+      _phone.text = addressItem?.phone ?? "";
+      _region.text = addressItem?.region ?? "";
+      _address.text = addressItem?.address ?? "";
+      isDefault.value = addressItem?.isDefault == 1;
+    }
   }
 
   initMenuList() {
@@ -116,7 +125,30 @@ class AddressEditController extends GetxController {
     );
   }
 
-  saveEdit() {}
+  saveEdit() async {
+    ResultData<EditAddressModel>? _result = await LRequest.instance.request<EditAddressModel>(
+      url: AddressApis.UPDATE,
+      t: EditAddressModel(),
+      data: {
+        "consignee": _consignee.text,
+        "phone": _phone.text,
+        "region": _region.text,
+        "address": _address.text,
+        "isDefault": isDefault.value ? 1 : 0,
+        "id": addressItem?.id,
+      },
+      requestType: RequestType.POST,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        Utils.showToastMsg("更新失败：${errorCode == -1 ? expMsg : errorMsg}");
+        errorLog("更新失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+      },
+    );
+    if (_result?.value != null) {
+      lLog(_result!.value!.toJson().toString());
+      Get.back(result: true);
+      return;
+    }
+  }
 
   @override
   void onClose() {}

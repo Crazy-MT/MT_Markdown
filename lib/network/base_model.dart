@@ -10,12 +10,12 @@ class BaseModel<T extends ConvertInterface> {
   BaseModel.fromJson(Map<String, dynamic> json, T? t) {
     code = json['code'];
     message = json['message'];
-    if (json['data'] is Map) {
-      data = t!.fromJson(json['data']);
-    } else if (json['data'] is List) {
+    if (json['data'] is Map && t != null) {
+      data = t.fromJson(json['data']);
+    } else if (json['data'] is List && t != null) {
       data = <T>[];
       json['data'].forEach((v) {
-        data!.add(t!.fromJson(v));
+        data!.add(t.fromJson(v));
       });
     } else {
       data = json['data'];

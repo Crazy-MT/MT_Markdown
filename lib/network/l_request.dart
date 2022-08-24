@@ -72,7 +72,9 @@ class LRequest {
     FormData? formData,
   }) async {
     Response response;
-    dio.options.headers[NetConstant.TOKEN] = userHelper.userToken;
+    //TODO 上线前记得改掉
+    // dio.options.headers[NetConstant.TOKEN] = userHelper.userToken;
+    dio.options.headers[NetConstant.TOKEN] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjM5NDA3MzEsImlzQWRtaW4iOjAsInBob25lIjoiMTcwOTAzMTE1NjMifQ.E1vnhIK52hrUnTV9zXXu9v6R-TmWfQO3lsMRPFFPv48";
     dio.options.headers[NetConstant.UNIQUE_ID] = deviceUtil.getUniqueID();
     dio.options.headers[NetConstant.AUTHORIZATION] = "Bearer " + userHelper.userToken;
     try {
