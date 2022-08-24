@@ -62,19 +62,24 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
   Widget _rightManage() {
     return controller.goodsList.isEmpty
         ? Container()
-        : GestureDetector(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              alignment: Alignment.center,
-              color: Colors.transparent,
-              child: Text(
-                '管理',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14.sp,
-                ),
-              ),
-            ),
+        : Obx(
+            (() => GestureDetector(
+                  onTap: () {
+                    controller.isManageStatus.value = !controller.isManageStatus.value;
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    alignment: Alignment.center,
+                    color: Colors.transparent,
+                    child: Text(
+                      controller.isManageStatus.value == true ? '完成' : '管理',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                  ),
+                )),
           );
   }
 

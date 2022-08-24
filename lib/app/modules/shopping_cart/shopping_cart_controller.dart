@@ -9,6 +9,7 @@ class ShoppingCartController extends GetxController {
   ScrollController scrollController = ScrollController();
 
   List goodsList = ['1'].obs;
+  RxBool isManageStatus = false.obs;
 
   @override
   void onInit() {
