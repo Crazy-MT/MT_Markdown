@@ -47,6 +47,9 @@ class LRequest {
       client.badCertificateCallback = (X509Certificate cert, String host, int port) {
         return true;
       };
+      /*client.findProxy = (uri) {
+        return "PROXY 172.16.24.136:8888";
+      };*/
       return client;
     };
     // setProxy(SpUtil.getString(Constant.SP_KEY_SAVE_PROXY));
@@ -87,6 +90,7 @@ class LRequest {
       handleBaseModel?.call(baseModel);
       if (baseModel.code != 0) {
         errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg", "baseModel.code is not 0,this value is ${baseModel.code}");
+        return null;
       }
       ResultData<T> resultData = ResultData();
       if (baseModel.data is List) {

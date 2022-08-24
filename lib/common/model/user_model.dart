@@ -14,13 +14,15 @@ class UserModel extends ConvertInterface {
   int? hasBirthday;
   String? birthday;
   String? token;
+  int? hasSignature;
+  String? signatureUrl;
 
   @override
   fromJson(Map<String, dynamic> json) {
     return UserModel.fromJson(json);
   }
 
-  UserModel({this.id, this.nickname, this.gender, this.avatarUrl, this.hasPhone, this.phone, this.isCaptain, this.isMember, this.hasBirthday, this.birthday, this.token});
+  UserModel({this.id, this.nickname, this.gender, this.avatarUrl, this.hasPhone, this.phone, this.isCaptain, this.isMember, this.hasBirthday, this.birthday, this.token, this.hasSignature, this.signatureUrl});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -34,6 +36,8 @@ class UserModel extends ConvertInterface {
     hasBirthday = json['hasBirthday'];
     birthday = json['birthday'];
     token = json['token'];
+    hasSignature = json['hasSignature'];
+    signatureUrl = json['signatureUrl'];
   }
 
   Map<String, dynamic> toJson() {
@@ -49,6 +53,8 @@ class UserModel extends ConvertInterface {
     data['hasBirthday'] = this.hasBirthday;
     data['birthday'] = this.birthday;
     data['token'] = this.token;
+    data['hasSignature'] = this.hasSignature;
+    data['signatureUrl'] = this.signatureUrl;
     return data;
   }
 

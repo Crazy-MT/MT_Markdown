@@ -13,6 +13,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../../common/user_helper.dart';
 import '../../../../../network/base_model.dart';
+import '../../../../../network/upload_util.dart';
 import '../../../../../utils/log_utils.dart';
 import '../../../../../utils/utils.dart';
 import '../../../others/user_apis.dart';
@@ -79,34 +80,7 @@ class UserInformationController extends GetxController {
         ),
       ],
     );
-    uploadImage(croppedFile?.path);
-  }
-
-  uploadImage(imagePath) async {
-    dio.FormData formData = dio.FormData.fromMap({
-      "file": await dio.MultipartFile.fromFile(
-          imagePath,
-          filename: "avatar.img"
-      )
-    });
-    ResultData<UploadModel>? _result = await LRequest.instance.request<UploadModel>(
-      url: UserApis.UPLOAD,
-      t: UploadModel(),
-      formData: formData,
-      requestType: RequestType.POST,
-      errorBack: (errorCode, errorMsg, expMsg) {
-        Utils.showToastMsg("上传失败：${errorCode == -1 ? expMsg : errorMsg}");
-        errorLog("上传失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
-      },
-    );
-
-    if (_result?.value == null) {
-      return;
-    }
-
-    avatarImg.value = _result?.value?.fileUrl ?? "";
-    lLog(
-        'MTMTMT UserInformationController.uploadImage ${_result?.value?.fileUrl}');
+    avatarImg.value = await uploadFile(croppedFile?.path);
   }
 
   Future<void> updateInfo() async {
@@ -133,6 +107,7 @@ class UserInformationController extends GetxController {
         userHelper.userInfo.value?.nickname = nameController?.text;
         userHelper.userInfo.value?.avatarUrl = avatarImg.value;
         userHelper.userInfo.update((val) {});
+        userHelper.whenLogin(userHelper.userInfo.value!);
         Utils.showToastMsg("修改成功");
         Get.back();
       }

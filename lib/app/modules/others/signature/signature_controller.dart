@@ -70,7 +70,7 @@ class SignatureController extends GetxController {
       ByteData? _byteData = await image.toByteData(format: ui.ImageByteFormat.png);
       Uint8List? sourceBytes = _byteData?.buffer.asUint8List();
       if (sourceBytes != null) {
-        file.writeAsBytes(sourceBytes);
+        await file.writeAsBytes(sourceBytes);
         return file.path;
       }
     }

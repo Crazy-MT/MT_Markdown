@@ -2,6 +2,7 @@ import 'package:code_zero/app/modules/snap_up/model/session_model.dart';
 import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/user_helper.dart';
 import 'package:date_format/date_format.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -10,6 +11,7 @@ import '../../../network/base_model.dart';
 import '../../../network/l_request.dart';
 import '../../../utils/log_utils.dart';
 import '../../../utils/utils.dart';
+import '../others/widget/signature/signature_in_agreement.dart';
 
 class SnapUpController extends GetxController {
   final pageName = 'SnapUp'.obs;
@@ -82,6 +84,18 @@ class SnapUpController extends GetxController {
     if(toastText.isEmpty) {
       // snapUpList[index].startTime = "15:19";
       // snapUpList[index].endTime = "15:45";
+      if((userHelper.userInfo.value?.hasSignature ?? 0) == 0) {
+        Get.toNamed(
+          RoutesID.LOCAL_HTML_PAGE,
+          arguments: {
+            "page_title": "用户注册协议",
+            "html_file": "assets/html/user_registration_protocol.html",
+            "bottom_widget": SignatureInAgreement(),
+          },
+        );
+        return;
+      }
+
       Get.toNamed(RoutesID.SNAP_DETAIL_PAGE, arguments: {
         "title": snapUpList[index].name,
         "id": snapUpList[index].id,

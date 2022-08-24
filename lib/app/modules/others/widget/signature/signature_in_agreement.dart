@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 
 class SignatureInAgreement extends StatelessWidget {
   late final SignatureInArgeeController controller;
+
   @override
   StatelessElement createElement() {
     controller = Get.put(SignatureInArgeeController());
@@ -58,12 +59,15 @@ class SignatureInAgreement extends StatelessWidget {
                             width: 178.w,
                           ),
                         )
-                      : RotatedBox(
-                          quarterTurns: 3,
-                          child: Image.file(
-                            File(controller.signImgUrl.value),
-                            height: 335.w,
-                            width: 178.w,
+                      : RepaintBoundary(
+                          key: controller.globalKey,
+                          child: RotatedBox(
+                            quarterTurns: 3,
+                            child: Image.file(
+                              File(controller.signImgUrl.value),
+                              height: 335.w,
+                              width: 178.w,
+                            ),
                           ),
                         )),
             ),
@@ -79,7 +83,7 @@ class SignatureInAgreement extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: controller.signImgUrl.value.isNotEmpty
                     ? () {
-                        // controller.login();
+                        controller.saveSignature();
                       }
                     : null,
                 style: ElevatedButton.styleFrom(
@@ -87,14 +91,16 @@ class SignatureInAgreement extends StatelessWidget {
                 ).copyWith(
                   padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
                   backgroundColor: MaterialStateProperty.all(
-                    AppColors.green.withOpacity(controller.signImgUrl.value.isNotEmpty ? 1 : 0.5),
+                    AppColors.green.withOpacity(
+                        controller.signImgUrl.value.isNotEmpty ? 1 : 0.5),
                   ),
                   elevation: MaterialStateProperty.all(0),
                 ),
                 child: Text(
                   "同意此协议",
                   style: TextStyle(
-                    color: AppColors.text_white.withOpacity(controller.signImgUrl.value.isNotEmpty ? 1 : 0.5),
+                    color: AppColors.text_white.withOpacity(
+                        controller.signImgUrl.value.isNotEmpty ? 1 : 0.5),
                     fontSize: 16.sp,
                   ),
                 ),
