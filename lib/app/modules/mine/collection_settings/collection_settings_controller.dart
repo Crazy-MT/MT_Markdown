@@ -1,4 +1,10 @@
+import 'package:code_zero/app/modules/mine/collection_settings/collection_settings_apis.dart';
+import 'package:code_zero/app/modules/mine/collection_settings/model/user_bank_card_model.dart';
+import 'package:code_zero/app/modules/mine/collection_settings/model/user_wechat_model.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/user_helper.dart';
+import 'package:code_zero/network/base_model.dart';
+import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +16,26 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
 
   List<String> tabList = ['银行卡', '微信'];
   TabController? tabController;
-  RxBool bankCardDidAdd = false.obs;
+  // 银行卡数据
+  Rx<UserBankCardModel?> bankcardInfo = Rx<UserBankCardModel?>(null);
+  // 银行卡姓名
+  TextEditingController bankNameController = new TextEditingController();
+  // 银行卡手机号
+  TextEditingController bankPhoneController = new TextEditingController();
+  // 银行卡验证码
+  TextEditingController bankCodeController = new TextEditingController();
+  // 银行卡卡号
+  TextEditingController bankCardNumController = new TextEditingController();
+  // 银行卡所属银行
+  TextEditingController bankBelongController = new TextEditingController();
+  // 微信数据
+  Rx<UserWechatModel?> wechatInfo = Rx<UserWechatModel?>(null);
+  // 微信账号
+  TextEditingController wechatAccountController = new TextEditingController();
+  // 微信验证码
+  TextEditingController wechatCodeController = new TextEditingController();
+  // 微信收款姓名
+  TextEditingController wechatNameController = new TextEditingController();
 
   final sendSmsCountdown = 0.obs;
 
@@ -18,6 +43,8 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
   void onInit() {
     super.onInit();
     initData();
+    fetchBankCardData();
+    fetchWeChatData();
   }
 
   initData() {
@@ -34,6 +61,88 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
         lLog("点击了下标为${tabController?.index}的tab");
       }
     });
+  }
+
+  Future<void> fetchBankCardData() async {
+    ResultData<UserBankCardModel>? _result = await LRequest.instance.request<UserBankCardModel>(
+      url: CollectionSettingsApis.USERBANK,
+      t: UserBankCardModel(),
+      data: {
+        "user-id": userHelper.userInfo.value?.id,
+      },
+      requestType: RequestType.GET,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        lLog(errorMsg);
+      },
+    );
+    if (_result?.value == null) {
+      return;
+    }
+    bankcardInfo.value = _result?.value;
+  }
+
+  Future<void> fetchWeChatData() async {
+    ResultData<UserWechatModel>? _result = await LRequest.instance.request<UserWechatModel>(
+      url: CollectionSettingsApis.USERWECHAT,
+      t: UserWechatModel(),
+      data: {
+        "user-id": userHelper.userInfo.value?.id,
+      },
+      requestType: RequestType.GET,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        lLog(errorMsg);
+      },
+    );
+    if (_result?.value == null) {
+      return;
+    }
+    wechatInfo.value = _result?.value;
+  }
+
+  Future<void> addUserBankCard() async {
+    ResultData<UserBankCardModel>? _result = await LRequest.instance.request<UserBankCardModel>(
+      url: CollectionSettingsApis.USEADDBANK,
+      t: UserBankCardModel(),
+      data: {
+        "name": bankNameController.text,
+        "phone": bankPhoneController.text,
+        "authCode": bankCodeController.text,
+        "bankCardNum": bankCardNumController.text,
+        "bank": bankNameController.text,
+        "userId": userHelper.userInfo.value?.id,
+      },
+      requestType: RequestType.POST,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        lLog(errorMsg);
+      },
+    );
+    if (_result?.value == null) {
+      return;
+    }
+    bankcardInfo.value = _result?.value;
+  }
+
+  Future<void> addUserWechat() async {
+    ResultData<UserWechatModel>? _result = await LRequest.instance.request<UserWechatModel>(
+      url: CollectionSettingsApis.USEADDWECHAT,
+      t: UserWechatModel(),
+      data: {
+        "wechatAccount": wechatAccountController.text,
+        "authCode": wechatCodeController.text,
+        "name": wechatNameController.text,
+        "wechatPaymentCodeUrl": '',
+        "phone": userHelper.userInfo.value?.phone,
+        "userId": userHelper.userInfo.value?.id,
+      },
+      requestType: RequestType.POST,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        lLog(errorMsg);
+      },
+    );
+    if (_result?.value == null) {
+      return;
+    }
+    wechatInfo.value = _result?.value;
   }
 
   @override

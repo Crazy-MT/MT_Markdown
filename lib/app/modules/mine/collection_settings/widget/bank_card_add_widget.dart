@@ -27,15 +27,16 @@ class BankCardAddWidget extends StatelessWidget {
   //------ pragma mark - widget (require: start with '_', end with 'Widget') ------//
 
   Widget _contentWidget(BuildContext context) {
+    CollectionSettingsController controller = Get.find<CollectionSettingsController>();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
         children: [
-          _buildInputItem('姓名'),
-          _buildInputItem('手机号'),
-          _buildInputItem('短信验证码'),
-          _buildInputItem('银行卡号'),
-          _buildInputItem('所属银行'),
+          _buildInputItem('姓名', controller.bankNameController),
+          _buildInputItem('手机号', controller.bankPhoneController),
+          _buildInputItem('短信验证码', controller.bankCodeController),
+          _buildInputItem('银行卡号', controller.bankCardNumController),
+          _buildInputItem('所属银行', controller.bankBelongController),
           Expanded(child: SizedBox()),
           _addButtonWidget(),
           SizedBox(height: MediaQuery.of(context).padding.bottom + 20.w),
@@ -44,7 +45,7 @@ class BankCardAddWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildInputItem(String title) {
+  Widget _buildInputItem(String title, TextEditingController editingController) {
     CollectionSettingsController controller = Get.find<CollectionSettingsController>();
     return buildInputWithTitle(
       Container(
@@ -58,6 +59,7 @@ class BankCardAddWidget extends StatelessWidget {
           ),
         ),
       ),
+      inputController: editingController,
       suffixWidget: title == '短信验证码'
           ? SizedBox(
               width: 87.w,
@@ -89,7 +91,7 @@ class BankCardAddWidget extends StatelessWidget {
   Widget _addButtonWidget() {
     return SafeTapWidget(
       onTap: () {
-        Get.find<CollectionSettingsController>().bankCardDidAdd.value = true;
+        Get.find<CollectionSettingsController>().addUserBankCard();
       },
       child: Container(
         width: double.infinity,

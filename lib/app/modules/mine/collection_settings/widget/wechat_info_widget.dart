@@ -22,7 +22,7 @@ class WechatInfoWidget extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      child: Obx(() => Get.find<CollectionSettingsController>().bankCardDidAdd.value ? _cardInfoWidget() : WechatAddWidget()),
+      child: Obx(() => Get.find<CollectionSettingsController>().wechatInfo.value != null ? _cardInfoWidget() : WechatAddWidget()),
     );
   }
 

@@ -2,6 +2,7 @@ import 'package:code_zero/app/modules/mine/collection_settings/collection_settin
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_input.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
+import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,14 +29,15 @@ class WechatAddWidget extends StatelessWidget {
   //------ pragma mark - widget (require: start with '_', end with 'Widget') ------//
 
   Widget _contentWidget(BuildContext context) {
+    CollectionSettingsController controller = Get.find<CollectionSettingsController>();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInputItem('请输入微信收款账号'),
-          _buildInputItem('短信验证码'),
-          _buildInputItem('请输入微信收款姓名'),
+          _buildInputItem('请输入微信收款账号', controller.wechatAccountController),
+          _buildInputItem('短信验证码', controller.wechatCodeController),
+          _buildInputItem('请输入微信收款姓名', controller.wechatNameController),
           _addQrcodeWidget(),
           Expanded(child: SizedBox()),
           _addButtonWidget(),
@@ -45,7 +47,7 @@ class WechatAddWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildInputItem(String title) {
+  Widget _buildInputItem(String title, TextEditingController editingController) {
     CollectionSettingsController controller = Get.find<CollectionSettingsController>();
     return buildInputWithTitle(
       Container(
@@ -71,7 +73,7 @@ class WechatAddWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10.w),
                     ),
                     child: Text(
-                      '18910495667',
+                      userHelper.userInfo.value?.phone ?? '',
                       style: TextStyle(
                         color: Color(0xff757575),
                         fontSize: 14.sp,
@@ -166,9 +168,7 @@ class WechatAddWidget extends StatelessWidget {
 
   Widget _addButtonWidget() {
     return SafeTapWidget(
-      onTap: () {
-        Get.find<CollectionSettingsController>().bankCardDidAdd.value = true;
-      },
+      onTap: () {},
       child: Container(
         width: double.infinity,
         height: 44.w,

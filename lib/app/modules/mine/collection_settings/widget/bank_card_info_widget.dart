@@ -20,7 +20,7 @@ class BankCardInfoWidget extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      child: Obx(() => Get.find<CollectionSettingsController>().bankCardDidAdd.value ? _cardInfoWidget() : BankCardAddWidget()),
+      child: Obx(() => Get.find<CollectionSettingsController>().bankcardInfo.value != null ? _cardInfoWidget() : BankCardAddWidget()),
     );
   }
 
