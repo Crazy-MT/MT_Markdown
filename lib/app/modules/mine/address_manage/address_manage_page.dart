@@ -2,13 +2,13 @@ import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
+import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import 'address_manage_controller.dart';
-import 'package:code_zero/common/components/status_page/status_page.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class AddressManagePage extends GetView<AddressManageController> {
   const AddressManagePage({Key? key}) : super(key: key);
@@ -35,21 +35,19 @@ class AddressManagePage extends GetView<AddressManageController> {
               type: controller.pageStatus.value,
               errorMsg: controller.errorMsg.value,
               builder: (BuildContext context) {
-                return Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).padding.bottom +
-                          10.w +
-                          44.w +
-                          10.w),
-                  child: CustomScrollView(
-                    slivers: [
-                      SliverList(
-                        delegate: SliverChildBuilderDelegate((content, index) {
-                          return _buildAddressItem(index);
-                        }, childCount: controller.addressList.length),
+                return CustomScrollView(
+                  slivers: [
+                    SliverPadding(
+                      padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 10.w + 44.w + 10.w),
+                      sliver: Obx(
+                        () => SliverList(
+                          delegate: SliverChildBuilderDelegate((content, index) {
+                            return _buildAddressItem(index);
+                          }, childCount: controller.addressList.length),
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 );
               },
             ),
@@ -73,9 +71,9 @@ class AddressManagePage extends GetView<AddressManageController> {
           SizedBox(height: 18.w),
           _cityWidget(index),
           SizedBox(height: 5.w),
-          _streetWidget(),
+          _streetWidget(index),
           SizedBox(height: 14.w),
-          _userInfoWidget(),
+          _userInfoWidget(index),
           SizedBox(height: 15.w),
           Divider(color: Color(0xffF5F5F5), height: 0.5.w),
         ],
@@ -112,7 +110,7 @@ class AddressManagePage extends GetView<AddressManageController> {
         item == '默认' ? _addressDefaultIcon() : SizedBox(),
         Expanded(
           child: Text(
-            '北京市朝阳区新街口街道',
+            item.region ?? "",
             textAlign: TextAlign.start,
             style: TextStyle(
               color: Color(0xffABAAB9),
@@ -125,12 +123,13 @@ class AddressManagePage extends GetView<AddressManageController> {
     );
   }
 
-  Widget _streetWidget() {
+  Widget _streetWidget(int index) {
+    var item = controller.addressList[index];
     return Row(
       children: [
         Expanded(
           child: Text(
-            '北苑路222号某某小区2栋2302',
+            item.address ?? "",
             textAlign: TextAlign.start,
             style: TextStyle(
               color: Color(0xff111111),
@@ -153,11 +152,12 @@ class AddressManagePage extends GetView<AddressManageController> {
     );
   }
 
-  Widget _userInfoWidget() {
+  Widget _userInfoWidget(int index) {
+    var item = controller.addressList[index];
     return Row(
       children: [
         Text(
-          '李旭',
+          item.consignee ?? "",
           textAlign: TextAlign.start,
           style: TextStyle(
             color: Color(0xffABAAB9),
@@ -169,7 +169,7 @@ class AddressManagePage extends GetView<AddressManageController> {
           width: 12.w,
         ),
         Text(
-          '189****5667',
+          item.phone ?? "",
           textAlign: TextAlign.start,
           style: TextStyle(
             color: Color(0xffABAAB9),
@@ -184,7 +184,11 @@ class AddressManagePage extends GetView<AddressManageController> {
   Widget _addAddressWidget(BuildContext context) {
     return SafeTapWidget(
       onTap: () {
-        Get.toNamed(RoutesID.ADDRESS_EDIT_PAGE, arguments: {'type': 0});
+        Get.toNamed(RoutesID.ADDRESS_EDIT_PAGE, arguments: {'type': 0})?.then((value) {
+          if (value == true) {
+            controller.getAddressList();
+          }
+        });
       },
       child: Container(
         height: 44.w,

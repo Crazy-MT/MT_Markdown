@@ -2,14 +2,14 @@ import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/common_input.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
+import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import 'address_edit_controller.dart';
-import 'package:code_zero/common/components/status_page/status_page.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class AddressEditPage extends GetView<AddressEditController> {
   const AddressEditPage({Key? key}) : super(key: key);
@@ -98,6 +98,7 @@ class AddressEditPage extends GetView<AddressEditController> {
                         Expanded(
                           child: CommonInput(
                             hintText: item.hintTitle,
+                            controller: item.editingController,
                             hintStyle: TextStyle(
                               color: Color(0xffABAAB9),
                               fontSize: 14.sp,
@@ -161,10 +162,14 @@ class AddressEditPage extends GetView<AddressEditController> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              CupertinoSwitch(
-                activeColor: Color(0xffffffff),
-                value: false,
-                onChanged: (isChecked) {},
+              Obx(
+                () => CupertinoSwitch(
+                  activeColor: AppColors.green,
+                  value: controller.isDefault.value,
+                  onChanged: (isChecked) {
+                    controller.isDefault.value = isChecked;
+                  },
+                ),
               )
             ],
           ),
@@ -176,7 +181,13 @@ class AddressEditPage extends GetView<AddressEditController> {
 
   Widget _saveWidget() {
     return SafeTapWidget(
-      onTap: () {},
+      onTap: () {
+        if (controller.type == AddressType.add) {
+          controller.createAddress();
+        } else {
+          controller.saveEdit();
+        }
+      },
       child: Container(
         height: 44.w,
         margin: EdgeInsets.fromLTRB(20.w, 30.w, 20.w, 0),
