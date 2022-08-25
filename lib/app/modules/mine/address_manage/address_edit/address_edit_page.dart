@@ -6,6 +6,7 @@ import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pickers/pickers.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -109,20 +110,31 @@ class AddressEditPage extends GetView<AddressEditController> {
                           ),
                         ),
                         item.showLocation
-                            ? Row(
-                                children: [
-                                  Image.asset(Assets.imagesAddressLocationIcon, width: 16.w, height: 16.w),
-                                  SizedBox(width: 8.w),
-                                  Text(
-                                    '定位',
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      color: Color(0xff111111),
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  )
-                                ],
+                            ? SafeTapWidget(
+                                onTap: () {
+                                  Pickers.showAddressPicker(Get.context!,
+                                      addAllItem: false,
+                                      initProvince: '北京市',
+                                      initCity: '市辖区',
+                                      initTown: '东城区', onConfirm: (p, c, t) {
+                                    item.editingController.text = '${p} ${c} ${t}';
+                                  });
+                                },
+                                child: Row(
+                                  children: [
+                                    // Image.asset(Assets.imagesAddressLocationIcon, width: 16.w, height: 16.w),
+                                    // SizedBox(width: 8.w),
+                                    Text(
+                                      '选择地区',
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                        color: Color(0xff111111),
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               )
                             : SizedBox(),
                       ],
