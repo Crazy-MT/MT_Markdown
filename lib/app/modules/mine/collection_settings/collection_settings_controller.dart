@@ -1,13 +1,17 @@
 import 'package:code_zero/app/modules/mine/collection_settings/collection_settings_apis.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/model/user_bank_card_model.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/model/user_wechat_model.dart';
+import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/network/upload_util.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CollectionSettingsController extends GetxController with GetSingleTickerProviderStateMixin {
   final pageName = 'CollectionSettings'.obs;
@@ -36,7 +40,8 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
   TextEditingController wechatCodeController = new TextEditingController();
   // 微信收款姓名
   TextEditingController wechatNameController = new TextEditingController();
-
+  // 微信收款二维码
+  RxString wechatQrImg = "".obs;
   final sendSmsCountdown = 0.obs;
 
   @override
@@ -143,6 +148,34 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
       return;
     }
     wechatInfo.value = _result?.value;
+  }
+
+  Future<void> chooseAndUploadImage() async {
+    final ImagePicker _picker = ImagePicker();
+    // Pick an image
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: image?.path ?? "",
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        // CropAspectRatioPreset.ratio3x2,
+        // CropAspectRatioPreset.original,
+        // CropAspectRatioPreset.ratio4x3,
+        // CropAspectRatioPreset.ratio16x9
+      ],
+      uiSettings: [
+        AndroidUiSettings(
+            toolbarTitle: '裁剪图片',
+            toolbarColor: AppColors.green,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.square,
+            lockAspectRatio: true),
+        IOSUiSettings(
+          title: '裁剪图片',
+        ),
+      ],
+    );
+    wechatQrImg.value = await uploadFile(croppedFile?.path);
   }
 
   @override

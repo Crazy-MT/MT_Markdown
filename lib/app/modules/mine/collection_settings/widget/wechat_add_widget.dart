@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/collection_settings_controller.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_input.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
 class WechatAddWidget extends StatelessWidget {
   const WechatAddWidget({Key? key}) : super(key: key);
@@ -38,7 +40,7 @@ class WechatAddWidget extends StatelessWidget {
           _buildInputItem('请输入微信收款账号', controller.wechatAccountController),
           _buildInputItem('短信验证码', controller.wechatCodeController),
           _buildInputItem('请输入微信收款姓名', controller.wechatNameController),
-          _addQrcodeWidget(),
+          Obx((() => controller.wechatQrImg.value.isNotEmpty ? CachedNetworkImage(imageUrl: controller.wechatQrImg.value) : _addQrcodeWidget())),
           Expanded(child: SizedBox()),
           _addButtonWidget(),
           SizedBox(height: MediaQuery.of(context).padding.bottom + 20.w),
@@ -128,7 +130,9 @@ class WechatAddWidget extends StatelessWidget {
           ),
           SizedBox(height: 7.w),
           SafeTapWidget(
-            onTap: () {},
+            onTap: () {
+              Get.find<CollectionSettingsController>().chooseAndUploadImage();
+            },
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -167,6 +171,7 @@ class WechatAddWidget extends StatelessWidget {
   }
 
   Widget _addButtonWidget() {
+    CollectionSettingsController controller = Get.find<CollectionSettingsController>();
     return SafeTapWidget(
       onTap: () {},
       child: Container(
