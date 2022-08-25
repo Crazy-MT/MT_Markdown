@@ -55,7 +55,7 @@ class SnapDetailController extends GetxController {
         },
         onSuccess: (result) {
           var model = result.value;
-          if(model == null || model.items == null || model.items?.length == 0) {
+          if(model == null || model.items == null) {
             refreshController.refreshCompleted();
             refreshController.loadComplete();
             return;
@@ -68,6 +68,10 @@ class SnapDetailController extends GetxController {
           commodityList.addAll(model.items!);
           refreshController.refreshCompleted();
           refreshController.loadComplete();
+
+          if(model.totalCount <= commodityList.length) {
+            refreshController.loadNoData();
+          }
         });
   }
 

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../common/components/safe_tap_widget.dart';
 import '../../../routes/app_routes.dart';

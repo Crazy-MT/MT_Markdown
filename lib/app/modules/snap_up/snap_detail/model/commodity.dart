@@ -3,11 +3,11 @@ import '../../../../../network/convert_interface.dart';
 class CommodityModel extends ConvertInterface {
     CommodityModel({
         this.items,
-        this.totalCount,
+        this.totalCount = 0,
     });
 
     List<CommodityItem>? items;
-    int? totalCount;
+    int totalCount = 0;
 
     Map<String, dynamic> toJson() => {
         "items": items == null ? List<dynamic>.from(items!.map((x) => x.toJson())) : [],
