@@ -82,11 +82,19 @@ class SnapUpController extends GetxController {
     pageName.value = newName;
   }
 
-  void snapClick(index) {
+  Future<void> snapClick(index) async {
     String toastText = snapUpList[index].statusText()["toast_text"] ?? "";
     if(toastText.isEmpty) {
       // snapUpList[index].startTime = "15:19";
       // snapUpList[index].endTime = "15:45";
+      if((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0 ) {
+        await Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE);
+      }
+
+      if((userHelper.userInfo.value?.hasAddress ?? 0) == 0 ) {
+        await Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE);
+      }
+
       if((userHelper.userInfo.value?.hasSignature ?? 0) == 0) {
         Get.toNamed(
           RoutesID.LOCAL_HTML_PAGE,
