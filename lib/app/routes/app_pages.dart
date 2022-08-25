@@ -1,3 +1,4 @@
+import 'package:code_zero/app/middleware/auth_middleware.dart';
 import 'package:get/get.dart';
 
 import '../modules/home/category/category_binding.dart';
@@ -72,8 +73,11 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
-    // signature
+    // signature 签名页
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.SIGNATURE_PAGE,
       page: () => const SignaturePage(),
       binding: SignatureBinding(),
@@ -85,15 +89,21 @@ class AppPages {
       page: () => const LocalHtmlPage(),
       binding: LocalHtmlBinding(),
     ),
-    // snap_detail
+    // snap_detail 某抢购场次列表页
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.SNAP_DETAIL_PAGE,
       page: () => const SnapDetailPage(),
       binding: SnapDetailBinding(),
     ),
 
-    // invite
+    // invite 邀请好友
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.INVITE_PAGE,
       page: () => const InvitePage(),
       binding: InviteBinding(),
@@ -101,6 +111,9 @@ class AppPages {
 
     // submit_order
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.SUBMIT_ORDER_PAGE,
       page: () => const SubmitOrderPage(),
       binding: SubmitOrderBinding(),
@@ -108,6 +121,9 @@ class AppPages {
 
     // address_edit
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.ADDRESS_EDIT_PAGE,
       page: () => const AddressEditPage(),
       binding: AddressEditBinding(),
@@ -115,12 +131,19 @@ class AppPages {
 
     // address_manage
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.ADDRESS_MANAGE_PAGE,
       page: () => const AddressManagePage(),
       binding: AddressManageBinding(),
     ),
+
     // my_fans
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.MY_FANS_PAGE,
       page: () => const MyFansPage(),
       binding: MyFansBinding(),
@@ -128,6 +151,9 @@ class AppPages {
 
     // fans_order
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.FANS_ORDER_PAGE,
       page: () => const FansOrderPage(),
       binding: FansOrderBinding(),
@@ -135,6 +161,9 @@ class AppPages {
 
     // bind_recommend
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.BIND_RECOMMEND_PAGE,
       page: () => const BindRecommendPage(),
       binding: BindRecommendBinding(),
@@ -142,6 +171,9 @@ class AppPages {
 
     // my_commission
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.MY_COMMISSION_PAGE,
       page: () => const MyCommissionPage(),
       binding: MyCommissionBinding(),
@@ -149,19 +181,28 @@ class AppPages {
 
     // collection_settings
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.COLLECTION_SETTINGS_PAGE,
       page: () => const CollectionSettingsPage(),
       binding: CollectionSettingsBinding(),
     ),
 
-    // drawing
+    // drawing 余额提现
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.DRAWING_PAGE,
       page: () => const DrawingPage(),
       binding: DrawingBinding(),
     ),
-    // distribution
+    // distribution 分销中心
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.DISTRIBUTION_PAGE,
       page: () => const DistributionPage(),
       binding: DistributionBinding(),
@@ -169,25 +210,39 @@ class AppPages {
 
     // reset_password
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.RESET_PASSWORD_PAGE,
       page: () => const ResetPasswordPage(),
       binding: ResetPasswordBinding(),
     ),
 
-    // transactions
+    // transactions 提现记录
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.TRANSACTIONS_PAGE,
       page: () => const TransactionsPage(),
       binding: TransactionsBinding(),
     ),
 
-    // income_list
+    // income_list 收益明细
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.INCOME_LIST_PAGE,
       page: () => const IncomeListPage(),
       binding: IncomeListBinding(),
     ),
+
+    // 全部订单
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.ORDER_PAGE,
       page: () => const OrderPage(),
       binding: OrderBinding(),
@@ -195,6 +250,9 @@ class AppPages {
 
     // wallet
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.WALLET_PAGE,
       page: () => const WalletPage(),
       binding: WalletBinding(),
@@ -209,6 +267,9 @@ class AppPages {
 
     // user_information
     GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
       name: RoutesID.USER_INFORMATION_PAGE,
       page: () => const UserInformationPage(),
       binding: UserInformationBinding(),

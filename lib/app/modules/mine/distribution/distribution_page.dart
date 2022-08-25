@@ -19,7 +19,7 @@ class DistributionPage extends GetView<DistributionController> {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       appBar: CommonAppBar(
-        titleText: " 分销中心",
+        titleText: "分销中心",
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
