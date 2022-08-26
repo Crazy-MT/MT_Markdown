@@ -71,8 +71,7 @@ class CommonInput extends StatelessWidget {
         fillColor: fillColor ?? Colors.white, //背景颜色，必须结合filled: true,才有效
         filled: true, //重点，必须设置为true，fillColor才有效
         isCollapsed: true, //重点，相当于高度包裹的意思，必须设置为true，不然有默认奇妙的最小高度
-        contentPadding:
-            EdgeInsets.symmetric(horizontal: 5, vertical: 7), //内容内边距，影响高度
+        contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 7), //内容内边距，影响高度
         border: _outlineInputBorder, //边框，一般下面的几个边框一起设置
         focusedBorder: _outlineInputBorder,
         enabledBorder: _outlineInputBorder,
@@ -94,8 +93,10 @@ buildInputWithTitle(
   Widget titleWidget, {
   EdgeInsetsGeometry? padding,
   TextEditingController? inputController,
+  List<TextInputFormatter>? inputFormatters,
   String? hintText,
   Widget? suffixWidget,
+  TextInputType? keyboardType,
   bool obscureText = false,
 }) {
   return Padding(
@@ -104,8 +105,7 @@ buildInputWithTitle(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-            padding: EdgeInsets.only(left: 5.w, bottom: 8), child: titleWidget),
+        Padding(padding: EdgeInsets.only(left: 5.w, bottom: 8), child: titleWidget),
         Container(
           height: 44.w,
           decoration: BoxDecoration(
@@ -120,8 +120,10 @@ buildInputWithTitle(
             children: [
               Expanded(
                 child: CommonInput(
+                  inputFormatters: inputFormatters,
                   obscureText: obscureText,
                   controller: inputController,
+                  keyboardType: keyboardType,
                   fillColor: Colors.transparent,
                   style: TextStyle(
                     fontSize: 14.sp,

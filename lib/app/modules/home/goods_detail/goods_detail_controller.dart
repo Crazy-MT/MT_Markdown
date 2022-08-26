@@ -23,7 +23,7 @@ class GoodsDetailController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    goods = Get.arguments["good"];
+    goods = Get.arguments?["good"] ?? CommodityItem();
     initData();
     pageController.addListener(() {
       currentIndex.value = pageController.page?.toInt() ?? 1;
@@ -63,35 +63,35 @@ class GoodsDetailController extends GetxController {
   }
 
   isCountDown() {
-      Map map = {};
-      map['text'] = "立即抢购";
-      String now = formatDate(DateTime.now(), [HH, ':', nn, ':', ss]);
-      var nowArr = now.split(":");
-      var startTime = Get.arguments['startTime'];
-      var endTime = Get.arguments['endTime'];
+    Map map = {};
+    map['text'] = "立即抢购";
+    String now = formatDate(DateTime.now(), [HH, ':', nn, ':', ss]);
+    var nowArr = now.split(":");
+    var startTime = Get.arguments['startTime'];
+    var endTime = Get.arguments['endTime'];
 
-      var startArr = startTime?.split(":");
-      var endArr = endTime?.split(":");
-      int nowHour = (int.parse(nowArr[0]));
-      int nowMinute = int.parse(nowArr[1]);
-      int nowSecond = int.parse(nowArr[2]);
-      int nowTime = nowHour * 60 * 60 + nowMinute * 60 + nowSecond; // 当前天分钟数
-      int startHour = int.parse(startArr?[0] ?? "0");
-      int startMinute = int.parse(startArr?[1] ?? "0");
-      int start = startHour * 60 * 60 + startMinute * 60;
+    var startArr = startTime?.split(":");
+    var endArr = endTime?.split(":");
+    int nowHour = (int.parse(nowArr[0]));
+    int nowMinute = int.parse(nowArr[1]);
+    int nowSecond = int.parse(nowArr[2]);
+    int nowTime = nowHour * 60 * 60 + nowMinute * 60 + nowSecond; // 当前天分钟数
+    int startHour = int.parse(startArr?[0] ?? "0");
+    int startMinute = int.parse(startArr?[1] ?? "0");
+    int start = startHour * 60 * 60 + startMinute * 60;
 
-      int endHour = int.parse(endArr?[0] ?? "0");
-      int endMinute = int.parse(endArr?[1] ?? "0");
-      int end = endHour * 60 * 60 + endMinute * 60;
+    int endHour = int.parse(endArr?[0] ?? "0");
+    int endMinute = int.parse(endArr?[1] ?? "0");
+    int end = endHour * 60 * 60 + endMinute * 60;
 
-      /// 超时
-      if(nowTime > end) {
-        map['isOpen'] = false;
-        map['text'] = "已结束";
-      } else {
-        map['isOpen'] = true;
-      }
-      map['seconds'] = (start - nowTime);
-      return map;
+    /// 超时
+    if (nowTime > end) {
+      map['isOpen'] = false;
+      map['text'] = "已结束";
+    } else {
+      map['isOpen'] = true;
+    }
+    map['seconds'] = (start - nowTime);
+    return map;
   }
 }

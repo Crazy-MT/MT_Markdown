@@ -1,12 +1,13 @@
-import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/common_input.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
-import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/main.dart';
+import 'package:code_zero/utils/input_format_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -78,6 +79,8 @@ class LoginPage extends GetView<LoginController> {
       inputController: controller.phoneController,
       hintText: "输入手机号",
       padding: EdgeInsets.symmetric(horizontal: 20.w).copyWith(top: 50.w),
+      keyboardType: TextInputType.number,
+      inputFormatters: [MaxInputFormatter(11)],
       suffixWidget: controller.showClearPhoneInput.value
           ? IconButton(
               onPressed: () {
@@ -98,33 +101,36 @@ class LoginPage extends GetView<LoginController> {
       inputController: controller.passwordController,
       hintText: controller.isPasswordLogin.value ? "输入登录密码" : "输入验证码",
       padding: EdgeInsets.symmetric(horizontal: 20.w).copyWith(top: 18.w),
+      keyboardType: controller.isPasswordLogin.value ? null : TextInputType.number,
       obscureText: controller.isPasswordLogin.value && !controller.showPassword.value,
       suffixWidget: controller.isPasswordLogin.value
-          ? IconButton(
-              onPressed: () {
-                controller.showPassword.value = !controller.showPassword.value;
-              },
-              icon: SvgPicture.asset(
-                controller.showPassword.value ? Assets.iconsVisible : Assets.iconsInvisible,
-                width: 22.w,
-                height: 22.w,
-              ),
-            )
-          : TextButton(
-              onPressed: controller.sendCodeCountDown.value > 0
-                  ? null
-                  : () {
-                      controller.startCountDown();
-                      controller.getSMS();
-                    },
-              child: Text(
-                controller.sendCodeCountDown.value <= 0 ? "获取验证码" : "${controller.sendCodeCountDown.value}s",
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: AppColors.text_dark,
+          ? null
+          : controller.isPasswordLogin.value
+              ? IconButton(
+                  onPressed: () {
+                    controller.showPassword.value = !controller.showPassword.value;
+                  },
+                  icon: SvgPicture.asset(
+                    controller.showPassword.value ? Assets.iconsVisible : Assets.iconsInvisible,
+                    width: 22.w,
+                    height: 22.w,
+                  ),
+                )
+              : TextButton(
+                  onPressed: controller.sendCodeCountDown.value > 0
+                      ? null
+                      : () {
+                          controller.startCountDown();
+                          controller.getSMS();
+                        },
+                  child: Text(
+                    controller.sendCodeCountDown.value <= 0 ? "获取验证码" : "${controller.sendCodeCountDown.value}s",
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: AppColors.text_dark,
+                    ),
+                  ),
                 ),
-              ),
-            ),
     );
   }
 
@@ -135,6 +141,8 @@ class LoginPage extends GetView<LoginController> {
     String? hintText,
     Widget? suffixWidget,
     bool obscureText = false,
+    TextInputType? keyboardType,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Padding(
       padding: padding ?? EdgeInsets.zero,
@@ -160,6 +168,8 @@ class LoginPage extends GetView<LoginController> {
               children: [
                 Expanded(
                   child: CommonInput(
+                    inputFormatters: inputFormatters,
+                    keyboardType: keyboardType,
                     obscureText: obscureText,
                     controller: inputController,
                     fillColor: Colors.transparent,
@@ -197,6 +207,7 @@ class LoginPage extends GetView<LoginController> {
               onPressed: () {
                 controller.isPasswordLogin.value = !controller.isPasswordLogin.value;
                 controller.passwordController.clear();
+                hideKeyboard(Get.context!);
               },
               child: Row(
                 children: [

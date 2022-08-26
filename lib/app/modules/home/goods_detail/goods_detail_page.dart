@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:code_zero/app/modules/snap_up/model/session_model.dart';
 import 'package:code_zero/app/modules/snap_up/widget/count_down.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
@@ -19,9 +18,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bg_gray,
-      bottomNavigationBar: Get.arguments["from"] == RoutesID.SNAP_DETAIL_PAGE
-          ? _buildSnapBottomAppBar()
-          : _buildBottomAppBar(),
+      bottomNavigationBar: Get.arguments?["from"] == RoutesID.SNAP_DETAIL_PAGE ? _buildSnapBottomAppBar() : _buildBottomAppBar(),
       appBar: AppBar(
         title: Text('商品详情',
             style: TextStyle(
@@ -403,11 +400,9 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
       ),
       child: Obx(() => BottomAppBar(
             color: controller.timerRefresh.value ? Colors.white : Colors.white,
-            child: (controller.isCountDown()["isOpen"] &&
-                    controller.isCountDown()["seconds"] > 0)
+            child: (controller.isCountDown()["isOpen"] && controller.isCountDown()["seconds"] > 0)
                 ? Container(
-                    margin: EdgeInsets.only(
-                        right: 20.w, left: 20.w, top: 7.w, bottom: 7.w),
+                    margin: EdgeInsets.only(right: 20.w, left: 20.w, top: 7.w, bottom: 7.w),
                     height: 44.w,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
