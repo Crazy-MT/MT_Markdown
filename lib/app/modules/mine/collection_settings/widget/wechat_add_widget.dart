@@ -34,17 +34,19 @@ class WechatAddWidget extends StatelessWidget {
     CollectionSettingsController controller = Get.find<CollectionSettingsController>();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildInputItem('请输入微信收款账号', controller.wechatAccountController),
-          _buildInputItem('短信验证码', controller.wechatCodeController),
-          _buildInputItem('请输入微信收款姓名', controller.wechatNameController),
-          Obx((() => controller.wechatQrImg.value.isNotEmpty ? CachedNetworkImage(imageUrl: controller.wechatQrImg.value) : _addQrcodeWidget())),
-          Expanded(child: SizedBox()),
-          _addButtonWidget(),
-          SizedBox(height: MediaQuery.of(context).padding.bottom + 20.w),
-        ],
+      child: Obx(
+        (() => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildInputItem('请输入微信收款账号', controller.wechatAccountController),
+                _buildInputItem('短信验证码', controller.wechatCodeController),
+                _buildInputItem('请输入微信收款姓名', controller.wechatNameController),
+                _addQrcodeWidget(),
+                Expanded(child: SizedBox()),
+                _addButtonWidget(),
+                SizedBox(height: MediaQuery.of(context).padding.bottom + 20.w),
+              ],
+            )),
       ),
     );
   }
@@ -87,25 +89,31 @@ class WechatAddWidget extends StatelessWidget {
           ],
         ),
       ),
+      inputController: editingController,
       suffixWidget: title == '短信验证码'
           ? SizedBox(
               width: 87.w,
               height: 30.w,
               child: ElevatedButton(
-                onPressed: controller.sendSmsCountdown.value <= 0 ? () {} : null,
+                onPressed: controller.sendWechatCodeCountDown.value <= 0
+                    ? () {
+                        controller.startWechatCountDown();
+                        // controller.getSMS(false);
+                      }
+                    : null,
                 style: ElevatedButton.styleFrom(
                   shape: StadiumBorder(),
                 ).copyWith(
                   padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
                   elevation: MaterialStateProperty.all(0),
                   backgroundColor: MaterialStateProperty.all(
-                    AppColors.green.withOpacity(controller.sendSmsCountdown.value <= 0 ? 1 : 0.5),
+                    AppColors.green.withOpacity(controller.sendWechatCodeCountDown.value <= 0 ? 1 : 0.5),
                   ),
                 ),
                 child: Text(
-                  controller.sendSmsCountdown.value <= 0 ? "获取验证码" : "${controller.sendSmsCountdown.value}s",
+                  controller.sendWechatCodeCountDown.value <= 0 ? "获取验证码" : "${controller.sendWechatCodeCountDown.value}s",
                   style: TextStyle(
-                    color: Colors.white.withOpacity(controller.sendSmsCountdown.value <= 0 ? 1 : 0.5),
+                    color: Colors.white.withOpacity(controller.sendWechatCodeCountDown.value <= 0 ? 1 : 0.5),
                     fontSize: 12.sp,
                   ),
                 ),
@@ -116,6 +124,7 @@ class WechatAddWidget extends StatelessWidget {
   }
 
   Widget _addQrcodeWidget() {
+    CollectionSettingsController controller = Get.find<CollectionSettingsController>();
     return Container(
       padding: EdgeInsets.only(left: 17.w, top: 15.w),
       child: Column(
@@ -133,36 +142,44 @@ class WechatAddWidget extends StatelessWidget {
             onTap: () {
               Get.find<CollectionSettingsController>().chooseAndUploadImage();
             },
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  width: 135.w,
-                  height: 200.w,
-                  decoration: BoxDecoration(
-                    color: Color(0xffF3F9FB),
-                    borderRadius: BorderRadius.circular(10.w),
-                  ),
-                ),
-                Column(
-                  children: [
-                    Image.asset(
-                      Assets.imagesWalletCollectionAddIcon,
-                      width: 40.w,
-                      height: 40.w,
-                    ),
-                    SizedBox(height: 14.w),
-                    Text(
-                      '上传微信收款码',
-                      style: TextStyle(
-                        color: AppColors.text_dark.withOpacity(0.3),
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                )
-              ],
+            child: Obx(
+              (() => controller.wechatQrImg.value.isNotEmpty
+                  ? CachedNetworkImage(
+                      imageUrl: controller.wechatQrImg.value,
+                      width: 135.w,
+                      height: 200.w,
+                    )
+                  : Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          width: 135.w,
+                          height: 200.w,
+                          decoration: BoxDecoration(
+                            color: Color(0xffF3F9FB),
+                            borderRadius: BorderRadius.circular(10.w),
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            Image.asset(
+                              Assets.imagesWalletCollectionAddIcon,
+                              width: 40.w,
+                              height: 40.w,
+                            ),
+                            SizedBox(height: 14.w),
+                            Text(
+                              '上传微信收款码',
+                              style: TextStyle(
+                                color: AppColors.text_dark.withOpacity(0.3),
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    )),
             ),
           ),
         ],
@@ -172,14 +189,22 @@ class WechatAddWidget extends StatelessWidget {
 
   Widget _addButtonWidget() {
     CollectionSettingsController controller = Get.find<CollectionSettingsController>();
+    bool enable = controller.wechatAccountController.text.isNotEmpty &&
+        controller.wechatCodeController.text.isNotEmpty &&
+        controller.wechatNameController.text.isNotEmpty &&
+        controller.wechatQrImg.value.isNotEmpty;
     return SafeTapWidget(
-      onTap: () {},
+      onTap: () {
+        if (enable) {
+          controller.addUserWechat();
+        }
+      },
       child: Container(
         width: double.infinity,
         height: 44.w,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: AppColors.green,
+          color: enable ? AppColors.green : Color(0xffBAEED8),
           borderRadius: BorderRadius.circular(22.w),
         ),
         child: Text(

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
 class BankCardAddWidget extends StatelessWidget {
   const BankCardAddWidget({Key? key}) : super(key: key);
@@ -30,17 +30,19 @@ class BankCardAddWidget extends StatelessWidget {
     CollectionSettingsController controller = Get.find<CollectionSettingsController>();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Column(
-        children: [
-          _buildInputItem('姓名', controller.bankNameController),
-          _buildInputItem('手机号', controller.bankPhoneController),
-          _buildInputItem('短信验证码', controller.bankCodeController),
-          _buildInputItem('银行卡号', controller.bankCardNumController),
-          _buildInputItem('所属银行', controller.bankBelongController),
-          Expanded(child: SizedBox()),
-          _addButtonWidget(),
-          SizedBox(height: MediaQuery.of(context).padding.bottom + 20.w),
-        ],
+      child: Obx(
+        (() => Column(
+              children: [
+                _buildInputItem('姓名', controller.bankNameController),
+                _buildInputItem('手机号', controller.bankPhoneController),
+                _buildInputItem('短信验证码', controller.bankCodeController),
+                _buildInputItem('银行卡号', controller.bankCardNumController),
+                _buildInputItem('所属银行', controller.bankBelongController),
+                Expanded(child: SizedBox()),
+                _addButtonWidget(),
+                SizedBox(height: MediaQuery.of(context).padding.bottom + 20.w),
+              ],
+            )),
       ),
     );
   }
@@ -65,20 +67,25 @@ class BankCardAddWidget extends StatelessWidget {
               width: 87.w,
               height: 30.w,
               child: ElevatedButton(
-                onPressed: controller.sendSmsCountdown.value <= 0 ? () {} : null,
+                onPressed: controller.sendBankCodeCountDown.value <= 0
+                    ? () {
+                        controller.startBankCountDown();
+                        controller.getSMS(true);
+                      }
+                    : null,
                 style: ElevatedButton.styleFrom(
                   shape: StadiumBorder(),
                 ).copyWith(
                   padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
                   elevation: MaterialStateProperty.all(0),
                   backgroundColor: MaterialStateProperty.all(
-                    AppColors.green.withOpacity(controller.sendSmsCountdown.value <= 0 ? 1 : 0.5),
+                    AppColors.green.withOpacity(controller.sendBankCodeCountDown.value <= 0 ? 1 : 0.5),
                   ),
                 ),
                 child: Text(
-                  controller.sendSmsCountdown.value <= 0 ? "获取验证码" : "${controller.sendSmsCountdown.value}s",
+                  controller.sendBankCodeCountDown.value <= 0 ? "获取验证码" : "${controller.sendBankCodeCountDown.value}s",
                   style: TextStyle(
-                    color: Colors.white.withOpacity(controller.sendSmsCountdown.value <= 0 ? 1 : 0.5),
+                    color: Colors.white.withOpacity(controller.sendBankCodeCountDown.value <= 0 ? 1 : 0.5),
                     fontSize: 12.sp,
                   ),
                 ),
@@ -89,16 +96,24 @@ class BankCardAddWidget extends StatelessWidget {
   }
 
   Widget _addButtonWidget() {
+    CollectionSettingsController controller = Get.find<CollectionSettingsController>();
+    bool enable = controller.bankNameController.text.isNotEmpty &&
+        controller.bankPhoneController.text.isNotEmpty &&
+        controller.bankCodeController.text.isNotEmpty &&
+        controller.bankCardNumController.text.isNotEmpty &&
+        controller.bankBelongController.text.isNotEmpty;
     return SafeTapWidget(
       onTap: () {
-        Get.find<CollectionSettingsController>().addUserBankCard();
+        if (enable) {
+          Get.find<CollectionSettingsController>().addUserBankCard();
+        }
       },
       child: Container(
         width: double.infinity,
         height: 44.w,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: AppColors.green,
+          color: enable ? AppColors.green : Color(0xffBAEED8),
           borderRadius: BorderRadius.circular(22.w),
         ),
         child: Text(

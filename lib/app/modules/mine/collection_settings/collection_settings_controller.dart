@@ -1,17 +1,23 @@
+import 'dart:async';
+
 import 'package:code_zero/app/modules/mine/collection_settings/collection_settings_apis.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/model/user_bank_card_model.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/model/user_wechat_model.dart';
+import 'package:code_zero/app/modules/others/user_apis.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/model/user_model.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/network/upload_util.dart';
 import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class CollectionSettingsController extends GetxController with GetSingleTickerProviderStateMixin {
   final pageName = 'CollectionSettings'.obs;
@@ -42,7 +48,11 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
   TextEditingController wechatNameController = new TextEditingController();
   // 微信收款二维码
   RxString wechatQrImg = "".obs;
-  final sendSmsCountdown = 0.obs;
+
+  final sendBankCodeCountDown = 0.obs;
+  final sendWechatCodeCountDown = 0.obs;
+  Timer? bankTimer;
+  Timer? wechatTimer;
 
   @override
   void onInit() {
@@ -59,7 +69,6 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
       vsync: this,
       initialIndex: 0,
     );
-    // tabController?.index = Get.arguments['index'] as int;
     tabController?.addListener(() {
       ///避免addListener调用2次
       if (tabController?.index == tabController?.animation?.value) {
@@ -68,6 +77,7 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
     });
   }
 
+  // 获取用户银行卡
   Future<void> fetchBankCardData() async {
     ResultData<UserBankCardModel>? _result = await LRequest.instance.request<UserBankCardModel>(
       url: CollectionSettingsApis.USERBANK,
@@ -86,6 +96,7 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
     bankcardInfo.value = _result?.value;
   }
 
+  // 获取用户微信
   Future<void> fetchWeChatData() async {
     ResultData<UserWechatModel>? _result = await LRequest.instance.request<UserWechatModel>(
       url: CollectionSettingsApis.USERWECHAT,
@@ -104,6 +115,7 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
     wechatInfo.value = _result?.value;
   }
 
+  // 添加银行卡
   Future<void> addUserBankCard() async {
     ResultData<UserBankCardModel>? _result = await LRequest.instance.request<UserBankCardModel>(
       url: CollectionSettingsApis.USEADDBANK,
@@ -127,6 +139,7 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
     bankcardInfo.value = _result?.value;
   }
 
+  // 添加微信
   Future<void> addUserWechat() async {
     ResultData<UserWechatModel>? _result = await LRequest.instance.request<UserWechatModel>(
       url: CollectionSettingsApis.USEADDWECHAT,
@@ -135,7 +148,7 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
         "wechatAccount": wechatAccountController.text,
         "authCode": wechatCodeController.text,
         "name": wechatNameController.text,
-        "wechatPaymentCodeUrl": '',
+        "wechatPaymentCodeUrl": wechatQrImg.value,
         "phone": userHelper.userInfo.value?.phone,
         "userId": userHelper.userInfo.value?.id,
       },
@@ -150,6 +163,7 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
     wechatInfo.value = _result?.value;
   }
 
+  // 选择图片并上传
   Future<void> chooseAndUploadImage() async {
     final ImagePicker _picker = ImagePicker();
     // Pick an image
@@ -176,6 +190,73 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
       ],
     );
     wechatQrImg.value = await uploadFile(croppedFile?.path);
+  }
+
+  // 获取验证码
+  void getSMS(bool isBankAdd) async {
+    if (isBankAdd && bankPhoneController.text.isEmpty) {
+      Utils.showToastMsg('请填写手机号');
+      sendBankCodeCountDown.value = 0;
+      bankTimer?.cancel();
+      return;
+    }
+    Map<String, dynamic> params = {
+      "phone": bankPhoneController.text,
+    };
+    if (!isBankAdd) {
+      params = {
+        "phone": userHelper.userInfo.value?.phone ?? '',
+      };
+    }
+    ResultData<UserModel>? _result = await LRequest.instance.request<UserModel>(
+      url: UserApis.SMS,
+      t: UserModel(),
+      queryParameters: params,
+      requestType: RequestType.GET,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        if (isBankAdd) {
+          sendBankCodeCountDown.value = 0;
+          bankTimer?.cancel();
+        } else {
+          sendWechatCodeCountDown.value = 0;
+          wechatTimer?.cancel();
+        }
+        Utils.showToastMsg("获取验证码失败：${errorCode == -1 ? expMsg : errorMsg}");
+        errorLog("获取验证码失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+      },
+    );
+
+    if (_result?.value == null) {
+      return;
+    }
+  }
+
+  // 银行卡验证码
+  void startBankCountDown() {
+    if (sendBankCodeCountDown > 0) {
+      return;
+    }
+    sendBankCodeCountDown.value = 60;
+    bankTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      sendBankCodeCountDown.value = sendBankCodeCountDown.value - 1;
+      if (sendBankCodeCountDown.value == 0) {
+        timer.cancel();
+      }
+    });
+  }
+
+  // 银行卡验证码
+  void startWechatCountDown() {
+    if (sendWechatCodeCountDown > 0) {
+      return;
+    }
+    sendWechatCodeCountDown.value = 60;
+    wechatTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      sendWechatCodeCountDown.value = sendWechatCodeCountDown.value - 1;
+      if (sendWechatCodeCountDown.value == 0) {
+        timer.cancel();
+      }
+    });
   }
 
   @override
