@@ -24,7 +24,7 @@ class CollectionSettingsPage extends GetView<CollectionSettingsController> {
           icon: Icon(Icons.arrow_back),
           color: Color(0xFF14181F),
           onPressed: () {
-            Get.back();
+            controller.goBack();
           },
         ),
       ),

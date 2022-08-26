@@ -13,6 +13,7 @@ class WechatInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CollectionSettingsController controller = Get.find<CollectionSettingsController>();
     return Container(
       alignment: Alignment.topCenter,
       decoration: BoxDecoration(
@@ -22,7 +23,7 @@ class WechatInfoWidget extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      child: Obx(() => Get.find<CollectionSettingsController>().wechatInfo.value != null ? _cardInfoWidget() : WechatAddWidget()),
+      child: Obx(() => (controller.wechatInfo.value != null || controller.isWechatEdit.value == false) ? _cardInfoWidget() : WechatAddWidget()),
     );
   }
 
@@ -71,7 +72,9 @@ class WechatInfoWidget extends StatelessWidget {
           top: 21.w,
           right: 21.w,
           child: SafeTapWidget(
-            onTap: () {},
+            onTap: () {
+              Get.find<CollectionSettingsController>().isWechatEdit.value = true;
+            },
             child: Container(
               width: 66.w,
               height: 24.w,

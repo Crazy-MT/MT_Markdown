@@ -11,6 +11,7 @@ class BankCardInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CollectionSettingsController controller = Get.find<CollectionSettingsController>();
     return Container(
       alignment: Alignment.topCenter,
       decoration: BoxDecoration(
@@ -20,7 +21,7 @@ class BankCardInfoWidget extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      child: Obx(() => Get.find<CollectionSettingsController>().bankcardInfo.value != null ? _cardInfoWidget() : BankCardAddWidget()),
+      child: Obx(() => (controller.bankcardInfo.value != null || controller.isBankEdit.value == false) ? _cardInfoWidget() : BankCardAddWidget()),
     );
   }
 
@@ -69,7 +70,9 @@ class BankCardInfoWidget extends StatelessWidget {
           top: 21.w,
           right: 21.w,
           child: SafeTapWidget(
-            onTap: () {},
+            onTap: () {
+              Get.find<CollectionSettingsController>().isBankEdit.value = true;
+            },
             child: Container(
               width: 66.w,
               height: 24.w,

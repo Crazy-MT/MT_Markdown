@@ -14,4 +14,7 @@ class CollectionSettingsApis {
 
   // 用户添加微信
   static const String USEADDWECHAT = NetConstant.HOST + PREFIX + "/create-wechat";
+
+  // 用户编辑
+  static const String USEPAYMENTUPDATE = NetConstant.HOST + PREFIX + "/update";
 }

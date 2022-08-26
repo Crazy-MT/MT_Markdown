@@ -17,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 class CollectionSettingsController extends GetxController with GetSingleTickerProviderStateMixin {
   final pageName = 'CollectionSettings'.obs;
@@ -26,6 +25,7 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
 
   List<String> tabList = ['银行卡', '微信'];
   TabController? tabController;
+
   // 银行卡数据
   Rx<UserBankCardModel?> bankcardInfo = Rx<UserBankCardModel?>(null);
   // 银行卡姓名
@@ -38,6 +38,7 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
   TextEditingController bankCardNumController = new TextEditingController();
   // 银行卡所属银行
   TextEditingController bankBelongController = new TextEditingController();
+
   // 微信数据
   Rx<UserWechatModel?> wechatInfo = Rx<UserWechatModel?>(null);
   // 微信账号
@@ -49,8 +50,12 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
   // 微信收款二维码
   RxString wechatQrImg = "".obs;
 
+  RxBool isBankEdit = RxBool(false);
+  RxBool isWechatEdit = RxBool(false);
+
   final sendBankCodeCountDown = 0.obs;
   final sendWechatCodeCountDown = 0.obs;
+
   Timer? bankTimer;
   Timer? wechatTimer;
 
@@ -75,6 +80,31 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
         lLog("点击了下标为${tabController?.index}的tab");
       }
     });
+  }
+
+  void goBack() {
+    if (tabController?.index == 0 && isBankEdit.value == true) {
+      isBankEdit.value = false;
+    } else if (tabController?.index == 1 && isWechatEdit.value == true) {
+      isWechatEdit.value = false;
+    } else {
+      Get.back();
+    }
+  }
+
+  void enterEdit() {
+    if (tabController?.index == 0) {
+      bankNameController.text = bankcardInfo.value?.data?.name ?? '';
+      bankPhoneController.text = bankcardInfo.value?.data?.phone ?? '';
+      bankCardNumController.text = bankcardInfo.value?.data?.bankCardNum ?? '';
+      bankBelongController.text = bankcardInfo.value?.data?.bankName ?? '';
+      isBankEdit.value = true;
+    } else {
+      wechatAccountController.text = wechatInfo.value?.data?.wechatAccount ?? '';
+      wechatNameController.text = wechatInfo.value?.data?.name ?? '';
+      wechatQrImg.value = wechatInfo.value?.data?.wechatPaymentCodeUrl ?? '';
+      isBankEdit.value = true;
+    }
   }
 
   // 获取用户银行卡
@@ -117,8 +147,12 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
 
   // 添加银行卡
   Future<void> addUserBankCard() async {
+    String url = CollectionSettingsApis.USEADDBANK;
+    if (isBankEdit == true) {
+      url = CollectionSettingsApis.USEPAYMENTUPDATE;
+    }
     ResultData<UserBankCardModel>? _result = await LRequest.instance.request<UserBankCardModel>(
-      url: CollectionSettingsApis.USEADDBANK,
+      url: url,
       t: UserBankCardModel(),
       data: {
         "name": bankNameController.text,
@@ -141,8 +175,12 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
 
   // 添加微信
   Future<void> addUserWechat() async {
+    String url = CollectionSettingsApis.USEADDWECHAT;
+    if (isWechatEdit == true) {
+      url = CollectionSettingsApis.USEPAYMENTUPDATE;
+    }
     ResultData<UserWechatModel>? _result = await LRequest.instance.request<UserWechatModel>(
-      url: CollectionSettingsApis.USEADDWECHAT,
+      url: url,
       t: UserWechatModel(),
       data: {
         "wechatAccount": wechatAccountController.text,

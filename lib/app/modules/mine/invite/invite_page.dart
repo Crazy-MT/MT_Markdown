@@ -165,7 +165,7 @@ class InvitePage extends GetView<InviteController> {
   Widget _closeWidget(BuildContext context) {
     return SafeTapWidget(
       onTap: () {
-        Navigator.pop(context);
+        Get.back();
       },
       child: Image.asset(
         Assets.imagesInviteCloseIcon,
