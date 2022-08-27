@@ -21,7 +21,7 @@ dependencies:
   device_info: 2.0.3
   url_launcher: 6.1.5
   image_picker: 0.8.5+3
-#  image_pickers: 2.0.0+2
+  #  image_pickers: 2.0.0+2
   image_cropper: 3.0.0
   date_format: 2.0.6
   qr_flutter: 4.0.0
@@ -50,6 +50,7 @@ flutter:
     - assets/html/
     - assets/icons/
     - assets/images/
+    - assets/images/dialog_bg/
     - assets/images/shopping_cart/
   uses-material-design: true
 

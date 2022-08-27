@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/snap_up/widget/success_dialog.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -278,7 +279,9 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
           width: 100.w,
           height: 40.w,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              showSuccessDialog();
+            },
             style: ElevatedButton.styleFrom(
               shape: StadiumBorder(),
             ).copyWith(

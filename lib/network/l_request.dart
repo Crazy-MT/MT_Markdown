@@ -40,9 +40,12 @@ class LRequest {
     dio.options.sendTimeout = 10000;
     dio.options.headers[NetConstant.VERSION] = common.packageInfo?.version;
     dio.options.headers[NetConstant.APP] = "1";
-    dio.options.headers[NetConstant.PLATFORM] = Platform.isAndroid ? "android" : "ios";
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-      client.badCertificateCallback = (X509Certificate cert, String host, int port) {
+    dio.options.headers[NetConstant.PLATFORM] =
+        Platform.isAndroid ? "android" : "ios";
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) {
         return true;
       };
       /*client.findProxy = (uri) {
@@ -73,8 +76,8 @@ class LRequest {
     Response response;
     dio.options.headers[NetConstant.UNIQUE_ID] = deviceUtil.getUniqueID();
     //TODO 上线前记得改掉
-    dio.options.headers[NetConstant.AUTHORIZATION] =
-        "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjM5ODcxMzgsImlzQWRtaW4iOjAsInBob25lIjoiMTcwOTAzMTE1NjMifQ.SliC_2Wk0jrJ0_vpUcAeX6TZPR5js8dv2YSP5dhA_J0";
+    dio.options.headers[NetConstant.AUTHORIZATION] = "Bearer " +
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjQxNTYyMDcsImlzQWRtaW4iOjAsInBob25lIjoiMTcwOTAzMTE1NjMifQ.86waxB4QXAKEobhy1bJDhNpDq6guOllHQlXfdIe_BXw";
     try {
       lLog("request get start =======>net: $url");
       if (requestType == RequestType.GET) {
@@ -88,7 +91,8 @@ class LRequest {
       BaseModel<T> baseModel = BaseModel.fromJson(response.data, t);
       handleBaseModel?.call(baseModel);
       if (baseModel.code != 0) {
-        errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg", "baseModel.code is not 0,this value is ${baseModel.code}");
+        errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg",
+            "baseModel.code is not 0,this value is ${baseModel.code}");
         return null;
       }
       ResultData<T> resultData = ResultData();
@@ -107,14 +111,17 @@ class LRequest {
       onSuccess?.call(resultData);
       return resultData;
     } on DioError catch (e) {
-      debugLog((e.response?.statusCode ?? -1).toString() + "${e.response?.data['message']}" + e.toString());
+      debugLog((e.response?.statusCode ?? -1).toString() +
+          "${e.response?.data['message']}" +
+          e.toString());
       errorLog(e.toString());
       if (e.response != null && e.response?.data["code"] == 20001) {
         userOutLoginError();
         return null;
       }
       if (errorBack != null) {
-        errorBack(e.response?.statusCode ?? -1, e.response?.data["message"], e.toString());
+        errorBack(e.response?.statusCode ?? -1, e.response?.data["message"],
+            e.toString());
       } else {
         handleError(e.response?.statusCode ?? -1, e.message, isShowErrorToast);
       }
