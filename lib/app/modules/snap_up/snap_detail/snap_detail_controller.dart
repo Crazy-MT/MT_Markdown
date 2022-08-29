@@ -41,11 +41,12 @@ class SnapDetailController extends GetxController {
         url: SnapApis.COMMODITY,
         t: c.CommodityModel(),
         queryParameters: {
-          "session-id": 0,
+          "session-id": Get.arguments["id"],
           /* TODO Get.arguments["id"]*/
           "page": currentPage,
           "size": pageSize,
-          "owner-is-admin": 0
+          "status" : 1
+          // "owner-is-admin": 0
         },
         requestType: RequestType.GET,
         errorBack: (errorCode, errorMsg, expMsg) {

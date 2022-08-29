@@ -265,19 +265,38 @@ class MinePage extends GetView<MineController> {
                                 children: [
                                   Expanded(
                                     child: buildItem("我的仓库",
-                                        Assets.iconsMineMaiWodecangku, () {}),
+                                        Assets.iconsMineMaiWodecangku, () {
+                                      Get.toNamed(RoutesID.BUYER_ORDER_PAGE, arguments: {
+                                        "index" : 0
+                                      });
+                                        }),
                                   ),
                                   Expanded(
                                     child: buildItem("待付款",
-                                        Assets.iconsMineMaiDaifukuan, () {}),
+                                        Assets.iconsMineMaiDaifukuan, () {
+
+                                          Get.toNamed(RoutesID.BUYER_ORDER_PAGE, arguments: {
+                                            "index" : 1
+                                          });
+                                        }),
                                   ),
                                   Expanded(
                                     child: buildItem("已付款",
-                                        Assets.iconsMineMaiYifukuan, () {}),
+                                        Assets.iconsMineMaiYifukuan, () {
+
+                                          Get.toNamed(RoutesID.BUYER_ORDER_PAGE, arguments: {
+                                            "index" : 2
+                                          });
+                                        }),
                                   ),
                                   Expanded(
                                     child: buildItem("待上架",
-                                        Assets.iconsMineMaiDaishangjia, () {}),
+                                        Assets.iconsMineMaiDaishangjia, () {
+
+                                          Get.toNamed(RoutesID.BUYER_ORDER_PAGE, arguments: {
+                                            "index" : 3
+                                          });
+                                        }),
                                   )
                                 ],
                               ),
@@ -328,23 +347,42 @@ class MinePage extends GetView<MineController> {
                                     child: buildItem(
                                         "我的仓库",
                                         Assets.iconsMineMaiMaiWodecangku,
-                                        () {}),
+                                        () {
+                                          Get.toNamed(RoutesID.SELLER_ORDER_PAGE, arguments: {
+                                            "index" : 0
+                                          });
+                                        }),
                                   ),
                                   Expanded(
                                     child: buildItem(
                                         "待收款",
                                         Assets.iconsMineMaiMaiDaishoukuan,
-                                        () {}),
+                                        () {
+
+                                          Get.toNamed(RoutesID.SELLER_ORDER_PAGE, arguments: {
+                                            "index" : 1
+                                          });
+                                        }),
                                   ),
                                   Expanded(
                                     child: buildItem("待确认",
-                                        Assets.iconsMineMaiMaiDaiqueren, () {}),
+                                        Assets.iconsMineMaiMaiDaiqueren, () {
+
+                                          Get.toNamed(RoutesID.SELLER_ORDER_PAGE, arguments: {
+                                            "index" : 2
+                                          });
+                                        }),
                                   ),
                                   Expanded(
                                     child: buildItem(
                                         "已完成",
                                         Assets.iconsMineMaiMaiYiwancheng,
-                                        () {}),
+                                        () {
+
+                                          Get.toNamed(RoutesID.SELLER_ORDER_PAGE, arguments: {
+                                            "index" : 3
+                                          });
+                                        }),
                                   )
                                 ],
                               ),

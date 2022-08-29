@@ -1,10 +1,14 @@
 import 'package:code_zero/app/middleware/auth_middleware.dart';
+import 'package:code_zero/app/modules/mine/buyer_order/buyer_order_binding.dart';
+import 'package:code_zero/app/modules/mine/buyer_order/buyer_order_page.dart';
+import 'package:code_zero/app/modules/mine/seller_order/seller_order_page.dart';
 import 'package:get/get.dart';
 
 import '../modules/home/category/category_binding.dart';
 import '../modules/home/category/category_page.dart';
 import '../modules/home/home_binding.dart';
 import '../modules/home/home_page.dart';
+import '../modules/mine/seller_order/seller_order_binding.dart';
 import '../modules/others/login/login_binding.dart';
 import '../modules/others/login/login_page.dart';
 import '../modules/others/splash/splash_binding.dart';
@@ -351,6 +355,20 @@ class AppPages {
       name: RoutesID.SPLASH_PAGE,
       page: () => const SplashPage(),
       binding: SplashBinding(),
+    ),
+
+    // 买方
+    GetPage(
+      name: RoutesID.BUYER_ORDER_PAGE,
+      page: () => const BuyerOrderPage(),
+      binding: BuyerOrderBinding(),
+    ),
+
+    // 卖方
+    GetPage(
+      name: RoutesID.SELLER_ORDER_PAGE,
+      page: () => const SellerOrderPage(),
+      binding: SellerOrderBinding(),
     ),
   ];
 }

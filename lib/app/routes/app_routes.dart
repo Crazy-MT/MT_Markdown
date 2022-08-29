@@ -35,4 +35,6 @@ class RoutesID {
   static const LOGIN_PAGE = "/login_page";
   static const HOME_PAGE = "/home_page";
   static const SPLASH_PAGE = "/splash_page";
+  static const BUYER_ORDER_PAGE = "/buyer_order_page";
+  static const SELLER_ORDER_PAGE = "/seller_order_page";
 }
