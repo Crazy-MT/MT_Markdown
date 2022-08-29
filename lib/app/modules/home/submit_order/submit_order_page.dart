@@ -9,6 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../../common/components/safe_tap_widget.dart';
+import '../../../routes/app_routes.dart';
 import 'submit_order_controller.dart';
 
 class SubmitOrderPage extends GetView<SubmitOrderController> {
@@ -57,70 +59,75 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              padding: EdgeInsets.all(19.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 1.w,
-                          horizontal: 6.w,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.green,
-                          borderRadius: BorderRadius.circular(10.w),
-                        ),
-                        child: Text(
-                          "默认",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w400,
+            Obx(() {
+              if(controller.addressList.isEmpty) {
+                return SizedBox.shrink();
+              }
+              return Container(
+                padding: EdgeInsets.all(19.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 1.w,
+                            horizontal: 6.w,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.green,
+                            borderRadius: BorderRadius.circular(10.w),
+                          ),
+                          child: Text(
+                            "默认",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 8.w,
-                      ),
-                      Text(
-                        "北京市朝阳区新街口街道",
-                        style: TextStyle(
-                          color: Color(0xFFABAAB9),
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
+                        SizedBox(
+                          width: 8.w,
                         ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5.w,
-                  ),
-                  Text(
-                    "北苑路222号某某小区2栋2302",
-                    style: TextStyle(
-                      color: AppColors.text_dark,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
+                        Text(
+                          controller.addressList[0].region ?? "",
+                          style: TextStyle(
+                            color: Color(0xFFABAAB9),
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        )
+                      ],
                     ),
-                  ),
-                  SizedBox(
-                    height: 14.w,
-                  ),
-                  Text(
-                    "李旭  189****5667",
-                    style: TextStyle(
-                      color: Color(0xFFABAAB9),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
+                    SizedBox(
+                      height: 5.w,
                     ),
-                  ),
-                ],
-              ),
-            ),
+                    Text(
+                      controller.addressList[0].address ?? "",
+                      style: TextStyle(
+                        color: AppColors.text_dark,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 14.w,
+                    ),
+                    Text(
+                      controller.addressList[0].phone ?? "",
+                      style: TextStyle(
+                        color: Color(0xFFABAAB9),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }),
             SvgPicture.asset(
               Assets.imagesLocalBottomBorder,
               width: 375.w,
@@ -156,7 +163,7 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
                   height: 19.w,
                 ),
                 Text(
-                  "8号宝库",
+                  controller.goods.sessionName ?? "",
                   style: TextStyle(
                     color: Color(0xFF434446),
                     fontSize: 12.sp,
@@ -170,8 +177,7 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.w),
                   child: CachedNetworkImage(
-                    imageUrl:
-                        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Ff70181a20931f7807418b722b4accf9cbd89d0c6c08a-s3JzNf_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663056542&t=17f6675c5cb02a4c4c23dd11959387e9',
+                    imageUrl: controller.goods.thumbnails?.first ?? "",
                     width: 100.w,
                     height: 100.w,
                   ),
@@ -184,7 +190,7 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "以心参玉 A货翡翠吊坠 男女男女男女男女男女男女",
+                        controller.goods.name ?? "",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -219,21 +225,21 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
                               ),
                             ),
                             TextSpan(
-                              text: "30000",
+                              text: controller.goods.currentPrice,
                               style: TextStyle(
                                 fontSize: 16.sp,
                                 color: AppColors.text_dark,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            TextSpan(
-                              text: ".00",
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                color: AppColors.text_dark,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                            // TextSpan(
+                            //   text: ".00",
+                            //   style: TextStyle(
+                            //     fontSize: 12.sp,
+                            //     color: AppColors.text_dark,
+                            //     fontWeight: FontWeight.w500,
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
@@ -267,7 +273,7 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
           ),
         ),
         Text(
-          "¥ 30000.00",
+          controller.goods.currentPrice ?? "",
           style: TextStyle(
             color: AppColors.text_dark,
             fontSize: 15.sp,
