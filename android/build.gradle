@@ -1,7 +1,7 @@
 buildscript {
     ext.kotlin_version = '1.6.10'
     repositories {
-        /*maven {
+        maven {
             allowInsecureProtocol = true
             url 'https://maven.aliyun.com/nexus/content/groups/public'
         }
@@ -12,10 +12,10 @@ buildscript {
         maven {
             allowInsecureProtocol = true
             url 'https://maven.aliyun.com/repository/jcenter'
-        }*/
-        google()
-        mavenCentral()
-//        maven { url "https://jitpack.io" }
+        }
+//        google()
+//        mavenCentral()
+        maven { url "https://jitpack.io" }
     }
 
     dependencies {
@@ -26,7 +26,7 @@ buildscript {
 
 allprojects {
     repositories {
-        /*maven {
+        maven {
             allowInsecureProtocol = true
             url 'https://maven.aliyun.com/nexus/content/groups/public'
         }
@@ -37,10 +37,10 @@ allprojects {
         maven {
             allowInsecureProtocol = true
             url 'https://maven.aliyun.com/repository/jcenter'
-        }*/
-        google()
-        mavenCentral()
-//        maven { url "https://jitpack.io" }
+        }
+//        google()
+//        mavenCentral()
+        maven { url "https://jitpack.io" }
     }
 }
 
