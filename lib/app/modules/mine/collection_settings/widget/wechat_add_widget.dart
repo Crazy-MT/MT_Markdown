@@ -35,18 +35,20 @@ class WechatAddWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Obx(
-        (() => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildInputItem('请输入微信收款账号', controller.wechatAccountController),
-                _buildInputItem('短信验证码', controller.wechatCodeController),
-                _buildInputItem('请输入微信收款姓名', controller.wechatNameController),
-                _addQrcodeWidget(),
-                Expanded(child: SizedBox()),
-                _addButtonWidget(),
-                SizedBox(height: MediaQuery.of(context).padding.bottom + 20.w),
-              ],
-            )),
+        (() => SingleChildScrollView(
+          child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildInputItem('请输入微信收款账号', controller.wechatAccountController),
+                  _buildInputItem('短信验证码', controller.wechatCodeController),
+                  _buildInputItem('请输入微信收款姓名', controller.wechatNameController),
+                  _addQrcodeWidget(),
+                  // Expanded(child: SizedBox()),
+                  _addButtonWidget(),
+                  SizedBox(height: MediaQuery.of(context).padding.bottom + 20.w),
+                ],
+              ),
+        )),
       ),
     );
   }
@@ -98,7 +100,7 @@ class WechatAddWidget extends StatelessWidget {
                 onPressed: controller.sendWechatCodeCountDown.value <= 0
                     ? () {
                         controller.startWechatCountDown();
-                        // controller.getSMS(false);
+                        controller.getSMS(false);
                       }
                     : null,
                 style: ElevatedButton.styleFrom(
@@ -195,8 +197,10 @@ class WechatAddWidget extends StatelessWidget {
         controller.wechatQrImg.value.isNotEmpty;
     return SafeTapWidget(
       onTap: () {
-        if (enable) {
+        if (controller.hasNoWeiXin) {
           controller.addUserWechat();
+        } else {
+          controller.editWeiXinCard(controller.wechatInfo.value?.id);
         }
       },
       child: Container(

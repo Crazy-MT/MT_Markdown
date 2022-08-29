@@ -23,11 +23,11 @@ class WechatInfoWidget extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      child: Obx(() => (controller.wechatInfo.value != null || controller.isWechatEdit.value == false) ? _cardInfoWidget() : WechatAddWidget()),
+      child: Obx(() => (controller.isWechatEdit.value == false) ? _cardInfoWidget(controller) : WechatAddWidget()),
     );
   }
 
-  Widget _cardInfoWidget() {
+  Widget _cardInfoWidget(CollectionSettingsController controller) {
     return Stack(
       children: [
         Container(
@@ -48,7 +48,7 @@ class WechatInfoWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '招商银行',
+                    controller.wechatInfo.value?.name ?? "",
                     style: TextStyle(
                       color: Color(0xffffffff),
                       fontSize: 20.sp,
@@ -56,7 +56,7 @@ class WechatInfoWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '6225 8801 467 0045',
+                    controller.wechatInfo.value?.wechatAccount ?? "",
                     style: TextStyle(
                       color: Color(0xffffffff),
                       fontSize: 16.sp,
@@ -84,7 +84,7 @@ class WechatInfoWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12.w),
               ),
               child: Text(
-                '更改收款',
+                '更改微信',
                 style: TextStyle(
                   color: Color(0xff111111),
                   fontSize: 12.sp,

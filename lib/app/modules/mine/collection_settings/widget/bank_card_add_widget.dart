@@ -104,8 +104,10 @@ class BankCardAddWidget extends StatelessWidget {
         controller.bankBelongController.text.isNotEmpty;
     return SafeTapWidget(
       onTap: () {
-        if (enable) {
-          Get.find<CollectionSettingsController>().addUserBankCard();
+        if (enable && controller.hasNoBankCard) {
+          controller.addUserBankCard();
+        } {
+          controller.editBankCard(controller.bankcardInfo.value?.id);
         }
       },
       child: Container(

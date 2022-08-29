@@ -11,7 +11,8 @@ class BankCardInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CollectionSettingsController controller = Get.find<CollectionSettingsController>();
+    CollectionSettingsController controller =
+        Get.find<CollectionSettingsController>();
     return Container(
       alignment: Alignment.topCenter,
       decoration: BoxDecoration(
@@ -21,11 +22,16 @@ class BankCardInfoWidget extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      child: Obx(() => (controller.bankcardInfo.value != null || controller.isBankEdit.value == false) ? _cardInfoWidget() : BankCardAddWidget()),
+      child: Obx(() {
+        print('MTMTMT BankCardInfoWidget.build ${controller.isBankEdit.value} ');
+        return (controller.isBankEdit.value == false)
+            ? _cardInfoWidget(controller)
+            : BankCardAddWidget();
+      }),
     );
   }
 
-  Widget _cardInfoWidget() {
+  Widget _cardInfoWidget(CollectionSettingsController controller) {
     return Stack(
       children: [
         Container(
@@ -39,14 +45,15 @@ class BankCardInfoWidget extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Image.asset(Assets.imagesWalletBankCardIcon, width: 40.w, height: 40.w),
+              Image.asset(Assets.imagesWalletBankCardIcon,
+                  width: 40.w, height: 40.w),
               SizedBox(width: 15.w),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '招商银行',
+                    controller.bankcardInfo.value?.bank ?? "",
                     style: TextStyle(
                       color: Color(0xffffffff),
                       fontSize: 20.sp,
@@ -54,7 +61,7 @@ class BankCardInfoWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '6225 8801 467 0045',
+                    controller.bankcardInfo.value?.bankCardNum ?? "",
                     style: TextStyle(
                       color: Color(0xffffffff),
                       fontSize: 16.sp,
@@ -82,7 +89,7 @@ class BankCardInfoWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12.w),
               ),
               child: Text(
-                '更改收款',
+                '编辑银行卡',
                 style: TextStyle(
                   color: Color(0xff111111),
                   fontSize: 12.sp,

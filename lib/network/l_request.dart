@@ -6,6 +6,7 @@ import 'package:code_zero/common/common.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
+import '../common/user_helper.dart';
 import '../utils/device_util.dart';
 import '../utils/log_utils.dart';
 import '../utils/utils.dart';
@@ -76,8 +77,7 @@ class LRequest {
     Response response;
     dio.options.headers[NetConstant.UNIQUE_ID] = deviceUtil.getUniqueID();
     //TODO 上线前记得改掉
-    dio.options.headers[NetConstant.AUTHORIZATION] = "Bearer " +
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjQxNTYyMDcsImlzQWRtaW4iOjAsInBob25lIjoiMTcwOTAzMTE1NjMifQ.86waxB4QXAKEobhy1bJDhNpDq6guOllHQlXfdIe_BXw";
+    dio.options.headers[NetConstant.AUTHORIZATION] = "Bearer " + userHelper.userToken;
     try {
       lLog("request get start =======>net: $url");
       if (requestType == RequestType.GET) {

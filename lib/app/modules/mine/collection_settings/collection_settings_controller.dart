@@ -50,8 +50,11 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
   // 微信收款二维码
   RxString wechatQrImg = "".obs;
 
-  RxBool isBankEdit = RxBool(false);
+  RxBool isBankEdit = RxBool(true);
   RxBool isWechatEdit = RxBool(false);
+
+  var hasNoBankCard = true;
+  var hasNoWeiXin = true;
 
   final sendBankCodeCountDown = 0.obs;
   final sendWechatCodeCountDown = 0.obs;
@@ -94,15 +97,15 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
 
   void enterEdit() {
     if (tabController?.index == 0) {
-      bankNameController.text = bankcardInfo.value?.data?.name ?? '';
-      bankPhoneController.text = bankcardInfo.value?.data?.phone ?? '';
-      bankCardNumController.text = bankcardInfo.value?.data?.bankCardNum ?? '';
-      bankBelongController.text = bankcardInfo.value?.data?.bankName ?? '';
+      bankNameController.text = bankcardInfo.value?.name ?? '';
+      bankPhoneController.text = bankcardInfo.value?.phone ?? '';
+      bankCardNumController.text = bankcardInfo.value?.bankCardNum ?? '';
+      bankBelongController.text = bankcardInfo.value?.bankName ?? '';
       isBankEdit.value = true;
     } else {
-      wechatAccountController.text = wechatInfo.value?.data?.wechatAccount ?? '';
-      wechatNameController.text = wechatInfo.value?.data?.name ?? '';
-      wechatQrImg.value = wechatInfo.value?.data?.wechatPaymentCodeUrl ?? '';
+      wechatAccountController.text = wechatInfo.value?.wechatAccount ?? '';
+      wechatNameController.text = wechatInfo.value?.name ?? '';
+      wechatQrImg.value = wechatInfo.value?.wechatPaymentCodeUrl ?? '';
       isBankEdit.value = true;
     }
   }
@@ -112,18 +115,23 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
     ResultData<UserBankCardModel>? _result = await LRequest.instance.request<UserBankCardModel>(
       url: CollectionSettingsApis.USERBANK,
       t: UserBankCardModel(),
-      data: {
+      queryParameters: {
         "user-id": userHelper.userInfo.value?.id,
       },
       requestType: RequestType.GET,
       errorBack: (errorCode, errorMsg, expMsg) {
+        Utils.showToastMsg("获取用户银行卡失败：${errorCode == -1 ? expMsg : errorMsg}");
         lLog(errorMsg);
       },
     );
+    print('MTMTMT CollectionSettingsController.fetchBankCardData ${bankcardInfo.value} ');
+    isBankEdit.value = true;
     if (_result?.value == null) {
       return;
     }
     bankcardInfo.value = _result?.value;
+    hasNoBankCard = false;
+    isBankEdit.value = false;
   }
 
   // 获取用户微信
@@ -131,26 +139,27 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
     ResultData<UserWechatModel>? _result = await LRequest.instance.request<UserWechatModel>(
       url: CollectionSettingsApis.USERWECHAT,
       t: UserWechatModel(),
-      data: {
+      queryParameters: {
         "user-id": userHelper.userInfo.value?.id,
       },
       requestType: RequestType.GET,
       errorBack: (errorCode, errorMsg, expMsg) {
+        Utils.showToastMsg("获取用户微信方式失败：${errorCode == -1 ? expMsg : errorMsg}");
         lLog(errorMsg);
       },
     );
+    isWechatEdit.value = true;
     if (_result?.value == null) {
       return;
     }
     wechatInfo.value = _result?.value;
+    hasNoWeiXin = false;
+    isWechatEdit.value = false;
   }
 
   // 添加银行卡
   Future<void> addUserBankCard() async {
     String url = CollectionSettingsApis.USEADDBANK;
-    if (isBankEdit == true) {
-      url = CollectionSettingsApis.USEPAYMENTUPDATE;
-    }
     ResultData<UserBankCardModel>? _result = await LRequest.instance.request<UserBankCardModel>(
       url: url,
       t: UserBankCardModel(),
@@ -164,6 +173,7 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
       },
       requestType: RequestType.POST,
       errorBack: (errorCode, errorMsg, expMsg) {
+        Utils.showToastMsg("添加银行卡失败：${errorCode == -1 ? expMsg : errorMsg}");
         lLog(errorMsg);
       },
     );
@@ -173,12 +183,39 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
     bankcardInfo.value = _result?.value;
   }
 
+  /// 编辑银行卡信息
+  Future<void> editBankCard(id) async {
+    String url = CollectionSettingsApis.USEPAYMENTUPDATE;
+    ResultData<UserBankCardModel>? _result = await LRequest.instance.request<UserBankCardModel>(
+      url: url,
+      t: UserBankCardModel(),
+      data: {
+        "id": id,
+        "method": 0,
+        "name": bankNameController.text,
+        "phone": bankPhoneController.text,
+        "authCode": bankCodeController.text,
+        "bankCardNum": bankCardNumController.text,
+        "bank": bankBelongController.text,
+        "userId": userHelper.userInfo.value?.id,
+        "isAdmin": 0,
+      },
+      requestType: RequestType.POST,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        Utils.showToastMsg("编辑银行卡信息失败：${errorCode == -1 ? expMsg : errorMsg}");
+        lLog(errorMsg);
+      },
+    );
+    if (_result?.value == null) {
+      return;
+    }
+    // bankcardInfo.value = _result?.value;
+  }
+
+
   // 添加微信
   Future<void> addUserWechat() async {
     String url = CollectionSettingsApis.USEADDWECHAT;
-    if (isWechatEdit == true) {
-      url = CollectionSettingsApis.USEPAYMENTUPDATE;
-    }
     ResultData<UserWechatModel>? _result = await LRequest.instance.request<UserWechatModel>(
       url: url,
       t: UserWechatModel(),
@@ -192,6 +229,7 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
       },
       requestType: RequestType.POST,
       errorBack: (errorCode, errorMsg, expMsg) {
+        Utils.showToastMsg("添加微信失败：${errorCode == -1 ? expMsg : errorMsg}");
         lLog(errorMsg);
       },
     );
@@ -199,6 +237,35 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
       return;
     }
     wechatInfo.value = _result?.value;
+  }
+
+  /// 编辑银行卡信息
+  Future<void> editWeiXinCard(id) async {
+    String url = CollectionSettingsApis.USEPAYMENTUPDATE;
+    ResultData<UserBankCardModel>? _result = await LRequest.instance.request<UserBankCardModel>(
+      url: url,
+      t: UserBankCardModel(),
+      data: {
+        "id": id,
+        "method": 1,
+        "wechatAccount": wechatAccountController.text,
+        "name": wechatNameController.text,
+        "phone": userHelper.userInfo.value?.phone,
+        "authCode": wechatCodeController.text,
+        "wechatPaymentCodeUrl": wechatQrImg.value,
+        "userId": userHelper.userInfo.value?.id,
+        "isAdmin": 0,
+      },
+      requestType: RequestType.POST,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        lLog(errorMsg);
+        Utils.showToastMsg("编辑银行卡失败：${errorCode == -1 ? expMsg : errorMsg}");
+      },
+    );
+    if (_result?.value == null) {
+      return;
+    }
+    // bankcardInfo.value = _result?.value;
   }
 
   // 选择图片并上传

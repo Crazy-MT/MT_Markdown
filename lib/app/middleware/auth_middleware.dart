@@ -9,7 +9,6 @@ import '../routes/app_pages.dart';
 class EnsureAuthMiddleware extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
-    print('MTMTMT EnsureAuthMiddleware.redirect ${route} ');
     if (userHelper.userToken.isEmpty) {
       return const RouteSettings(name: RoutesID.LOGIN_PAGE);
     } else {
@@ -21,7 +20,6 @@ class EnsureAuthMiddleware extends GetMiddleware {
 class EnsureNotAuthedMiddleware extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
-    print('MTMTMT EnsureAuthMiddleware.redirect ${route} ');
     if (userHelper.userToken.isNotEmpty) {
       return const RouteSettings(name: RoutesID.LOGIN_PAGE);
     } else {
