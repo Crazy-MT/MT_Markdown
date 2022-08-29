@@ -8,7 +8,10 @@ import '../../../../utils/log_utils.dart';
 import '../../../../utils/utils.dart';
 import '../../mine/address_manage/address_apis.dart';
 import '../../mine/address_manage/model/address_list_model.dart';
+import '../../snap_up/model/session_model.dart';
+import '../../snap_up/snap_apis.dart';
 import '../../snap_up/snap_detail/model/commodity.dart';
+import '../../snap_up/widget/success_dialog.dart';
 
 class SubmitOrderController extends GetxController {
   final pageName = 'SubmitOrder'.obs;
@@ -50,6 +53,30 @@ class SubmitOrderController extends GetxController {
     }
   }
 
+  doSnapUpCreate() async {
+    ResultData<SessionModel>? _result = await LRequest.instance.request<SessionModel>(
+        url: SnapApis.SNAP_CREATE,
+        t: SessionModel(),
+        data: {
+          "addressId":addressList.first.id,
+          "commodityId":goods.id,
+          "userId":userHelper.userInfo.value?.id
+        },
+        requestType: RequestType.POST,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          Utils.showToastMsg("创建抢购订单失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("创建抢购订单失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+        onSuccess: (result) {
+          var model = result.value;
+          if(model == null) {
+            return;
+          }
+          showSuccessDialog(onConfirm: () {
+            // TODO
+          });
+        });
+  }
 
   @override
   void onClose() {}

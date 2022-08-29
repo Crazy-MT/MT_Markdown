@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/home/home_page.dart';
 import 'package:code_zero/app/modules/snap_up/widget/success_dialog.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
@@ -11,6 +12,7 @@ import 'package:get/get.dart';
 
 import '../../../../common/components/safe_tap_widget.dart';
 import '../../../routes/app_routes.dart';
+import '../../main_tab/main_tab_page.dart';
 import 'submit_order_controller.dart';
 
 class SubmitOrderPage extends GetView<SubmitOrderController> {
@@ -286,7 +288,7 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
           height: 40.w,
           child: ElevatedButton(
             onPressed: () {
-              showSuccessDialog();
+              controller.doSnapUpCreate();
             },
             style: ElevatedButton.styleFrom(
               shape: StadiumBorder(),

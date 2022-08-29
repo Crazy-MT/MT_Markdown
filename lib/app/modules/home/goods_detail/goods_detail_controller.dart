@@ -60,28 +60,6 @@ class GoodsDetailController extends GetxController {
     Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE);
   }
 
-  doSnapUpCreate(commodityId, addressId) async {
-    ResultData<SessionModel>? _result = await LRequest.instance.request<SessionModel>(
-        url: SnapApis.SNAP_CREATE,
-        t: SessionModel(),
-        data: {
-          "addressId":addressId,
-          "commodityId":commodityId,
-          "userId":userHelper.userInfo.value?.id
-        },
-        requestType: RequestType.POST,
-        errorBack: (errorCode, errorMsg, expMsg) {
-          Utils.showToastMsg("创建抢购订单失败：${errorCode == -1 ? expMsg : errorMsg}");
-          errorLog("创建抢购订单失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
-        },
-        onSuccess: (result) {
-          var model = result.value;
-          if(model == null || model.items == null) {
-            return;
-          }
-        });
-  }
-
   doAddToCart() async {
     var result = await showByDialog(isAddToCat: true);
   }
