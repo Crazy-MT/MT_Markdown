@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderItemWidget extends StatelessWidget {
   final int index;
-  const OrderItemWidget({Key? key, required this.index}) : super(key: key);
+  final int? editStatus;
+  const OrderItemWidget({Key? key, required this.index, this.editStatus})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +24,27 @@ class OrderItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("订单号: D2022081684784724857",
-              style: TextStyle(
-                color: Color(0xff434446),
-                fontSize: 12.sp,
-              )),
+          Row(
+            children: [
+              (this.editStatus != null && this.editStatus != 0)
+                  ? Image.asset(
+                      this.editStatus == 1
+                          ? Assets.imagesShoppingCartGoodsUnselected
+                          : Assets.imagesShoppingCartGoodsSelected,
+                      height: 19.w,
+                      width: 19.w,
+                    )
+                  : SizedBox(),
+              SizedBox(
+                width: 5.w,
+              ),
+              Text("订单号: D2022081684784724857",
+                  style: TextStyle(
+                    color: Color(0xff434446),
+                    fontSize: 12.sp,
+                  )),
+            ],
+          ),
           SizedBox(
             height: 15.w,
           ),
@@ -46,38 +65,34 @@ class OrderItemWidget extends StatelessWidget {
               _buttonBtnWidget(
                 title: "待付款",
                 color: Color(0xffFF3939),
-              ),SizedBox(
+              ),
+              SizedBox(
                 width: 10.w,
               ),
-              _buttonBtnWidget(
-                title: "上传支付凭证",
-                color: Color(0xff000000),
-              ),
-              _buttonBtnWidget(
-                title: "申诉",
-                color: Color(0xff000000),
-              ),
-
-              _buttonBtnWidget(
-                title: "提货",
-                color: Color(0xff000000),
-              ),
-
-              _buttonBtnWidget(
-                title: "委托上架",
-                color: Color(0xff000000),
-              ),
-
-
-              _buttonBtnWidget(
-                title: "取消订单",
-                color: Color(0xff000000),
-              ),
-
-              _buttonBtnWidget(
-                title: "确认收款",
-                color: Color(0xff000000),
-              ),
+              // _buttonBtnWidget(
+              //   title: "上传支付凭证",
+              //   color: Color(0xff000000),
+              // ),
+              // _buttonBtnWidget(
+              //   title: "申诉",
+              //   color: Color(0xff000000),
+              // ),
+              // _buttonBtnWidget(
+              //   title: "提货",
+              //   color: Color(0xff000000),
+              // ),
+              // _buttonBtnWidget(
+              //   title: "委托上架",
+              //   color: Color(0xff000000),
+              // ),
+              // _buttonBtnWidget(
+              //   title: "取消订单",
+              //   color: Color(0xff000000),
+              // ),
+              // _buttonBtnWidget(
+              //   title: "确认收款",
+              //   color: Color(0xff000000),
+              // ),
             ],
           ),
         ],

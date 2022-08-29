@@ -7,6 +7,7 @@ class OrderController extends GetxController
   final pageName = 'Order'.obs;
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
+  final editStatus = 0.obs;
   final List<Tab> myTabs = <Tab>[
     Tab(text: '全部'),
     Tab(text: '待付款'),
@@ -22,12 +23,22 @@ class OrderController extends GetxController
     initData();
     tabController = TabController(vsync: this, length: myTabs.length);
     tabController?.index = Get.arguments['index'] as int;
+    _settingEditStatus();
     tabController?.addListener(() {
       ///避免addListener调用2次
       if (tabController?.index == tabController?.animation?.value) {
         print("点击了下标为${tabController?.index}的tab");
+        _settingEditStatus();
       }
     });
+  }
+
+  _settingEditStatus() {
+    if (tabController?.index == 1) {
+      this.editStatus.value = 1;
+    } else {
+      this.editStatus.value = 0;
+    }
   }
 
   initData() {

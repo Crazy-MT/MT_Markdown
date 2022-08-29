@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:code_zero/app/modules/mine/order/widget/order_item_widget.dart';
+import 'package:code_zero/generated/assets/assets.dart';
 
 import '../../../../common/components/common_app_bar.dart';
 import 'order_controller.dart';
@@ -30,7 +33,15 @@ class OrderPage extends GetView<OrderController> {
           type: controller.pageStatus.value,
           errorMsg: controller.errorMsg.value,
           builder: (BuildContext context) {
-            return _content(context);
+            return Obx(() => Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    _content(context),
+                    this.controller.editStatus.value != 0
+                        ? _bottomControlWidget(context)
+                        : SizedBox(),
+                  ],
+                ));
           },
         ),
       ),
@@ -78,11 +89,89 @@ class OrderPage extends GetView<OrderController> {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (content, index) {
-          return OrderItemWidget(
-            index: index,
-          );
+          return Obx(() => OrderItemWidget(
+                index: index,
+                editStatus: this.controller.editStatus.value,
+              ));
         },
         childCount: 10,
+      ),
+    );
+  }
+
+  _bottomControlWidget(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+      color: Colors.white,
+      height: 60.w + MediaQuery.of(context).padding.bottom,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 25.w,
+          ),
+          GestureDetector(
+            onTap: () {
+              if (this.controller.editStatus.value != 2) {
+                this.controller.editStatus.value = 2;
+              } else {
+                this.controller.editStatus.value = 1;
+              }
+            },
+            child: Image.asset(
+              this.controller.editStatus.value == 2
+                  ? Assets.imagesShoppingCartGoodsSelected
+                  : Assets.imagesShoppingCartGoodsUnselected,
+              height: 19.w,
+              width: 19.w,
+            ),
+          ),
+          SizedBox(
+            width: 10.w,
+          ),
+          Text(
+            "全选",
+            style: TextStyle(color: Color(0xff757575), fontSize: 15.sp),
+          ),
+          Expanded(
+            child: SizedBox(),
+          ),
+          Text(
+            "总计：",
+            style: TextStyle(color: Color(0xff757575), fontSize: 15.sp),
+          ),
+          Text(
+            "¥30000.00",
+            style: TextStyle(color: Color(0xff111111), fontSize: 15.sp),
+          ),
+          SizedBox(
+            width: 15.w,
+          ),
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              width: 100.w,
+              height: 40.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.w),
+                color: Color(0xff1BDB8A),
+              ),
+              child: Center(
+                child: Text(
+                  "合并结算",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 10.w,
+          )
+        ],
       ),
     );
   }
