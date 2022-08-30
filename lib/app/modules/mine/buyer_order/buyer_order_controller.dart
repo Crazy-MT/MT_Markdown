@@ -57,7 +57,6 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
     } else {
       tabInfo.currentPage++;
     }
-
     ResultData<OrderListModel>? _result = await LRequest.instance.request<OrderListModel>(
       url: SnapApis.ORDER_LIST,
       queryParameters: {

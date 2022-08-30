@@ -26,7 +26,7 @@ class OrderItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("订单号: D2022081684784724857",
+          Text(item.tradeNo ?? "",
               style: TextStyle(
                 color: Color(0xff434446),
                 fontSize: 12.sp,
@@ -116,7 +116,7 @@ class OrderItemWidget extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(8.w),
           child: CachedNetworkImage(
-            imageUrl: "http://placekitten.com/1200/315",
+            imageUrl: item.thumbnailUrl ?? "",
             width: 100.w,
             height: 100.w,
             fit: BoxFit.fill,
@@ -130,7 +130,7 @@ class OrderItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "以心参玉 A货翡翠吊坠 男女啊哈哈",
+                  item.name ?? "",
                   style: TextStyle(color: Color(0xff111111), fontSize: 15.sp, fontWeight: FontWeight.w500),
                   textAlign: TextAlign.end,
                 ),
