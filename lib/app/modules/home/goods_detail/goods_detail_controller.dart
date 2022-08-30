@@ -2,17 +2,9 @@ import 'package:code_zero/app/modules/home/goods_detail/widget/buy_dialog.dart';
 import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
-import 'package:code_zero/common/user_helper.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../../network/base_model.dart';
-import '../../../../network/l_request.dart';
-import '../../../../utils/log_utils.dart';
-import '../../../../utils/utils.dart';
-import '../../snap_up/model/session_model.dart';
-import '../../snap_up/snap_apis.dart';
 
 class GoodsDetailController extends GetxController {
   final pageName = 'GoodsDetail'.obs;

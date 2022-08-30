@@ -1,5 +1,6 @@
-import 'package:get/get.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:get/get.dart';
 
 import '../../../../common/user_helper.dart';
 import '../../../../network/base_model.dart';
@@ -58,9 +59,9 @@ class SubmitOrderController extends GetxController {
         url: SnapApis.SNAP_CREATE,
         t: SessionModel(),
         data: {
-          "addressId":addressList.first.id,
-          "commodityId":goods.id,
-          "userId":userHelper.userInfo.value?.id
+          "addressId": addressList.first.id,
+          "commodityId": goods.id,
+          "userId": userHelper.userInfo.value?.id,
         },
         requestType: RequestType.POST,
         errorBack: (errorCode, errorMsg, expMsg) {
@@ -69,11 +70,11 @@ class SubmitOrderController extends GetxController {
         },
         onSuccess: (result) {
           var model = result.value;
-          if(model == null) {
+          if (model == null) {
             return;
           }
           showSuccessDialog(onConfirm: () {
-            // TODO
+            Get.offAllNamed(RoutesID.MAIN_TAB_PAGE);
           });
         });
   }
