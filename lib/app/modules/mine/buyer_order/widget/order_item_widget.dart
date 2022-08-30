@@ -4,8 +4,12 @@ import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../../generated/assets.dart';
+import '../../../../../utils/log_utils.dart';
+import '../../../../routes/app_routes.dart';
 
 class OrderItemWidget extends StatelessWidget {
   final OrderItem item;
@@ -116,10 +120,20 @@ class OrderItemWidget extends StatelessWidget {
                           title: "去付款",
                           color: Color(0xffFF3939),
                           onTap: () {
-                            if (item.fromUserIsAdmin == 0) {
+                            if (item.fromUserIsAdmin == 1) {
                               // 订单卖方是管理员，就显示系统设置的银行收款信息 https://chuancui.yuque.com/staff-tcr7lf/yra0pk/in371v
+                              Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE,
+                                  arguments: {
+                                    "fromUserId": item.fromUserId,
+                                    "fromUserIsAdmin": item.fromUserIsAdmin
+                                  });
                             } else {
                               // 订单卖方是会员，就显示会员设置的收款信息
+                              Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE,
+                                  arguments: {
+                                    "fromUserId": item.fromUserId,
+                                    "fromUserIsAdmin": item.fromUserIsAdmin
+                                  });
                             }
                           }),
                       visible: item.tradeState == 0 || item.tradeState == 2,
@@ -143,10 +157,7 @@ class OrderItemWidget extends StatelessWidget {
                     ),
                     Visibility(
                       child: _buttonBtnWidget(
-                          title: "申诉",
-                          color: Color(0xffFF3939),
-                          onTap: () {
-                          }),
+                          title: "申诉", color: Color(0xffFF3939), onTap: () {}),
                       visible: item.tradeState == 3,
                     ),
                     SizedBox(
@@ -154,9 +165,7 @@ class OrderItemWidget extends StatelessWidget {
                     ),
                     Visibility(
                       child: _buttonBtnWidget(
-                          title: "提货",
-                          color: Color(0xff1BDB8A),
-                          onTap: () {}),
+                          title: "提货", color: Color(0xff1BDB8A), onTap: () {}),
                       visible: item.tradeState == 3,
                     ),
                     Visibility(
