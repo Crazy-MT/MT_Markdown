@@ -1,3 +1,4 @@
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/common_input.dart';
@@ -6,6 +7,7 @@ import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:code_zero/main.dart';
 import 'package:code_zero/utils/input_format_utils.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -278,13 +280,22 @@ class LoginPage extends GetView<LoginController> {
               ),
               children: [
                 TextSpan(
-                  text: "《用户隐私政策》",
-                  style: TextStyle(
-                    color: Color(0xFF111111),
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                    text: "《用户隐私政策》",
+                    style: TextStyle(
+                      color: Color(0xFF111111),
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Get.toNamed(
+                          RoutesID.LOCAL_HTML_PAGE,
+                          arguments: {
+                            "page_title": "用户隐私政策",
+                            "html_file": "assets/html/privacy_policy.html",
+                          },
+                        );
+                      }),
               ],
             ),
           ),

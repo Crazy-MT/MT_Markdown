@@ -46,8 +46,32 @@ class SettingController extends GetxController {
           Get.toNamed(RoutesID.C2C_RISK_PAGE);
         }));
     menuList.add(_MenuItem(title: "委托寄售服务协议"));
-    menuList.add(_MenuItem(title: "用户需知"));
-    menuList.add(_MenuItem(title: "用户隐私政策"));
+    menuList.add(_MenuItem(
+      title: "用户须知",
+      onClick: () {
+        Get.toNamed(
+          RoutesID.LOCAL_HTML_PAGE,
+          arguments: {
+            "page_title": "用户须知",
+            "html_file": "assets/html/user_instructions.html",
+          },
+        );
+      },
+    ));
+    menuList.add(
+      _MenuItem(
+        title: "用户隐私政策",
+        onClick: () {
+          Get.toNamed(
+            RoutesID.LOCAL_HTML_PAGE,
+            arguments: {
+              "page_title": "用户隐私政策",
+              "html_file": "assets/html/privacy_policy.html",
+            },
+          );
+        },
+      ),
+    );
     menuList.add(_MenuItem(
         title: "注销账号",
         onClick: () {
