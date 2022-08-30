@@ -14,6 +14,8 @@ class _ConfirmDialog extends StatelessWidget {
   final VoidCallback? onConfirm;
   final VoidCallback? onCancel;
 
+  final Color? confirmTextColor;
+
   final String cancelText;
   final String confirmText;
 
@@ -28,6 +30,7 @@ class _ConfirmDialog extends StatelessWidget {
     this.contentWidget,
     this.cancelText = "取消",
     this.confirmText = "确定",
+    this.confirmTextColor,
   }) : super(key: key);
 
   @override
@@ -98,10 +101,9 @@ class _ConfirmDialog extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       shape: StadiumBorder(),
                     ).copyWith(
-                      padding:
-                          MaterialStateProperty.all(const EdgeInsets.all(0)),
-                      backgroundColor:
-                          MaterialStateProperty.all(Color(0xFFF3F9FB)),
+                      padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+                      backgroundColor: MaterialStateProperty.all(Color(0xFFF3F9FB)),
+                      elevation: MaterialStateProperty.all(0),
                     ),
                   ),
                 ),
@@ -121,7 +123,7 @@ class _ConfirmDialog extends StatelessWidget {
                     child: Text(
                       confirmText,
                       style: TextStyle(
-                        color: AppColors.text_dark,
+                        color: confirmTextColor ?? AppColors.text_dark,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                       ),
@@ -129,10 +131,9 @@ class _ConfirmDialog extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       shape: StadiumBorder(),
                     ).copyWith(
-                      padding:
-                          MaterialStateProperty.all(const EdgeInsets.all(0)),
-                      backgroundColor:
-                          MaterialStateProperty.all(AppColors.green),
+                      padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+                      backgroundColor: MaterialStateProperty.all(AppColors.green),
+                      elevation: MaterialStateProperty.all(0),
                     ),
                   ),
                 ),
@@ -155,6 +156,7 @@ Future<bool> showConfirmDialog({
   VoidCallback? onCancel,
   String cancelText = "取消",
   String confirmText = "确定",
+  Color? confirmTextColor,
 }) async {
   var result = await Get.dialog(_ConfirmDialog(
     title: title,
@@ -166,6 +168,7 @@ Future<bool> showConfirmDialog({
     onCancel: onCancel,
     cancelText: cancelText,
     confirmText: confirmText,
+    confirmTextColor: confirmTextColor,
   ));
   if (result == true) return true;
   return false;

@@ -1,4 +1,3 @@
-import 'package:code_zero/app/modules/others/widget/signature/signature_in_agreement.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/confirm_dialog.dart';
@@ -75,12 +74,12 @@ class SettingController extends GetxController {
     menuList.add(_MenuItem(
         title: "注销账号",
         onClick: () {
-          Get.toNamed(
-            RoutesID.LOCAL_HTML_PAGE,
-            arguments: {
-              "page_title": "用户注册协议",
-              "html_file": "assets/html/user_registration_protocol.html",
-              "bottom_widget": SignatureInAgreement(),
+          showConfirmDialog(
+            content: "确认注销账号吗?",
+            confirmTextColor: Colors.white,
+            onConfirm: () {
+              //TODO
+              // Get.back();
             },
           );
         }));
