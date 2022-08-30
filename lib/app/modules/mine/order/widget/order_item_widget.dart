@@ -1,18 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderItemWidget extends StatelessWidget {
   final int index;
-  final OrderItem item;
   final int? editStatus;
   const OrderItemWidget({
     Key? key,
     required this.index,
     this.editStatus,
-    required this.item,
   }) : super(key: key);
 
   @override

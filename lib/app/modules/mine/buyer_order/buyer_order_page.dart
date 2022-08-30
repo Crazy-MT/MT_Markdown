@@ -1,3 +1,4 @@
+import 'package:code_zero/app/modules/mine/buyer_order/widget/order_item_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../common/components/common_app_bar.dart';
-import '../order/widget/order_item_widget.dart';
+import '../model/order_tab_info.dart';
 import 'buyer_order_controller.dart';
 
 class BuyerOrderPage extends GetView<BuyerOrderController> {
@@ -61,7 +62,7 @@ class BuyerOrderPage extends GetView<BuyerOrderController> {
         Expanded(
           child: TabBarView(
             controller: controller.tabController,
-            children: controller.myTabs.map((TabInfo tab) {
+            children: controller.myTabs.map((OrderTabInfo tab) {
               return SmartRefresher(
                 controller: tab.refreshController,
                 enablePullDown: true,
@@ -85,7 +86,7 @@ class BuyerOrderPage extends GetView<BuyerOrderController> {
     );
   }
 
-  _buildOrderList(TabInfo tab) {
+  _buildOrderList(OrderTabInfo tab) {
     return Obx(
       () => SliverPadding(
         padding: EdgeInsets.only(bottom: MediaQuery.of(Get.context!).padding.bottom),

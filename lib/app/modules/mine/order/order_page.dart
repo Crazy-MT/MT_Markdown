@@ -1,4 +1,3 @@
-import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
 import 'package:code_zero/app/modules/mine/order/widget/order_item_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
@@ -89,7 +88,6 @@ class OrderPage extends GetView<OrderController> {
           return Obx(() => OrderItemWidget(
                 index: index,
                 editStatus: this.controller.editStatus.value,
-                item: OrderItem(),
               ));
         },
         childCount: 10,

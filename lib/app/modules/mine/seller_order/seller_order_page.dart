@@ -1,11 +1,13 @@
 import 'package:code_zero/app/modules/mine/seller_order/seller_order_controller.dart';
 import 'package:code_zero/app/modules/mine/seller_order/widget/order_item_widget.dart';
-
-import '../../../../common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../../../../common/components/common_app_bar.dart';
+import '../model/order_tab_info.dart';
 
 class SellerOrderPage extends GetView<SellerOrderController> {
   const SellerOrderPage({Key? key}) : super(key: key);
@@ -27,6 +29,7 @@ class SellerOrderPage extends GetView<SellerOrderController> {
       ),
       body: Obx(
         () => FTStatusPage(
+          physics: NeverScrollableScrollPhysics(),
           type: controller.pageStatus.value,
           errorMsg: controller.errorMsg.value,
           builder: (BuildContext context) {
@@ -43,7 +46,7 @@ class SellerOrderPage extends GetView<SellerOrderController> {
       children: [
         TabBar(
           controller: controller.tabController,
-          tabs: controller.myTabs,
+          tabs: controller.myTabs.map((e) => e.tab).toList(),
           // isScrollable: true,
           indicatorColor: Color(0xff1BDB8A),
           indicatorSize: TabBarIndicatorSize.label,
@@ -60,12 +63,22 @@ class SellerOrderPage extends GetView<SellerOrderController> {
         Expanded(
           child: TabBarView(
             controller: controller.tabController,
-            children: controller.myTabs.map((Tab tab) {
-              return CustomScrollView(
-                slivers: [
-                  _buildOrderList(),
-                  _safeWidget(context),
-                ],
+            children: controller.myTabs.map((OrderTabInfo tab) {
+              return SmartRefresher(
+                controller: tab.refreshController,
+                enablePullDown: true,
+                enablePullUp: true,
+                onRefresh: () {
+                  controller.getOrder(true, tab);
+                },
+                onLoading: () {
+                  controller.getOrder(false, tab);
+                },
+                child: CustomScrollView(
+                  slivers: [
+                    _buildOrderList(tab),
+                  ],
+                ),
               );
             }).toList(),
           ),
@@ -74,23 +87,21 @@ class SellerOrderPage extends GetView<SellerOrderController> {
     );
   }
 
-  _buildOrderList() {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (content, index) {
-          return OrderItemWidget(
-            index: index,
-          );
-        },
-        childCount: 10,
+  _buildOrderList(OrderTabInfo tab) {
+    return SliverPadding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(Get.context!).padding.bottom,
       ),
-    );
-  }
-
-  _safeWidget(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: SizedBox(
-        height: MediaQuery.of(context).padding.bottom,
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (content, index) {
+            return OrderItemWidget(
+              index: index,
+              item: tab.orderList[index],
+            );
+          },
+          childCount: tab.orderList.length,
+        ),
       ),
     );
   }

@@ -10,15 +10,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../model/order_tab_info.dart';
+
 class BuyerOrderController extends GetxController with GetSingleTickerProviderStateMixin {
   final pageName = 'Order'.obs;
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
-  final List<TabInfo> myTabs = <TabInfo>[
-    TabInfo(Tab(text: '我的仓库'), -1, RefreshController(), 1, RxList<OrderItem>()),
-    TabInfo(Tab(text: '待付款'), 0, RefreshController(), 1, RxList<OrderItem>()),
-    TabInfo(Tab(text: '已付款'), 1, RefreshController(), 1, RxList<OrderItem>()),
-    TabInfo(Tab(text: '待上架'), 2, RefreshController(), 1, RxList<OrderItem>()),
+  final List<OrderTabInfo> myTabs = <OrderTabInfo>[
+    OrderTabInfo(Tab(text: '我的仓库'), -1, RefreshController(), 1, RxList<OrderItem>()),
+    OrderTabInfo(Tab(text: '待付款'), 0, RefreshController(), 1, RxList<OrderItem>()),
+    OrderTabInfo(Tab(text: '已付款'), 1, RefreshController(), 1, RxList<OrderItem>()),
+    OrderTabInfo(Tab(text: '待上架'), 2, RefreshController(), 1, RxList<OrderItem>()),
   ];
 
   TabController? tabController;
@@ -39,7 +41,7 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
 
   initAllData() async {
     pageStatus.value = FTStatusPageType.loading;
-    await Future.forEach<TabInfo>(myTabs, (element) async {
+    await Future.forEach<OrderTabInfo>(myTabs, (element) async {
       await getOrder(true, element);
     }).catchError((e) {
       errorLog(e);
@@ -48,7 +50,7 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
     pageStatus.value = FTStatusPageType.success;
   }
 
-  getOrder(bool isRefresh, TabInfo tabInfo) async {
+  getOrder(bool isRefresh, OrderTabInfo tabInfo) async {
     int prePageIndex = tabInfo.currentPage;
     if (isRefresh) {
       tabInfo.currentPage = 1;
@@ -72,9 +74,7 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
         isRefresh ? tabInfo.currentPage = prePageIndex : tabInfo.currentPage--;
       },
     );
-    if (_result?.value == null) {
-      isRefresh ? tabInfo.currentPage = prePageIndex : tabInfo.currentPage--;
-    } else {
+    if (_result?.value != null) {
       isRefresh ? tabInfo.orderList.value = _result?.value?.items ?? [] : tabInfo.orderList.addAll(_result?.value?.items ?? []);
     }
 
@@ -95,21 +95,4 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
   void setPageName(String newName) {
     pageName.value = newName;
   }
-}
-
-class TabInfo {
-  final Tab tab;
-  //交易状态，0->待付款、1->已付款、2->待上架、3->已上架、
-  final int tradeState;
-  final RefreshController refreshController;
-  int currentPage;
-  RxList<OrderItem> orderList;
-
-  TabInfo(
-    this.tab,
-    this.tradeState,
-    this.refreshController,
-    this.currentPage,
-    this.orderList,
-  );
 }
