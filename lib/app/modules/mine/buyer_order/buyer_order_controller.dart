@@ -1,17 +1,24 @@
+import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
+import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
+import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/user_helper.dart';
+import 'package:code_zero/network/base_model.dart';
+import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class BuyerOrderController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+class BuyerOrderController extends GetxController with GetSingleTickerProviderStateMixin {
   final pageName = 'Order'.obs;
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
-  final List<Tab> myTabs = <Tab>[
-    Tab(text: '我的仓库'),
-    Tab(text: '待付款'),
-    Tab(text: '已付款'),
-    Tab(text: '待上架'),
+  final List<TabInfo> myTabs = <TabInfo>[
+    TabInfo(Tab(text: '我的仓库'), -1, RefreshController(), 1, RxList<OrderItem>()),
+    TabInfo(Tab(text: '待付款'), 0, RefreshController(), 1, RxList<OrderItem>()),
+    TabInfo(Tab(text: '已付款'), 1, RefreshController(), 1, RxList<OrderItem>()),
+    TabInfo(Tab(text: '待上架'), 2, RefreshController(), 1, RxList<OrderItem>()),
   ];
 
   TabController? tabController;
@@ -19,7 +26,6 @@ class BuyerOrderController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    initData();
     tabController = TabController(vsync: this, length: myTabs.length);
     tabController?.index = Get.arguments['index'] as int;
     tabController?.addListener(() {
@@ -28,10 +34,60 @@ class BuyerOrderController extends GetxController
         print("点击了下标为${tabController?.index}的tab");
       }
     });
+    initAllData();
   }
 
-  initData() {
+  initAllData() async {
+    pageStatus.value = FTStatusPageType.loading;
+    await Future.forEach<TabInfo>(myTabs, (element) async {
+      await getOrder(true, element);
+    }).catchError((e) {
+      errorLog(e);
+      pageStatus.value = FTStatusPageType.success;
+    });
     pageStatus.value = FTStatusPageType.success;
+  }
+
+  getOrder(bool isRefresh, TabInfo tabInfo) async {
+    int prePageIndex = tabInfo.currentPage;
+    if (isRefresh) {
+      tabInfo.currentPage = 1;
+    } else {
+      tabInfo.currentPage++;
+    }
+
+    ResultData<OrderListModel>? _result = await LRequest.instance.request<OrderListModel>(
+      url: SnapApis.ORDER_LIST,
+      queryParameters: {
+        "to-user-id": userHelper.userInfo.value?.id,
+        "page": tabInfo.currentPage,
+        "size": 10,
+        "trade-state": tabInfo.tradeState,
+      },
+      t: OrderListModel(),
+      requestType: RequestType.GET,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        Utils.showToastMsg("获取失败：${errorCode == -1 ? expMsg : errorMsg}");
+        errorLog("订单列表获取失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        isRefresh ? tabInfo.currentPage = prePageIndex : tabInfo.currentPage--;
+      },
+    );
+    if (_result?.value == null) {
+      isRefresh ? tabInfo.currentPage = prePageIndex : tabInfo.currentPage--;
+    } else {
+      isRefresh ? tabInfo.orderList.value = _result?.value?.items ?? [] : tabInfo.orderList.addAll(_result?.value?.items ?? []);
+    }
+
+    if (isRefresh) {
+      tabInfo.refreshController.refreshCompleted();
+      tabInfo.refreshController.loadComplete();
+    } else {
+      if ((_result?.value?.items ?? []).isEmpty) {
+        tabInfo.refreshController.loadNoData();
+      } else {
+        tabInfo.refreshController.loadComplete();
+      }
+    }
   }
 
   @override
@@ -39,4 +95,21 @@ class BuyerOrderController extends GetxController
   void setPageName(String newName) {
     pageName.value = newName;
   }
+}
+
+class TabInfo {
+  final Tab tab;
+  //交易状态，0->待付款、1->已付款、2->待上架、3->已上架、
+  final int tradeState;
+  final RefreshController refreshController;
+  int currentPage;
+  RxList<OrderItem> orderList;
+
+  TabInfo(
+    this.tab,
+    this.tradeState,
+    this.refreshController,
+    this.currentPage,
+    this.orderList,
+  );
 }

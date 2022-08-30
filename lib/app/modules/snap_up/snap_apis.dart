@@ -10,4 +10,5 @@ class SnapApis {
   static const String COMMODITY = NetConstant.HOST + "/commodity/list-buying-commodity";
 
   static const String SNAP_CREATE = NetConstant.HOST + "/buying-transaction/create";
+  static const String ORDER_LIST = NetConstant.HOST + "/buying-transaction/list";
 }

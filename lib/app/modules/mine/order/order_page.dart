@@ -1,14 +1,13 @@
-import 'dart:math';
-
+import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
 import 'package:code_zero/app/modules/mine/order/widget/order_item_widget.dart';
+import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../../common/components/common_app_bar.dart';
 import 'order_controller.dart';
-import 'package:code_zero/common/components/status_page/status_page.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderPage extends GetView<OrderController> {
   const OrderPage({Key? key}) : super(key: key);
@@ -37,9 +36,7 @@ class OrderPage extends GetView<OrderController> {
                   alignment: Alignment.bottomCenter,
                   children: [
                     _content(context),
-                    this.controller.editStatus.value != 0
-                        ? _bottomControlWidget(context)
-                        : SizedBox(),
+                    this.controller.editStatus.value != 0 ? _bottomControlWidget(context) : SizedBox(),
                   ],
                 ));
           },
@@ -92,6 +89,7 @@ class OrderPage extends GetView<OrderController> {
           return Obx(() => OrderItemWidget(
                 index: index,
                 editStatus: this.controller.editStatus.value,
+                item: OrderItem(),
               ));
         },
         childCount: 10,
@@ -120,9 +118,7 @@ class OrderPage extends GetView<OrderController> {
               }
             },
             child: Image.asset(
-              this.controller.editStatus.value == 2
-                  ? Assets.imagesShoppingCartGoodsSelected
-                  : Assets.imagesShoppingCartGoodsUnselected,
+              this.controller.editStatus.value == 2 ? Assets.imagesShoppingCartGoodsSelected : Assets.imagesShoppingCartGoodsUnselected,
               height: 19.w,
               width: 19.w,
             ),
@@ -160,10 +156,7 @@ class OrderPage extends GetView<OrderController> {
               child: Center(
                 child: Text(
                   "合并结算",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500),
+                  style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w500),
                 ),
               ),
             ),
