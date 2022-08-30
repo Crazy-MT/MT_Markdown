@@ -1,4 +1,5 @@
 import 'package:code_zero/app/modules/mine/buyer_order/widget/order_item_widget.dart';
+import 'package:code_zero/common/components/keep_alive_wrapper.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -63,20 +64,22 @@ class BuyerOrderPage extends GetView<BuyerOrderController> {
           child: TabBarView(
             controller: controller.tabController,
             children: controller.myTabs.map((OrderTabInfo tab) {
-              return SmartRefresher(
-                controller: tab.refreshController,
-                enablePullDown: true,
-                enablePullUp: true,
-                onRefresh: () {
-                  controller.getOrder(true, tab);
-                },
-                onLoading: () {
-                  controller.getOrder(false, tab);
-                },
-                child: CustomScrollView(
-                  slivers: [
-                    _buildOrderList(tab),
-                  ],
+              return KeepAliveWrapper(
+                child: SmartRefresher(
+                  controller: tab.refreshController,
+                  enablePullDown: true,
+                  enablePullUp: true,
+                  onRefresh: () {
+                    controller.getOrder(true, tab);
+                  },
+                  onLoading: () {
+                    controller.getOrder(false, tab);
+                  },
+                  child: CustomScrollView(
+                    slivers: [
+                      _buildOrderList(tab),
+                    ],
+                  ),
                 ),
               );
             }).toList(),
@@ -87,19 +90,17 @@ class BuyerOrderPage extends GetView<BuyerOrderController> {
   }
 
   _buildOrderList(OrderTabInfo tab) {
-    return Obx(
-      () => SliverPadding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(Get.context!).padding.bottom),
-        sliver: SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (content, index) {
-              return OrderItemWidget(
-                index: index,
-                item: tab.orderList[index],
-              );
-            },
-            childCount: tab.orderList.length,
-          ),
+    return SliverPadding(
+      padding: EdgeInsets.only(bottom: MediaQuery.of(Get.context!).padding.bottom),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (content, index) {
+            return OrderItemWidget(
+              index: index,
+              item: tab.orderList[index],
+            );
+          },
+          childCount: tab.orderList.length,
         ),
       ),
     );

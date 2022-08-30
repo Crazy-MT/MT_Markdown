@@ -45,7 +45,11 @@ class FTStatusPage extends StatelessWidget {
 
       ///Copy from SmartRefresher
       this.header,
-      this.footer = const ClassicFooter(noDataText: "没有更多数据", loadingText: "加载中…", failedText: "加载失败",),
+      this.footer = const ClassicFooter(
+        noDataText: "没有更多数据",
+        loadingText: "加载中…",
+        failedText: "加载失败",
+      ),
       this.enablePullDown = false,
       this.enablePullUp = false,
       this.enableTwoLevel = false,
@@ -64,26 +68,28 @@ class FTStatusPage extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return SmartRefresher(
-      controller: controller ?? RefreshController(),
-      header: header,
-      footer: footer,
-      enablePullDown: enablePullDown,
-      enablePullUp: enablePullUp,
-      enableTwoLevel: enableTwoLevel,
-      onRefresh: onRefresh,
-      onLoading: onLoading,
-      onTwoLevel: onTwoLevel,
-      dragStartBehavior: dragStartBehavior,
-      primary: primary,
-      cacheExtent: cacheExtent,
-      semanticChildCount: semanticChildCount,
-      reverse: reverse,
-      physics: physics,
-      scrollDirection: scrollDirection,
-      scrollController: scrollController,
-      child: _getWidget(),
-    );
+    return (!enablePullDown && !enablePullUp)
+        ? _getWidget()
+        : SmartRefresher(
+            controller: controller ?? RefreshController(),
+            header: header,
+            footer: footer,
+            enablePullDown: enablePullDown,
+            enablePullUp: enablePullUp,
+            enableTwoLevel: enableTwoLevel,
+            onRefresh: onRefresh,
+            onLoading: onLoading,
+            onTwoLevel: onTwoLevel,
+            dragStartBehavior: dragStartBehavior,
+            primary: primary,
+            cacheExtent: cacheExtent,
+            semanticChildCount: semanticChildCount,
+            reverse: reverse,
+            physics: physics,
+            scrollDirection: scrollDirection,
+            scrollController: scrollController,
+            child: _getWidget(),
+          );
   }
 
   Widget _getWidget() {

@@ -38,48 +38,51 @@ class OrderItemWidget extends StatelessWidget {
           SizedBox(
             height: 15.w,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              _buttonBtnWidget(
-                title: "取消订单",
-                color: Color(0xff000000),
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
-              _buttonBtnWidget(
-                title: "待付款",
-                color: Color(0xffFF3939),
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
-              _buttonBtnWidget(
-                title: "上传支付凭证",
-                color: Color(0xff000000),
-              ),
-              _buttonBtnWidget(
-                title: "申诉",
-                color: Color(0xff000000),
-              ),
-              _buttonBtnWidget(
-                title: "提货",
-                color: Color(0xff000000),
-              ),
-              _buttonBtnWidget(
-                title: "委托上架",
-                color: Color(0xff000000),
-              ),
-              _buttonBtnWidget(
-                title: "取消订单",
-                color: Color(0xff000000),
-              ),
-              _buttonBtnWidget(
-                title: "确认收款",
-                color: Color(0xff000000),
-              ),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                _buttonBtnWidget(
+                  title: "取消订单",
+                  color: Color(0xff000000),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                _buttonBtnWidget(
+                  title: "待付款",
+                  color: Color(0xffFF3939),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                _buttonBtnWidget(
+                  title: "上传支付凭证",
+                  color: Color(0xff000000),
+                ),
+                _buttonBtnWidget(
+                  title: "申诉",
+                  color: Color(0xff000000),
+                ),
+                _buttonBtnWidget(
+                  title: "提货",
+                  color: Color(0xff000000),
+                ),
+                _buttonBtnWidget(
+                  title: "委托上架",
+                  color: Color(0xff000000),
+                ),
+                _buttonBtnWidget(
+                  title: "取消订单",
+                  color: Color(0xff000000),
+                ),
+                _buttonBtnWidget(
+                  title: "确认收款",
+                  color: Color(0xff000000),
+                ),
+              ],
+            ),
           ),
         ],
       ),
