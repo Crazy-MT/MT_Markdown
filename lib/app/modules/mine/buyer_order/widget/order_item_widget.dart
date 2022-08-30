@@ -1,11 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
+import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../../../../generated/assets.dart';
 
 class OrderItemWidget extends StatelessWidget {
   final OrderItem item;
   final int index;
+
   const OrderItemWidget({
     Key? key,
     required this.index,
@@ -21,16 +26,71 @@ class OrderItemWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5),
       padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.white),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5), color: Colors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(item.tradeNo ?? "",
-              style: TextStyle(
-                color: Color(0xff434446),
-                fontSize: 12.sp,
-              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("订单号 ${item.tradeNo}",
+                      style: TextStyle(
+                        color: Color(0xff434446),
+                        fontSize: 12.sp,
+                      )),
+                  SizedBox(
+                    height: 10.w,
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SvgPicture.asset(
+                        Assets.iconsGoodsInfoTitleIcon,
+                        width: 19.w,
+                        height: 19.w,
+                      ),
+                      Text(
+                        item.sessionName ?? "",
+                        style: TextStyle(
+                          color: Color(0xFF434446),
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Expanded(
+                  child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      "订单状态：${item.tradeState.toString()}",
+                      style: TextStyle(
+                          color: Color(0xff1BDB8A),
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.end,
+                    ),
+                    // _richText(fontSize1: 10.sp, fontSize2: 14.sp, text: "3000"),
+                    // Text(
+                    //   "共1件",
+                    //   textAlign: TextAlign.end,
+                    //   style: TextStyle(color: Color(0xffABAAB9), fontSize: 12.sp, fontWeight: FontWeight.normal),
+                    // ),
+                  ],
+                ),
+              ))
+            ],
+          ),
           SizedBox(
             height: 15.w,
           ),
@@ -38,71 +98,116 @@ class OrderItemWidget extends StatelessWidget {
           SizedBox(
             height: 15.w,
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                _buttonBtnWidget(
-                  title: "取消订单",
-                  color: Color(0xff000000),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Visibility(
+                child: _buttonBtnWidget(
+                    title: "取消订单", color: Color(0xff000000), onTap: () {}),
+                visible: item.tradeState == 0,
+              ),
+              Expanded(
+                  child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Visibility(
+                      child: _buttonBtnWidget(
+                          title: "去付款",
+                          color: Color(0xffFF3939),
+                          onTap: () {
+                            if (item.fromUserIsAdmin == 0) {
+                              // 订单卖方是管理员，就显示系统设置的银行收款信息 https://chuancui.yuque.com/staff-tcr7lf/yra0pk/in371v
+                            } else {
+                              // 订单卖方是会员，就显示会员设置的收款信息
+                            }
+                          }),
+                      visible: item.tradeState == 0 || item.tradeState == 2,
+                    ),
+                    SizedBox(
+                      width: 8.w,
+                    ),
+                    Visibility(
+                      child: _buttonBtnWidget(
+                          title: "支付确认",
+                          color: Color(0xff1BDB8A),
+                          onTap: () {}),
+                      visible: item.tradeState == 0,
+                    ),
+                    Visibility(
+                      child: _buttonBtnWidget(
+                          title: "上传支付凭证",
+                          color: Color(0xff000000),
+                          onTap: () {}),
+                      visible: item.tradeState == 2,
+                    ),
+                    Visibility(
+                      child: _buttonBtnWidget(
+                          title: "申诉",
+                          color: Color(0xffFF3939),
+                          onTap: () {
+                          }),
+                      visible: item.tradeState == 3,
+                    ),
+                    SizedBox(
+                      width: 8.w,
+                    ),
+                    Visibility(
+                      child: _buttonBtnWidget(
+                          title: "提货",
+                          color: Color(0xff1BDB8A),
+                          onTap: () {}),
+                      visible: item.tradeState == 3,
+                    ),
+                    Visibility(
+                      child: _buttonBtnWidget(
+                          title: "委托上架",
+                          color: Color(0xff000000),
+                          onTap: () {
+                            // todo
+                          }),
+                      visible: item.tradeState == 3,
+                    )
+                  ],
                 ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                _buttonBtnWidget(
-                  title: "待付款",
-                  color: Color(0xffFF3939),
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                _buttonBtnWidget(
-                  title: "上传支付凭证",
-                  color: Color(0xff000000),
-                ),
-                _buttonBtnWidget(
-                  title: "申诉",
-                  color: Color(0xff000000),
-                ),
-                _buttonBtnWidget(
-                  title: "提货",
-                  color: Color(0xff000000),
-                ),
-                _buttonBtnWidget(
-                  title: "委托上架",
-                  color: Color(0xff000000),
-                ),
-                _buttonBtnWidget(
-                  title: "取消订单",
-                  color: Color(0xff000000),
-                ),
-                _buttonBtnWidget(
-                  title: "确认收款",
-                  color: Color(0xff000000),
-                ),
-              ],
-            ),
+              ))
+            ],
           ),
+          SizedBox(
+            height: 8.w,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Visibility(
+                child: _buttonBtnWidget(
+                    title: "上传支付凭证", color: Color(0xff000000), onTap: () {}),
+                visible: item.tradeState == 0,
+              ),
+            ],
+          )
         ],
       ),
     );
   }
 
-  Widget _buttonBtnWidget({String? title, Color? color}) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14.w),
-        color: Color(0xffF3F9FB),
-      ),
-      height: 27.w,
-      width: 82.w,
-      child: Center(
-        child: Text(
-          title ?? "",
-          style: TextStyle(
-            fontSize: 12.sp,
-            color: color,
+  Widget _buttonBtnWidget({String? title, Color? color, var onTap}) {
+    return SafeTapWidget(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14.w),
+          color: Color(0xffF3F9FB),
+        ),
+        height: 27.w,
+        width: 82.w,
+        child: Center(
+          child: Text(
+            title ?? "",
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: color,
+            ),
           ),
         ),
       ),
@@ -131,16 +236,23 @@ class OrderItemWidget extends StatelessWidget {
               children: [
                 Text(
                   item.name ?? "",
-                  style: TextStyle(color: Color(0xff111111), fontSize: 15.sp, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      color: Color(0xff111111),
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w500),
                   textAlign: TextAlign.end,
                 ),
-                _richText(fontSize1: 10.sp, fontSize2: 14.sp, text: "3000"),
-                Text(
-                  "共1件",
-                  textAlign: TextAlign.end,
-                  style: TextStyle(color: Color(0xffABAAB9), fontSize: 12.sp, fontWeight: FontWeight.normal),
-                ),
-                _richText(fontSize1: 12.sp, fontSize2: 16.sp, text: "3000", fontWeight: FontWeight.w700),
+                // _richText(fontSize1: 10.sp, fontSize2: 14.sp, text: "3000"),
+                // Text(
+                //   "共1件",
+                //   textAlign: TextAlign.end,
+                //   style: TextStyle(color: Color(0xffABAAB9), fontSize: 12.sp, fontWeight: FontWeight.normal),
+                // ),
+                _richText(
+                    fontSize1: 12.sp,
+                    fontSize2: 16.sp,
+                    text: item.price,
+                    fontWeight: FontWeight.w700),
               ],
             ),
           ),
@@ -149,7 +261,11 @@ class OrderItemWidget extends StatelessWidget {
     );
   }
 
-  _richText({double? fontSize1, double? fontSize2, FontWeight? fontWeight, String? text}) {
+  _richText(
+      {double? fontSize1,
+      double? fontSize2,
+      FontWeight? fontWeight,
+      String? text}) {
     return RichText(
       text: TextSpan(
         style: TextStyle(

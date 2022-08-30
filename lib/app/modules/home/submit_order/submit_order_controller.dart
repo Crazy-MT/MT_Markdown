@@ -1,3 +1,4 @@
+import 'package:code_zero/app/modules/home/submit_order/model/data_model.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:get/get.dart';
@@ -55,9 +56,9 @@ class SubmitOrderController extends GetxController {
   }
 
   doSnapUpCreate() async {
-    ResultData<SessionModel>? _result = await LRequest.instance.request<SessionModel>(
+    ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
         url: SnapApis.SNAP_CREATE,
-        t: SessionModel(),
+        t: DataModel(),
         data: {
           "addressId": addressList.first.id,
           "commodityId": goods.id,
@@ -69,13 +70,13 @@ class SubmitOrderController extends GetxController {
           errorLog("创建抢购订单失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
         },
         onSuccess: (result) {
+          showSuccessDialog(onConfirm: () {
+            Get.offAllNamed(RoutesID.MAIN_TAB_PAGE);
+          });
           var model = result.value;
           if (model == null) {
             return;
           }
-          showSuccessDialog(onConfirm: () {
-            Get.offAllNamed(RoutesID.MAIN_TAB_PAGE);
-          });
         });
   }
 

@@ -19,8 +19,8 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
   final List<OrderTabInfo> myTabs = <OrderTabInfo>[
     OrderTabInfo(Tab(text: '我的仓库'), -1, RefreshController(), 1, RxList<OrderItem>()),
     OrderTabInfo(Tab(text: '待付款'), 0, RefreshController(), 1, RxList<OrderItem>()),
-    OrderTabInfo(Tab(text: '已付款'), 1, RefreshController(), 1, RxList<OrderItem>()),
-    OrderTabInfo(Tab(text: '待上架'), 2, RefreshController(), 1, RxList<OrderItem>()),
+    OrderTabInfo(Tab(text: '已付款'), 2, RefreshController(), 1, RxList<OrderItem>()),
+    OrderTabInfo(Tab(text: '待上架'), 3, RefreshController(), 1, RxList<OrderItem>()),
   ];
 
   TabController? tabController;
