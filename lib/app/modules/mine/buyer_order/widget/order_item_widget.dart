@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/mine/buyer_order/buyer_order_controller.dart';
 import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:flutter/material.dart';
@@ -107,7 +108,13 @@ class OrderItemWidget extends StatelessWidget {
             children: [
               Visibility(
                 child: _buttonBtnWidget(
-                    title: "取消订单", color: Color(0xff000000), onTap: () {}),
+                    title: "取消订单",
+                    color: Color(0xff000000),
+                    onTap: () {
+                      BuyerOrderController controller =
+                          Get.find<BuyerOrderController>();
+                      controller.cancelOrder(item.id ?? 0);
+                    }),
                 visible: item.tradeState == 0,
               ),
               Expanded(

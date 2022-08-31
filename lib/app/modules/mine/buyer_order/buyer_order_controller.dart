@@ -1,3 +1,4 @@
+import 'package:code_zero/app/modules/home/submit_order/model/data_model.dart';
 import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
 import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -93,5 +94,25 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
   void onClose() {}
   void setPageName(String newName) {
     pageName.value = newName;
+  }
+
+  Future<void> cancelOrder(int id) async {
+    ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
+      url: SnapApis.CANCEL_ORDER,
+      data: {
+        "id": id
+      },
+      t: DataModel(),
+      requestType: RequestType.POST,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        Utils.showToastMsg("取消订单失败：${errorCode == -1 ? expMsg : errorMsg}");
+        errorLog("取消订单失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+      },
+      onSuccess: (rest) {
+        // print('MTMTMT BuyerOrderController.cancelOrder ${rest} ');
+        Utils.showToastMsg("取消订单成功");
+        initAllData();
+      }
+    );
   }
 }
