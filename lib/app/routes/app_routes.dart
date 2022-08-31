@@ -3,6 +3,8 @@
 // ignore_for_file: constant_identifier_names
 
 class RoutesID {
+  static const ORDER_DETAIL_PAGE = "/order_detail_page";
+  static const ORDER_SEND_SELL_PAGE = "/order_send_sell_page";
   static const SIGNATURE_PAGE = "/signature_page";
   static const LOCAL_HTML_PAGE = "/local_html_page";
   static const SNAP_DETAIL_PAGE = "/snap_detail_page";

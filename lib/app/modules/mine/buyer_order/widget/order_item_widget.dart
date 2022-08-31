@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/mine/buyer_order/buyer_order_controller.dart';
 import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
+import 'package:code_zero/common/components/avoid_quick_click.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,12 @@ class OrderItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _contentWidget();
+    return SafeClickGesture(
+      onTap: () {
+        Get.toNamed(RoutesID.ORDER_DETAIL_PAGE);
+      },
+      child: _contentWidget(),
+    );
   }
 
   Widget _contentWidget() {

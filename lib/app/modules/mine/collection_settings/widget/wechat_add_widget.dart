@@ -36,19 +36,19 @@ class WechatAddWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Obx(
         (() => SingleChildScrollView(
-          child: Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildInputItem('请输入微信收款账号', controller.wechatAccountController),
                   _buildInputItem('短信验证码', controller.wechatCodeController),
                   _buildInputItem('请输入微信收款姓名', controller.wechatNameController),
                   _addQrcodeWidget(),
-                  // Expanded(child: SizedBox()),
+                  SizedBox(height: 80.w),
                   _addButtonWidget(),
                   SizedBox(height: MediaQuery.of(context).padding.bottom + 20.w),
                 ],
               ),
-        )),
+            )),
       ),
     );
   }

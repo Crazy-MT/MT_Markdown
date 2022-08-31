@@ -72,6 +72,10 @@ import '../modules/others/signature/signature_binding.dart';
 import '../modules/others/signature/signature_page.dart';
 import '../modules/snap_up/snap_detail/snap_detail_binding.dart';
 import '../modules/snap_up/snap_detail/snap_detail_page.dart';
+import '../modules/mine/buyer_order/order_send_sell/order_send_sell_binding.dart';
+import '../modules/mine/buyer_order/order_send_sell/order_send_sell_page.dart';
+import '../modules/mine/buyer_order/order_detail/order_detail_binding.dart';
+import '../modules/mine/buyer_order/order_detail/order_detail_page.dart';
 
 class AppPages {
   AppPages._();
@@ -79,11 +83,23 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // order_detail
+    GetPage(
+      name: RoutesID.ORDER_DETAIL_PAGE,
+      page: () => const OrderDetailPage(),
+      binding: OrderDetailBinding(),
+    ),
+
+    // order_send_sell
+    GetPage(
+      name: RoutesID.ORDER_SEND_SELL_PAGE,
+      page: () => const OrderSendSellPage(),
+      binding: OrderSendSellBinding(),
+    ),
+
     // signature 签名页
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.SIGNATURE_PAGE,
       page: () => const SignaturePage(),
       binding: SignatureBinding(),
@@ -97,9 +113,7 @@ class AppPages {
     ),
     // snap_detail 某抢购场次列表页
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.SNAP_DETAIL_PAGE,
       page: () => const SnapDetailPage(),
       binding: SnapDetailBinding(),
@@ -107,9 +121,7 @@ class AppPages {
 
     // invite 邀请好友
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.INVITE_PAGE,
       page: () => const InvitePage(),
       binding: InviteBinding(),
@@ -117,9 +129,7 @@ class AppPages {
 
     // submit_order
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.SUBMIT_ORDER_PAGE,
       page: () => const SubmitOrderPage(),
       binding: SubmitOrderBinding(),
@@ -127,9 +137,7 @@ class AppPages {
 
     // address_edit
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.ADDRESS_EDIT_PAGE,
       page: () => const AddressEditPage(),
       binding: AddressEditBinding(),
@@ -137,9 +145,7 @@ class AppPages {
 
     // address_manage
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.ADDRESS_MANAGE_PAGE,
       page: () => const AddressManagePage(),
       binding: AddressManageBinding(),
@@ -147,9 +153,7 @@ class AppPages {
 
     // my_fans
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.MY_FANS_PAGE,
       page: () => const MyFansPage(),
       binding: MyFansBinding(),
@@ -157,9 +161,7 @@ class AppPages {
 
     // fans_order
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.FANS_ORDER_PAGE,
       page: () => const FansOrderPage(),
       binding: FansOrderBinding(),
@@ -167,9 +169,7 @@ class AppPages {
 
     // bind_recommend
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.BIND_RECOMMEND_PAGE,
       page: () => const BindRecommendPage(),
       binding: BindRecommendBinding(),
@@ -177,9 +177,7 @@ class AppPages {
 
     // my_commission
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.MY_COMMISSION_PAGE,
       page: () => const MyCommissionPage(),
       binding: MyCommissionBinding(),
@@ -187,9 +185,7 @@ class AppPages {
 
     // 查看自己、并设置自己的收款信息
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.COLLECTION_SETTINGS_PAGE,
       page: () => const CollectionSettingsPage(),
       binding: CollectionSettingsBinding(),
@@ -197,9 +193,7 @@ class AppPages {
 
     // 查看他人收款信息
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.COLLECTION_PAGE,
       page: () => const CollectionPage(),
       binding: CollectionBinding(),
@@ -207,18 +201,14 @@ class AppPages {
 
     // drawing 余额提现
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.DRAWING_PAGE,
       page: () => const DrawingPage(),
       binding: DrawingBinding(),
     ),
     // distribution 分销中心
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.DISTRIBUTION_PAGE,
       page: () => const DistributionPage(),
       binding: DistributionBinding(),
@@ -226,9 +216,7 @@ class AppPages {
 
     // reset_password
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.RESET_PASSWORD_PAGE,
       page: () => const ResetPasswordPage(),
       binding: ResetPasswordBinding(),
@@ -236,9 +224,7 @@ class AppPages {
 
     // transactions 提现记录
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.TRANSACTIONS_PAGE,
       page: () => const TransactionsPage(),
       binding: TransactionsBinding(),
@@ -246,9 +232,7 @@ class AppPages {
 
     // income_list 收益明细
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.INCOME_LIST_PAGE,
       page: () => const IncomeListPage(),
       binding: IncomeListBinding(),
@@ -256,9 +240,7 @@ class AppPages {
 
     // 全部订单
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.ORDER_PAGE,
       page: () => const OrderPage(),
       binding: OrderBinding(),
@@ -266,9 +248,7 @@ class AppPages {
 
     // wallet
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.WALLET_PAGE,
       page: () => const WalletPage(),
       binding: WalletBinding(),
@@ -283,9 +263,7 @@ class AppPages {
 
     // user_information
     GetPage(
-      middlewares: [
-        EnsureAuthMiddleware()
-      ],
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.USER_INFORMATION_PAGE,
       page: () => const UserInformationPage(),
       binding: UserInformationBinding(),
