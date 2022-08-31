@@ -120,21 +120,10 @@ class OrderItemWidget extends StatelessWidget {
                           title: "去付款",
                           color: Color(0xffFF3939),
                           onTap: () {
-                            if (item.fromUserIsAdmin == 1) {
-                              // 订单卖方是管理员，就显示系统设置的银行收款信息 https://chuancui.yuque.com/staff-tcr7lf/yra0pk/in371v
-                              Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE,
-                                  arguments: {
-                                    "fromUserId": item.fromUserId,
-                                    "fromUserIsAdmin": item.fromUserIsAdmin
-                                  });
-                            } else {
-                              // 订单卖方是会员，就显示会员设置的收款信息
-                              Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE,
-                                  arguments: {
-                                    "fromUserId": item.fromUserId,
-                                    "fromUserIsAdmin": item.fromUserIsAdmin
-                                  });
-                            }
+                            Get.toNamed(RoutesID.COLLECTION_PAGE, arguments: {
+                              "fromUserId": item.fromUserId,
+                              "fromUserIsAdmin": item.fromUserIsAdmin
+                            });
                           }),
                       visible: item.tradeState == 0 || item.tradeState == 2,
                     ),

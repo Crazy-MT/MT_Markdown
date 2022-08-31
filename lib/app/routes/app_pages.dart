@@ -8,6 +8,8 @@ import '../modules/home/category/category_binding.dart';
 import '../modules/home/category/category_page.dart';
 import '../modules/home/home_binding.dart';
 import '../modules/home/home_page.dart';
+import '../modules/mine/collection/collection_binding.dart';
+import '../modules/mine/collection/collection_page.dart';
 import '../modules/mine/seller_order/seller_order_binding.dart';
 import '../modules/others/login/login_binding.dart';
 import '../modules/others/login/login_page.dart';
@@ -183,7 +185,7 @@ class AppPages {
       binding: MyCommissionBinding(),
     ),
 
-    // collection_settings
+    // 查看自己、并设置自己的收款信息
     GetPage(
       middlewares: [
         EnsureAuthMiddleware()
@@ -191,6 +193,16 @@ class AppPages {
       name: RoutesID.COLLECTION_SETTINGS_PAGE,
       page: () => const CollectionSettingsPage(),
       binding: CollectionSettingsBinding(),
+    ),
+
+    // 查看他人收款信息
+    GetPage(
+      middlewares: [
+        EnsureAuthMiddleware()
+      ],
+      name: RoutesID.COLLECTION_PAGE,
+      page: () => const CollectionPage(),
+      binding: CollectionBinding(),
     ),
 
     // drawing 余额提现

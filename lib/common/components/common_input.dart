@@ -43,6 +43,7 @@ class CommonInput extends StatelessWidget {
     this.enable = true,
     this.textAlign = TextAlign.start,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -68,11 +69,16 @@ class CommonInput extends StatelessWidget {
               fontSize: 20.w,
               fontWeight: FontWeight.w600,
             ),
-        fillColor: fillColor ?? Colors.white, //背景颜色，必须结合filled: true,才有效
-        filled: true, //重点，必须设置为true，fillColor才有效
-        isCollapsed: true, //重点，相当于高度包裹的意思，必须设置为true，不然有默认奇妙的最小高度
-        contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 7), //内容内边距，影响高度
-        border: _outlineInputBorder, //边框，一般下面的几个边框一起设置
+        fillColor: fillColor ?? Colors.white,
+        //背景颜色，必须结合filled: true,才有效
+        filled: true,
+        //重点，必须设置为true，fillColor才有效
+        isCollapsed: true,
+        //重点，相当于高度包裹的意思，必须设置为true，不然有默认奇妙的最小高度
+        contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 7),
+        //内容内边距，影响高度
+        border: _outlineInputBorder,
+        //边框，一般下面的几个边框一起设置
         focusedBorder: _outlineInputBorder,
         enabledBorder: _outlineInputBorder,
         disabledBorder: _outlineInputBorder,
@@ -98,6 +104,7 @@ buildInputWithTitle(
   Widget? suffixWidget,
   TextInputType? keyboardType,
   bool obscureText = false,
+  bool enable = true,
 }) {
   return Padding(
     padding: padding ?? EdgeInsets.zero,
@@ -105,7 +112,8 @@ buildInputWithTitle(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(padding: EdgeInsets.only(left: 5.w, bottom: 8), child: titleWidget),
+        Padding(
+            padding: EdgeInsets.only(left: 5.w, bottom: 8), child: titleWidget),
         Container(
           height: 44.w,
           decoration: BoxDecoration(
@@ -120,6 +128,7 @@ buildInputWithTitle(
             children: [
               Expanded(
                 child: CommonInput(
+                  enable: enable,
                   inputFormatters: inputFormatters,
                   obscureText: obscureText,
                   controller: inputController,

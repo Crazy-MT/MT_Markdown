@@ -15,6 +15,7 @@ class RoutesID {
   static const BIND_RECOMMEND_PAGE = "/bind_recommend_page";
   static const MY_COMMISSION_PAGE = "/my_commission_page";
   static const COLLECTION_SETTINGS_PAGE = "/collection_settings_page";
+  static const COLLECTION_PAGE = "/collection_page";
   static const DRAWING_PAGE = "/drawing_page";
   static const DISTRIBUTION_PAGE = "/distribution_page";
   static const RESET_PASSWORD_PAGE = "/reset_password_page";
