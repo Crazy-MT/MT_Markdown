@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/mine/buyer_order/order_detail/order_detail_controller.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
+import 'package:code_zero/common/components/avoid_quick_click.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -157,32 +159,37 @@ class OrderDetailPage extends GetView<OrderDetailController> {
     TextStyle? titleStyle,
     TextStyle? descStyle,
   }) {
-    return Container(
-      height: 42.w,
-      alignment: Alignment.centerLeft,
-      padding: EdgeInsets.symmetric(horizontal: 15.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: titleStyle ??
-                TextStyle(
-                  color: Color(0xff434446),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-          ),
-          Text(
-            desc,
-            style: descStyle ??
-                TextStyle(
-                  color: Color(0xff757575),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-          )
-        ],
+    return SafeClickGesture(
+      onTap: () {
+        Get.toNamed(RoutesID.ORDER_SEND_SELL_PAGE);
+      },
+      child: Container(
+        height: 42.w,
+        alignment: Alignment.centerLeft,
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: titleStyle ??
+                  TextStyle(
+                    color: Color(0xff434446),
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+            ),
+            Text(
+              desc,
+              style: descStyle ??
+                  TextStyle(
+                    color: Color(0xff757575),
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+            )
+          ],
+        ),
       ),
     );
   }
