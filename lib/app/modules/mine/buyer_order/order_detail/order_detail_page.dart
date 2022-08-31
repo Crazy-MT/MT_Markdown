@@ -93,7 +93,8 @@ class OrderDetailPage extends GetView<OrderDetailController> {
               children: [
                 Container(
                   height: 50.w,
-                  child: _orderInfoItemWidget('支付方式', '银行卡'),
+                  child: Obx(() => _orderInfoItemWidget(
+                      '支付方式', controller.item.value?.getTradeMethod())),
                 ),
                 Expanded(
                   child: Padding(
@@ -104,16 +105,19 @@ class OrderDetailPage extends GetView<OrderDetailController> {
                       children: [
                         Text(
                           '支付凭证',
-                          style: TextStyle(color: Color(0xff434446), fontSize: 14.sp, fontWeight: FontWeight.w400),
+                          style: TextStyle(
+                              color: Color(0xff434446),
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400),
                         ),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(5.w),
-                          child: CachedNetworkImage(
-                            imageUrl: 'https://img2.baidu.com/it/u=2220847401,2600931427&fm=253&fmt=auto&app=138&f=JPEG?w=397&h=741',
-                            width: 115.w,
-                            height: 123.w,
-                            fit: BoxFit.fitWidth,
-                          ),
+                          child: Obx(() => CachedNetworkImage(
+                                imageUrl: controller.item.value?.tradeUrl ?? "",
+                                width: 115.w,
+                                height: 123.w,
+                                fit: BoxFit.fitWidth,
+                              )),
                         )
                       ],
                     ),
@@ -121,12 +125,18 @@ class OrderDetailPage extends GetView<OrderDetailController> {
                 ),
                 Container(
                   height: 50.w,
-                  child: _orderInfoItemWidget(
-                    '商品金额',
-                    '¥226.56',
-                    titleStyle: TextStyle(color: Color(0xff111111), fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    descStyle: TextStyle(color: AppColors.green, fontSize: 14.sp, fontWeight: FontWeight.w500),
-                  ),
+                  child: Obx(() => _orderInfoItemWidget(
+                        '商品金额',
+                        "￥ ${controller.item.value?.price}",
+                        titleStyle: TextStyle(
+                            color: Color(0xff111111),
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600),
+                        descStyle: TextStyle(
+                            color: AppColors.green,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500),
+                      )),
                 ),
               ],
             ),
@@ -146,8 +156,10 @@ class OrderDetailPage extends GetView<OrderDetailController> {
       ),
       child: Column(
         children: [
-          _orderInfoItemWidget('订单号', 'd834738453245838425345'),
-          _orderInfoItemWidget('完成时间', '2022-08-20 20:30:00'),
+          Obx(() => _orderInfoItemWidget(
+              '订单号', (controller.item.value?.tradeNo ?? 0).toString())),
+          Obx(() => _orderInfoItemWidget(
+              '完成时间', controller.item.value?.completeTime ?? "")),
         ],
       ),
     );
@@ -159,37 +171,32 @@ class OrderDetailPage extends GetView<OrderDetailController> {
     TextStyle? titleStyle,
     TextStyle? descStyle,
   }) {
-    return SafeClickGesture(
-      onTap: () {
-        Get.toNamed(RoutesID.ORDER_SEND_SELL_PAGE);
-      },
-      child: Container(
-        height: 42.w,
-        alignment: Alignment.centerLeft,
-        padding: EdgeInsets.symmetric(horizontal: 15.w),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: titleStyle ??
-                  TextStyle(
-                    color: Color(0xff434446),
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
-            ),
-            Text(
-              desc,
-              style: descStyle ??
-                  TextStyle(
-                    color: Color(0xff757575),
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-            )
-          ],
-        ),
+    return Container(
+      height: 42.w,
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.symmetric(horizontal: 15.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: titleStyle ??
+                TextStyle(
+                  color: Color(0xff434446),
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w400,
+                ),
+          ),
+          Text(
+            desc,
+            style: descStyle ??
+                TextStyle(
+                  color: Color(0xff757575),
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+          )
+        ],
       ),
     );
   }

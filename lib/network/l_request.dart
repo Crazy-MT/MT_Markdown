@@ -2,9 +2,11 @@
 
 import 'dart:io';
 
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/common.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' as g;
 
 import '../common/user_helper.dart';
 import '../utils/device_util.dart';
@@ -90,6 +92,17 @@ class LRequest {
       // if (!skipError) await handleError(response, context: context, url: url);
       BaseModel<T> baseModel = BaseModel.fromJson(response.data, t);
       handleBaseModel?.call(baseModel);
+
+      /// 权限认证错误，跳转到登录页
+      if(baseModel.code == 20001) {
+        errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg",
+            "baseModel.code is not 0,this value is ${baseModel.code}");
+        g.Get.offAllNamed(RoutesID.LOGIN_PAGE, arguments: {
+          "from":g.Get.currentRoute
+        });
+        return null;
+      }
+
       if (baseModel.code != 0) {
         errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg",
             "baseModel.code is not 0,this value is ${baseModel.code}");

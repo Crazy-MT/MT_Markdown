@@ -1,6 +1,8 @@
 import 'package:code_zero/app/modules/mine/buyer_order/widget/order_item_widget.dart';
 import 'package:code_zero/common/components/keep_alive_wrapper.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/generated/assets/assets.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -90,11 +92,37 @@ class BuyerOrderPage extends GetView<BuyerOrderController> {
   }
 
   _buildOrderList(OrderTabInfo tab) {
+    lLog('MTMTMT BuyerOrderPage._buildOrderList ${tab.orderList.length}');
+
+    if (tab.orderList.length == 0) {
+      return SliverToBoxAdapter(
+        child: Container(
+          height: 400.w,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                Assets.iconsNoOrder,
+                width: 100.w,
+                height: 100.w,
+              ),
+              Text(
+                '暂无相关订单',
+                style: TextStyle(color: Color(0xFFABAAB9)),
+              )
+            ],
+          ),
+        ),
+      );
+    }
+
     return SliverPadding(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(Get.context!).padding.bottom),
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(Get.context!).padding.bottom),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (content, index) {
+            // lLog('MTMTMT BuyerOrderPage._buildOrderList ${index}');
             return OrderItemWidget(
               index: index,
               item: tab.orderList[index],

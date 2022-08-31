@@ -25,7 +25,11 @@ class OrderItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeClickGesture(
       onTap: () {
-        Get.toNamed(RoutesID.ORDER_DETAIL_PAGE);
+        if(item.tradeState == 2 || item.tradeState == 3) {
+          Get.toNamed(RoutesID.ORDER_DETAIL_PAGE, arguments: {
+            "item": item
+          });
+        }
       },
       child: _contentWidget(),
     );
@@ -157,7 +161,9 @@ class OrderItemWidget extends StatelessWidget {
                       visible: item.tradeState == 3,
                     ),
                     Visibility(
-                      child: _buttonBtnWidget(title: "提货", color: Color(0xff1BDB8A), onTap: () {}),
+                      child: _buttonBtnWidget(title: "提货", color: Color(0xff1BDB8A), onTap: () {
+                        controller.tihuo();
+                      }),
                       visible: item.tradeState == 3,
                     ),
                     Visibility(
@@ -165,7 +171,7 @@ class OrderItemWidget extends StatelessWidget {
                           title: "委托上架",
                           color: Color(0xff000000),
                           onTap: () {
-                            // todo
+                            controller.shangjia();
                           }),
                       visible: item.tradeState == 3,
                     )

@@ -81,7 +81,11 @@ class LoginController extends GetxController {
       return;
     }
     userHelper.whenLogin(_result!.value!);
-    Get.back();
+    if(Get.arguments["from"].toString().isEmpty) {
+      Get.back();
+    } else {
+      Get.offAllNamed(RoutesID.MAIN_TAB_PAGE);
+    }
   }
 
   _smsCodeLogin() async {
@@ -103,7 +107,11 @@ class LoginController extends GetxController {
       return;
     }
     userHelper.whenLogin(_result!.value!);
-    Get.back();
+    if(Get.arguments["from"].toString().isEmpty) {
+      Get.back();
+    } else {
+      Get.offAllNamed(RoutesID.MAIN_TAB_PAGE);
+    }
   }
 
   startCountDown() {

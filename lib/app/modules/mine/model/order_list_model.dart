@@ -213,7 +213,8 @@ class OrderItem {
     data['toUserFromUserId'] = this.toUserFromUserId;
     data['toUserFromUserNickname'] = this.toUserFromUserNickname;
     data['toUserFromUserFromUserId'] = this.toUserFromUserFromUserId;
-    data['toUserFromUserFromUserNickname'] = this.toUserFromUserFromUserNickname;
+    data['toUserFromUserFromUserNickname'] =
+        this.toUserFromUserFromUserNickname;
     data['commodityId'] = this.commodityId;
     data['thumbnailUrl'] = this.thumbnailUrl;
     data['sessionId'] = this.sessionId;
@@ -225,5 +226,19 @@ class OrderItem {
     data['address'] = this.address;
     data['parentId'] = this.parentId;
     return data;
+  }
+
+  getTradeMethod() {
+    switch (tradeMethod) {
+      case 0:
+        return "其它方式";
+      case 1:
+        return "微信支付";
+      case 2:
+        return "支付宝支付";
+      case 3:
+        return "银行卡支付";
+    }
+    return "其它方式";
   }
 }
