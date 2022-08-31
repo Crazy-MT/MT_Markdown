@@ -1,16 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/mine/buyer_order/buyer_order_controller.dart';
 import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
+import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
-import '../../../../../generated/assets.dart';
-import '../../../../../utils/log_utils.dart';
-import '../../../../routes/app_routes.dart';
 
 class OrderItemWidget extends StatelessWidget {
   final OrderItem item;
@@ -32,8 +30,7 @@ class OrderItemWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5),
       padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5), color: Colors.white),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,10 +77,7 @@ class OrderItemWidget extends StatelessWidget {
                   children: [
                     Text(
                       "订单状态：${item.tradeState.toString()}",
-                      style: TextStyle(
-                          color: Color(0xff1BDB8A),
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w500),
+                      style: TextStyle(color: Color(0xff1BDB8A), fontSize: 15.sp, fontWeight: FontWeight.w500),
                       textAlign: TextAlign.end,
                     ),
                     // _richText(fontSize1: 10.sp, fontSize2: 14.sp, text: "3000"),
@@ -112,8 +106,7 @@ class OrderItemWidget extends StatelessWidget {
                     title: "取消订单",
                     color: Color(0xff000000),
                     onTap: () {
-                      BuyerOrderController controller =
-                          Get.find<BuyerOrderController>();
+                      BuyerOrderController controller = Get.find<BuyerOrderController>();
                       controller.cancelOrder(item.id ?? 0);
                     }),
                 visible: item.tradeState == 0,
@@ -128,10 +121,8 @@ class OrderItemWidget extends StatelessWidget {
                           title: "去付款",
                           color: Color(0xffFF3939),
                           onTap: () {
-                            Get.toNamed(RoutesID.COLLECTION_PAGE, arguments: {
-                              "fromUserId": item.fromUserId,
-                              "fromUserIsAdmin": item.fromUserIsAdmin
-                            });
+                            Get.toNamed(RoutesID.COLLECTION_PAGE,
+                                arguments: {"fromUserId": item.fromUserId, "fromUserIsAdmin": item.fromUserIsAdmin});
                           }),
                       visible: item.tradeState == 0 || (item.tradeState == 2),
                     ),
@@ -140,8 +131,7 @@ class OrderItemWidget extends StatelessWidget {
                           title: "支付确认",
                           color: Color(0xff1BDB8A),
                           onTap: () {
-                            BuyerOrderController controller =
-                                Get.find<BuyerOrderController>();
+                            BuyerOrderController controller = Get.find<BuyerOrderController>();
                             controller.confirmOrder(item.id ?? 0);
                           }),
                       visible: item.tradeState == 0,
@@ -151,20 +141,17 @@ class OrderItemWidget extends StatelessWidget {
                           title: "上传支付凭证",
                           color: Color(0xff000000),
                           onTap: () {
-                            BuyerOrderController controller =
-                                Get.find<BuyerOrderController>();
+                            BuyerOrderController controller = Get.find<BuyerOrderController>();
                             controller.chooseAndUploadImage(item.id ?? 0);
                           }),
                       visible: item.tradeState == 2,
                     ),
                     Visibility(
-                      child: _buttonBtnWidget(
-                          title: "申诉", color: Color(0xffFF3939), onTap: () {}),
+                      child: _buttonBtnWidget(title: "申诉", color: Color(0xffFF3939), onTap: () {}),
                       visible: item.tradeState == 3,
                     ),
                     Visibility(
-                      child: _buttonBtnWidget(
-                          title: "提货", color: Color(0xff1BDB8A), onTap: () {}),
+                      child: _buttonBtnWidget(title: "提货", color: Color(0xff1BDB8A), onTap: () {}),
                       visible: item.tradeState == 3,
                     ),
                     Visibility(
@@ -192,8 +179,7 @@ class OrderItemWidget extends StatelessWidget {
                     title: "上传支付凭证",
                     color: Color(0xff000000),
                     onTap: () {
-                      BuyerOrderController controller =
-                          Get.find<BuyerOrderController>();
+                      BuyerOrderController controller = Get.find<BuyerOrderController>();
                       controller.chooseAndUploadImage(item.id ?? 0);
                     }),
                 visible: item.tradeState == 0,
@@ -251,10 +237,7 @@ class OrderItemWidget extends StatelessWidget {
               children: [
                 Text(
                   item.name ?? "",
-                  style: TextStyle(
-                      color: Color(0xff111111),
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w500),
+                  style: TextStyle(color: Color(0xff111111), fontSize: 15.sp, fontWeight: FontWeight.w500),
                   textAlign: TextAlign.end,
                 ),
                 // _richText(fontSize1: 10.sp, fontSize2: 14.sp, text: "3000"),
@@ -263,11 +246,7 @@ class OrderItemWidget extends StatelessWidget {
                 //   textAlign: TextAlign.end,
                 //   style: TextStyle(color: Color(0xffABAAB9), fontSize: 12.sp, fontWeight: FontWeight.normal),
                 // ),
-                _richText(
-                    fontSize1: 12.sp,
-                    fontSize2: 16.sp,
-                    text: item.price,
-                    fontWeight: FontWeight.w700),
+                _richText(fontSize1: 12.sp, fontSize2: 16.sp, text: item.price, fontWeight: FontWeight.w700),
               ],
             ),
           ),
@@ -276,11 +255,7 @@ class OrderItemWidget extends StatelessWidget {
     );
   }
 
-  _richText(
-      {double? fontSize1,
-      double? fontSize2,
-      FontWeight? fontWeight,
-      String? text}) {
+  _richText({double? fontSize1, double? fontSize2, FontWeight? fontWeight, String? text}) {
     return RichText(
       text: TextSpan(
         style: TextStyle(
