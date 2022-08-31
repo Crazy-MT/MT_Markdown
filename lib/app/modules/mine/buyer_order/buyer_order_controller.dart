@@ -9,8 +9,12 @@ import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../../common/colors.dart';
+import '../../../../network/upload_util.dart';
 import '../model/order_tab_info.dart';
 
 class BuyerOrderController extends GetxController with GetSingleTickerProviderStateMixin {
@@ -18,6 +22,9 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
   final List<OrderTabInfo> myTabs = <OrderTabInfo>[
+    /// 买家
+    // tradeState = 0，我是待付款；tradeState = 2 我是已付款；tradeState = 3 我是待上架
+
     OrderTabInfo(Tab(text: '我的仓库'), -1, RefreshController(), 1, RxList<OrderItem>()),
     OrderTabInfo(Tab(text: '待付款'), 0, RefreshController(), 1, RxList<OrderItem>()),
     OrderTabInfo(Tab(text: '已付款'), 2, RefreshController(), 1, RxList<OrderItem>()),
@@ -113,6 +120,74 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
         Utils.showToastMsg("取消订单成功");
         initAllData();
       }
+    );
+  }
+
+  Future<void> confirmOrder(int id) async {
+    ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
+        url: SnapApis.CONFIRM_ORDER,
+        data: {
+          "id": id
+        },
+        t: DataModel(),
+        requestType: RequestType.POST,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          Utils.showToastMsg("确认支付失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("确认支付失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+        onSuccess: (rest) {
+          // print('MTMTMT BuyerOrderController.cancelOrder ${rest} ');
+          Utils.showToastMsg("确认支付成功");
+          initAllData();
+        }
+    );
+  }
+
+  // 选择图片并上传
+  Future<void> chooseAndUploadImage(id) async {
+    final ImagePicker _picker = ImagePicker();
+    // Pick an image
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: image?.path ?? "",
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        // CropAspectRatioPreset.ratio3x2,
+        // CropAspectRatioPreset.original,
+        // CropAspectRatioPreset.ratio4x3,
+        // CropAspectRatioPreset.ratio16x9
+      ],
+      uiSettings: [
+        AndroidUiSettings(
+            toolbarTitle: '裁剪图片',
+            toolbarColor: AppColors.green,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.square,
+            lockAspectRatio: true),
+        IOSUiSettings(
+          title: '裁剪图片',
+        ),
+      ],
+    );
+    String tradeUrl = await uploadFile(croppedFile?.path);
+
+    ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
+        url: SnapApis.UPDATE_TRADE_URL_ORDER,
+        data: {
+          "id": id,
+          "tradeUrl":tradeUrl
+        },
+        t: DataModel(),
+        requestType: RequestType.POST,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          Utils.showToastMsg("上传支付凭证失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("上传支付凭证失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+        onSuccess: (rest) {
+          // print('MTMTMT BuyerOrderController.cancelOrder ${rest} ');
+          Utils.showToastMsg("上传支付凭证成功");
+          initAllData();
+        }
     );
   }
 }

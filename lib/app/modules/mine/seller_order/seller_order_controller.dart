@@ -18,6 +18,8 @@ class SellerOrderController extends GetxController with GetSingleTickerProviderS
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
   final List<OrderTabInfo> myTabs = <OrderTabInfo>[
+    /// 卖家
+    // tradeState=0 待收款 =1 待确认，中间那个=2
     OrderTabInfo(Tab(text: '我的仓库'), -1, RefreshController(), 1, RxList<OrderItem>()),
     OrderTabInfo(Tab(text: '待收款'), 4, RefreshController(), 1, RxList<OrderItem>()),
     OrderTabInfo(Tab(text: '待确认'), 5, RefreshController(), 1, RxList<OrderItem>()),

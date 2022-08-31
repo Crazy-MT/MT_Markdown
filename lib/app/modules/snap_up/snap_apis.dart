@@ -12,4 +12,6 @@ class SnapApis {
   static const String SNAP_CREATE = NetConstant.HOST + "/buying-transaction/create";
   static const String ORDER_LIST = NetConstant.HOST + "/buying-transaction/list";
   static const String CANCEL_ORDER = NetConstant.HOST + "/buying-transaction/cancel";
+  static const String CONFIRM_ORDER = NetConstant.HOST + "/buying-transaction/confirm-payment";
+  static const String UPDATE_TRADE_URL_ORDER = NetConstant.HOST + "/buying-transaction/update-trade-url";
 }

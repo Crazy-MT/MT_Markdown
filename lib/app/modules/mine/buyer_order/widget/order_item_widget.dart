@@ -28,6 +28,7 @@ class OrderItemWidget extends StatelessWidget {
   }
 
   Widget _contentWidget() {
+    BuyerOrderController controller = Get.find<BuyerOrderController>();
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5),
       padding: EdgeInsets.all(10),
@@ -132,32 +133,34 @@ class OrderItemWidget extends StatelessWidget {
                               "fromUserIsAdmin": item.fromUserIsAdmin
                             });
                           }),
-                      visible: item.tradeState == 0 || item.tradeState == 2,
-                    ),
-                    SizedBox(
-                      width: 8.w,
+                      visible: item.tradeState == 0 || (item.tradeState == 2),
                     ),
                     Visibility(
                       child: _buttonBtnWidget(
                           title: "支付确认",
                           color: Color(0xff1BDB8A),
-                          onTap: () {}),
+                          onTap: () {
+                            BuyerOrderController controller =
+                                Get.find<BuyerOrderController>();
+                            controller.confirmOrder(item.id ?? 0);
+                          }),
                       visible: item.tradeState == 0,
                     ),
                     Visibility(
                       child: _buttonBtnWidget(
                           title: "上传支付凭证",
                           color: Color(0xff000000),
-                          onTap: () {}),
+                          onTap: () {
+                            BuyerOrderController controller =
+                                Get.find<BuyerOrderController>();
+                            controller.chooseAndUploadImage(item.id ?? 0);
+                          }),
                       visible: item.tradeState == 2,
                     ),
                     Visibility(
                       child: _buttonBtnWidget(
                           title: "申诉", color: Color(0xffFF3939), onTap: () {}),
                       visible: item.tradeState == 3,
-                    ),
-                    SizedBox(
-                      width: 8.w,
                     ),
                     Visibility(
                       child: _buttonBtnWidget(
@@ -186,7 +189,13 @@ class OrderItemWidget extends StatelessWidget {
             children: [
               Visibility(
                 child: _buttonBtnWidget(
-                    title: "上传支付凭证", color: Color(0xff000000), onTap: () {}),
+                    title: "上传支付凭证",
+                    color: Color(0xff000000),
+                    onTap: () {
+                      BuyerOrderController controller =
+                          Get.find<BuyerOrderController>();
+                      controller.chooseAndUploadImage(item.id ?? 0);
+                    }),
                 visible: item.tradeState == 0,
               ),
             ],
@@ -200,6 +209,7 @@ class OrderItemWidget extends StatelessWidget {
     return SafeTapWidget(
       onTap: onTap,
       child: Container(
+        margin: EdgeInsets.only(right: 8.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14.w),
           color: Color(0xffF3F9FB),
