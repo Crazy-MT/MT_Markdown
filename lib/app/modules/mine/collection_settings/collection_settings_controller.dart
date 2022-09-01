@@ -80,7 +80,7 @@ class CollectionSettingsController extends GetxController with GetSingleTickerPr
     tabController?.addListener(() {
       ///避免addListener调用2次
       if (tabController?.index == tabController?.animation?.value) {
-        lLog("点击了下标为${tabController?.index}的tab");
+        // lLog("点击了下标为${tabController?.index}的tab");
       }
     });
   }

@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_new
 
+import 'package:code_zero/utils/log_utils.dart';
+
 import '../../network/convert_interface.dart';
 
 class UserModel extends ConvertInterface {

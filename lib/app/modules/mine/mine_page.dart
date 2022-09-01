@@ -59,6 +59,14 @@ class MinePage extends GetView<MineController> {
                                           children: [
                                             Container(
                                               // height: 60.w,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              60.w)),
+                                                  border: Border.all(
+                                                      width: 2.w,
+                                                      color: Colors.white)),
                                               child: ClipOval(
                                                 child: CachedNetworkImage(
                                                   imageUrl: userHelper.userInfo
@@ -264,39 +272,35 @@ class MinePage extends GetView<MineController> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Expanded(
-                                    child: buildItem("我的仓库",
-                                        Assets.iconsMineMaiWodecangku, () {
-                                      Get.toNamed(RoutesID.BUYER_ORDER_PAGE, arguments: {
-                                        "index" : 0
-                                      });
-                                        }),
+                                    child: buildItem(
+                                        "我的仓库", Assets.iconsMineMaiWodecangku,
+                                        () {
+                                      Get.toNamed(RoutesID.BUYER_ORDER_PAGE,
+                                          arguments: {"index": 0});
+                                    }),
                                   ),
                                   Expanded(
-                                    child: buildItem("待付款",
-                                        Assets.iconsMineMaiDaifukuan, () {
-
-                                          Get.toNamed(RoutesID.BUYER_ORDER_PAGE, arguments: {
-                                            "index" : 1
-                                          });
-                                        }),
+                                    child: buildItem(
+                                        "待付款", Assets.iconsMineMaiDaifukuan,
+                                        () {
+                                      Get.toNamed(RoutesID.BUYER_ORDER_PAGE,
+                                          arguments: {"index": 1});
+                                    }),
                                   ),
                                   Expanded(
-                                    child: buildItem("已付款",
-                                        Assets.iconsMineMaiYifukuan, () {
-
-                                          Get.toNamed(RoutesID.BUYER_ORDER_PAGE, arguments: {
-                                            "index" : 2
-                                          });
-                                        }),
+                                    child: buildItem(
+                                        "已付款", Assets.iconsMineMaiYifukuan, () {
+                                      Get.toNamed(RoutesID.BUYER_ORDER_PAGE,
+                                          arguments: {"index": 2});
+                                    }),
                                   ),
                                   Expanded(
-                                    child: buildItem("待上架",
-                                        Assets.iconsMineMaiDaishangjia, () {
-
-                                          Get.toNamed(RoutesID.BUYER_ORDER_PAGE, arguments: {
-                                            "index" : 3
-                                          });
-                                        }),
+                                    child: buildItem(
+                                        "待上架", Assets.iconsMineMaiDaishangjia,
+                                        () {
+                                      Get.toNamed(RoutesID.BUYER_ORDER_PAGE,
+                                          arguments: {"index": 3});
+                                    }),
                                   )
                                 ],
                               ),
@@ -344,45 +348,34 @@ class MinePage extends GetView<MineController> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Expanded(
-                                    child: buildItem(
-                                        "我的仓库",
-                                        Assets.iconsMineMaiMaiWodecangku,
-                                        () {
-                                          Get.toNamed(RoutesID.SELLER_ORDER_PAGE, arguments: {
-                                            "index" : 0
-                                          });
-                                        }),
+                                    child: buildItem("我的仓库",
+                                        Assets.iconsMineMaiMaiWodecangku, () {
+                                      Get.toNamed(RoutesID.SELLER_ORDER_PAGE,
+                                          arguments: {"index": 0});
+                                    }),
+                                  ),
+                                  Expanded(
+                                    child: buildItem("待收款",
+                                        Assets.iconsMineMaiMaiDaishoukuan, () {
+                                      Get.toNamed(RoutesID.SELLER_ORDER_PAGE,
+                                          arguments: {"index": 1});
+                                    }),
                                   ),
                                   Expanded(
                                     child: buildItem(
-                                        "待收款",
-                                        Assets.iconsMineMaiMaiDaishoukuan,
+                                        "待确认", Assets.iconsMineMaiMaiDaiqueren,
                                         () {
-
-                                          Get.toNamed(RoutesID.SELLER_ORDER_PAGE, arguments: {
-                                            "index" : 1
-                                          });
-                                        }),
-                                  ),
-                                  Expanded(
-                                    child: buildItem("待确认",
-                                        Assets.iconsMineMaiMaiDaiqueren, () {
-
-                                          Get.toNamed(RoutesID.SELLER_ORDER_PAGE, arguments: {
-                                            "index" : 2
-                                          });
-                                        }),
+                                      Get.toNamed(RoutesID.SELLER_ORDER_PAGE,
+                                          arguments: {"index": 2});
+                                    }),
                                   ),
                                   Expanded(
                                     child: buildItem(
-                                        "已完成",
-                                        Assets.iconsMineMaiMaiYiwancheng,
+                                        "已完成", Assets.iconsMineMaiMaiYiwancheng,
                                         () {
-
-                                          Get.toNamed(RoutesID.SELLER_ORDER_PAGE, arguments: {
-                                            "index" : 3
-                                          });
-                                        }),
+                                      Get.toNamed(RoutesID.SELLER_ORDER_PAGE,
+                                          arguments: {"index": 3});
+                                    }),
                                   )
                                 ],
                               ),
@@ -465,12 +458,11 @@ class MinePage extends GetView<MineController> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Expanded(
-                                        child: buildItem(
-                                            "收款设置",
-                                            Assets.iconsMineShoukuanshezhi,
-                                            () {
-                                              Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE);
-                                            }),
+                                        child: buildItem("收款设置",
+                                            Assets.iconsMineShoukuanshezhi, () {
+                                          Get.toNamed(RoutesID
+                                              .COLLECTION_SETTINGS_PAGE);
+                                        }),
                                       ),
                                       Expanded(
                                         child: buildItem("分销中心",

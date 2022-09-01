@@ -86,7 +86,7 @@ class OrderItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      "订单状态：${item.tradeState.toString()}",
+                      "${item.getTradeState()}",
                       style: TextStyle(color: Color(0xff1BDB8A), fontSize: 15.sp, fontWeight: FontWeight.w500),
                       textAlign: TextAlign.end,
                     ),
@@ -162,9 +162,9 @@ class OrderItemWidget extends StatelessWidget {
                     ),
                     Visibility(
                       child: _buttonBtnWidget(title: "提货", color: Color(0xff1BDB8A), onTap: () {
-                        controller.tihuo();
+                        controller.tihuo(item.id);
                       }),
-                      visible: item.tradeState == 3,
+                      visible: item.tradeState == 3 && item.hasDeliver == 0,
                     ),
                     Visibility(
                       child: _buttonBtnWidget(

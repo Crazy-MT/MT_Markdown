@@ -92,8 +92,6 @@ class BuyerOrderPage extends GetView<BuyerOrderController> {
   }
 
   _buildOrderList(OrderTabInfo tab) {
-    lLog('MTMTMT BuyerOrderPage._buildOrderList ${tab.orderList.length}');
-
     if (tab.orderList.length == 0) {
       return SliverToBoxAdapter(
         child: Container(

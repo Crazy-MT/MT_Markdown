@@ -76,12 +76,12 @@ class LoginController extends GetxController {
         errorLog("登录失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
       },
     );
-
     if (_result?.value == null) {
       return;
     }
     userHelper.whenLogin(_result!.value!);
-    if(Get.arguments["from"].toString().isEmpty) {
+
+    if(Get.arguments == null || Get.arguments["from"] == null) {
       Get.back();
     } else {
       Get.offAllNamed(RoutesID.MAIN_TAB_PAGE);
@@ -107,7 +107,7 @@ class LoginController extends GetxController {
       return;
     }
     userHelper.whenLogin(_result!.value!);
-    if(Get.arguments["from"].toString().isEmpty) {
+    if(Get.arguments == null || Get.arguments["from"] == null) {
       Get.back();
     } else {
       Get.offAllNamed(RoutesID.MAIN_TAB_PAGE);

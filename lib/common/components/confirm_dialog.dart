@@ -123,7 +123,7 @@ class _ConfirmDialog extends StatelessWidget {
                     child: Text(
                       confirmText,
                       style: TextStyle(
-                        color: confirmTextColor ?? AppColors.text_dark,
+                        color: confirmTextColor ?? AppColors.text_white,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                       ),

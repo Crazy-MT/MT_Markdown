@@ -241,4 +241,37 @@ class OrderItem {
     }
     return "其它方式";
   }
+
+  getTradeState() {
+    /// 0->待付款、
+    // 1->待收款、
+    // 2->已付款、
+    // 3->待上架、
+    // 4->已上架、
+    // 5->待发货、
+    // 6->待收货、
+    // 7->已收货、
+    // 8->已取消、
+    switch (tradeState) {
+      case 0:
+        return "待付款";
+      case 1:
+        return "待收款";
+      case 2:
+        return "已付款";
+      case 3:
+        return "待上架";
+      case 4:
+        return "已上架";
+      case 5:
+        return "待发货";
+      case 6:
+        return "待收货";
+      case 7:
+        return "已收货";
+      case 8:
+        return "已取消";
+    }
+    return "其它方式";
+  }
 }

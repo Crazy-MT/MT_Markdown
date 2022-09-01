@@ -45,7 +45,7 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
     tabController?.addListener(() {
       ///避免addListener调用2次
       if (tabController?.index == tabController?.animation?.value) {
-        print("点击了下标为${tabController?.index}的tab");
+        // print("点击了下标为${tabController?.index}的tab");
       }
     });
     initAllData();
@@ -195,21 +195,26 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
     );
   }
 
-  void tihuo() {
+  void tihuo(id) {
     showConfirmDialog(
       onConfirm: () async {
-        /// todo 提货
-        /*ResultData<ConvertInterface>? _result = await LRequest.instance.request<CreateAddressModel>(
-          url: AddressApis.DELETE,
-          queryParameters: {
-            // "id": addressItem?.id,
+        ///提货
+        ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
+          url: SnapApis.PICK_UP_COMMODITY,
+          data: {
+            "id": id,
           },
-          requestType: RequestType.GET,
+          t: DataModel(),
+          requestType: RequestType.POST,
           errorBack: (errorCode, errorMsg, expMsg) {
-            Utils.showToastMsg("删除失败：${errorCode == -1 ? expMsg : errorMsg}");
-            errorLog("删除失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+            Utils.showToastMsg("提货失败：${errorCode == -1 ? expMsg : errorMsg}");
+            errorLog("提货失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
           },
-        );*/
+          onSuccess: (rest) {
+            Utils.showToastMsg("提货成功");
+            initAllData();
+          }
+        );
       },
       content: "确定提货吗？",
     );
