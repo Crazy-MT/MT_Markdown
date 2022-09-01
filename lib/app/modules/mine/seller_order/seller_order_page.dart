@@ -1,6 +1,7 @@
 import 'package:code_zero/app/modules/mine/seller_order/seller_order_controller.dart';
 import 'package:code_zero/app/modules/mine/seller_order/widget/order_item_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -88,6 +89,28 @@ class SellerOrderPage extends GetView<SellerOrderController> {
   }
 
   _buildOrderList(OrderTabInfo tab) {
+    if (tab.orderList.length == 0) {
+      return SliverToBoxAdapter(
+        child: Container(
+          height: 400.w,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                Assets.iconsNoOrder,
+                width: 100.w,
+                height: 100.w,
+              ),
+              Text(
+                '暂无相关订单',
+                style: TextStyle(color: Color(0xFFABAAB9)),
+              )
+            ],
+          ),
+        ),
+      );
+    }
+
     return SliverPadding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(Get.context!).padding.bottom,
@@ -97,6 +120,7 @@ class SellerOrderPage extends GetView<SellerOrderController> {
           (content, index) {
             return OrderItemWidget(
               index: index,
+              text: tab.tab.text ?? "已完成",
               item: tab.orderList[index],
             );
           },

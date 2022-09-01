@@ -73,7 +73,7 @@ class OrderDetailPage extends GetView<OrderDetailController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '已完成！',
+                  Get.arguments['status'] ?? "已完成",
                   style: TextStyle(
                     color: Color(0xffffffff),
                     fontSize: 16.sp,
@@ -91,35 +91,42 @@ class OrderDetailPage extends GetView<OrderDetailController> {
           Expanded(
             child: Column(
               children: [
-                Container(
-                  height: 50.w,
-                  child: Obx(() => _orderInfoItemWidget(
-                      '支付方式', controller.item.value?.getTradeMethod())),
+                Visibility(
+
+                  child: Container(
+                    height: 50.w,
+                    child: Obx(() => _orderInfoItemWidget(
+                        '支付方式', controller.item.value?.getTradeMethod())),
+                  ),
+                  visible: controller.item.value?.hasTrade == 1,
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '支付凭证',
-                          style: TextStyle(
-                              color: Color(0xff434446),
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(5.w),
-                          child: Obx(() => CachedNetworkImage(
-                                imageUrl: controller.item.value?.tradeUrl ?? "",
-                                width: 115.w,
-                                height: 123.w,
-                                fit: BoxFit.fitWidth,
-                              )),
-                        )
-                      ],
+                Visibility(
+                  visible: controller.item.value?.hasTrade == 1,
+                  child: Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.w),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '支付凭证',
+                            style: TextStyle(
+                                color: Color(0xff434446),
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(5.w),
+                            child: Obx(() => CachedNetworkImage(
+                                  imageUrl: controller.item.value?.tradeUrl ?? "",
+                                  width: 115.w,
+                                  height: 123.w,
+                                  fit: BoxFit.fitWidth,
+                                )),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

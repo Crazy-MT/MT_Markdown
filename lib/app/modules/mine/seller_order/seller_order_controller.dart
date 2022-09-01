@@ -1,3 +1,4 @@
+import 'package:code_zero/app/modules/home/submit_order/model/data_model.dart';
 import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
 import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -19,11 +20,11 @@ class SellerOrderController extends GetxController with GetSingleTickerProviderS
   final pageStatus = FTStatusPageType.loading.obs;
   final List<OrderTabInfo> myTabs = <OrderTabInfo>[
     /// 卖家
-    // tradeState=0 待收款 =1 待确认，中间那个=2
-    OrderTabInfo(Tab(text: '我的仓库'), -1, RefreshController(), 1, RxList<OrderItem>()),
-    OrderTabInfo(Tab(text: '待收款'), 4, RefreshController(), 1, RxList<OrderItem>()),
-    OrderTabInfo(Tab(text: '待确认'), 5, RefreshController(), 1, RxList<OrderItem>()),
-    OrderTabInfo(Tab(text: '已完成'), 6, RefreshController(), 1, RxList<OrderItem>()),
+    // 我的仓库=4   待收款=0   待确认=1  has_complete=1
+    OrderTabInfo(Tab(text: '我的仓库'), 4, RefreshController(), 1, RxList<OrderItem>()),
+    OrderTabInfo(Tab(text: '待收款'), 0, RefreshController(), 1, RxList<OrderItem>()),
+    OrderTabInfo(Tab(text: '待确认'), 1, RefreshController(), 1, RxList<OrderItem>()),
+    OrderTabInfo(Tab(text: '已完成'), -1, RefreshController(), 1, RxList<OrderItem>()),
   ];
 
   TabController? tabController;
@@ -63,7 +64,12 @@ class SellerOrderController extends GetxController with GetSingleTickerProviderS
 
     ResultData<OrderListModel>? _result = await LRequest.instance.request<OrderListModel>(
       url: SnapApis.ORDER_LIST,
-      queryParameters: {
+      queryParameters: tabInfo.tradeState == -1 ? {
+        "from-user-id": userHelper.userInfo.value?.id,
+        "page": tabInfo.currentPage,
+        "size": 10,
+        "has-complete": 1,
+      } : {
         "from-user-id": userHelper.userInfo.value?.id,
         "page": tabInfo.currentPage,
         "size": 10,
@@ -97,5 +103,26 @@ class SellerOrderController extends GetxController with GetSingleTickerProviderS
   void onClose() {}
   void setPageName(String newName) {
     pageName.value = newName;
+  }
+
+  /// 确认收款
+  Future<void> confirmOrder(int id) async {
+    ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
+        url: SnapApis.CONFIRM_RECEIPT_ORDER,
+        data: {
+          "id": id
+        },
+        t: DataModel(),
+        requestType: RequestType.POST,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          Utils.showToastMsg("确认收款失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("确认收款失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+        onSuccess: (rest) {
+          // print('MTMTMT BuyerOrderController.cancelOrder ${rest} ');
+          Utils.showToastMsg("确认收款成功");
+          initAllData();
+        }
+    );
   }
 }

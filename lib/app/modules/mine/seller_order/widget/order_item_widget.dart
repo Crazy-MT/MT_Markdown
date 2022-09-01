@@ -1,37 +1,107 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/mine/seller_order/seller_order_controller.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
+import 'package:code_zero/common/components/avoid_quick_click.dart';
+import 'package:code_zero/common/components/safe_tap_widget.dart';
+import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 import '../../model/order_list_model.dart';
 
 class OrderItemWidget extends StatelessWidget {
   final OrderItem item;
   final int index;
+  final String text;
+
   const OrderItemWidget({
     Key? key,
     required this.index,
-    required this.item,
+    required this.item, this.text = "已完成",
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return _contentWidget();
+    return SafeClickGesture(
+      onTap: () {
+        Get.toNamed(RoutesID.ORDER_DETAIL_PAGE, arguments: {"item": item, 'status': text});
+      },
+      child: _contentWidget(),
+    );
   }
 
   Widget _contentWidget() {
+    SellerOrderController controller = Get.find<SellerOrderController>();
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5),
       padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.white),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5), color: Colors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("订单号: D2022081684784724857",
-              style: TextStyle(
-                color: Color(0xff434446),
-                fontSize: 12.sp,
-              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("订单号 ${item.tradeNo}",
+                      style: TextStyle(
+                        color: Color(0xff434446),
+                        fontSize: 12.sp,
+                      )),
+                  SizedBox(
+                    height: 10.w,
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SvgPicture.asset(
+                        Assets.iconsGoodsInfoTitleIcon,
+                        width: 19.w,
+                        height: 19.w,
+                      ),
+                      Text(
+                        item.sessionName ?? "",
+                        style: TextStyle(
+                          color: Color(0xFF434446),
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Expanded(
+                  child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      "${item.getTradeState()}",
+                      style: TextStyle(
+                          color: Color(0xff1BDB8A),
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.end,
+                    ),
+                    // _richText(fontSize1: 10.sp, fontSize2: 14.sp, text: "3000"),
+                    // Text(
+                    //   "共1件",
+                    //   textAlign: TextAlign.end,
+                    //   style: TextStyle(color: Color(0xffABAAB9), fontSize: 12.sp, fontWeight: FontWeight.normal),
+                    // ),
+                  ],
+                ),
+              ))
+            ],
+          ),
           SizedBox(
             height: 15.w,
           ),
@@ -39,71 +109,65 @@ class OrderItemWidget extends StatelessWidget {
           SizedBox(
             height: 15.w,
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                _buttonBtnWidget(
-                  title: "取消订单",
-                  color: Color(0xff000000),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                  child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Visibility(
+                      child: _buttonBtnWidget(
+                          title: "申诉",
+                          color: Color(0xff000000),
+                          onTap: () {
+
+                          }),
+                      visible: item.tradeState == 1 || (item.hasComplete == 1),
+                    ),
+                    Visibility(
+                      child: _buttonBtnWidget(
+                          title: "确认收款",
+                          color: Color(0xff1BDB8A),
+                          onTap: () {
+                            SellerOrderController controller =
+                                Get.find<SellerOrderController>();
+                            controller.confirmOrder(item.id ?? 0);
+                          }),
+                      visible: item.tradeState == 1,
+                    )
+                  ],
                 ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                _buttonBtnWidget(
-                  title: "待付款",
-                  color: Color(0xffFF3939),
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                _buttonBtnWidget(
-                  title: "上传支付凭证",
-                  color: Color(0xff000000),
-                ),
-                _buttonBtnWidget(
-                  title: "申诉",
-                  color: Color(0xff000000),
-                ),
-                _buttonBtnWidget(
-                  title: "提货",
-                  color: Color(0xff000000),
-                ),
-                _buttonBtnWidget(
-                  title: "委托上架",
-                  color: Color(0xff000000),
-                ),
-                _buttonBtnWidget(
-                  title: "取消订单",
-                  color: Color(0xff000000),
-                ),
-                _buttonBtnWidget(
-                  title: "确认收款",
-                  color: Color(0xff000000),
-                ),
-              ],
-            ),
+              ))
+            ],
           ),
+          SizedBox(
+            height: 8.w,
+          )
         ],
       ),
     );
   }
 
-  Widget _buttonBtnWidget({String? title, Color? color}) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14.w),
-        color: Color(0xffF3F9FB),
-      ),
-      height: 27.w,
-      width: 82.w,
-      child: Center(
-        child: Text(
-          title ?? "",
-          style: TextStyle(
-            fontSize: 12.sp,
-            color: color,
+  Widget _buttonBtnWidget({String? title, Color? color, var onTap}) {
+    return SafeTapWidget(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.only(right: 8.w),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14.w),
+          color: Color(0xffF3F9FB),
+        ),
+        height: 27.w,
+        width: 82.w,
+        child: Center(
+          child: Text(
+            title ?? "",
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: color,
+            ),
           ),
         ),
       ),
@@ -117,7 +181,7 @@ class OrderItemWidget extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(8.w),
           child: CachedNetworkImage(
-            imageUrl: "http://placekitten.com/1200/315",
+            imageUrl: item.thumbnailUrl ?? "",
             width: 100.w,
             height: 100.w,
             fit: BoxFit.fill,
@@ -131,17 +195,24 @@ class OrderItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "以心参玉 A货翡翠吊坠 男女啊哈哈",
-                  style: TextStyle(color: Color(0xff111111), fontSize: 15.sp, fontWeight: FontWeight.w500),
+                  item.name ?? "",
+                  style: TextStyle(
+                      color: Color(0xff111111),
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w500),
                   textAlign: TextAlign.end,
                 ),
-                _richText(fontSize1: 10.sp, fontSize2: 14.sp, text: "3000"),
-                Text(
-                  "共1件",
-                  textAlign: TextAlign.end,
-                  style: TextStyle(color: Color(0xffABAAB9), fontSize: 12.sp, fontWeight: FontWeight.normal),
-                ),
-                _richText(fontSize1: 12.sp, fontSize2: 16.sp, text: "3000", fontWeight: FontWeight.w700),
+                // _richText(fontSize1: 10.sp, fontSize2: 14.sp, text: "3000"),
+                // Text(
+                //   "共1件",
+                //   textAlign: TextAlign.end,
+                //   style: TextStyle(color: Color(0xffABAAB9), fontSize: 12.sp, fontWeight: FontWeight.normal),
+                // ),
+                _richText(
+                    fontSize1: 12.sp,
+                    fontSize2: 16.sp,
+                    text: item.price,
+                    fontWeight: FontWeight.w700),
               ],
             ),
           ),
@@ -150,7 +221,11 @@ class OrderItemWidget extends StatelessWidget {
     );
   }
 
-  _richText({double? fontSize1, double? fontSize2, FontWeight? fontWeight, String? text}) {
+  _richText(
+      {double? fontSize1,
+      double? fontSize2,
+      FontWeight? fontWeight,
+      String? text}) {
     return RichText(
       text: TextSpan(
         style: TextStyle(
