@@ -17,6 +17,8 @@ class UserApis {
 
   static const String UPDATE_SIGNATURE = NetConstant.HOST + PREFIX + "/update-signature";
 
-  // static const String GUEST_LOGIN = NetConstant.HOST + PREFIX + "/guest_login";
+  static const String SYSTEM_SETTING = NetConstant.HOST + "/system-setting/get";
+
+// static const String GUEST_LOGIN = NetConstant.HOST + PREFIX + "/guest_login";
   // static const String REGISTER = NetConstant.HOST + PREFIX + "/register";
 }

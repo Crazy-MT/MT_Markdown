@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/system_setting.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter/material.dart';
@@ -487,8 +488,7 @@ class MinePage extends GetView<MineController> {
                                           showModalBottomSheet(
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          10)),
+                                                      BorderRadius.only(topRight: Radius.circular(10.w), topLeft: Radius.circular(10.w))),
                                               context: context,
                                               builder: (context) {
                                                 return Container(
@@ -547,7 +547,7 @@ class MinePage extends GetView<MineController> {
                                                               height: 10.w,
                                                             ),
                                                             Text(
-                                                              "188-8888-8888",
+                                                              systemSetting.model.value?.hotline ?? "",
                                                               style: TextStyle(
                                                                   fontSize:
                                                                       22.sp),

@@ -1,7 +1,14 @@
 import 'package:code_zero/app/modules/home/home_page.dart';
+import 'package:code_zero/app/modules/others/user_apis.dart';
 import 'package:code_zero/app/modules/snap_up/snap_up_page.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/model/system_model.dart';
+import 'package:code_zero/common/system_setting.dart';
 import 'package:code_zero/generated/assets/assets.dart';
+import 'package:code_zero/network/base_model.dart';
+import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,6 +31,7 @@ class MainTabController extends GetxController {
   initData() {
     pageStatus.value = FTStatusPageType.success;
     initTab();
+    initSystemSetting();
   }
 
   initTab() {
@@ -77,6 +85,25 @@ class MainTabController extends GetxController {
   void onClose() {}
   void setPageName(String newName) {
     pageName.value = newName;
+  }
+
+  Future<void> initSystemSetting() async {
+    ResultData<SystemSettingModel>? _result = await LRequest.instance.request<SystemSettingModel>(
+        url: UserApis.SYSTEM_SETTING,
+        t: SystemSettingModel(),
+        requestType: RequestType.GET,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          // Utils.showToastMsg("获取收益失败：${errorCode == -1 ? expMsg : errorMsg}");
+          // errorLog("获取收益失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+        onSuccess: (rest) {
+          // print('MTMTMT BuyerOrderController.cancelOrder ${rest} ');
+          // Utils.showToastMsg("获取收益");
+          // model.value = rest.value;
+          systemSetting.model.value = rest.value as SystemSettingModel;
+          lLog('MTMTMT MainTabController.initSystemSetting ${systemSetting.model.value?.hotline} ');
+        }
+    );
   }
 }
 
