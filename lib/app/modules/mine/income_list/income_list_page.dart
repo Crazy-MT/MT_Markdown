@@ -1,3 +1,4 @@
+import 'package:code_zero/app/modules/mine/income_list/model/income_model.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -31,6 +32,18 @@ class IncomeListPage extends GetView<IncomeListController> {
         () => FTStatusPage(
           type: controller.pageStatus.value,
           errorMsg: controller.errorMsg.value,
+          footer: SliverToBoxAdapter(
+            child: SizedBox.shrink(),
+          ),
+          enablePullUp: true,
+          enablePullDown: true,
+          controller: controller.refreshController,
+          onRefresh: () {
+            controller.getIncomeList();
+          },
+          onLoading: () {
+            controller.getIncomeList(isRefresh: false);
+          },
           builder: (BuildContext context) {
             return CustomScrollView(
               slivers: [
@@ -60,143 +73,148 @@ class IncomeListPage extends GetView<IncomeListController> {
   _buildHeaderContainer() {
     return SliverToBoxAdapter(
       child: Obx(() => Container(
-        margin: EdgeInsets.all(15.w).copyWith(
-          bottom: 20.w,
-        ),
-        width: 345.w,
-        height: 123.w,
-        decoration: BoxDecoration(
-          color: AppColors.green,
-          borderRadius: BorderRadius.circular(10.w),
-          image: DecorationImage(
-            image: AssetImage(
-              Assets.imagesIncomeListTopBg,
+            margin: EdgeInsets.all(15.w).copyWith(
+              bottom: 20.w,
             ),
-            fit: BoxFit.fill,
-          ),
-        ),
-        padding: EdgeInsets.all(15.w).copyWith(top: 10.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              DateTime.now().millisecondsSinceEpoch.formatTime("YYYY-MM-dd"),
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
+            width: 345.w,
+            height: 123.w,
+            decoration: BoxDecoration(
+              color: AppColors.green,
+              borderRadius: BorderRadius.circular(10.w),
+              image: DecorationImage(
+                image: AssetImage(
+                  Assets.imagesIncomeListTopBg,
+                ),
+                fit: BoxFit.fill,
               ),
             ),
-            SizedBox(
-              height: 30.w,
-            ),
-            Row(
+            padding: EdgeInsets.all(15.w).copyWith(top: 10.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("总收益（元）",
-                        style: TextStyle(
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.text_dark.withOpacity(0.5),
-                        )),
-                    Container(
-                      alignment: Alignment.bottomLeft,
-                      height: 32.w,
-                      child: RichText(
-                        text: TextSpan(
-                            style: TextStyle(
-                              height: 1,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: controller.model.value?.total ,
-                                style: TextStyle(
-                                  fontSize: 26.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.text_dark,
-                                ),
-                              ),
-                              // TextSpan(
-                              //   text: ".00",
-                              //   style: TextStyle(
-                              //     fontSize: 18.sp,
-                              //     fontWeight: FontWeight.w500,
-                              //     color: AppColors.text_dark,
-                              //   ),
-                              // ),
-                            ]),
-                      ),
-                    ),
-                  ],
+                Text(
+                  DateTime.now()
+                      .millisecondsSinceEpoch
+                      .formatTime("YYYY-MM-dd"),
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-                Expanded(child: SizedBox()),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                SizedBox(
+                  height: 30.w,
+                ),
+                Row(
                   children: [
-                    Text("今日收益（元）",
-                        style: TextStyle(
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.text_dark.withOpacity(0.5),
-                        )),
-                    Container(
-                      height: 32.w,
-                      alignment: Alignment.bottomRight,
-                      child: Text(
-                        controller.model.value?.total ?? "",
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.text_dark,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("总收益（元）",
+                            style: TextStyle(
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.text_dark.withOpacity(0.5),
+                            )),
+                        Container(
+                          alignment: Alignment.bottomLeft,
+                          height: 32.w,
+                          child: RichText(
+                            text: TextSpan(
+                                style: TextStyle(
+                                  height: 1,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: controller.model.value?.total,
+                                    style: TextStyle(
+                                      fontSize: 26.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.text_dark,
+                                    ),
+                                  ),
+                                  // TextSpan(
+                                  //   text: ".00",
+                                  //   style: TextStyle(
+                                  //     fontSize: 18.sp,
+                                  //     fontWeight: FontWeight.w500,
+                                  //     color: AppColors.text_dark,
+                                  //   ),
+                                  // ),
+                                ]),
+                          ),
                         ),
-                      ),
+                      ],
+                    ),
+                    Expanded(child: SizedBox()),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("今日收益（元）",
+                            style: TextStyle(
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.text_dark.withOpacity(0.5),
+                            )),
+                        Container(
+                          height: 32.w,
+                          alignment: Alignment.bottomRight,
+                          child: Text(
+                            controller.model.value?.total ?? "",
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.text_dark,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ],
             ),
-          ],
-        ),
-      )),
+          )),
     );
   }
 
   _buildIncomeList() {
-    return SliverPadding(
-      padding: EdgeInsets.all(15.w).copyWith(top: 10.w),
-      sliver: controller.incomeList.isEmpty
-          ? SliverToBoxAdapter(
-              child: Container(
-                width: 335.w,
-                height: 80.w,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.w),
-                  color: Colors.white,
-                ),
-                child: Text(
-                  "暂无明细",
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.text_dark,
+    return Obx(() {
+      return SliverPadding(
+        padding: EdgeInsets.all(15.w).copyWith(top: 10.w),
+        sliver: controller.incomeList.isEmpty
+            ? SliverToBoxAdapter(
+                child: Container(
+                  width: 335.w,
+                  height: 80.w,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.w),
+                    color: Colors.white,
+                  ),
+                  child: Text(
+                    "暂无明细",
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.text_dark,
+                    ),
                   ),
                 ),
+              )
+            : SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (content, index) {
+                    return _buildIncomeItem(index);
+                  },
+                  childCount: controller.incomeList.length,
+                ),
               ),
-            )
-          : SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (content, index) {
-                  return _buildIncomeItem(index);
-                },
-                childCount: controller.incomeList.length,
-              ),
-            ),
-    );
+      );
+    });
   }
 
   _buildIncomeItem(index) {
+    IncomeItems item = controller.incomeList[index];
     return Container(
       width: 335.w,
       margin: EdgeInsets.only(bottom: 10.w),
@@ -228,7 +246,7 @@ class IncomeListPage extends GetView<IncomeListController> {
                     children: [
                       Expanded(
                           child: Text(
-                        "以心参玉 A货翡翠吊坠 男女款飘花树叶玉石挂件 附送证书",
+                        item.name ?? "",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -241,7 +259,7 @@ class IncomeListPage extends GetView<IncomeListController> {
                         width: 12.w,
                       ),
                       Text(
-                        "+10000.00",
+                        item.income ?? "",
                         style: TextStyle(
                           color: AppColors.text_dark,
                           fontSize: 15.sp,
@@ -254,9 +272,7 @@ class IncomeListPage extends GetView<IncomeListController> {
                     child: SizedBox(),
                   ),
                   Text(
-                    DateTime.now().millisecondsSinceEpoch.formatTime(
-                          "YYYY.MM.dd HH:mm:ss",
-                        ),
+                    item.createdAt ?? "",
                     style: TextStyle(
                         color: Color(
                       0xFFABAAB9,
