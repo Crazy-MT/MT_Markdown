@@ -59,7 +59,7 @@ class IncomeListPage extends GetView<IncomeListController> {
 
   _buildHeaderContainer() {
     return SliverToBoxAdapter(
-      child: Container(
+      child: Obx(() => Container(
         margin: EdgeInsets.all(15.w).copyWith(
           bottom: 20.w,
         ),
@@ -110,21 +110,21 @@ class IncomeListPage extends GetView<IncomeListController> {
                             ),
                             children: [
                               TextSpan(
-                                text: "453256",
+                                text: controller.model.value?.total ,
                                 style: TextStyle(
                                   fontSize: 26.sp,
                                   fontWeight: FontWeight.w500,
                                   color: AppColors.text_dark,
                                 ),
                               ),
-                              TextSpan(
-                                text: ".00",
-                                style: TextStyle(
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.text_dark,
-                                ),
-                              ),
+                              // TextSpan(
+                              //   text: ".00",
+                              //   style: TextStyle(
+                              //     fontSize: 18.sp,
+                              //     fontWeight: FontWeight.w500,
+                              //     color: AppColors.text_dark,
+                              //   ),
+                              // ),
                             ]),
                       ),
                     ),
@@ -144,7 +144,7 @@ class IncomeListPage extends GetView<IncomeListController> {
                       height: 32.w,
                       alignment: Alignment.bottomRight,
                       child: Text(
-                        "56788.05",
+                        controller.model.value?.total ?? "",
                         style: TextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w500,
@@ -158,7 +158,7 @@ class IncomeListPage extends GetView<IncomeListController> {
             ),
           ],
         ),
-      ),
+      )),
     );
   }
 
