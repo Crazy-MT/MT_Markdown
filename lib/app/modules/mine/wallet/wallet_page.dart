@@ -47,7 +47,7 @@ class WalletPage extends GetView<WalletController> {
       delegate: SliverChildBuilderDelegate(
         (content, index) {
           if (index == 0) {
-            return WalletInfoWidget();
+            return Obx(() => WalletInfoWidget(controller.model.value));
           }
           return _walletItem(index - 1);
         },

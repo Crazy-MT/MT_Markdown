@@ -1,10 +1,12 @@
+import 'package:code_zero/app/modules/mine/wallet/model/walle_model.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WalletInfoWidget extends StatelessWidget {
-  const WalletInfoWidget({Key? key}) : super(key: key);
+  final WalletModel? walletModel;
+  const WalletInfoWidget(this.walletModel, {Key? key}) : super(key: key);
 
   //------ pragma mark - properties ------//
 
@@ -73,12 +75,12 @@ class WalletInfoWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('453256.88',
+                Text(walletModel?.balance ?? "",
                     style: TextStyle(
                         color: Color(0xff111111),
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w500)),
-                Text('56788.05',
+                Text(walletModel?.points ?? "",
                     style: TextStyle(
                         color: Color(0xff111111),
                         fontSize: 18.sp,
