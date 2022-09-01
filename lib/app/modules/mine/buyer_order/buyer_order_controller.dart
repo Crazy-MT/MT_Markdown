@@ -5,13 +5,17 @@ import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/system_setting.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/convert_interface.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
+import 'package:date_format/date_format.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,17 +26,22 @@ import '../../../../network/upload_util.dart';
 import '../address_manage/model/create_address_model.dart';
 import '../model/order_tab_info.dart';
 
-class BuyerOrderController extends GetxController with GetSingleTickerProviderStateMixin {
+class BuyerOrderController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   final pageName = 'Order'.obs;
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
   final List<OrderTabInfo> myTabs = <OrderTabInfo>[
     // 买家，就是 0 -- 待付款、2 -- 已付款、3 -- 待上架
 
-    OrderTabInfo(Tab(text: '我的仓库'), -1, RefreshController(), 1, RxList<OrderItem>()),
-    OrderTabInfo(Tab(text: '待付款'), 0, RefreshController(), 1, RxList<OrderItem>()),
-    OrderTabInfo(Tab(text: '已付款'), 2, RefreshController(), 1, RxList<OrderItem>()),
-    OrderTabInfo(Tab(text: '待上架'), 3, RefreshController(), 1, RxList<OrderItem>()),
+    OrderTabInfo(
+        Tab(text: '我的仓库'), -1, RefreshController(), 1, RxList<OrderItem>()),
+    OrderTabInfo(
+        Tab(text: '待付款'), 0, RefreshController(), 1, RxList<OrderItem>()),
+    OrderTabInfo(
+        Tab(text: '已付款'), 2, RefreshController(), 1, RxList<OrderItem>()),
+    OrderTabInfo(
+        Tab(text: '待上架'), 3, RefreshController(), 1, RxList<OrderItem>()),
   ];
 
   TabController? tabController;
@@ -69,7 +78,8 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
     } else {
       tabInfo.currentPage++;
     }
-    ResultData<OrderListModel>? _result = await LRequest.instance.request<OrderListModel>(
+    ResultData<OrderListModel>? _result = await LRequest.instance.request<
+        OrderListModel>(
       url: SnapApis.ORDER_LIST,
       queryParameters: {
         "to-user-id": userHelper.userInfo.value?.id,
@@ -86,7 +96,9 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
       },
     );
     if (_result?.value != null) {
-      isRefresh ? tabInfo.orderList.value = _result?.value?.items ?? [] : tabInfo.orderList.addAll(_result?.value?.items ?? []);
+      isRefresh
+          ? tabInfo.orderList.value = _result?.value?.items ?? []
+          : tabInfo.orderList.addAll(_result?.value?.items ?? []);
     }
 
     if (isRefresh) {
@@ -103,27 +115,28 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
 
   @override
   void onClose() {}
+
   void setPageName(String newName) {
     pageName.value = newName;
   }
 
   Future<void> cancelOrder(int id) async {
     ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
-      url: SnapApis.CANCEL_ORDER,
-      data: {
-        "id": id
-      },
-      t: DataModel(),
-      requestType: RequestType.POST,
-      errorBack: (errorCode, errorMsg, expMsg) {
-        Utils.showToastMsg("取消订单失败：${errorCode == -1 ? expMsg : errorMsg}");
-        errorLog("取消订单失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
-      },
-      onSuccess: (rest) {
-        // print('MTMTMT BuyerOrderController.cancelOrder ${rest} ');
-        Utils.showToastMsg("取消订单成功");
-        initAllData();
-      }
+        url: SnapApis.CANCEL_ORDER,
+        data: {
+          "id": id
+        },
+        t: DataModel(),
+        requestType: RequestType.POST,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          Utils.showToastMsg("取消订单失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("取消订单失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+        onSuccess: (rest) {
+          // print('MTMTMT BuyerOrderController.cancelOrder ${rest} ');
+          Utils.showToastMsg("取消订单成功");
+          initAllData();
+        }
     );
   }
 
@@ -179,7 +192,7 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
         url: SnapApis.UPDATE_TRADE_URL_ORDER,
         data: {
           "id": id,
-          "tradeUrl":tradeUrl
+          "tradeUrl": tradeUrl
         },
         t: DataModel(),
         requestType: RequestType.POST,
@@ -199,21 +212,22 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
     showConfirmDialog(
       onConfirm: () async {
         ///提货
-        ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
-          url: SnapApis.PICK_UP_COMMODITY,
-          data: {
-            "id": id,
-          },
-          t: DataModel(),
-          requestType: RequestType.POST,
-          errorBack: (errorCode, errorMsg, expMsg) {
-            Utils.showToastMsg("提货失败：${errorCode == -1 ? expMsg : errorMsg}");
-            errorLog("提货失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
-          },
-          onSuccess: (rest) {
-            Utils.showToastMsg("提货成功");
-            initAllData();
-          }
+        ResultData<DataModel>? _result = await LRequest.instance.request<
+            DataModel>(
+            url: SnapApis.PICK_UP_COMMODITY,
+            data: {
+              "id": id,
+            },
+            t: DataModel(),
+            requestType: RequestType.POST,
+            errorBack: (errorCode, errorMsg, expMsg) {
+              Utils.showToastMsg("提货失败：${errorCode == -1 ? expMsg : errorMsg}");
+              errorLog("提货失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+            },
+            onSuccess: (rest) {
+              Utils.showToastMsg("提货成功");
+              initAllData();
+            }
         );
       },
       content: "确定提货吗？",
@@ -222,37 +236,80 @@ class BuyerOrderController extends GetxController with GetSingleTickerProviderSt
 
   /// 委托上架
   void shangjia() {
-    /// todo 如果不在上架时间内，需要弹这个框。上架时间会有单独的设置接口提供
-    showConfirmDialog(
-      confirmText: '知道了',
-      onConfirm: () async {
+    if (!timeInShelf()) {
+      showConfirmDialog(
+        singleText: '知道了',
+        onSingle: () async {},
+        content: "委托上架时间为${systemSetting.model.value
+            ?.shelfStartTime}--${systemSetting.model.value?.shelfEndTime}",
+      );
+      return;
+    }
 
-      },
-      content: "委托上架时间为----",
-    );
-    /// todo 委托上架前的框
     showConfirmDialog(
-        title:"委托寄卖",
+      title: "委托寄卖",
       cancelText: "暂不使用",
       onConfirm: () async {
-        /// todo 委托上架
-        /*ResultData<ConvertInterface>? _result = await LRequest.instance.request<CreateAddressModel>(
-          url: AddressApis.DELETE,
-          queryParameters: {
-            // "id": addressItem?.id,
-          },
-          requestType: RequestType.GET,
-          errorBack: (errorCode, errorMsg, expMsg) {
-            Utils.showToastMsg("删除失败：${errorCode == -1 ? expMsg : errorMsg}");
-            errorLog("删除失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
-          },
-        );*/
-
-
-        /// todo 接口成功了之后打开寄卖信息页面
+        /// todo 委托上架之后打开寄卖信息页面
         Get.toNamed(RoutesID.ORDER_SEND_SELL_PAGE);
       },
-      content: "请你务必认真阅读、充分理解“委托寄卖”各条款，包括但不限于:为了向你提供数据、分享等服务所要获叹的权限信息。你可以阅读《委托寄卖》了解详细信息。如您同意，请点击同意开始接受我们的服务。",
+      contentWidget: RichText(
+        text: TextSpan(
+          text: "请你务必认真阅读、充分理解“委托寄卖”各条款，包括但不限于:为了向你提供数据、分享等服务所要获叹的权限信息。你可以阅读",
+          style: TextStyle(
+            color: Color(0xFF434446),
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w400,
+          ),
+          children: [
+            TextSpan(
+                text: "《委托寄卖》",
+                style: TextStyle(
+                  color: Color(0xFF1BDB8A),
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    Get.toNamed(
+                      RoutesID.LOCAL_HTML_PAGE,
+                      arguments: {
+                        "page_title": "委托寄售服务协议",
+                        "html_file": "assets/html/sell_policy.html",
+                      },
+                    );
+                  }),
+            TextSpan(
+                text: "了解详细信息。如您同意，请点击同意开始接受我们的服务",
+                style: TextStyle(
+                  color: Color(0xFF434446),
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w400,
+                ))
+          ],
+        ),
+      )
     );
+  }
+
+  /// 可上架时间判断
+  bool timeInShelf() {
+    String now = formatDate(DateTime.now(), [HH, ':', nn]);
+    var nowArr = now.split(":");
+    var startArr = systemSetting.model.value?.shelfStartTime?.split(":");
+    var endArr = systemSetting.model.value?.shelfEndTime?.split(":");
+    int nowHour = (int.parse(nowArr[0]));
+    int nowMinute = int.parse(nowArr[1]);
+    int nowTime = nowHour * 60 + nowMinute; // 当前天分钟数
+
+    int startHour = int.parse(startArr?[0] ?? "0");
+    int startMinute = int.parse(startArr?[1] ?? "0");
+    int start = startHour * 60 + startMinute;
+
+    int endHour = int.parse(endArr?[0] ?? "0");
+    int endMinute = int.parse(endArr?[1] ?? "0");
+    int end = endHour * 60 + endMinute;
+
+    return nowTime >= start && nowTime <= end;
   }
 }

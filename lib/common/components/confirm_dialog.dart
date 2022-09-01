@@ -13,11 +13,13 @@ class _ConfirmDialog extends StatelessWidget {
 
   final VoidCallback? onConfirm;
   final VoidCallback? onCancel;
+  final VoidCallback? onSingle;
 
   final Color? confirmTextColor;
 
   final String cancelText;
   final String confirmText;
+  final String? singleText;
 
   const _ConfirmDialog({
     Key? key,
@@ -31,6 +33,8 @@ class _ConfirmDialog extends StatelessWidget {
     this.cancelText = "取消",
     this.confirmText = "确定",
     this.confirmTextColor,
+    this.singleText,
+    this.onSingle,
   }) : super(key: key);
 
   @override
@@ -78,67 +82,102 @@ class _ConfirmDialog extends StatelessWidget {
             SizedBox(
               height: 40.w,
             ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 126.w,
-                  height: 36.w,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.back(
-                        result: false,
-                      );
-                      onCancel?.call();
-                    },
-                    child: Text(
-                      cancelText,
-                      style: TextStyle(
-                        color: AppColors.text_dark,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      shape: StadiumBorder(),
-                    ).copyWith(
-                      padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
-                      backgroundColor: MaterialStateProperty.all(Color(0xFFF3F9FB)),
-                      elevation: MaterialStateProperty.all(0),
+            if(singleText != null && (singleText?.isNotEmpty ?? false))
+              SizedBox(
+                width: 126.w,
+                height: 36.w,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.back(
+                      result: true,
+                    );
+                    onSingle?.call();
+                  },
+                  child: Text(
+                    singleText ?? "",
+                    style: TextStyle(
+                      color: confirmTextColor ?? AppColors.text_white,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 8.w,
-                ),
-                SizedBox(
-                  width: 126.w,
-                  height: 36.w,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.back(
-                        result: true,
-                      );
-                      onConfirm?.call();
-                    },
-                    child: Text(
-                      confirmText,
-                      style: TextStyle(
-                        color: confirmTextColor ?? AppColors.text_white,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      shape: StadiumBorder(),
-                    ).copyWith(
-                      padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
-                      backgroundColor: MaterialStateProperty.all(AppColors.green),
-                      elevation: MaterialStateProperty.all(0),
-                    ),
+                  style: ElevatedButton.styleFrom(
+                    shape: StadiumBorder(),
+                  ).copyWith(
+                    padding:
+                    MaterialStateProperty.all(const EdgeInsets.all(0)),
+                    backgroundColor:
+                    MaterialStateProperty.all(AppColors.green),
+                    elevation: MaterialStateProperty.all(0),
                   ),
                 ),
-              ],
-            ),
+              ),
+            if (singleText == null && (singleText?.isEmpty ?? true))
+              Row(
+                children: [
+                  SizedBox(
+                    width: 126.w,
+                    height: 36.w,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.back(
+                          result: false,
+                        );
+                        onCancel?.call();
+                      },
+                      child: Text(
+                        cancelText,
+                        style: TextStyle(
+                          color: AppColors.text_dark,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        shape: StadiumBorder(),
+                      ).copyWith(
+                        padding:
+                            MaterialStateProperty.all(const EdgeInsets.all(0)),
+                        backgroundColor:
+                            MaterialStateProperty.all(Color(0xFFF3F9FB)),
+                        elevation: MaterialStateProperty.all(0),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 8.w,
+                  ),
+                  SizedBox(
+                    width: 126.w,
+                    height: 36.w,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.back(
+                          result: true,
+                        );
+                        onConfirm?.call();
+                      },
+                      child: Text(
+                        confirmText,
+                        style: TextStyle(
+                          color: confirmTextColor ?? AppColors.text_white,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        shape: StadiumBorder(),
+                      ).copyWith(
+                        padding:
+                            MaterialStateProperty.all(const EdgeInsets.all(0)),
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.green),
+                        elevation: MaterialStateProperty.all(0),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
           ],
         ),
       ),
@@ -154,22 +193,25 @@ Future<bool> showConfirmDialog({
   Widget? contentWidget,
   VoidCallback? onConfirm,
   VoidCallback? onCancel,
+  VoidCallback? onSingle,
   String cancelText = "取消",
   String confirmText = "确定",
+  String? singleText,
   Color? confirmTextColor,
 }) async {
   var result = await Get.dialog(_ConfirmDialog(
-    title: title,
-    titleAlign: titleAlign,
-    content: content,
-    contentAlign: contentAlign,
-    contentWidget: contentWidget,
-    onConfirm: onConfirm,
-    onCancel: onCancel,
-    cancelText: cancelText,
-    confirmText: confirmText,
-    confirmTextColor: confirmTextColor,
-  ));
+      title: title,
+      titleAlign: titleAlign,
+      content: content,
+      contentAlign: contentAlign,
+      contentWidget: contentWidget,
+      onConfirm: onConfirm,
+      onCancel: onCancel,
+      cancelText: cancelText,
+      confirmText: confirmText,
+      confirmTextColor: confirmTextColor,
+      onSingle: onSingle,
+      singleText: singleText));
   if (result == true) return true;
   return false;
 }
