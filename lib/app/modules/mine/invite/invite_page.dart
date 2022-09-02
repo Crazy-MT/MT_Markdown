@@ -32,10 +32,10 @@ class InvitePage extends GetView<InviteController> {
                 ),
                 _userInfoWidget(),
                 SizedBox(height: 12.5.h),
-                Expanded(child: _cardWidget(), flex: 10,),
+                _cardWidget(),
                 SizedBox(height: 27.h),
-                _sharePlatformWidget(),
-                Expanded(child:_closeWidget(context), flex: 2,)
+                Expanded(child: _sharePlatformWidget(), flex: 1,),
+                Expanded(child: _closeWidget(context), flex: 2)
               ],
             ),
           );
@@ -87,7 +87,7 @@ class InvitePage extends GetView<InviteController> {
             child: Image.asset(
               Assets.imagesInvitePosterTemplate,
               // width: double.infinity,
-              // height: 450.w,
+              height: 480.h,
               fit: BoxFit.fitHeight,
             ),
           ),
