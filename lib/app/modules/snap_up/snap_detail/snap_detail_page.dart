@@ -46,9 +46,7 @@ class SnapDetailPage extends GetView<SnapDetailController> {
           },
           builder: (BuildContext context) {
             return CustomScrollView(
-              slivers: [
-                _buildRecommendGrid()
-              ],
+              slivers: [_buildRecommendGrid()],
             );
           },
         ),
@@ -79,8 +77,8 @@ class SnapDetailPage extends GetView<SnapDetailController> {
     return SafeTapWidget(
       onTap: () {
         Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
-          "from" : RoutesID.SNAP_DETAIL_PAGE,
-          "good" : item,
+          "from": RoutesID.SNAP_DETAIL_PAGE,
+          "good": item,
           "startTime": Get.arguments['startTime'],
           "endTime": Get.arguments['endTime'],
         });
@@ -121,7 +119,7 @@ class SnapDetailPage extends GetView<SnapDetailController> {
               height: 5.w,
             ),
             Text(
-              item.currentPrice ?? "",
+              "￥${item.currentPrice}",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(

@@ -10,6 +10,7 @@ class SplashController extends GetxController {
   final pageName = 'Splash'.obs;
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
+  final opacity = 0.0.obs;
 
   @override
   void onInit() {
@@ -21,6 +22,7 @@ class SplashController extends GetxController {
     LRequest.instance.init();
     pageStatus.value = FTStatusPageType.success;
     common.initCommon().timeout(const Duration(seconds: 3)).then((value) async {
+      opacity.value = 1.0;
       if (userHelper.userToken.isEmpty) {
         Future.delayed(const Duration(seconds: 1)).then((value) => Get.offNamed(RoutesID.MAIN_TAB_PAGE));
       } else {

@@ -42,7 +42,6 @@ class SnapDetailController extends GetxController {
         t: c.CommodityModel(),
         queryParameters: {
           "session-id": Get.arguments["id"],
-          /* TODO Get.arguments["id"]*/
           "page": currentPage,
           "size": pageSize,
           "status" : 1
