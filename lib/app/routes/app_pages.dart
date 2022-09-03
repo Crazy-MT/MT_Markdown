@@ -78,6 +78,8 @@ import '../modules/mine/buyer_order/order_detail/order_detail_binding.dart';
 import '../modules/mine/buyer_order/order_detail/order_detail_page.dart';
 import '../modules/snap_up/balance_rule/balance_rule_binding.dart';
 import '../modules/snap_up/balance_rule/balance_rule_page.dart';
+import '../modules/mine/complaint_feedback/complaint_feedback_binding.dart';
+import '../modules/mine/complaint_feedback/complaint_feedback_page.dart';
 
 class AppPages {
   AppPages._();
@@ -85,6 +87,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // complaint_feedback
+    GetPage(
+      name: RoutesID.COMPLAINT_FEEDBACK_PAGE,
+      page: () => const ComplaintFeedbackPage(),
+      binding: ComplaintFeedbackBinding(),
+    ),
+
     // balance_rule
     GetPage(
       name: RoutesID.BALANCE_RULE_PAGE,

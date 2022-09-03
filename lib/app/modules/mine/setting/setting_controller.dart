@@ -38,21 +38,31 @@ class SettingController extends GetxController {
     ));
     // menuList.add(_MenuItem(title: "支付密码管理", showDivider: false));
 
-    menuList.add(_MenuItem(title: "功能反馈", showTopDivider: false));
+    menuList.add(
+      _MenuItem(
+        title: "申诉反馈",
+        showTopDivider: false,
+        onClick: () {
+          Get.toNamed(RoutesID.COMPLAINT_FEEDBACK_PAGE);
+        },
+      ),
+    );
     menuList.add(_MenuItem(
         title: "C2C个人支付风险提示",
         onClick: () {
           Get.toNamed(RoutesID.C2C_RISK_PAGE);
         }));
-    menuList.add(_MenuItem(title: "委托寄售服务协议", onClick: () {
-      Get.toNamed(
-        RoutesID.LOCAL_HTML_PAGE,
-        arguments: {
-          "page_title": "委托寄售服务协议",
-          "html_file": "assets/html/sell_policy.html",
-        },
-      );
-    }));
+    menuList.add(_MenuItem(
+        title: "委托寄售服务协议",
+        onClick: () {
+          Get.toNamed(
+            RoutesID.LOCAL_HTML_PAGE,
+            arguments: {
+              "page_title": "委托寄售服务协议",
+              "html_file": "assets/html/sell_policy.html",
+            },
+          );
+        }));
     menuList.add(_MenuItem(
       title: "用户须知",
       onClick: () {
