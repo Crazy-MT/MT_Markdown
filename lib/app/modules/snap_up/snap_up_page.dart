@@ -50,6 +50,9 @@ class SnapUpPage extends GetView<SnapUpController> {
 
   Widget _rightManage() {
     return GestureDetector(
+      onTap: () {
+        Get.toNamed(RoutesID.BALANCE_RULE_PAGE);
+      },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.w),
         alignment: Alignment.center,

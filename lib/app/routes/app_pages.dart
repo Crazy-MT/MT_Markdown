@@ -76,6 +76,8 @@ import '../modules/mine/buyer_order/order_send_sell/order_send_sell_binding.dart
 import '../modules/mine/buyer_order/order_send_sell/order_send_sell_page.dart';
 import '../modules/mine/buyer_order/order_detail/order_detail_binding.dart';
 import '../modules/mine/buyer_order/order_detail/order_detail_page.dart';
+import '../modules/snap_up/balance_rule/balance_rule_binding.dart';
+import '../modules/snap_up/balance_rule/balance_rule_page.dart';
 
 class AppPages {
   AppPages._();
@@ -83,6 +85,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // balance_rule
+    GetPage(
+      name: RoutesID.BALANCE_RULE_PAGE,
+      page: () => const BalanceRulePage(),
+      binding: BalanceRuleBinding(),
+    ),
+
     // order_detail
     GetPage(
       name: RoutesID.ORDER_DETAIL_PAGE,
