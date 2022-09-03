@@ -18,7 +18,7 @@ class CollectionSettingsPage extends GetView<CollectionSettingsController> {
       backgroundColor: Color(0xFFF5F5F5),
       resizeToAvoidBottomInset: false,
       appBar: CommonAppBar(
-        titleText: "收款方式",
+        titleText: Get.arguments == null ? "收款方式" : (Get.arguments['title'] ?? "收款方式"),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

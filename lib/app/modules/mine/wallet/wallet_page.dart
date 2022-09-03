@@ -61,8 +61,10 @@ class WalletPage extends GetView<WalletController> {
     return GestureDetector(
       onTap: () {
         if (index == 0) {
-          Get.toNamed(RoutesID.DRAWING_PAGE);
+          // 余额提现
+          Get.toNamed(RoutesID.DRAWING_PAGE, arguments: {"balance": controller.model.value?.balance});
         } else {
+          // 提现记录
           Get.toNamed(RoutesID.TRANSACTIONS_PAGE);
         }
       },

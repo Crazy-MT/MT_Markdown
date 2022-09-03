@@ -3,6 +3,8 @@ import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/common_input.dart';
+import 'package:code_zero/common/components/safe_tap_widget.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'drawing_controller.dart';
@@ -52,17 +54,17 @@ class DrawingPage extends GetView<DrawingController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            '提取类型',
-            style: TextStyle(
-              color: Color(0xff111111),
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
+          Obx(() => Text(
+                '提取类型 ${controller.method.value}',
+                style: TextStyle(
+                  color: Color(0xff111111),
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w400,
+                ),
+              )),
           GestureDetector(
-            onTap: () {
-              Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE);
+            onTap: () async {
+              controller.choose();
             },
             child: Row(
               children: [
@@ -125,6 +127,7 @@ class DrawingPage extends GetView<DrawingController> {
                       ),
                       Expanded(
                         child: CommonInput(
+                          controller: controller.balanceController,
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
                           style: TextStyle(
@@ -150,7 +153,7 @@ class DrawingPage extends GetView<DrawingController> {
                         ),
                       ),
                       Text(
-                        '453256.88',
+                        Get.arguments["balance"],
                         style: TextStyle(
                           color: Color(0xff434446),
                           fontSize: 14.sp,
@@ -162,25 +165,33 @@ class DrawingPage extends GetView<DrawingController> {
                 ],
               ),
             ),
-            GestureDetector(
-              child: Container(
-                alignment: Alignment.center,
-                height: 44.w,
-                margin: EdgeInsets.symmetric(horizontal: 20.w),
-                decoration: BoxDecoration(
-                  color: AppColors.green,
-                  borderRadius: BorderRadius.circular(22.w),
-                ),
-                child: Text(
-                  '提现至银行卡',
-                  style: TextStyle(
-                    color: Color(0xffffffff),
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
+            Obx(() => Visibility(
+              visible: controller.method.value.isNotEmpty,
+              child: GestureDetector(
+                child: SafeTapWidget(
+                  onTap: () {
+                    controller.createBalance();
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 44.w,
+                    margin: EdgeInsets.symmetric(horizontal: 20.w),
+                    decoration: BoxDecoration(
+                      color: AppColors.green,
+                      borderRadius: BorderRadius.circular(22.w),
+                    ),
+                    child: Obx(() => Text(
+                      '提现至${controller.method.value}',
+                      style: TextStyle(
+                        color: Color(0xffffffff),
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )),
                   ),
                 ),
               ),
-            ),
+            )),
           ],
         ),
       ),

@@ -114,7 +114,7 @@ class BindRecommendPage extends GetView<BindRecommendController> {
   _buildRecommendCode() {
     return buildInputWithTitle(
       Text(
-        "新密码",
+        "邀请码",
         style: TextStyle(
           fontSize: 13.sp,
           fontWeight: FontWeight.w400,
@@ -124,19 +124,7 @@ class BindRecommendPage extends GetView<BindRecommendController> {
       padding: EdgeInsets.all(20.w).copyWith(top: 0, bottom: 15.w),
       inputController: controller.recommendCodeController,
       hintText: "输入邀请码",
-      // suffixWidget: IconButton(
-      //   onPressed: () {
-      //     controller.showNewPassword.value = !controller.showNewPassword.value;
-      //   },
-      //   padding: EdgeInsets.zero,
-      //   icon: SvgPicture.asset(
-      //     controller.showNewPassword.value
-      //         ? Assets.iconsVisible
-      //         : Assets.iconsInvisible,
-      //     width: 22.w,
-      //     height: 22.w,
-      //   ),
-      // ),
+
     );
   }
 
