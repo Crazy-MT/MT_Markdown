@@ -1,3 +1,4 @@
+import 'package:code_zero/app/modules/mine/wallet/transactions/model/balance_model.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,6 +30,15 @@ class TransactionsPage extends GetView<TransactionsController> {
         () => FTStatusPage(
           type: controller.pageStatus.value,
           errorMsg: controller.errorMsg.value,
+          enablePullDown: true,
+          enablePullUp: true,
+          controller: controller.refreshController,
+          onLoading: () {
+            controller.getBalanceList(isRefresh: false);
+          },
+          onRefresh: () {
+            controller.getBalanceList(isRefresh: true);
+          },
           builder: (BuildContext context) {
             return CustomScrollView(
               slivers: [
@@ -47,12 +57,12 @@ class TransactionsPage extends GetView<TransactionsController> {
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (content, index) {
-            if (index == 0 || index == 3) {
+            /*if (index == 0 || index == 3) {
               return _dateWidget();
-            }
+            }*/
             return _transactionsItem(index);
           },
-          childCount: 6,
+          childCount: controller.balanceList.length,
         ),
       ),
     );
@@ -74,6 +84,7 @@ class TransactionsPage extends GetView<TransactionsController> {
   }
 
   Widget _transactionsItem(int index) {
+    BalanceItems items = controller.balanceList[index];
     return Container(
       padding: EdgeInsets.only(left: 15.w, right: 22.w),
       margin: EdgeInsets.only(bottom: 5.w),
@@ -85,8 +96,17 @@ class TransactionsPage extends GetView<TransactionsController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(Assets.imagesWalletTransactionsIcon,
-              width: 50, height: 50),
+          Stack(
+            alignment: AlignmentDirectional.center,
+            children: [
+              Image.asset(Assets.imagesWalletTransactionsIcon,
+                  width: 50.w, height: 50.w),
+              Image.asset(Assets.iconsWalletTransactionsIcon1,
+                  width: 40.w, height: 40.w),
+              Image.asset(Assets.iconsWalletTransactionsIcon2,
+                  width: 38.w, height: 38.w),
+            ],
+          ),
           SizedBox(width: 15.w),
           Expanded(
             child: Column(
@@ -97,7 +117,7 @@ class TransactionsPage extends GetView<TransactionsController> {
                   children: [
                     Expanded(
                       child: Text(
-                        '提现-至招商银行（5667）',
+                        '提现-${items.method == 0 ? '银行卡' : '微信'}',
                         style: TextStyle(
                           color: Color(0xff434446),
                           fontSize: 15.sp,
@@ -106,7 +126,7 @@ class TransactionsPage extends GetView<TransactionsController> {
                       ),
                     ),
                     Text(
-                      '30000.00',
+                      items.balance ?? "",
                       style: TextStyle(
                         color: Color(0xff111111),
                         fontSize: 15.sp,
@@ -117,7 +137,7 @@ class TransactionsPage extends GetView<TransactionsController> {
                 ),
                 SizedBox(height: 11.w),
                 Text(
-                  '2022.08.17 12:34:54',
+                  items.updatedAt ?? "",
                   style: TextStyle(
                     color: Color(0xffABAAB9),
                     fontSize: 12.sp,
