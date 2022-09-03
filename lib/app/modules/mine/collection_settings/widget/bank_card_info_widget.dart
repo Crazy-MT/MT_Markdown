@@ -36,73 +36,81 @@ class BankCardInfoWidget extends StatelessWidget {
       onTap: () {
         Get.back(result: 0);
       },
-      child: Stack(
+      child: Column(
         children: [
-          Container(
-            margin: EdgeInsets.fromLTRB(15.w, 15.w, 15.w, 0),
-            height: 84.w,
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(Assets.imagesWalletBankcardBg),
-              ),
-            ),
-            child: Row(
-              children: [
-                Image.asset(Assets.imagesWalletBankCardIcon,
-                    width: 40.w, height: 40.w),
-                SizedBox(width: 15.w),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(15.w, 15.w, 15.w, 0),
+                height: 84.w,
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(controller.getBankImage()),
+                  ),
+                ),
+                child: Row(
                   children: [
-                    Text(
-                      controller.bankcardInfo.value?.bank ?? "",
-                      style: TextStyle(
-                        color: Color(0xffffffff),
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    Image.asset(Assets.imagesWalletBankCardIcon,
+                        width: 40.w, height: 40.w),
+                    SizedBox(width: 15.w),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          controller.bankcardInfo.value?.bank ?? "",
+                          style: TextStyle(
+                            color: Color(0xffffffff),
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          controller.bankcardInfo.value?.bankCardNum ?? "",
+                          style: TextStyle(
+                            color: Color(0xffffffff),
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Positioned(
+                top: 21.w,
+                right: 21.w,
+                child: SafeTapWidget(
+                  onTap: () {
+                    Get.find<CollectionSettingsController>().isBankEdit.value = true;
+                  },
+                  child: Container(
+                    width: 66.w,
+                    height: 24.w,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12.w),
                     ),
-                    Text(
-                      controller.bankcardInfo.value?.bankCardNum ?? "",
+                    child: Text(
+                      '编辑',
                       style: TextStyle(
-                        color: Color(0xffffffff),
-                        fontSize: 16.sp,
+                        color: Color(0xff111111),
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                  ],
-                )
-              ],
-            ),
-          ),
-          Positioned(
-            top: 21.w,
-            right: 21.w,
-            child: SafeTapWidget(
-              onTap: () {
-                Get.find<CollectionSettingsController>().isBankEdit.value = true;
-              },
-              child: Container(
-                width: 66.w,
-                height: 24.w,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12.w),
-                ),
-                child: Text(
-                  '编辑',
-                  style: TextStyle(
-                    color: Color(0xff111111),
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),
-            ),
+            ],
           ),
+          SizedBox(height: 10.w,),
+          Text('一个用户只能绑定一张银行卡', style: TextStyle(
+            color: Color(0xFFD0A06D)
+          ),)
         ],
       ),
     );

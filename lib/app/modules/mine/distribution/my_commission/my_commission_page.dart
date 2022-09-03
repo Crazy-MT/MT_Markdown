@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/mine/wallet/model/walle_model.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -45,6 +46,7 @@ class MyCommissionPage extends GetView<MyCommissionController> {
   }
 
   _buildHeader() {
+    WalletModel? model = Get.arguments == null ? null :Get.arguments['model'];
     return SliverToBoxAdapter(
       child: Container(
         alignment: Alignment.center,
@@ -88,7 +90,7 @@ class MyCommissionPage extends GetView<MyCommissionController> {
                         ),
                       ),
                       TextSpan(
-                        text: "456",
+                        text: model?.tranTotalPrice ?? "",
                         style: TextStyle(
                           fontSize: 28.sp,
                           color: AppColors.text_dark,
@@ -126,7 +128,7 @@ class MyCommissionPage extends GetView<MyCommissionController> {
                         ),
                       ),
                       TextSpan(
-                        text: "45446",
+                        text: model?.tranTotalCount.toString() ?? "",
                         style: TextStyle(
                           fontSize: 28.sp,
                           color: AppColors.text_dark,

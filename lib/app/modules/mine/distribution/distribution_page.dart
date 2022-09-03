@@ -30,18 +30,19 @@ class DistributionPage extends GetView<DistributionController> {
         ),
       ),
       body: Obx(
-        () => FTStatusPage(
-          type: controller.pageStatus.value,
-          errorMsg: controller.errorMsg.value,
-          builder: (BuildContext context) {
-            return CustomScrollView(
-              slivers: [
-                _buildHeaderContainer(),
-                _buildMenuList(),
-              ],
-            );
-          },
-        ),
+            () =>
+            FTStatusPage(
+              type: controller.pageStatus.value,
+              errorMsg: controller.errorMsg.value,
+              builder: (BuildContext context) {
+                return CustomScrollView(
+                  slivers: [
+                    _buildHeaderContainer(),
+                    _buildMenuList(),
+                  ],
+                );
+              },
+            ),
       ),
     );
   }
@@ -49,7 +50,7 @@ class DistributionPage extends GetView<DistributionController> {
   _buildMenuList() {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        (content, index) {
+            (content, index) {
           return _buildMenuItem(index);
         },
         childCount: controller.menuList.length,
@@ -81,7 +82,7 @@ class DistributionPage extends GetView<DistributionController> {
                     child: Text(
                       item.title,
                       textAlign:
-                          item.isCenter ? TextAlign.center : TextAlign.start,
+                      item.isCenter ? TextAlign.center : TextAlign.start,
                       style: TextStyle(
                         color: item.titleColor,
                         fontSize: 14.sp,
@@ -91,10 +92,10 @@ class DistributionPage extends GetView<DistributionController> {
                   ),
                   item.showArrow
                       ? Icon(
-                          Icons.arrow_forward_ios,
-                          color: Color(0xFFABAAB9),
-                          size: 18.w,
-                        )
+                    Icons.arrow_forward_ios,
+                    color: Color(0xFFABAAB9),
+                    size: 18.w,
+                  )
                       : SizedBox(),
                 ],
               ),
@@ -133,138 +134,140 @@ class DistributionPage extends GetView<DistributionController> {
           ),
         ),
         // padding: EdgeInsets.all(15.w).copyWith(top: 10.w),
-        child: Stack(
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Positioned(
-                top: 15.w,
-                left: 15.w,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "可提现佣金",
-                      style: TextStyle(
-                          color: S.colors.white.withOpacity(0.5),
-                          fontSize: 13.sp),
-                    ),
-                    Text(
-                      "453256.88",
-                      style: TextStyle(
-                        color: S.colors.white,
-                        fontSize: 20.sp,
+        child: Obx(() {
+          return Stack(
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Positioned(
+                  top: 15.w,
+                  left: 15.w,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "可提现佣金",
+                        style: TextStyle(
+                            color: S.colors.white.withOpacity(0.5),
+                            fontSize: 13.sp),
                       ),
-                    ),
-                  ],
-                )),
-            Positioned(
-              bottom: 0,
-              width: 345.w,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10.w),
-                      bottomRight: Radius.circular(10.w)),
-                  color: Color(0x7500bc72),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text("累计获得",
-                              style: TextStyle(
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white,
-                              )),
-                          Container(
-                            alignment: Alignment.center,
-                            height: 32.w,
-                            child: RichText(
-                              text: TextSpan(
-                                  style: TextStyle(
-                                    height: 1,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      text: "0",
-                                      style: TextStyle(
-                                        fontSize: 26.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: ".00",
-                                      style: TextStyle(
-                                        fontSize: 18.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ]),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text("今日获得",
-                            style: TextStyle(
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white,
-                            )),
-                        Container(
-                          height: 32.w,
-                          alignment: Alignment.center,
-                          child: Text(
-                            "0",
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
-                          ),
+                      Text(
+                        controller.model.value?.balance ?? "",
+                        style: TextStyle(
+                          color: S.colors.white,
+                          fontSize: 20.sp,
                         ),
-                      ],
-                    )),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text("近七日获得",
-                              style: TextStyle(
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white,
-                              )),
-                          Container(
-                            height: 32.w,
-                            alignment: Alignment.center,
-                            child: Text(
-                              "0",
-                              style: TextStyle(
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
+                      ),
+                    ],
+                  )),
+              Positioned(
+                bottom: 0,
+                width: 345.w,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10.w),
+                        bottomRight: Radius.circular(10.w)),
+                    color: Color(0x7500bc72),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text("累计获得",
+                                style: TextStyle(
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white,
+                                )),
+                            Container(
+                              alignment: Alignment.center,
+                              height: 32.w,
+                              child: RichText(
+                                text: TextSpan(
+                                    style: TextStyle(
+                                      height: 1,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: controller.model.value?.commission,
+                                        style: TextStyle(
+                                          fontSize: 26.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      // TextSpan(
+                                      //   text: ".00",
+                                      //   style: TextStyle(
+                                      //     fontSize: 18.sp,
+                                      //     fontWeight: FontWeight.w500,
+                                      //     color: Colors.white,
+                                      //   ),
+                                      // ),
+                                    ]),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text("今日获得",
+                                  style: TextStyle(
+                                    fontSize: 13.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white,
+                                  )),
+                              Container(
+                                height: 32.w,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  controller.model.value?.commissionToday ?? "",
+                                  style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text("近七日获得",
+                                style: TextStyle(
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white,
+                                )),
+                            Container(
+                              height: 32.w,
+                              alignment: Alignment.center,
+                              child: Text(
+                                controller.model.value?.commissionWeek ?? "",
+                                style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          );
+        }),
       ),
     );
   }

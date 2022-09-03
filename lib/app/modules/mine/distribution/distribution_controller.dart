@@ -1,6 +1,13 @@
 import 'dart:ui';
 
+import 'package:code_zero/app/modules/mine/wallet/model/walle_model.dart';
+import 'package:code_zero/app/modules/mine/wallet/wallet_apis.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/user_helper.dart';
+import 'package:code_zero/network/base_model.dart';
+import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +19,7 @@ class DistributionController extends GetxController {
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
   RxList<_MenuItem> menuList = RxList<_MenuItem>();
+  Rx<WalletModel?> model = Rx<WalletModel?>(null);
 
   @override
   void onInit() {
@@ -22,13 +30,34 @@ class DistributionController extends GetxController {
   initData() {
     pageStatus.value = FTStatusPageType.success;
     initMenuList();
+    getStatistics();
+  }
+
+  Future<void> getStatistics() async {
+    ResultData<WalletModel>? _result = await LRequest.instance.request<WalletModel>(
+        url: WalletApis.ASSETS,
+        queryParameters: {
+          "user-id": userHelper.userInfo.value?.id
+        },
+        t: WalletModel(),
+        requestType: RequestType.GET,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          Utils.showToastMsg("获取资产统计失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("获取资产统计失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+        onSuccess: (rest) {
+          model.value = rest.value;
+        }
+    );
   }
 
   initMenuList() {
     menuList.add(_MenuItem(
         title: "我的佣金",
         onClick: () {
-          Get.toNamed(RoutesID.MY_COMMISSION_PAGE);
+          Get.toNamed(RoutesID.MY_COMMISSION_PAGE, arguments: {
+            'model' : model.value
+          });
         }));
     menuList.add(_MenuItem(
         title: "提现记录",
