@@ -82,11 +82,12 @@ class BindRecommendPage extends GetView<BindRecommendController> {
       suffixWidget: SizedBox(
         width: 87.w,
         height: 30.w,
-        child: ElevatedButton(
-          onPressed: controller.sendSmsCountdown.value <= 0
+        child: Obx(() => ElevatedButton(
+          onPressed: controller.sendCodeCountDown.value <= 0
               ? () {
-                  // controller.login();
-                }
+            controller.startCountDown();
+            controller.getSMS();
+          }
               : null,
           style: ElevatedButton.styleFrom(
             shape: StadiumBorder(),
@@ -95,18 +96,18 @@ class BindRecommendPage extends GetView<BindRecommendController> {
             elevation: MaterialStateProperty.all(0),
             backgroundColor: MaterialStateProperty.all(
               AppColors.green.withOpacity(
-                  controller.sendSmsCountdown.value <= 0 ? 1 : 0.5),
+                  controller.sendCodeCountDown.value <= 0 ? 1 : 0.5),
             ),
           ),
           child: Text(
-            "获取验证码",
+            controller.sendCodeCountDown.value <= 0 ? "获取验证码" : "${controller.sendCodeCountDown.value}s",
             style: TextStyle(
               color: Colors.white.withOpacity(
-                  controller.sendSmsCountdown.value <= 0 ? 1 : 0.5),
+                  controller.sendCodeCountDown.value <= 0 ? 1 : 0.5),
               fontSize: 12.sp,
             ),
           ),
-        ),
+        )),
       ),
     );
   }
@@ -124,7 +125,6 @@ class BindRecommendPage extends GetView<BindRecommendController> {
       padding: EdgeInsets.all(20.w).copyWith(top: 0, bottom: 15.w),
       inputController: controller.recommendCodeController,
       hintText: "输入邀请码",
-
     );
   }
 
@@ -140,7 +140,7 @@ class BindRecommendPage extends GetView<BindRecommendController> {
         child: ElevatedButton(
           onPressed: controller.bindBtnEnable.value
               ? () {
-                  controller.bindRecommendCode();
+                  controller.bind();
                 }
               : null,
           style: ElevatedButton.styleFrom(

@@ -7,6 +7,7 @@ class UserApis {
 
   // static const String GET_INFO = NetConstant.HOST + PREFIX + "/get_info";
   static const String LOGIN = NetConstant.HOST + PREFIX + "/login";
+  static const String BIND = NetConstant.HOST + PREFIX + "/bind-from-user";
   static const String PHONE_LOGIN = NetConstant.HOST + PREFIX + "/phone-login";
   static const String SMS = NetConstant.HOST + "/sms" + "/send-user-login-code";
 
