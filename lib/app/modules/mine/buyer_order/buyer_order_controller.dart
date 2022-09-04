@@ -39,7 +39,7 @@ class BuyerOrderController extends GetxController
     OrderTabInfo(
         Tab(text: '待付款'), 0, RefreshController(), 1, RxList<OrderItem>()),
     OrderTabInfo(
-        Tab(text: '已付款'), 2, RefreshController(), 1, RxList<OrderItem>()),
+        Tab(text: '已付款'), 1, RefreshController(), 1, RxList<OrderItem>()),
     OrderTabInfo(
         Tab(text: '待上架'), 3, RefreshController(), 1, RxList<OrderItem>()),
   ];

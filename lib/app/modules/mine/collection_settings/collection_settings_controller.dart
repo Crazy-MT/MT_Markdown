@@ -430,6 +430,14 @@ class CollectionSettingsController extends GetxController
       return Assets.imagesBank6;
     }
 
+    if (bankName.contains('招')) {
+      return Assets.imagesBank7;
+    }
+
+    if (bankName.contains('浦发')) {
+      return Assets.imagesBank8;
+    }
+
     return Assets.imagesWalletBankcardBg;
   }
 }

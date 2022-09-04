@@ -30,6 +30,7 @@ dependencies:
   flutter_html: 3.0.0-alpha.2
   path_provider: 2.0.11
   flutter_pickers: 2.1.8
+  text_scroll: 0.1.0
   flutter:
     sdk: flutter
 

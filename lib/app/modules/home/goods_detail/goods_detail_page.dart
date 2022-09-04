@@ -5,9 +5,11 @@ import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:text_scroll/text_scroll.dart';
 
 import 'goods_detail_controller.dart';
 
@@ -18,7 +20,9 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bg_gray,
-      bottomNavigationBar: Get.arguments?["from"] == RoutesID.SNAP_DETAIL_PAGE ? _buildSnapBottomAppBar() : _buildBottomAppBar(),
+      bottomNavigationBar: Get.arguments?["from"] == RoutesID.SNAP_DETAIL_PAGE
+          ? _buildSnapBottomAppBar()
+          : _buildBottomAppBar(),
       appBar: AppBar(
         title: Text('商品详情',
             style: TextStyle(
@@ -75,7 +79,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                     imageUrl: element,
                     width: 375.w,
                     height: 375.w,
-                    fit: BoxFit.contain,
+                    fit: BoxFit.fitWidth,
                   ),
                 )
                 .toList(),
@@ -257,19 +261,22 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
     return SliverPadding(
       padding: EdgeInsets.symmetric(vertical: 15.w),
       sliver: SliverToBoxAdapter(
-        child: Column(children: [
-          Image.asset(
-            Assets.imagesRecommendDivider,
-          ),
-          Text(
-            "商品详情",
-            style: TextStyle(
-              color: Color(0xFFD0A06D),
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w500,
+        child: Container(
+          // color: Color(0xff9dc2c4),
+          child: Column(children: [
+            Image.asset(
+              Assets.imagesRecommendDivider,
             ),
-          ),
-        ]),
+            Text(
+              "商品详情",
+              style: TextStyle(
+                color: Color(0xFFD0A06D),
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }
@@ -282,14 +289,20 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
           (content, index) {
             return Container(
               width: 375.w,
-              color: Colors.white,
-              child: Row(
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: controller.introPicList[index],
-                    width: 375.w,
-                  ),
-                ],
+              // color: Colors.white,
+              child: Padding(
+                padding: EdgeInsets.only(left: 26.w, right: 26.w),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.w),
+                      child: CachedNetworkImage(
+                        imageUrl: controller.introPicList[index],
+                        width: (375-26*2).w,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },
@@ -400,9 +413,11 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
       ),
       child: Obx(() => BottomAppBar(
             color: controller.timerRefresh.value ? Colors.white : Colors.white,
-            child: (controller.isCountDown()["isOpen"] && controller.isCountDown()["seconds"] > 0)
+            child: (controller.isCountDown()["isOpen"] &&
+                    controller.isCountDown()["seconds"] > 0)
                 ? Container(
-                    margin: EdgeInsets.only(right: 20.w, left: 20.w, top: 7.w, bottom: 7.w),
+                    margin: EdgeInsets.only(
+                        right: 20.w, left: 20.w, top: 7.w, bottom: 7.w),
                     height: 44.w,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
@@ -476,27 +491,52 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
     // param.addAll(controller.goods.showParams ?? []);
     return SliverPadding(
       padding: EdgeInsets.all(15.w).copyWith(top: 0),
-      sliver: SliverGrid(
-          delegate: SliverChildBuilderDelegate((context, index) {
-            return _buildParamsItem(param[index]);
-          }, childCount: param.length),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 165 / 28,
-            // crossAxisSpacing: 15.w,
-            // mainAxisSpacing: 17.w,
-          )),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (content, index) {
+            return Container(
+              width: 375.w,
+              child: _buildParamsItem(param[index]),
+            );
+          },
+          childCount: param.length,
+        ),
+      ),
     );
   }
 
   _buildParamsItem(Map param) {
-    return Container(
-        // width: 100.w,
-        // height: 100.w,
-        child: Text(
-      "【${param.keys.first}】${param.values.first}",
-      style: TextStyle(fontSize: 16.sp),
-    ));
+    lLog(
+        'MTMTMT GoodsDetailPage._buildParamsItem ${param.values.first.toString() == '[]'} ');
+    if (param.values.first.toString() == '[]') {
+      return SizedBox.shrink();
+    }
+    // return Text(
+    //   "【${param.keys.first}】${param.values.first}",
+    //   style: TextStyle(fontSize: 16.sp),
+    // );
+    String value = param.values.first.toString();
+    if(param.values.first == 1) {
+      value = '有';
+    }
+    if(param.values.first == 0) {
+      value = '无';
+    }
+    return Row(
+      children: [
+        Text(
+          "【${param.keys.first}】",
+          style: TextStyle(fontSize: 16.sp),
+        ),
+        Container(
+          width: 280.w,
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 16.sp),
+          ),
+        )
+      ],
+    );
   }
 
   _buildThumbnailsPicList() {
@@ -507,14 +547,20 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
           (content, index) {
             return Container(
               width: 375.w,
-              color: Colors.white,
-              child: Row(
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: controller.thumbnailsList[index],
-                    width: 375.w,
-                  ),
-                ],
+                // color: Color(0xff9dc2c4),
+              child: Padding(
+                padding: EdgeInsets.only(left: 26.w, right: 26.w),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.w),
+                      child: CachedNetworkImage(
+                        imageUrl: controller.thumbnailsList[index],
+                        width: (375-26*2).w,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },
@@ -532,14 +578,20 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
           (content, index) {
             return Container(
               width: 375.w,
-              color: Colors.white,
-              child: Row(
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: controller.paramsPicList[index],
-                    width: 375.w,
-                  ),
-                ],
+              // color: Colors.white,
+              child: Padding(
+                padding: EdgeInsets.only(left: 26.w, right: 26.w),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.w),
+                      child: CachedNetworkImage(
+                        imageUrl: controller.paramsPicList[index],
+                        width: (375-26*2).w,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },

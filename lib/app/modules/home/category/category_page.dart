@@ -1,6 +1,7 @@
 import 'package:code_zero/app/modules/home/category/widget/category_empty_view.dart';
 import 'package:code_zero/app/modules/home/category/widget/category_goods_item.dart';
 import 'package:code_zero/common/S.dart';
+import 'package:code_zero/common/components/common_input.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -71,6 +72,36 @@ class CategoryPage extends GetView<CategoryController> {
               ),
       ),
     );
+  }
+
+  a(){
+/*    buildInputWithTitle(
+      Text(
+        "新密码",
+        style: TextStyle(
+          fontSize: 13.sp,
+          fontWeight: FontWeight.w400,
+          color: Color(0xFF121212),
+        ),
+      ),
+      padding: EdgeInsets.all(20.w).copyWith(top: 0, bottom: 15.w),
+      inputController: controller.newPasswordController,
+      hintText: "输入新登录密码",
+      obscureText: !controller.showNewPassword.value,
+      suffixWidget: IconButton(
+        onPressed: () {
+          controller.showNewPassword.value = !controller.showNewPassword.value;
+        },
+        padding: EdgeInsets.zero,
+        icon: SvgPicture.asset(
+          controller.showNewPassword.value
+              ? Assets.iconsVisible
+              : Assets.iconsInvisible,
+          width: 22.w,
+          height: 22.w,
+        ),
+      ),
+    );*/
   }
 
   _buildSearchContainer() {
