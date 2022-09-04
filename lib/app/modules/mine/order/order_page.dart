@@ -57,7 +57,7 @@ class OrderPage extends GetView<OrderController> {
           indicatorPadding: EdgeInsets.all(10.w),
           indicatorWeight: 3.w,
           labelColor: Color(0xff111111),
-          labelStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
+          labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
           unselectedLabelColor: Color(0xff434446),
           unselectedLabelStyle: TextStyle(
             fontSize: 14.sp,

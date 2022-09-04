@@ -83,6 +83,11 @@ class SnapUpController extends GetxController {
   }
 
   Future<void> snapClick(index) async {
+    if((userHelper.userInfo.value?.token ?? "").isEmpty) {
+      Utils.showToastMsg('请先登录');
+      return;
+    }
+
     String toastText = snapUpList[index].statusText()["toast_text"] ?? "";
     if(toastText.isEmpty) {
       // snapUpList[index].startTime = "15:19";

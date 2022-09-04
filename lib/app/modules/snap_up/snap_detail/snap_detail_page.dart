@@ -89,15 +89,13 @@ class SnapDetailPage extends GetView<SnapDetailController> {
           children: [
             Stack(
               children: [
-                Container(
-                  width: 165.w,
-                  height: 210.w,
-                  decoration: BoxDecoration(
-                    color: AppColors.bg_gray,
-                    borderRadius: BorderRadius.circular(8.w),
-                  ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.w),
                   child: CachedNetworkImage(
                     imageUrl: item.thumbnails?.first ?? "",
+                    width: 165.w,
+                    height: 210.w,
+                    fit: BoxFit.fill,
                   ),
                 ),
               ],

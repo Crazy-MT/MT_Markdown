@@ -110,6 +110,9 @@ class MinePage extends GetView<MineController> {
                                             bottom: 10.w),
                                         child: !userHelper.isLogin.value
                                             ? TextButton(
+                                            style: ButtonStyle(
+                                              overlayColor: MaterialStateProperty.all(Colors.transparent),
+                                            ),
                                                 onPressed: () {
                                                   Get.toNamed(
                                                       RoutesID.LOGIN_PAGE);
@@ -502,6 +505,7 @@ class MinePage extends GetView<MineController> {
                                                                 top: 10.w,
                                                                 left: 10.w),
                                                         child: TextButton(
+
                                                             child: Text(
                                                               "取消",
                                                               style: TextStyle(
@@ -513,6 +517,8 @@ class MinePage extends GetView<MineController> {
                                                                   context);
                                                             },
                                                             style: ButtonStyle(
+                                                              overlayColor: MaterialStateProperty.all(Colors.transparent),
+
                                                               shape: MaterialStateProperty.all<
                                                                       RoundedRectangleBorder>(
                                                                   RoundedRectangleBorder(

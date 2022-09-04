@@ -123,6 +123,9 @@ class SettingController extends GetxController {
   }
 
   _logout() async {
+    // Get.offAllNamed(RoutesID.MAIN_TAB_PAGE, arguments: {'tabIndex': 3});
+
+    // return;
     bool result = await showConfirmDialog(
       content: "确定退出登录吗？",
     );

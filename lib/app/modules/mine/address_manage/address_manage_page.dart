@@ -18,7 +18,7 @@ class AddressManagePage extends GetView<AddressManageController> {
     return Scaffold(
       backgroundColor: Color(0xFFffffff),
       appBar: CommonAppBar(
-        titleText: "地址管理",
+        titleText: Get.arguments == null ? "地址管理" : (Get.arguments['title'] ?? '地址管理'),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -64,19 +64,26 @@ class AddressManagePage extends GetView<AddressManageController> {
   }
 
   Widget _buildAddressItem(int index) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Column(
-        children: [
-          SizedBox(height: 18.w),
-          _cityWidget(index),
-          SizedBox(height: 5.w),
-          _streetWidget(index),
-          SizedBox(height: 14.w),
-          _userInfoWidget(index),
-          SizedBox(height: 15.w),
-          Divider(color: Color(0xffF5F5F5), height: 0.5.w),
-        ],
+    return SafeTapWidget(
+      onTap: () {
+        if(Get.arguments != null && (Get.arguments['title'] != null && Get.arguments['title'] == '选择地址')) {
+          Get.back(result: controller.addressList[index]);
+        }
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: Column(
+          children: [
+            SizedBox(height: 18.w),
+            _cityWidget(index),
+            SizedBox(height: 5.w),
+            _streetWidget(index),
+            SizedBox(height: 14.w),
+            _userInfoWidget(index),
+            SizedBox(height: 15.w),
+            Divider(color: Color(0xffF5F5F5), height: 0.5.w),
+          ],
+        ),
       ),
     );
   }
@@ -107,7 +114,7 @@ class AddressManagePage extends GetView<AddressManageController> {
     var item = controller.addressList[index];
     return Row(
       children: [
-        item == '默认' ? _addressDefaultIcon() : SizedBox(),
+        item.isDefault == 1 ? _addressDefaultIcon() : SizedBox(),
         Expanded(
           child: Text(
             item.region ?? "",

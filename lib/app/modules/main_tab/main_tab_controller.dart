@@ -26,6 +26,9 @@ class MainTabController extends GetxController {
   void onInit() {
     super.onInit();
     initData();
+    if(Get.arguments != null && Get.arguments['tabIndex'] != null) {
+      clickTab(Get.arguments['tabIndex']);
+    }
   }
 
   initData() {
@@ -48,7 +51,7 @@ class MainTabController extends GetxController {
     tabs.add(
       _HomeTabInfo(
         index: 1,
-        title: '抢购',
+        title: '寄买寄卖',
         icon: Assets.iconsSnapUp,
         selectIcon: Assets.iconsSnapUpSelect,
         tabPage: const SnapUpPage(),

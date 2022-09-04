@@ -97,6 +97,10 @@ class CollectionSettingsController extends GetxController
   }
 
   void goBack() {
+    if(hasNoWeiXin && hasNoBankCard) {
+      Get.back();
+      return;
+    }
     if (tabController?.index == 0 && isBankEdit.value == true) {
       isBankEdit.value = false;
     } else if (tabController?.index == 1 && isWechatEdit.value == true) {
@@ -145,6 +149,11 @@ class CollectionSettingsController extends GetxController
     bankcardInfo.value = _result?.value;
     hasNoBankCard = false;
     isBankEdit.value = false;
+    bankNameController.text = bankcardInfo.value?.name ?? "";
+    bankPhoneController.text = bankcardInfo.value?.phone ?? "";
+    bankCardNumController.text = bankcardInfo.value?.bankCardNum ?? "";
+    bankBelongController.text = bankcardInfo.value?.bank ?? "";
+
   }
 
   // 获取用户微信
@@ -169,6 +178,9 @@ class CollectionSettingsController extends GetxController
     wechatInfo.value = _result?.value;
     hasNoWeiXin = false;
     isWechatEdit.value = false;
+    wechatAccountController.text = wechatInfo.value?.wechatAccount ?? "";
+    wechatNameController.text = wechatInfo.value?.name ?? "";
+    wechatQrImg.value = wechatInfo.value?.wechatPaymentCodeUrl ?? "";
   }
 
   // 添加银行卡
@@ -183,7 +195,7 @@ class CollectionSettingsController extends GetxController
         "phone": bankPhoneController.text,
         "authCode": bankCodeController.text,
         "bankCardNum": bankCardNumController.text,
-        "bank": bankNameController.text,
+        "bank": bankBelongController.text,
         "userId": userHelper.userInfo.value?.id,
       },
       requestType: RequestType.POST,

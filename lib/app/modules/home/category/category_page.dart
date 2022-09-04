@@ -20,7 +20,7 @@ class CategoryPage extends GetView<CategoryController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('xx 专区', style: S.textStyles.black),
+        title: Text(Get.arguments['from'] == 'search' ? Get.arguments['title'] : '${Get.arguments['title']}专区', style: S.textStyles.black),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -102,7 +102,7 @@ class CategoryPage extends GetView<CategoryController> {
                       ),
                     ),
                     Text(
-                      "搜索更多",
+                      Get.arguments['from'] == 'search' ? '搜索更多' : Get.arguments['title'],
                       style: TextStyle(
                         fontSize: 14.sp,
                         color: Color(0xFFA5A5A5),

@@ -77,7 +77,7 @@ class SnapUpPage extends GetView<SnapUpController> {
       ],
       backgroundColor: Colors.transparent,
       flexibleSpace: FlexibleSpaceBar(
-        title: Text('抢购'),
+        title: Text('寄买寄卖'),
         centerTitle: true,
         background: Image.asset(
           Assets.imagesAppBarBg,
@@ -130,11 +130,18 @@ class SnapUpPage extends GetView<SnapUpController> {
                     SizedBox(
                       width: 13.w,
                     ),
-                    Text(
-                      "可提前20分钟进入浏览",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.sp,
+                    SafeTapWidget(
+                      onTap: (){
+                        // Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE, arguments: {
+                          // "goods": controller.goods,
+                        // });
+                      },
+                      child: Text(
+                        "可提前20分钟进入浏览",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14.sp,
+                        ),
                       ),
                     ),
                     Expanded(child: SizedBox()),
@@ -225,7 +232,7 @@ class SnapUpPage extends GetView<SnapUpController> {
                 children: [
                   Image.asset(Assets.iconsSnapTime),
                   Text(
-                    "开抢时间",
+                    "开放时间",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 13.sp,

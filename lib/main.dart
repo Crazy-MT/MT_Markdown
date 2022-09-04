@@ -70,6 +70,8 @@ class App extends StatelessWidget {
           dismissOtherOnShow: true,
           child: GetMaterialApp(
             theme: ThemeData(
+              splashColor: Colors.transparent, // 点击时的高亮效果设置为透明
+              highlightColor: Colors.transparent, // 长按时的扩散效果设置为透明
               scaffoldBackgroundColor: Colors.white,
             ),
             debugShowCheckedModeBanner: false,
@@ -87,7 +89,7 @@ class App extends StatelessWidget {
               },
             ),
             defaultTransition: Transition.rightToLeft,
-            title: "CodeZero",
+            title: "传翠宝库",
             initialRoute: RoutesID.SPLASH_PAGE,
             getPages: AppPages.routes,
           ),

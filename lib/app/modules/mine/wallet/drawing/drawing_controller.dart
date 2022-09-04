@@ -1,4 +1,6 @@
 import 'package:code_zero/app/modules/home/submit_order/model/data_model.dart';
+import 'package:code_zero/app/modules/mine/collection_settings/collection_settings_apis.dart';
+import 'package:code_zero/app/modules/mine/collection_settings/model/user_bank_card_model.dart';
 import 'package:code_zero/app/modules/mine/wallet/drawing/drawing_apis.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/user_helper.dart';
@@ -26,7 +28,33 @@ class DrawingController extends GetxController {
 
   initData() {
     pageStatus.value = FTStatusPageType.success;
+    fetchBankCardData();
   }
+
+  Future<void> fetchBankCardData() async {
+    ResultData<UserBankCardModel>? _result =
+    await LRequest.instance.request<UserBankCardModel>(
+      url: CollectionSettingsApis.USERBANK,
+      t: UserBankCardModel(),
+      queryParameters: {
+        "user-id": userHelper.userInfo.value?.id,
+      },
+      requestType: RequestType.GET,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        lLog(errorMsg);
+      },
+      onSuccess: (rst) {
+        if(rst.value != null && rst.value?.id != null) {
+          method.value = "银行卡";
+          chooseMethod = 0;
+        }
+      }
+    );
+    if (_result?.value == null) {
+      return;
+    }
+  }
+
 
   @override
   void onClose() {}

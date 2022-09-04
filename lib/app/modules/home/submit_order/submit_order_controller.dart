@@ -71,7 +71,7 @@ class SubmitOrderController extends GetxController {
         },
         onSuccess: (result) {
           showSuccessDialog(onConfirm: () {
-            Get.offAllNamed(RoutesID.MAIN_TAB_PAGE);
+            Get.offAllNamed(RoutesID.MAIN_TAB_PAGE, arguments: {'tabIndex': 3});
           });
           var model = result.value;
           if (model == null) {

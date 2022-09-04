@@ -103,22 +103,30 @@ class LoginPage extends GetView<LoginController> {
       inputController: controller.passwordController,
       hintText: controller.isPasswordLogin.value ? "输入登录密码" : "输入验证码",
       padding: EdgeInsets.symmetric(horizontal: 20.w).copyWith(top: 18.w),
-      keyboardType: controller.isPasswordLogin.value ? null : TextInputType.number,
-      obscureText: controller.isPasswordLogin.value && !controller.showPassword.value,
+      keyboardType:
+          controller.isPasswordLogin.value ? null : TextInputType.number,
+      obscureText:
+          controller.isPasswordLogin.value && !controller.showPassword.value,
       suffixWidget: controller.isPasswordLogin.value
           ? null
           : controller.isPasswordLogin.value
               ? IconButton(
                   onPressed: () {
-                    controller.showPassword.value = !controller.showPassword.value;
+                    controller.showPassword.value =
+                        !controller.showPassword.value;
                   },
                   icon: SvgPicture.asset(
-                    controller.showPassword.value ? Assets.iconsVisible : Assets.iconsInvisible,
+                    controller.showPassword.value
+                        ? Assets.iconsVisible
+                        : Assets.iconsInvisible,
                     width: 22.w,
                     height: 22.w,
                   ),
                 )
               : TextButton(
+                  style: ButtonStyle(
+                    overlayColor: MaterialStateProperty.all(Colors.transparent),
+                  ),
                   onPressed: controller.sendCodeCountDown.value > 0
                       ? null
                       : () {
@@ -126,7 +134,9 @@ class LoginPage extends GetView<LoginController> {
                           controller.getSMS();
                         },
                   child: Text(
-                    controller.sendCodeCountDown.value <= 0 ? "获取验证码" : "${controller.sendCodeCountDown.value}s",
+                    controller.sendCodeCountDown.value <= 0
+                        ? "获取验证码"
+                        : "${controller.sendCodeCountDown.value}s",
                     style: TextStyle(
                       fontSize: 14.sp,
                       color: AppColors.text_dark,
@@ -206,15 +216,21 @@ class LoginPage extends GetView<LoginController> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           TextButton(
+              style: ButtonStyle(
+                overlayColor: MaterialStateProperty.all(Colors.transparent),
+              ),
               onPressed: () {
-                controller.isPasswordLogin.value = !controller.isPasswordLogin.value;
+                controller.isPasswordLogin.value =
+                    !controller.isPasswordLogin.value;
                 controller.passwordController.clear();
                 hideKeyboard(Get.context!);
               },
               child: Row(
                 children: [
                   SvgPicture.asset(
-                    controller.isPasswordLogin.value ? Assets.iconsSmsLogin : Assets.iconsPasswordLogin,
+                    controller.isPasswordLogin.value
+                        ? Assets.iconsSmsLogin
+                        : Assets.iconsPasswordLogin,
                     width: 16.w,
                     height: 16.w,
                   ),
@@ -233,6 +249,9 @@ class LoginPage extends GetView<LoginController> {
               )),
           Expanded(child: SizedBox()),
           TextButton(
+            style: ButtonStyle(
+              overlayColor: MaterialStateProperty.all(Colors.transparent),
+            ),
             onPressed: () {
               controller.forgetPasswordClick();
             },
@@ -259,13 +278,16 @@ class LoginPage extends GetView<LoginController> {
         children: [
           SafeTapWidget(
             onTap: () {
-              controller.agreePrivacyPolicy.value = !controller.agreePrivacyPolicy.value;
+              controller.agreePrivacyPolicy.value =
+                  !controller.agreePrivacyPolicy.value;
               controller.checkCanLogin();
             },
             child: Padding(
               padding: EdgeInsets.all(5.w),
               child: Image.asset(
-                controller.agreePrivacyPolicy.value ? Assets.imagesShoppingCartGoodsSelected : Assets.imagesShoppingCartGoodsUnselected,
+                controller.agreePrivacyPolicy.value
+                    ? Assets.imagesShoppingCartGoodsSelected
+                    : Assets.imagesShoppingCartGoodsUnselected,
                 width: 16.w,
               ),
             ),
@@ -331,14 +353,16 @@ class LoginPage extends GetView<LoginController> {
           ).copyWith(
             padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
             backgroundColor: MaterialStateProperty.all(
-              AppColors.green.withOpacity(controller.enableLogin.value ? 1 : 0.5),
+              AppColors.green
+                  .withOpacity(controller.enableLogin.value ? 1 : 0.5),
             ),
             elevation: MaterialStateProperty.all(0),
           ),
           child: Text(
             "立即登录",
             style: TextStyle(
-              color: AppColors.text_white.withOpacity(controller.enableLogin.value ? 1 : 0.5),
+              color: AppColors.text_white
+                  .withOpacity(controller.enableLogin.value ? 1 : 0.5),
               fontSize: 16.sp,
             ),
           ),

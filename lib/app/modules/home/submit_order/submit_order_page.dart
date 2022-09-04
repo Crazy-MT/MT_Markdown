@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/home/home_page.dart';
+import 'package:code_zero/app/modules/mine/address_manage/model/address_list_model.dart';
 import 'package:code_zero/app/modules/snap_up/widget/success_dialog.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
@@ -62,71 +63,66 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Obx(() {
-              if(controller.addressList.isEmpty) {
+              if (controller.addressList.isEmpty) {
                 return SizedBox.shrink();
               }
-              return Container(
-                padding: EdgeInsets.all(19.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 1.w,
-                            horizontal: 6.w,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColors.green,
-                            borderRadius: BorderRadius.circular(10.w),
-                          ),
-                          child: Text(
-                            "默认",
+              return SafeTapWidget(
+                onTap: () async {
+                  AddressItem address = await Get.toNamed(
+                      RoutesID.ADDRESS_MANAGE_PAGE,
+                      arguments: {'title': '选择地址'});
+                  controller.addressList.first = address;
+                },
+                child: Container(
+                  padding: EdgeInsets.all(19.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          controller.addressList[0].isDefault == 1
+                              ? _addressDefaultIcon()
+                              : SizedBox(),
+                          controller.addressList[0].isDefault == 1
+                              ? SizedBox(
+                                  width: 8.w,
+                                )
+                              : SizedBox.shrink(),
+                          Text(
+                            controller.addressList[0].region ?? "",
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 10.sp,
+                              color: Color(0xFFABAAB9),
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 8.w,
-                        ),
-                        Text(
-                          controller.addressList[0].region ?? "",
-                          style: TextStyle(
-                            color: Color(0xFFABAAB9),
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5.w,
-                    ),
-                    Text(
-                      controller.addressList[0].address ?? "",
-                      style: TextStyle(
-                        color: AppColors.text_dark,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
+                          )
+                        ],
                       ),
-                    ),
-                    SizedBox(
-                      height: 14.w,
-                    ),
-                    Text(
-                      controller.addressList[0].phone ?? "",
-                      style: TextStyle(
-                        color: Color(0xFFABAAB9),
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
+                      SizedBox(
+                        height: 5.w,
                       ),
-                    ),
-                  ],
+                      Text(
+                        controller.addressList[0].address ?? "",
+                        style: TextStyle(
+                          color: AppColors.text_dark,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 14.w,
+                      ),
+                      Text(
+                        controller.addressList[0].phone ?? "",
+                        style: TextStyle(
+                          color: Color(0xFFABAAB9),
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             }),
@@ -136,6 +132,28 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
               height: 4.w,
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _addressDefaultIcon() {
+    return Container(
+      width: 32.w,
+      height: 16.w,
+      alignment: Alignment.center,
+      margin: EdgeInsets.only(right: 8.w),
+      decoration: BoxDecoration(
+        color: AppColors.green,
+        borderRadius: BorderRadius.circular(8.w),
+      ),
+      child: Text(
+        '默认',
+        textAlign: TextAlign.start,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 10.sp,
+          fontWeight: FontWeight.w400,
         ),
       ),
     );

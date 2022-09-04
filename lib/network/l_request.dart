@@ -78,7 +78,6 @@ class LRequest {
   }) async {
     Response response;
     dio.options.headers[NetConstant.UNIQUE_ID] = deviceUtil.getUniqueID();
-    //TODO 上线前记得改掉
     dio.options.headers[NetConstant.AUTHORIZATION] = "Bearer " + userHelper.userToken;
     try {
       lLog("request get start =======>net: $url");

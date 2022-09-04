@@ -132,7 +132,7 @@ class WechatAddWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            '添加微信收款二维码',
+            '点击编辑微信收款二维码',
             style: TextStyle(
               color: Color(0xff121212),
               fontSize: 14.sp,

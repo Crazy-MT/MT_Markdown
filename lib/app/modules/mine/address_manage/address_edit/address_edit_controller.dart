@@ -69,7 +69,7 @@ class AddressEditController extends GetxController {
     ));
     menuList.add(_MenuItem(
       title: "所在地区",
-      hintTitle: "点击定位快速填写地址",
+      hintTitle: "点击选择地区快速填写地址",
       showLocation: true,
       editingController: _region,
     ));

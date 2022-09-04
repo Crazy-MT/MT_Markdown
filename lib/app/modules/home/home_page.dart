@@ -93,7 +93,7 @@ class HomePage extends GetView<HomeController> {
             Expanded(
               child: SafeTapWidget(
                 onTap: () {
-                  Get.toNamed(RoutesID.CATEGORY_PAGE);
+                  Get.toNamed(RoutesID.CATEGORY_PAGE, arguments: {'title': '搜索', 'from': 'search'});
                 },
                 child: Container(
                   height: 33.w,
@@ -185,7 +185,7 @@ class HomePage extends GetView<HomeController> {
     var image = controller.fenquList[index].image;
     return SafeTapWidget(
       onTap: () {
-        Get.toNamed(RoutesID.CATEGORY_PAGE);
+        Get.toNamed(RoutesID.CATEGORY_PAGE, arguments: {'title': '${name}', 'from': 'type'});
       },
       child: Container(
         width: 108.w,

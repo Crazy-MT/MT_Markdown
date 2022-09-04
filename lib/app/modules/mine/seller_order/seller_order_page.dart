@@ -45,20 +45,26 @@ class SellerOrderPage extends GetView<SellerOrderController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        TabBar(
-          controller: controller.tabController,
-          tabs: controller.myTabs.map((e) => e.tab).toList(),
-          // isScrollable: true,
-          indicatorColor: Color(0xff1BDB8A),
-          indicatorSize: TabBarIndicatorSize.label,
-          indicatorPadding: EdgeInsets.all(10.w),
-          indicatorWeight: 3.w,
-          labelColor: Color(0xff111111),
-          labelStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
-          unselectedLabelColor: Color(0xff434446),
-          unselectedLabelStyle: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.normal,
+        Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent, // 点击时的水波纹颜色设置为透明
+            highlightColor: Colors.transparent, // 点击时的背景高亮颜色设置为透明
+          ),
+          child: TabBar(
+            controller: controller.tabController,
+            tabs: controller.myTabs.map((e) => e.tab).toList(),
+            // isScrollable: true,
+            indicatorColor: Color(0xff1BDB8A),
+            indicatorSize: TabBarIndicatorSize.label,
+            indicatorPadding: EdgeInsets.all(10.w),
+            indicatorWeight: 3.w,
+            labelColor: Color(0xff111111),
+            labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
+            unselectedLabelColor: Color(0xff434446),
+            unselectedLabelStyle: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.normal,
+            ),
           ),
         ),
         Expanded(
