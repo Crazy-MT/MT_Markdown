@@ -154,6 +154,8 @@ class CollectionSettingsController extends GetxController
     bankCardNumController.text = bankcardInfo.value?.bankCardNum ?? "";
     bankBelongController.text = bankcardInfo.value?.bank ?? "";
 
+    userHelper.userInfo.value?.hasPaymentMethod = 1;
+    userHelper.updateSp(userHelper.userInfo.value);
   }
 
   // 获取用户微信
@@ -181,6 +183,9 @@ class CollectionSettingsController extends GetxController
     wechatAccountController.text = wechatInfo.value?.wechatAccount ?? "";
     wechatNameController.text = wechatInfo.value?.name ?? "";
     wechatQrImg.value = wechatInfo.value?.wechatPaymentCodeUrl ?? "";
+
+    userHelper.userInfo.value?.hasPaymentMethod = 1;
+    userHelper.updateSp(userHelper.userInfo.value);
   }
 
   // 添加银行卡
@@ -208,6 +213,8 @@ class CollectionSettingsController extends GetxController
       return;
     }
     bankcardInfo.value = _result?.value;
+    userHelper.userInfo.value?.hasPaymentMethod = 1;
+    userHelper.updateSp(userHelper.userInfo.value);
     fetchBankCardData();
 }
 
@@ -270,6 +277,9 @@ class CollectionSettingsController extends GetxController
     }
     wechatInfo.value = _result?.value;
       fetchWeChatData();
+
+    userHelper.userInfo.value?.hasPaymentMethod = 1;
+    userHelper.updateSp(userHelper.userInfo.value);
   }
 
   /// 编辑银行卡信息

@@ -100,6 +100,8 @@ class AddressEditController extends GetxController {
     );
     if (_result?.value != null) {
       lLog(_result!.value!.toJson().toString());
+      userHelper.userInfo.value?.hasAddress = 1;
+      userHelper.updateSp(userHelper.userInfo.value);
       Get.back(result: true);
       return;
     }

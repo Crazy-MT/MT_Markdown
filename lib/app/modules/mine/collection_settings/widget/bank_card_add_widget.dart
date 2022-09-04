@@ -106,7 +106,7 @@ class BankCardAddWidget extends StatelessWidget {
       onTap: () {
         if (enable && controller.hasNoBankCard) {
           controller.addUserBankCard();
-        } {
+        } else {
           controller.editBankCard(controller.bankcardInfo.value?.id);
         }
       },

@@ -32,6 +32,11 @@ class _UserHelper {
     SpUtil.putString(SpConst.USER_INFO, json.encode(userInfo.toJson()));
   }
 
+  void updateSp(UserModel? userInfo) {
+    SpUtil.putString(SpConst.USER_TOKEN, userToken);
+    SpUtil.putString(SpConst.USER_INFO, json.encode(userInfo?.toJson()));
+  }
+
   void whenLogout() {
     isLogin.value = false;
     // guestLogin.value = false;

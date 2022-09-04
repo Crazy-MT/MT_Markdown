@@ -93,11 +93,13 @@ class SnapUpController extends GetxController {
       // snapUpList[index].startTime = "15:19";
       // snapUpList[index].endTime = "15:45";
       if((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0 ) {
-        await Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE);
+        Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE);
+        return;
       }
 
       if((userHelper.userInfo.value?.hasAddress ?? 0) == 0 ) {
-        await Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE);
+        Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE);
+        return;
       }
 
       if((userHelper.userInfo.value?.hasSignature ?? 0) == 0) {
