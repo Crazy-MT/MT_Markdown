@@ -1,4 +1,5 @@
 import 'package:code_zero/app/modules/shopping_cart/model/goods_model.dart';
+import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -83,6 +84,27 @@ class ShoppingCartController extends GetxController {
       selectGoodsList.addAll(goodsList);
     }
     updateTotalPrice();
+  }
+
+  // 提交订单
+  void submit() {}
+
+  // 删除商品
+  void delete() {
+    int num = 0;
+    for (GoodsModel item in selectGoodsList) {
+      num += (item.num ?? 0);
+    }
+    showConfirmDialog(
+      onConfirm: () async {
+        for (GoodsModel item in selectGoodsList) {
+          goodsList.remove(item);
+        }
+        selectGoodsList.clear();
+        updateTotalPrice();
+      },
+      content: "确认要删除这$num件商品吗",
+    );
   }
 
   @override

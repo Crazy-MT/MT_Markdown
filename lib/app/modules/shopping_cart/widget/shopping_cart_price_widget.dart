@@ -1,3 +1,4 @@
+import 'package:code_zero/app/modules/shopping_cart/model/goods_model.dart';
 import 'package:code_zero/app/modules/shopping_cart/shopping_cart_controller.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
@@ -25,6 +26,7 @@ class ShoppingCartPriceWidget extends StatelessWidget {
 
   Widget _contentWidget() {
     ShoppingCartController controller = Get.find<ShoppingCartController>();
+
     return Obx(
       (() {
         return Container(
@@ -56,53 +58,73 @@ class ShoppingCartPriceWidget extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      '总计:',
-                      style: TextStyle(
-                        color: Color(0xff757575),
-                        fontSize: 15.sp,
+                child: Visibility(
+                  visible: !controller.isManageStatus.value,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        '总计:',
+                        style: TextStyle(
+                          color: Color(0xff757575),
+                          fontSize: 15.sp,
+                        ),
                       ),
-                    ),
-                    Text(
-                      '￥',
-                      style: TextStyle(
-                        color: Color(0xff1BDB8A),
-                        fontSize: 15.sp,
+                      Text(
+                        '￥',
+                        style: TextStyle(
+                          color: Color(0xff1BDB8A),
+                          fontSize: 15.sp,
+                        ),
                       ),
-                    ),
-                    Text(
-                      controller.totalPrice.value.toStringAsFixed(2),
-                      style: TextStyle(
-                        color: Color(0xff1BDB8A),
-                        fontSize: 18.sp,
-                      ),
-                    )
-                  ],
+                      Text(
+                        controller.totalPrice.value.toStringAsFixed(2),
+                        style: TextStyle(
+                          color: Color(0xff1BDB8A),
+                          fontSize: 18.sp,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               SizedBox(width: 10.w),
-              Container(
-                width: 100.w,
-                height: 40.w,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: controller.isManageStatus.value == true ? Colors.white : Color(0xff1BDB8A),
-                  borderRadius: BorderRadius.circular(20.w),
-                  border: controller.isManageStatus.value == true
-                      ? Border.all(
-                          width: 1,
-                          color: Colors.black,
-                        )
-                      : null,
-                ),
-                child: Text(
-                  controller.isManageStatus.value == true ? '删除' : '结算',
-                  style: TextStyle(
-                    color: controller.isManageStatus.value == true ? Color(0xff111111) : Color(0xffffffff),
-                    fontSize: 15.sp,
+              SafeTapWidget(
+                onTap: () {
+                  if (controller.isManageStatus.value) {
+                    controller.delete();
+                  } else {
+                    controller.submit();
+                  }
+                },
+                child: Container(
+                  width: 100.w,
+                  height: 40.w,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: controller.isManageStatus.value == true ? Colors.white : Color(0xff1BDB8A),
+                    borderRadius: BorderRadius.circular(20.w),
+                    border: controller.isManageStatus.value == true
+                        ? Border.all(
+                            width: 1,
+                            color: Colors.black,
+                          )
+                        : null,
+                  ),
+                  child: Obx(
+                    (() {
+                      int num = 0;
+                      for (GoodsModel item in controller.selectGoodsList) {
+                        num += (item.num ?? 0);
+                      }
+                      return Text(
+                        controller.isManageStatus.value == true ? '删除 x$num' : '结算',
+                        style: TextStyle(
+                          color: controller.isManageStatus.value == true ? Color(0xff111111) : Color(0xffffffff),
+                          fontSize: 15.sp,
+                        ),
+                      );
+                    }),
                   ),
                 ),
               ),

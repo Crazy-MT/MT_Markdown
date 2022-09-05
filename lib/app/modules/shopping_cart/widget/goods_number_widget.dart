@@ -25,11 +25,11 @@ class _GoodsNumberState extends State<GoodsNumberWidget> {
   @override
   void initState() {
     super.initState();
-    number = widget.initNumber;
   }
 
   @override
   Widget build(BuildContext context) {
+    number = widget.initNumber;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
