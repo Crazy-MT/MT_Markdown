@@ -1,5 +1,9 @@
+import 'package:code_zero/app/modules/home/home_controller.dart';
 import 'package:code_zero/app/modules/home/home_page.dart';
+import 'package:code_zero/app/modules/mine/mine_controller.dart';
 import 'package:code_zero/app/modules/others/user_apis.dart';
+import 'package:code_zero/app/modules/shopping_cart/shopping_cart_controller.dart';
+import 'package:code_zero/app/modules/snap_up/snap_up_controller.dart';
 import 'package:code_zero/app/modules/snap_up/snap_up_page.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/model/system_model.dart';
@@ -8,7 +12,6 @@ import 'package:code_zero/generated/assets/assets.dart';
 import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/log_utils.dart';
-import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,7 +29,7 @@ class MainTabController extends GetxController {
   void onInit() {
     super.onInit();
     initData();
-    if(Get.arguments != null && Get.arguments['tabIndex'] != null) {
+    if (Get.arguments != null && Get.arguments['tabIndex'] != null) {
       clickTab(Get.arguments['tabIndex']);
     }
   }
@@ -82,6 +85,21 @@ class MainTabController extends GetxController {
 
   clickTab(index) {
     currentTab.value = index;
+    switch (index) {
+      case 0:
+        Get.find<HomeController>().initData();
+        break;
+      case 1:
+        Get.find<SnapUpController>().initData();
+        break;
+      case 2:
+        Get.find<ShoppingCartController>().initData();
+        break;
+      case 3:
+        Get.find<MineController>().initData();
+        break;
+      default:
+    }
   }
 
   @override
@@ -105,8 +123,7 @@ class MainTabController extends GetxController {
           // model.value = rest.value;
           systemSetting.model.value = rest.value as SystemSettingModel;
           lLog('MTMTMT MainTabController.initSystemSetting ${systemSetting.model.value?.hotline} ');
-        }
-    );
+        });
   }
 }
 
