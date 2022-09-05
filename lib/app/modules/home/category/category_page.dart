@@ -2,6 +2,7 @@ import 'package:code_zero/app/modules/home/category/widget/category_empty_view.d
 import 'package:code_zero/app/modules/home/category/widget/category_goods_item.dart';
 import 'package:code_zero/common/S.dart';
 import 'package:code_zero/common/components/common_input.dart';
+import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -39,6 +40,15 @@ class CategoryPage extends GetView<CategoryController> {
         () => FTStatusPage(
           type: controller.pageStatus.value,
           errorMsg: controller.errorMsg.value,
+          enablePullUp: true,
+          enablePullDown: true,
+          controller: controller.refreshController,
+          onRefresh: () {
+            controller.getRecommendList();
+          },
+          onLoading: () {
+            controller.getRecommendList(isRefresh: false);
+          },
           builder: (BuildContext context) {
             return CustomScrollView(
               controller: controller.scrollController,
@@ -55,27 +65,32 @@ class CategoryPage extends GetView<CategoryController> {
   }
 
   Widget _buildOrderContent(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Container(
-        width: 375.w,
-        height:
-            812.w - 64.w - 60.w - 64.w - MediaQuery.of(context).padding.bottom,
-        padding: EdgeInsets.symmetric(horizontal: 15.w),
-        // margin: EdgeInsets.only(top: 15.w),
-        child: controller.goodsList.isEmpty
-            ? CategoryEmptyView()
-            : ListView.separated(
-                padding: EdgeInsets.symmetric(vertical: 15.w),
-                itemBuilder: (BuildContext context, int index) {
-                  return CategoryGoodsItem(index);
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(height: 10.w);
-                },
-                itemCount: 13,
-              ),
-      ),
-    );
+    return Obx(() {
+      return SliverToBoxAdapter(
+        child: Container(
+          width: 375.w,
+          height: 812.w -
+              64.w -
+              60.w -
+              64.w -
+              MediaQuery.of(context).padding.bottom,
+          padding: EdgeInsets.symmetric(horizontal: 15.w),
+          // margin: EdgeInsets.only(top: 15.w),
+          child: controller.commodityList.isEmpty
+              ? CategoryEmptyView()
+              : ListView.separated(
+                  padding: EdgeInsets.symmetric(vertical: 15.w),
+                  itemBuilder: (BuildContext context, int index) {
+                    return CategoryGoodsItem(controller.commodityList[index]);
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(height: 10.w);
+                  },
+                  itemCount: controller.commodityList.length,
+                ),
+        ),
+      );
+    });
   }
 
   _buildSearchContainer() {
@@ -114,7 +129,7 @@ class CategoryPage extends GetView<CategoryController> {
 
   _buildSortContainer() {
     return SliverPadding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w),
+      padding: EdgeInsets.all(15.w),
       sliver: SliverToBoxAdapter(
         child: Container(
           alignment: Alignment.center,
@@ -124,47 +139,21 @@ class CategoryPage extends GetView<CategoryController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                  child: Center(
-                      child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-                  value: '全部',
-                  items: [
-                    DropdownMenuItem(
-                      child: Text("全部"),
-                      value: "全部",
-                    ),
-                  ],
-                  onChanged: (Object? value) {},
-                ),
-              ))),
+                  child: SafeTapWidget(
+                      onTap: () {
+                        controller.getRecommendList(isRefresh: true);
+                      },
+                      child: Center(child: Text('全部')))),
               Expanded(
-                  child: Center(
-                      child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-                  value: '销量',
-                  items: [
-                    DropdownMenuItem(
-                      child: Text("销量"),
-                      value: "销量",
-                    ),
-                  ],
-                  onChanged: (Object? value) {},
-                ),
-              ))),
+                  child: SafeTapWidget(
+                      onTap: () {
+                        controller.sortBySales();
+                      }, child: Center(child: Text('销量')))),
               Expanded(
-                  child: Center(
-                      child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-                  value: '价格',
-                  items: [
-                    DropdownMenuItem(
-                      child: Text("价格"),
-                      value: "价格",
-                    ),
-                  ],
-                  onChanged: (Object? value) {},
-                ),
-              ))),
+                  child: SafeTapWidget(
+                      onTap: () {
+                        controller.sortByPrice();
+                      }, child: Center(child: Text('价格')))),
             ],
           ),
         ),

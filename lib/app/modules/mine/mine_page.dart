@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
@@ -110,9 +111,11 @@ class MinePage extends GetView<MineController> {
                                             bottom: 10.w),
                                         child: !userHelper.isLogin.value
                                             ? TextButton(
-                                            style: ButtonStyle(
-                                              overlayColor: MaterialStateProperty.all(Colors.transparent),
-                                            ),
+                                                style: ButtonStyle(
+                                                  overlayColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.transparent),
+                                                ),
                                                 onPressed: () {
                                                   Get.toNamed(
                                                       RoutesID.LOGIN_PAGE);
@@ -289,7 +292,7 @@ class MinePage extends GetView<MineController> {
                                         () {
                                       Get.toNamed(RoutesID.BUYER_ORDER_PAGE,
                                           arguments: {"index": 1});
-                                    }),
+                                    }, showBadge: true),
                                   ),
                                   Expanded(
                                     child: buildItem(
@@ -491,7 +494,13 @@ class MinePage extends GetView<MineController> {
                                           showModalBottomSheet(
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.only(topRight: Radius.circular(10.w), topLeft: Radius.circular(10.w))),
+                                                      BorderRadius.only(
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  10.w),
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  10.w))),
                                               context: context,
                                               builder: (context) {
                                                 return Container(
@@ -505,7 +514,6 @@ class MinePage extends GetView<MineController> {
                                                                 top: 10.w,
                                                                 left: 10.w),
                                                         child: TextButton(
-
                                                             child: Text(
                                                               "取消",
                                                               style: TextStyle(
@@ -517,8 +525,10 @@ class MinePage extends GetView<MineController> {
                                                                   context);
                                                             },
                                                             style: ButtonStyle(
-                                                              overlayColor: MaterialStateProperty.all(Colors.transparent),
-
+                                                              overlayColor:
+                                                                  MaterialStateProperty
+                                                                      .all(Colors
+                                                                          .transparent),
                                                               shape: MaterialStateProperty.all<
                                                                       RoundedRectangleBorder>(
                                                                   RoundedRectangleBorder(
@@ -553,7 +563,11 @@ class MinePage extends GetView<MineController> {
                                                               height: 10.w,
                                                             ),
                                                             Text(
-                                                              systemSetting.model.value?.hotline ?? "",
+                                                              systemSetting
+                                                                      .model
+                                                                      .value
+                                                                      ?.hotline ??
+                                                                  "",
                                                               style: TextStyle(
                                                                   fontSize:
                                                                       22.sp),
@@ -645,16 +659,25 @@ class MinePage extends GetView<MineController> {
     );
   }
 
-  SafeTapWidget buildItem(var title, var icon, var tap) {
+  SafeTapWidget buildItem(var title, var icon, var tap, {bool? showBadge}) {
     return SafeTapWidget(
       onTap: tap,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            icon,
-            width: 20.w,
-          ),
+          (showBadge != null && showBadge)
+              ? Obx(() => Badge(
+                    elevation: 0,
+                    showBadge: controller.isShowBadge.value,
+                    child: Image.asset(
+                      icon,
+                      width: 20.w,
+                    ),
+                  ))
+              : Image.asset(
+                  icon,
+                  width: 20.w,
+                ),
           SizedBox(
             height: 5.w,
           ),

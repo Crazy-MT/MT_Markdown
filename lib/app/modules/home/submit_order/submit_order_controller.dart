@@ -1,4 +1,5 @@
 import 'package:code_zero/app/modules/home/submit_order/model/data_model.dart';
+import 'package:code_zero/app/modules/mine/mine_controller.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:get/get.dart';
@@ -71,6 +72,7 @@ class SubmitOrderController extends GetxController {
         },
         onSuccess: (result) {
           showSuccessDialog(onConfirm: () {
+            Get.find<MineController>().showBadge(true);
             Get.offAllNamed(RoutesID.MAIN_TAB_PAGE, arguments: {'tabIndex': 3});
           });
           var model = result.value;

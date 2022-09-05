@@ -8,6 +8,8 @@ class MineController extends GetxController {
   final pageStatus = FTStatusPageType.loading.obs;
   ScrollController scrollController = ScrollController();
 
+  var isShowBadge = false.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -16,6 +18,10 @@ class MineController extends GetxController {
 
   initData() {
     pageStatus.value = FTStatusPageType.success;
+  }
+
+  showBadge(bool isShow) {
+    isShowBadge.value = isShow;
   }
 
   @override

@@ -88,12 +88,13 @@ class HomeController extends GetxController {
   }
 
   initFenquList() {
-    fenquList.add(_FenquItem("吊坠", Assets.imagesDiaozhui));
-    fenquList.add(_FenquItem("把件", Assets.imagesBajian));
-    fenquList.add(_FenquItem("项链", Assets.imagesXianglian));
-    fenquList.add(_FenquItem("耳坠", Assets.imagesErzhui));
-    fenquList.add(_FenquItem("戒指", Assets.imagesJiezhi));
-    fenquList.add(_FenquItem("手镯", Assets.imagesShouzhuo));
+    fenquList.clear();
+    fenquList.add(_FenquItem("吊坠", Assets.imagesDiaozhui, 1));
+    fenquList.add(_FenquItem("把件", Assets.imagesBajian, 2));
+    fenquList.add(_FenquItem("项链", Assets.imagesXianglian, 3));
+    fenquList.add(_FenquItem("耳坠", Assets.imagesErzhui, 4));
+    fenquList.add(_FenquItem("戒指", Assets.imagesJiezhi, 5));
+    fenquList.add(_FenquItem("手镯", Assets.imagesShouzhuo, 6));
   }
 
   scrollerToTop() {
@@ -111,6 +112,7 @@ class HomeController extends GetxController {
 class _FenquItem {
   final String name;
   final String image;
+  final int categoryId;
 
-  _FenquItem(this.name, this.image);
+  _FenquItem(this.name, this.image, this.categoryId);
 }
