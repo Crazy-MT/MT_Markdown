@@ -1,7 +1,7 @@
 import 'convert_interface.dart';
 
 class BaseModel<T extends ConvertInterface> {
-  int? code;
+  dynamic code;
   String? message;
   dynamic data;
 

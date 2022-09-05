@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../common/colors.dart';
 import '../../../../common/components/common_app_bar.dart';
@@ -115,6 +116,7 @@ class ComplaintFeedbackPage extends GetView<ComplaintFeedbackController> {
           if (controller.textCount.value <= 0) {
             return;
           }
+          // TODO
           print("触发提交接口---");
         },
         child: Container(
@@ -166,11 +168,7 @@ class ComplaintFeedbackPage extends GetView<ComplaintFeedbackController> {
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
               ),
-              child: Container(
-                height: 80.w,
-                width: 80.w,
-                color: Colors.green,
-              ),
+              child: Image.asset(Assets.iconsAdd, width: 80.w,),
             ),
           )
         : Container(
@@ -199,11 +197,7 @@ class ComplaintFeedbackPage extends GetView<ComplaintFeedbackController> {
                     onTap: () {
                       controller.removeImage(index);
                     },
-                    child: Container(
-                      width: 20.w,
-                      height: 20.w,
-                      color: Colors.red,
-                    ),
+                    child: Image.asset(Assets.iconsDelete, width: 30.w,),
                   ),
                 ),
               ],

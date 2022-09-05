@@ -5,10 +5,10 @@ class ShelfCommodityModel extends ConvertInterface {
   int? commodityId;
   String? commoditySessionName;
   String? commodityName;
-  int? commodityPrice;
-  int? maxPrice;
-  int? recommendPrice;
-  int? charge;
+  String? commodityPrice;
+  String? maxPrice;
+  String? recommendPrice;
+  String? charge;
 
   ShelfCommodityModel(
       {this.buyingTransactionId,

@@ -3,6 +3,7 @@ import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/avoid_quick_click.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -63,85 +64,96 @@ class OrderSendSellPage extends GetView<OrderSendSellController> {
   }
 
   Widget _goodsInfoWidget() {
-    return Container(
-      height: 152.w,
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        children: [
-          Container(
-            alignment: Alignment.center,
-            height: 42.w,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SvgPicture.asset(
-                  Assets.iconsGoodsInfoTitleIcon,
-                  width: 19.w,
-                  height: 19.w,
-                ),
-                SizedBox(width: 8.w),
-                Text(
-                  '8号宝库',
-                  style: TextStyle(
-                    color: Color(0xff434446),
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
+    return Obx(() => Container(
+          height: 152.w,
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
           ),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.w),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fbkimg.cdn.bcebos.com%2Fpic%2Fd439b6003af33a87f0190f94cc5c10385243b5c3&refer=http%3A%2F%2Fbkimg.cdn.bcebos.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1664523086&t=b5a98ddd4217e9e6248609c389809bdc',
-                    width: 100.w,
-                    height: 100.w,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                height: 42.w,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      '以心参玉 A货翡翠吊坠 男女...',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Color(0xff141519), fontSize: 15.sp, fontWeight: FontWeight.w500),
+                    SvgPicture.asset(
+                      Assets.iconsGoodsInfoTitleIcon,
+                      width: 19.w,
+                      height: 19.w,
                     ),
+                    SizedBox(width: 8.w),
                     Text(
-                      '共1件',
-                      style: TextStyle(color: Color(0xffABAAB9), fontSize: 12.sp, fontWeight: FontWeight.w500),
+                      controller.item.value?.sessionName ?? "",
+                      style: TextStyle(
+                        color: Color(0xff434446),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                    Text(
-                      '最高上浮价格：¥ 30000.00',
-                      style: TextStyle(color: Color(0xff434446), fontSize: 12.sp, fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      '¥ 30000.00',
-                      style: TextStyle(color: Color(0xff111111), fontSize: 16.sp, fontWeight: FontWeight.w700),
-                    )
                   ],
                 ),
-              ],
-            ),
+              ),
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.w),
+                      child: CachedNetworkImage(
+                        imageUrl: controller.item.value?.thumbnailUrl ?? "",
+                        width: 100.w,
+                        height: 100.w,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          controller.item.value?.name ?? "",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Color(0xff141519),
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          '共1件',
+                          style: TextStyle(
+                              color: Color(0xffABAAB9),
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Obx(() => Text(
+                              '最高上浮价格：¥ ${controller.model.value?.maxPrice}',
+                              style: TextStyle(
+                                  color: Color(0xff434446),
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500),
+                            )),
+                        Obx(() => Text(
+                              controller.model.value?.commodityPrice ?? "",
+                              style: TextStyle(
+                                  color: Color(0xff111111),
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w700),
+                            ))
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10.w),
+            ],
           ),
-          SizedBox(height: 10.w),
-        ],
-      ),
-    );
+        ));
   }
 
   Widget _orderInfoWidget() {
@@ -152,13 +164,15 @@ class OrderSendSellPage extends GetView<OrderSendSellController> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Column(
-        children: [
-          _orderInfoItemWidget('推荐价格', '3000'),
-          _orderInfoItemWidget('上架价格', '2990'),
-          _orderInfoItemWidget('收续费', '288.56'),
-        ],
-      ),
+      child: Obx(() => Column(
+            children: [
+              _orderInfoItemWidget(
+                  '推荐价格', controller.model.value?.recommendPrice ?? ""),
+              _orderInfoItemWidget(
+                  '上架价格', controller.model.value?.commodityPrice ?? ""),
+              _orderInfoItemWidget('收续费', controller.model.value?.charge ?? ""),
+            ],
+          )),
     );
   }
 
@@ -207,23 +221,123 @@ class OrderSendSellPage extends GetView<OrderSendSellController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            '总价：',
+            '手续费：',
             style: TextStyle(
               color: Color(0xff757575),
               fontSize: 15.sp,
               fontWeight: FontWeight.w400,
             ),
           ),
-          Text(
-            '¥ 30000.00',
-            style: TextStyle(
-              color: Color(0xff111111),
-              fontSize: 15.sp,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          Obx(() => Text(
+                controller.model.value?.charge ?? "",
+                style: TextStyle(
+                  color: Color(0xff111111),
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              )),
           Expanded(child: SizedBox()),
           SafeClickGesture(
+            onTap: () async {
+              bool createSuccess = await controller.createCharge();
+              lLog('MTMTMT OrderSendSellPage._bottomWidget ${createSuccess}');
+              if (createSuccess) {
+                showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10.w),
+                            topLeft: Radius.circular(10.w))),
+                    context: context,
+                    builder: (context) {
+                      return Container(
+                        color: Colors.transparent,
+                        height: 271.w,
+                        child: Stack(
+                          children: [
+                            Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "收银台",
+                                    style: TextStyle(
+                                        fontSize: 16.sp, color: Colors.black),
+                                  ),
+                                  SizedBox(
+                                    height: 10.w,
+                                  ),
+                                  Text(
+                                    "￥${controller.model.value?.charge}",
+                                    style: TextStyle(fontSize: 30.sp),
+                                  ),
+                                  SizedBox(
+                                    height: 34.w,
+                                  ),
+                                  Container(
+                                    // color: Colors.red,
+                                    width: 335.w,
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                          Assets.iconsWechat,
+                                          width: 28.w,
+                                          height: 28.w,
+                                        ),
+                                        SizedBox(width: 10.w,),
+                                        Text('微信支付'),
+                                        Expanded(
+                                            child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Image.asset(
+                                                Assets
+                                                    .imagesShoppingCartGoodsSelected,
+                                                width: 19.w,
+                                                height: 19.w,
+                                              ),
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 25.w,),
+                                  SizedBox(
+                                    width: 335.w,
+                                    height: 44.w,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        controller.pay();
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        shape: StadiumBorder(),
+                                      ).copyWith(
+                                        padding: MaterialStateProperty.all(
+                                            const EdgeInsets.all(0)),
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                          AppColors.green.withOpacity(1),
+                                        ),
+                                        elevation: MaterialStateProperty.all(0),
+                                      ),
+                                      child: Text(
+                                        "确认支付",
+                                        style: TextStyle(
+                                          color: AppColors.text_white
+                                              .withOpacity(1),
+                                          fontSize: 16.sp,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              width: double.infinity,
+                            )
+                          ],
+                        ),
+                      );
+                    });
+              }
+            },
             child: Container(
               width: 100.w,
               height: 40.w,

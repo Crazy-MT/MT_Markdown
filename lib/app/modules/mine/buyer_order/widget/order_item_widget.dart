@@ -38,8 +38,8 @@ class OrderItemWidget extends StatelessWidget {
   Widget _contentWidget() {
     BuyerOrderController controller = Get.find<BuyerOrderController>();
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 5),
-      padding: EdgeInsets.all(10),
+      margin: EdgeInsets.symmetric(vertical: 5.w,horizontal: 10.w),
+      padding: EdgeInsets.all(10.w),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,7 +157,9 @@ class OrderItemWidget extends StatelessWidget {
                       visible: item.tradeState == 2,
                     ),
                     Visibility(
-                      child: _buttonBtnWidget(title: "申诉", color: Color(0xffFF3939), onTap: () {}),
+                      child: _buttonBtnWidget(title: "申诉", color: Color(0xffFF3939), onTap: () {
+                        Get.toNamed(RoutesID.COMPLAINT_FEEDBACK_PAGE);
+                      }),
                       visible: item.tradeState == 3,
                     ),
                     Visibility(
@@ -171,7 +173,7 @@ class OrderItemWidget extends StatelessWidget {
                           title: "委托上架",
                           color: Color(0xff000000),
                           onTap: () {
-                            controller.shangjia();
+                            controller.shangjia(item);
                           }),
                       visible: item.tradeState == 3,
                     )

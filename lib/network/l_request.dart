@@ -19,6 +19,7 @@ import 'net_constant.dart';
 typedef ErrorCallback(int errorCode, String errorMsg, String expMsg);
 typedef HandleBaseModel(BaseModel baseModel);
 typedef OnSuccess<T>(ResultData<T> resultData);
+typedef OnStringSuccess(String resultData);
 
 // ignore: constant_identifier_names
 enum RequestType { GET, POST }
@@ -70,6 +71,7 @@ class LRequest {
     HandleBaseModel? handleBaseModel,
     ErrorCallback? errorBack,
     OnSuccess<T>? onSuccess,
+    OnStringSuccess? onStringSuccess,
     bool isShowErrorToast = true,
     FormData? formData,
   }) async {
@@ -88,6 +90,13 @@ class LRequest {
       // if (!skipError) await handleError(response, context: context, url: url);
       BaseModel<T> baseModel = BaseModel.fromJson(response.data, t);
       handleBaseModel?.call(baseModel);
+      lLog('MTMTMT LRequest.request ${baseModel.code.runtimeType.toString() == "String"}');
+      if(baseModel.code.runtimeType.toString() == "String") {
+
+        lLog('MTMTMT LRequest.request ${baseModel.code.runtimeType.toString() == "String"}');
+        onStringSuccess?.call(response.toString());
+        return null;
+      }
 
       /// 权限认证错误，跳转到登录页
       if (baseModel.code == 20001) {

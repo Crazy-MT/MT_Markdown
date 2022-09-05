@@ -22,7 +22,7 @@ import 'package:flutter_ume_kit_console/flutter_ume_kit_console.dart'; // debugP
 import 'package:flutter_ume_kit_dio/flutter_ume_kit_dio.dart'; // Dio 网络请求调试工具
 
 void main() {
-  runZonedGuarded(() {
+  // runZonedGuarded(() {
     if (Platform.isAndroid) {
       SystemUiOverlayStyle style = const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
@@ -53,9 +53,9 @@ void main() {
     } else {
       runApp(App());
     }
-  }, (error, stackTrace) {
-    errorLog(error.toString());
-  });
+  // }, (error, stackTrace) {
+  //   errorLog(error.toString());
+  // });
 }
 
 class App extends StatelessWidget {

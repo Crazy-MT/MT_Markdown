@@ -1,9 +1,14 @@
+import 'package:code_zero/app/modules/home/submit_order/model/data_model.dart';
+import 'package:code_zero/app/modules/mine/buyer_order/order_send_sell/model/charge_model.dart';
 import 'package:code_zero/app/modules/mine/buyer_order/order_send_sell/model/shelf_commodity_model.dart';
+import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
 import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
+import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 
@@ -11,6 +16,9 @@ class OrderSendSellController extends GetxController {
   final pageName = 'OrderSendSell'.obs;
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
+  Rx<ShelfCommodityModel?> model = Rx<ShelfCommodityModel?>(null);
+  Rx<OrderItem?> item = Rx<OrderItem?>(null);
+  Rx<ChargeModel?> chargeModel = Rx<ChargeModel?>(null);
 
   @override
   void onInit() {
@@ -20,6 +28,8 @@ class OrderSendSellController extends GetxController {
 
   initData() {
     pageStatus.value = FTStatusPageType.success;
+    item.value = Get.arguments['item'];
+    getShelfCommodityInfo(item.value?.id);
   }
 
   getShelfCommodityInfo(id) async {
@@ -36,7 +46,7 @@ class OrderSendSellController extends GetxController {
           errorLog("获取寄卖信息失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
         },
         onSuccess: (rest) {
-          Utils.showToastMsg("获取寄卖信息成功");
+          model.value = rest.value;
         });
   }
 
@@ -45,5 +55,51 @@ class OrderSendSellController extends GetxController {
 
   void setPageName(String newName) {
     pageName.value = newName;
+  }
+
+  Future<bool> createCharge() async {
+    bool isSuccess = false;
+    ResultData<ChargeModel>? _result = await LRequest.instance.request<
+        ChargeModel>(
+        url: SnapApis.CREATE_CHARGE,
+        data: {
+          "buyingTransactionId": item.value?.id,
+          "commodityId": item.value?.commodityId,
+          "userId": userHelper.userInfo.value?.id,
+          "newPrice": model.value?.commodityPrice,
+        },
+        t: ChargeModel(),
+        requestType: RequestType.POST,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          Utils.showToastMsg("提交订单失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("提交订单失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+          isSuccess =  false;
+        },
+        onSuccess: (rest) {
+          lLog('MTMTMT OrderSendSellController.createChargecreateSuccess');
+          chargeModel.value = rest.value;
+          isSuccess = true;
+          // Utils.showToastMsg("获取订单成功");
+        });
+    return isSuccess;
+  }
+
+  Future<void> pay() async {
+    ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
+        url: SnapApis.PAY,
+        data: {
+          "outTradeNo": chargeModel.value?.outTradeNo,
+          "tradeState": "SUCCESS",
+        },
+        t: DataModel(),
+        requestType: RequestType.POST,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          Utils.showToastMsg("模拟支付失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("模拟支付失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+        onStringSuccess: (rest) {
+          lLog('MTMTMT OrderSendSellController.pay ${rest}');
+          Utils.showToastMsg("模拟支付成功");
+        });
   }
 }

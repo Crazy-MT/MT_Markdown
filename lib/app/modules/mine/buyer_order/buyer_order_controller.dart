@@ -236,7 +236,7 @@ class BuyerOrderController extends GetxController
   }
 
   /// 委托上架
-  void shangjia() {
+  void shangjia(OrderItem item) {
     if (!timeInShelf()) {
       showConfirmDialog(
         singleText: '知道了',
@@ -251,8 +251,7 @@ class BuyerOrderController extends GetxController
       title: "委托寄卖",
       cancelText: "暂不使用",
       onConfirm: () async {
-        /// todo 委托上架之后打开寄卖信息页面
-        Get.toNamed(RoutesID.ORDER_SEND_SELL_PAGE);
+        Get.toNamed(RoutesID.ORDER_SEND_SELL_PAGE, arguments: {'item': item});
       },
       contentWidget: RichText(
         text: TextSpan(
