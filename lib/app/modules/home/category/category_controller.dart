@@ -13,7 +13,7 @@ class CategoryController extends GetxController {
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
   ScrollController scrollController = ScrollController();
-  TextEditingController newPasswordController = new TextEditingController();
+  TextEditingController keyWordController = new TextEditingController();
   RxList<CommodityItem> commodityList = RxList<CommodityItem>();
   int categoryId = 1;
   int currentPage = 0;
@@ -32,7 +32,7 @@ class CategoryController extends GetxController {
     }
   }
 
-  getRecommendList({bool isRefresh = true, String? orderBy}) async {
+  getRecommendList({bool isRefresh = true, String? orderBy, String? name}) async {
     if (isRefresh) {
       currentPage = 1;
     }
@@ -40,6 +40,7 @@ class CategoryController extends GetxController {
         url: HomeApis.COMMODITY,
         t: CommodityModel(),
         queryParameters: {
+          'name' : name,
           "categoryId": categoryId,
           "page": currentPage,
           "size": pageSize,

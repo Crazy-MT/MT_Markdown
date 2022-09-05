@@ -14,6 +14,7 @@ class CommonInput extends StatelessWidget {
   final String? labelText;
   final String? hintText;
   final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onSubmitted;
   final Widget? suffixIcon;
   final bool obscureText;
   final TextStyle? style;
@@ -30,6 +31,7 @@ class CommonInput extends StatelessWidget {
     this.controller,
     this.hintText,
     this.errorText,
+    this.onSubmitted,
     this.labelText,
     this.onChanged,
     this.suffixIcon,
@@ -51,6 +53,7 @@ class CommonInput extends StatelessWidget {
       enabled: enable,
       obscureText: obscureText,
       onChanged: onChanged,
+      onSubmitted: onSubmitted,
       textAlign: textAlign,
       style: style ??
           TextStyle(
@@ -95,8 +98,7 @@ OutlineInputBorder _outlineInputBorder = OutlineInputBorder(
   borderSide: BorderSide.none,
 );
 
-buildInputWithTitle(
-  Widget titleWidget, {
+buildInputWithTitle(Widget titleWidget, {
   EdgeInsetsGeometry? padding,
   TextEditingController? inputController,
   List<TextInputFormatter>? inputFormatters,
@@ -106,6 +108,8 @@ buildInputWithTitle(
   TextInputType? keyboardType,
   bool obscureText = false,
   bool enable = true,
+  ValueChanged<String>? onSubmitted,
+
 }) {
   return Padding(
     padding: padding ?? EdgeInsets.zero,
@@ -136,6 +140,7 @@ buildInputWithTitle(
                   controller: inputController,
                   keyboardType: keyboardType,
                   fillColor: Colors.transparent,
+                  onSubmitted:onSubmitted,
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w400,

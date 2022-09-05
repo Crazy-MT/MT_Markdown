@@ -105,7 +105,7 @@ class CategoryPage extends GetView<CategoryController> {
               child: buildInputWithTitle(
                 SizedBox.shrink(),
                 // padding: EdgeInsets.all(20.w).copyWith(top: 0, bottom: 15.w),
-                inputController: controller.newPasswordController,
+                inputController: controller.keyWordController,
                 hintText: Get.arguments['from'] == 'search'
                     ? '搜索更多'
                     : Get.arguments['title'],
@@ -119,6 +119,9 @@ class CategoryPage extends GetView<CategoryController> {
                     height: 14.w,
                   ),
                 ),
+                onSubmitted: (keyword) {
+                  controller.getRecommendList(isRefresh: true, name: keyword);
+                }
               ),
             ),
           ],
