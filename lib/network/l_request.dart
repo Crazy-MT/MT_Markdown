@@ -43,12 +43,9 @@ class LRequest {
     dio.options.sendTimeout = 10000;
     dio.options.headers[NetConstant.VERSION] = common.packageInfo?.version;
     dio.options.headers[NetConstant.APP] = "1";
-    dio.options.headers[NetConstant.PLATFORM] =
-        Platform.isAndroid ? "android" : "ios";
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (client) {
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) {
+    dio.options.headers[NetConstant.PLATFORM] = Platform.isAndroid ? "android" : "ios";
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+      client.badCertificateCallback = (X509Certificate cert, String host, int port) {
         return true;
       };
       /*client.findProxy = (uri) {
@@ -93,18 +90,15 @@ class LRequest {
       handleBaseModel?.call(baseModel);
 
       /// 权限认证错误，跳转到登录页
-      if(baseModel.code == 20001) {
-        errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg",
-            "baseModel.code is not 0,this value is ${baseModel.code}");
-        g.Get.offAllNamed(RoutesID.LOGIN_PAGE, arguments: {
-          "from":g.Get.currentRoute
-        });
+      if (baseModel.code == 20001) {
+        errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg", "baseModel.code is not 0,this value is ${baseModel.code}");
+        // g.Get.offAllNamed(RoutesID.LOGIN_PAGE, arguments: {"from": g.Get.currentRoute});
+        g.Get.offNamedUntil(RoutesID.LOGIN_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE);
         return null;
       }
 
       if (baseModel.code != 0) {
-        errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg",
-            "baseModel.code is not 0,this value is ${baseModel.code}");
+        errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg", "baseModel.code is not 0,this value is ${baseModel.code}");
         return null;
       }
       ResultData<T> resultData = ResultData();
@@ -123,17 +117,14 @@ class LRequest {
       onSuccess?.call(resultData);
       return resultData;
     } on DioError catch (e) {
-      debugLog((e.response?.statusCode ?? -1).toString() +
-          "${e.response?.data['message']}" +
-          e.toString());
+      debugLog((e.response?.statusCode ?? -1).toString() + "${e.response?.data['message']}" + e.toString());
       errorLog(e.toString());
       if (e.response != null && e.response?.data["code"] == 20001) {
         userOutLoginError();
         return null;
       }
       if (errorBack != null) {
-        errorBack(e.response?.statusCode ?? -1, e.response?.data["message"],
-            e.toString());
+        errorBack(e.response?.statusCode ?? -1, e.response?.data["message"], e.toString());
       } else {
         handleError(e.response?.statusCode ?? -1, e.message, isShowErrorToast);
       }

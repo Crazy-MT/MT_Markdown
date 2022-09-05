@@ -1,20 +1,15 @@
-import 'package:code_zero/common/components/safe_tap_widget.dart';
-
-import '../../../../../common/custom_indicator.dart';
-import '../../../../../utils/log_utils.dart';
-import '../../../../routes/app_routes.dart';
-import 'my_fans_controller.dart';
-import 'package:code_zero/common/components/status_page/status_page.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
+import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import '../../../../../common/custom_indicator.dart';
+import '../../../../routes/app_routes.dart';
+import 'my_fans_controller.dart';
 
 class MyFansPage extends GetView<MyFansController> {
   const MyFansPage({Key? key}) : super(key: key);
@@ -112,7 +107,7 @@ class MyFansPage extends GetView<MyFansController> {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "456",
+                      text: "${controller.fansStatistics.value?.todayCount ?? 0}",
                       style: TextStyle(
                         fontSize: 28.sp,
                         color: AppColors.text_dark,
@@ -150,7 +145,7 @@ class MyFansPage extends GetView<MyFansController> {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "456",
+                      text: "${controller.fansStatistics.value?.historyCount ?? 0}",
                       style: TextStyle(
                         fontSize: 28.sp,
                         color: AppColors.text_dark,
@@ -187,8 +182,8 @@ class MyFansPage extends GetView<MyFansController> {
         ),
         child: TabBar(
           controller: controller.tabController,
-          isScrollable: false,
-          padding: EdgeInsets.symmetric(horizontal: 60.w),
+          isScrollable: true,
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
           indicator: CustomIndicator(
             width: 15.w,
             height: 3.5.w,
@@ -199,8 +194,7 @@ class MyFansPage extends GetView<MyFansController> {
           labelColor: Color(0xff111111),
           unselectedLabelColor: Color(0xff434446),
           labelStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
-          unselectedLabelStyle:
-              TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
+          unselectedLabelStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
         ),
       ),
     );
@@ -212,8 +206,12 @@ class MyFansPage extends GetView<MyFansController> {
     }).toList();
   }
 
-  _buildCommissionList() {
-    if (controller.commissionList.isEmpty) {
+  Widget _buildCommissionList(int index) {
+    if (controller.fansDataList.length < index) {
+      return SizedBox();
+    }
+
+    if ((controller.fansDataList[index]?.items ?? []).isEmpty) {
       return Container(
           width: 345,
           height: 69.w,
@@ -230,18 +228,18 @@ class MyFansPage extends GetView<MyFansController> {
           child: Text("暂无记录"));
     }
     return ListView.separated(
-      // padding: EdgeInsets.symmetric(vertical: 15.w),
+      padding: EdgeInsets.only(bottom: MediaQuery.of(Get.context!).padding.bottom),
       itemBuilder: (BuildContext context, int index) {
-        return _buildCommissionItem(index);
+        return _buildCommissionItem(index, controller.fansDataList[index]!.items![index]);
       },
       separatorBuilder: (BuildContext context, int index) {
         return SizedBox(height: 10.w);
       },
-      itemCount: controller.commissionList.length,
+      itemCount: controller.fansDataList[index]!.items?.length ?? 0,
     );
   }
 
-  _buildCommissionItem(index) {
+  _buildCommissionItem(index, data) {
     return Container(
       width: 345,
       height: 69.w,
@@ -315,12 +313,17 @@ class MyFansPage extends GetView<MyFansController> {
       child: TabBarView(
         physics: NeverScrollableScrollPhysics(),
         controller: controller.tabController,
-        children: [
-          _buildCommissionList(),
-          _buildCommissionList(),
-        ],
+        // children: [
+        //   _buildCommissionList(),
+        //   _buildCommissionList(),
+        // ],
+        // children: controller.tabList.map((e) => _buildCommissionList()).toList(),
+        children: controller.tabList.asMap().keys.map(
+          (index) {
+            return _buildCommissionList(index);
+          },
+        ).toList(),
       ),
     );
   }
-
 }

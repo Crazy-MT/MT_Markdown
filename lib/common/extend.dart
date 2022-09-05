@@ -37,6 +37,35 @@ extension IntExtension on int {
         .replaceAll("ss", _second.fillingPrefixZero(2));
     return formatStr;
   }
+
+  String toChinese() {
+    int index = this;
+    List<String> NUMBERS = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", ""];
+    if (index > 100) {
+      return index.toString();
+    }
+    StringBuffer stringBuffer = StringBuffer();
+    if (index / 10 < 1) {
+      return NUMBERS[index];
+    }
+    int tenUnit = (index / 10).toInt();
+    int remainder = index % 10;
+    if (remainder == 9) {
+      tenUnit++;
+      remainder = 10;
+    }
+    if (tenUnit == 1) {
+      stringBuffer
+        ..write("十")
+        ..write(NUMBERS[remainder]);
+      return stringBuffer.toString();
+    }
+    stringBuffer
+      ..write(NUMBERS[tenUnit - 1])
+      ..write("十")
+      ..write(NUMBERS[remainder]);
+    return stringBuffer.toString();
+  }
 }
 
 get importExtension => null;
