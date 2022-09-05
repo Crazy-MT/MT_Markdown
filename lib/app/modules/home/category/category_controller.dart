@@ -8,11 +8,15 @@ class CategoryController extends GetxController {
   final pageStatus = FTStatusPageType.loading.obs;
   ScrollController scrollController = ScrollController();
   List goodsList = ['1'].obs;
+  TextEditingController newPasswordController = new TextEditingController();
 
   @override
   void onInit() {
     super.onInit();
     initData();
+    if(Get.arguments['from'] == 'search') {
+      goodsList.clear();
+    }
   }
 
   initData() {

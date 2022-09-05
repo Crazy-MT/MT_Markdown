@@ -23,7 +23,7 @@ class SplashPage extends GetView<SplashController> {
                     width: double.infinity,
                     child: Image.asset(
                       Assets.imagesBgSplash,
-                      fit: BoxFit.fitWidth,
+                      fit: BoxFit.fill,
                     )),
                 Positioned(
                   bottom: 60.w,

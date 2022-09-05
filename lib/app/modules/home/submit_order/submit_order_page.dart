@@ -192,14 +192,15 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
                 ),
               ],
             ),
+            SizedBox(height: 8.w,),
             Row(
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.w),
                   child: CachedNetworkImage(
                     imageUrl: controller.goods.thumbnails?.first ?? "",
-                    width: 100.w,
-                    height: 100.w,
+                    width: 80.w,
+                    // height: 100.w,
                   ),
                 ),
                 SizedBox(
@@ -293,7 +294,7 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
           ),
         ),
         Text(
-          controller.goods.currentPrice ?? "",
+          '￥${controller.goods.currentPrice}',
           style: TextStyle(
             color: AppColors.text_dark,
             fontSize: 15.sp,

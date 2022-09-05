@@ -21,7 +21,11 @@ class CategoryPage extends GetView<CategoryController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Get.arguments['from'] == 'search' ? Get.arguments['title'] : '${Get.arguments['title']}专区', style: S.textStyles.black),
+        title: Text(
+            Get.arguments['from'] == 'search'
+                ? Get.arguments['title']
+                : '${Get.arguments['title']}专区',
+            style: S.textStyles.black),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -57,13 +61,13 @@ class CategoryPage extends GetView<CategoryController> {
         height:
             812.w - 64.w - 60.w - 64.w - MediaQuery.of(context).padding.bottom,
         padding: EdgeInsets.symmetric(horizontal: 15.w),
-        margin: EdgeInsets.only(top: 15.w),
+        // margin: EdgeInsets.only(top: 15.w),
         child: controller.goodsList.isEmpty
             ? CategoryEmptyView()
             : ListView.separated(
                 padding: EdgeInsets.symmetric(vertical: 15.w),
                 itemBuilder: (BuildContext context, int index) {
-                  return CategoryGoodsItem();
+                  return CategoryGoodsItem(index);
                 },
                 separatorBuilder: (BuildContext context, int index) {
                   return SizedBox(height: 10.w);
@@ -74,72 +78,31 @@ class CategoryPage extends GetView<CategoryController> {
     );
   }
 
-  a(){
-/*    buildInputWithTitle(
-      Text(
-        "新密码",
-        style: TextStyle(
-          fontSize: 13.sp,
-          fontWeight: FontWeight.w400,
-          color: Color(0xFF121212),
-        ),
-      ),
-      padding: EdgeInsets.all(20.w).copyWith(top: 0, bottom: 15.w),
-      inputController: controller.newPasswordController,
-      hintText: "输入新登录密码",
-      obscureText: !controller.showNewPassword.value,
-      suffixWidget: IconButton(
-        onPressed: () {
-          controller.showNewPassword.value = !controller.showNewPassword.value;
-        },
-        padding: EdgeInsets.zero,
-        icon: SvgPicture.asset(
-          controller.showNewPassword.value
-              ? Assets.iconsVisible
-              : Assets.iconsInvisible,
-          width: 22.w,
-          height: 22.w,
-        ),
-      ),
-    );*/
-  }
-
   _buildSearchContainer() {
     return SliverToBoxAdapter(
       child: Container(
         width: 375.w,
         height: 58.w,
-        padding: EdgeInsets.all(15.w),
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
         child: Row(
           children: [
             Expanded(
-              child: Container(
-                height: 33.w,
-                decoration: BoxDecoration(
-                  color: AppColors.bg_gray,
-                  borderRadius: BorderRadius.circular(20.w),
-                ),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: 14.w,
-                        right: 10.w,
-                      ),
-                      child: SvgPicture.asset(
-                        Assets.iconsSearch,
-                        width: 15.w,
-                        height: 15.w,
-                      ),
-                    ),
-                    Text(
-                      Get.arguments['from'] == 'search' ? '搜索更多' : Get.arguments['title'],
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Color(0xFFA5A5A5),
-                      ),
-                    )
-                  ],
+              child: buildInputWithTitle(
+                SizedBox.shrink(),
+                // padding: EdgeInsets.all(20.w).copyWith(top: 0, bottom: 15.w),
+                inputController: controller.newPasswordController,
+                hintText: Get.arguments['from'] == 'search'
+                    ? '搜索更多'
+                    : Get.arguments['title'],
+                // obscureText: !controller.showNewPassword.value,
+                prefixWidget: IconButton(
+                  onPressed: () {},
+                  padding: EdgeInsets.zero,
+                  icon: SvgPicture.asset(
+                    Assets.iconsSearch,
+                    width: 14.w,
+                    height: 14.w,
+                  ),
                 ),
               ),
             ),
@@ -163,51 +126,45 @@ class CategoryPage extends GetView<CategoryController> {
               Expanded(
                   child: Center(
                       child: DropdownButtonHideUnderline(
-                        child: DropdownButton(
-                          value: '全部',
-                          items: [
-                            DropdownMenuItem(
-                              child: Text("全部"),
-                              value: "全部",
-                            ),
-                          ],
-                          onChanged: (Object? value) {},
-                        ),
-                      )
-                  )
-              ),
+                child: DropdownButton(
+                  value: '全部',
+                  items: [
+                    DropdownMenuItem(
+                      child: Text("全部"),
+                      value: "全部",
+                    ),
+                  ],
+                  onChanged: (Object? value) {},
+                ),
+              ))),
               Expanded(
                   child: Center(
                       child: DropdownButtonHideUnderline(
-                        child: DropdownButton(
-                          value: '销量',
-                          items: [
-                            DropdownMenuItem(
-                              child: Text("销量"),
-                              value: "销量",
-                            ),
-                          ],
-                          onChanged: (Object? value) {},
-                        ),
-                      )
-                  )
-              ),
+                child: DropdownButton(
+                  value: '销量',
+                  items: [
+                    DropdownMenuItem(
+                      child: Text("销量"),
+                      value: "销量",
+                    ),
+                  ],
+                  onChanged: (Object? value) {},
+                ),
+              ))),
               Expanded(
                   child: Center(
                       child: DropdownButtonHideUnderline(
-                        child: DropdownButton(
-                          value: '价格',
-                          items: [
-                            DropdownMenuItem(
-                              child: Text("价格"),
-                              value: "价格",
-                            ),
-                          ],
-                          onChanged: (Object? value) {},
-                        ),
-                      )
-                  )
-              ),
+                child: DropdownButton(
+                  value: '价格',
+                  items: [
+                    DropdownMenuItem(
+                      child: Text("价格"),
+                      value: "价格",
+                    ),
+                  ],
+                  onChanged: (Object? value) {},
+                ),
+              ))),
             ],
           ),
         ),

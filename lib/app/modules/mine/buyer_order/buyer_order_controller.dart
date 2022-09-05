@@ -155,6 +155,7 @@ class BuyerOrderController extends GetxController
         onSuccess: (rest) {
           // print('MTMTMT BuyerOrderController.cancelOrder ${rest} ');
           Utils.showToastMsg("确认支付成功");
+          tabController?.index = 2;
           initAllData();
         }
     );

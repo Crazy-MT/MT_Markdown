@@ -89,6 +89,7 @@ class AppPages {
   static final List<GetPage> _routes = [
     // complaint_feedback
     GetPage(
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.COMPLAINT_FEEDBACK_PAGE,
       page: () => const ComplaintFeedbackPage(),
       binding: ComplaintFeedbackBinding(),
@@ -367,6 +368,7 @@ class AppPages {
 
     // 买方
     GetPage(
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.BUYER_ORDER_PAGE,
       page: () => const BuyerOrderPage(),
       binding: BuyerOrderBinding(),
@@ -374,6 +376,7 @@ class AppPages {
 
     // 卖方
     GetPage(
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.SELLER_ORDER_PAGE,
       page: () => const SellerOrderPage(),
       binding: SellerOrderBinding(),

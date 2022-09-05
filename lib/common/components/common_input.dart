@@ -102,6 +102,7 @@ buildInputWithTitle(
   List<TextInputFormatter>? inputFormatters,
   String? hintText,
   Widget? suffixWidget,
+  Widget? prefixWidget,
   TextInputType? keyboardType,
   bool obscureText = false,
   bool enable = true,
@@ -126,6 +127,7 @@ buildInputWithTitle(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              prefixWidget != null ? prefixWidget : SizedBox.shrink(),
               Expanded(
                 child: CommonInput(
                   enable: enable,

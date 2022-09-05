@@ -8,6 +8,6 @@ class NetConstant {
   static const String TOKEN = "token";
   static const String APP = "app";
 
-  static const String HOST = "http://47.100.192.214:8080/v1";
+  static const String HOST = "https://test.chuancuibaoku.com/v1";
   // static const String HOST = "https://test.net:8443";
 }

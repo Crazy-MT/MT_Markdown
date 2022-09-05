@@ -6,7 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../common/S.dart';
 
 class CategoryGoodsItem extends StatelessWidget {
-  const CategoryGoodsItem({Key? key}) : super(key: key);
+  final int index;
+  const CategoryGoodsItem(this.index, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class CategoryGoodsItem extends StatelessWidget {
       height: 120.w,
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: index % 2 == 1 ? Colors.white : Colors.white,
         borderRadius: BorderRadius.circular(10.w),
       ),
       child: Row(
