@@ -65,7 +65,8 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
         : Obx(
             (() => GestureDetector(
                   onTap: () {
-                    controller.isManageStatus.value = !controller.isManageStatus.value;
+                    controller.isManageStatus.value =
+                        !controller.isManageStatus.value;
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -92,9 +93,11 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
             if (controller.goodsList.isEmpty) {
               return ShoppingCartEmptyView();
             }
-            return ShoppingCartGoodsItem(goodsModel: controller.goodsList[index]);
+            return ShoppingCartGoodsItem(
+                goodsModel: controller.goodsList[index]);
           },
-          childCount: controller.goodsList.isEmpty ? 1 : controller.goodsList.length,
+          childCount:
+              controller.goodsList.isEmpty ? 1 : controller.goodsList.length,
         ),
       ),
     );

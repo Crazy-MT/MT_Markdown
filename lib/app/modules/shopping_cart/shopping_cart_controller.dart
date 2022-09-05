@@ -34,6 +34,7 @@ class ShoppingCartController extends GetxController {
 
   void fetchCartData() {
     GoodsModel model = GoodsModel();
+    model.id = 111;
     model.name = '1019翡翠玻璃种镶玫瑰金叶子吊坠';
     model.price = '30000';
     model.url =
@@ -41,6 +42,7 @@ class ShoppingCartController extends GetxController {
     model.num = 2;
     goodsList.add(model);
     GoodsModel model2 = GoodsModel();
+    model2.id = 222;
     model2.name = '1020翡翠玻璃种镶玫瑰金叶子吊坠';
     model2.price = '10000';
     model2.url =

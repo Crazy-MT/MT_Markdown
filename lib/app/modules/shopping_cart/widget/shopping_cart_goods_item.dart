@@ -11,7 +11,8 @@ import 'goods_number_widget.dart';
 
 class ShoppingCartGoodsItem extends StatelessWidget {
   final GoodsModel goodsModel;
-  const ShoppingCartGoodsItem({Key? key, required this.goodsModel}) : super(key: key);
+  const ShoppingCartGoodsItem({Key? key, required this.goodsModel})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +97,7 @@ class ShoppingCartGoodsItem extends StatelessWidget {
         ),
         Expanded(child: SizedBox()),
         GoodsNumberWidget(
+          key: Key((goodsModel.id ?? 0).toString()),
           initNumber: goodsModel.num ?? 1,
           maxNumber: 10000,
           onChange: (num) {

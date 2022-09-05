@@ -25,11 +25,11 @@ class _GoodsNumberState extends State<GoodsNumberWidget> {
   @override
   void initState() {
     super.initState();
+    number = widget.initNumber;
   }
 
   @override
   Widget build(BuildContext context) {
-    number = widget.initNumber;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -45,7 +45,9 @@ class _GoodsNumberState extends State<GoodsNumberWidget> {
             child: Text(
               '-',
               style: TextStyle(
-                color: number > widget.minNumber ? Color(0xff111111) : Color(0xffD9D9D9),
+                color: number > widget.minNumber
+                    ? Color(0xff111111)
+                    : Color(0xffD9D9D9),
                 fontSize: 18.sp,
               ),
             ),
@@ -79,7 +81,9 @@ class _GoodsNumberState extends State<GoodsNumberWidget> {
             child: Text(
               '+',
               style: TextStyle(
-                color: number < widget.maxNumber ? Color(0xff111111) : Color(0xffD9D9D9),
+                color: number < widget.maxNumber
+                    ? Color(0xff111111)
+                    : Color(0xffD9D9D9),
                 fontSize: 18.sp,
               ),
             ),
