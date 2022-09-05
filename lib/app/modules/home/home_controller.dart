@@ -1,6 +1,12 @@
+import 'package:code_zero/app/modules/home/home_apis.dart';
+import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
+import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/extend.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
+import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -10,7 +16,7 @@ class HomeController extends GetxController {
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
   RxList<_FenquItem> fenquList = RxList<_FenquItem>();
-  RxList<String> recommendList = RxList<String>();
+  RxList<CommodityItem> commodityList = RxList<CommodityItem>();
   ScrollController scrollController = ScrollController();
   final showScrollToTop = false.obs;
 
@@ -39,38 +45,46 @@ class HomeController extends GetxController {
   }
 
   getRecommendList({bool isRefresh = true}) async {
-    if (isRefresh) {
-      await Future.delayed(Duration(seconds: 3));
-
-      bool requestSuccess = true;
-      if (requestSuccess) {
-        currentPage == 0;
-        recommendList.value = [];
-        for (var i = 0; i < 10; i++) {
-          recommendList.add(
-              DateTime.now().millisecondsSinceEpoch.formatTime("HH:mm:ss - ") +
-                  "1019翡翠玻璃种镶玫瑰金叶子吊坠");
-        }
-        refreshController.refreshCompleted();
-      } else {
-        refreshController.refreshFailed();
-      }
-    } else {
-      await Future.delayed(Duration(seconds: 3));
-      currentPage++;
-      bool requestSuccess = true;
-      if (requestSuccess) {
-        for (var i = 0; i < 10; i++) {
-          recommendList.add(
-              DateTime.now().millisecondsSinceEpoch.formatTime("HH:mm:ss - ") +
-                  "1019翡翠玻璃种镶玫瑰金叶子吊坠");
-        }
-        refreshController.loadComplete();
-      } else {
-        refreshController.loadFailed();
-        refreshController.loadComplete();
-      }
+    if(isRefresh) {
+      currentPage = 1;
     }
+    await LRequest.instance.request<
+        CommodityModel>(
+        url: HomeApis.COMMODITY,
+        t: CommodityModel(),
+        queryParameters: {
+          // "session-id": Get.arguments["id"],
+          "page": currentPage,
+          "size": pageSize,
+          "status" : 1
+          // "owner-is-admin": 0
+        },
+        requestType: RequestType.GET,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          refreshController.refreshFailed();
+          Utils.showToastMsg("获取列表失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("获取列表失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+        onSuccess: (result) {
+          var model = result.value;
+          if(model == null || model.items == null) {
+            refreshController.refreshCompleted();
+            refreshController.loadComplete();
+            return;
+          }
+          if(isRefresh) {
+            commodityList.clear();
+          } else {
+            currentPage++;
+          }
+          commodityList.addAll(model.items!);
+          refreshController.refreshCompleted();
+          refreshController.loadComplete();
+
+          if(model.totalCount <= commodityList.length) {
+            refreshController.loadNoData();
+          }
+        });
   }
 
   initFenquList() {

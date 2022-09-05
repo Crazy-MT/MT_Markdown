@@ -25,11 +25,23 @@ class CommodityItem {
     CommodityItem({
         this.id,
         this.name,
+        this.desc,
         this.commodityType,
         this.sessionId,
         this.sessionName,
         this.categoryId,
         this.categoryName,
+        this.shopId,
+        this.keyWolds,
+        this.isFastSend,
+        this.canRejected,
+        this.isFastReceive,
+        this.isFreeShipping,
+        this.isNew,
+        this.isSpecialOffer,
+        this.isHot,
+        this.canExchange,
+        this.isRecommend,
         this.originalPrice,
         this.currentPrice,
         this.orderNo,
@@ -50,7 +62,19 @@ class CommodityItem {
 
     int? id;
     String? name;
+    String? desc;
+    int? shopId;
+    String? keyWolds;
+    int? isFastSend;
+    int? canRejected;
+    int? isFastReceive;
+    int? isFreeShipping;
     int? commodityType;
+    int? isNew;
+    int? isSpecialOffer;
+    int? isHot;
+    int? canExchange;
+    int? isRecommend;
     int? sessionId;
     String? sessionName;
     int? categoryId;
@@ -75,6 +99,18 @@ class CommodityItem {
     factory CommodityItem.fromJson(Map<String, dynamic> json) => CommodityItem(
         id: json["id"],
         name: json["name"],
+        desc: json["desc"],
+        shopId: json["shopId"],
+        keyWolds: json["keyWolds"],
+        isFastSend: json["isFastSend"],
+        canRejected: json["canRejected"],
+        isFastReceive: json["isFastReceive"],
+        isFreeShipping: json["isFreeShipping"],
+        isNew: json["isNew"],
+        isSpecialOffer: json["isSpecialOffer"],
+        isHot: json["isHot"],
+        canExchange: json["canExchange"],
+        isRecommend: json["isRecommend"],
         commodityType: json["commodityType"],
         sessionId: json["sessionId"],
         sessionName: json["sessionName"],
@@ -89,7 +125,7 @@ class CommodityItem {
         shelfId: json["shelfId"],
         shelfNickname: json["shelfNickname"],
         shelfPhone: json["shelfPhone"],
-        shelfAt: DateTime.parse(json["shelfAt"]),
+        shelfAt: json["shelfAt"] == null ? DateTime.now() : DateTime.parse(json["shelfAt"]),
         ownerIsAdmin: json["ownerIsAdmin"],
         inventory: json["inventory"],
         transCount: json["transCount"],
@@ -101,6 +137,18 @@ class CommodityItem {
     Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
+        "desc": desc,
+        "shopId":shopId,
+        "keyWolds":keyWolds,
+        "isFastSend":isFastSend,
+        "canRejected":canRejected,
+        "isFastReceive":isFastReceive,
+        "isFreeShipping":isFreeShipping,
+        "isNew":isNew,
+        "isSpecialOffer":isSpecialOffer,
+        "isHot":isHot,
+        "canExchange":canExchange,
+        "isRecommend":isRecommend,
         "commodityType": commodityType,
         "sessionId": sessionId,
         "sessionName": sessionName,

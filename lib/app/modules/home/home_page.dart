@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
@@ -299,7 +301,7 @@ class HomePage extends GetView<HomeController> {
         sliver: SliverGrid(
             delegate: SliverChildBuilderDelegate((context, index) {
               return _buildRecommendItem(index);
-            }, childCount: controller.recommendList.length),
+            }, childCount: controller.commodityList.length),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               childAspectRatio: 165 / 280,
@@ -311,10 +313,15 @@ class HomePage extends GetView<HomeController> {
   }
 
   _buildRecommendItem(index) {
-    String item = controller.recommendList[index];
+    CommodityItem item = controller.commodityList[index];
     return SafeTapWidget(
       onTap: () {
-        Get.toNamed(RoutesID.GOODS_DETAIL_PAGE);
+        Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
+          "from": RoutesID.HOME_PAGE,
+          "good": item,
+          // "startTime": Get.arguments['startTime'],
+          // "endTime": Get.arguments['endTime'],
+        });
       },
       child: Container(
         child: Column(
@@ -322,21 +329,25 @@ class HomePage extends GetView<HomeController> {
           children: [
             Stack(
               children: [
-                Container(
-                  width: 165.w,
-                  height: 210.w,
-                  decoration: BoxDecoration(
-                    color: AppColors.bg_gray,
-                    borderRadius: BorderRadius.circular(8.w),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.w),
+                  child: CachedNetworkImage(
+                    imageUrl: item.thumbnails?.first ?? "",
+                    width: 165.w,
+                    height: 210.w,
+                    fit: BoxFit.fill,
                   ),
                 ),
-                Positioned(
-                  left: 0,
-                  top: 0,
-                  child: SvgPicture.asset(
-                    Assets.imagesSelectedGoods,
-                    width: 48.w,
-                    height: 18.w,
+                Visibility(
+                  visible: item.isHot == 1,
+                  child: Positioned(
+                    left: 0,
+                    top: 0,
+                    child: SvgPicture.asset(
+                      Assets.imagesSelectedGoods,
+                      width: 48.w,
+                      height: 18.w,
+                    ),
                   ),
                 ),
               ],
@@ -345,7 +356,7 @@ class HomePage extends GetView<HomeController> {
               height: 10.w,
             ),
             Text(
-              item,
+              item.name ?? "",
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
@@ -358,7 +369,7 @@ class HomePage extends GetView<HomeController> {
               height: 5.w,
             ),
             Text(
-              "¥3000000.00",
+              "￥${item.currentPrice}",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
