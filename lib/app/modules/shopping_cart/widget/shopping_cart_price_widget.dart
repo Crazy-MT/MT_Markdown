@@ -1,4 +1,5 @@
 import 'package:code_zero/app/modules/shopping_cart/shopping_cart_controller.dart';
+import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,40 +32,55 @@ class ShoppingCartPriceWidget extends StatelessWidget {
           color: Colors.white,
           child: Row(
             children: [
-              SizedBox(width: 25.w),
-              Image.asset(
-                Assets.imagesShoppingCartGoodsUnselected,
-                width: 19.w,
-                height: 19.w,
-              ),
-              SizedBox(width: 10.w),
-              Text(
-                '全选',
-                style: TextStyle(
-                  color: Color(0xff757575),
-                  fontSize: 15.sp,
+              SafeTapWidget(
+                onTap: () {
+                  controller.selectAllGoods();
+                },
+                child: Row(
+                  children: [
+                    SizedBox(width: 25.w),
+                    Image.asset(
+                      controller.isSelectAll.value ? Assets.imagesShoppingCartGoodsSelected : Assets.imagesShoppingCartGoodsUnselected,
+                      width: 19.w,
+                      height: 19.w,
+                    ),
+                    SizedBox(width: 10.w),
+                    Text(
+                      '全选',
+                      style: TextStyle(
+                        color: Color(0xff757575),
+                        fontSize: 15.sp,
+                      ),
+                    )
+                  ],
                 ),
               ),
-              Expanded(child: SizedBox()),
-              Text(
-                '总计:',
-                style: TextStyle(
-                  color: Color(0xff757575),
-                  fontSize: 15.sp,
-                ),
-              ),
-              Text(
-                '￥',
-                style: TextStyle(
-                  color: Color(0xff1BDB8A),
-                  fontSize: 15.sp,
-                ),
-              ),
-              Text(
-                '30000',
-                style: TextStyle(
-                  color: Color(0xff1BDB8A),
-                  fontSize: 18.sp,
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      '总计:',
+                      style: TextStyle(
+                        color: Color(0xff757575),
+                        fontSize: 15.sp,
+                      ),
+                    ),
+                    Text(
+                      '￥',
+                      style: TextStyle(
+                        color: Color(0xff1BDB8A),
+                        fontSize: 15.sp,
+                      ),
+                    ),
+                    Text(
+                      controller.totalPrice.value.toStringAsFixed(2),
+                      style: TextStyle(
+                        color: Color(0xff1BDB8A),
+                        fontSize: 18.sp,
+                      ),
+                    )
+                  ],
                 ),
               ),
               SizedBox(width: 10.w),

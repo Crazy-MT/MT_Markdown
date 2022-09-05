@@ -1,19 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/shopping_cart/model/goods_model.dart';
+import 'package:code_zero/app/modules/shopping_cart/shopping_cart_controller.dart';
+import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-import 'goods_number_widget.dart';
 import 'goods_number_widget.dart';
 
 class ShoppingCartGoodsItem extends StatelessWidget {
-  const ShoppingCartGoodsItem({Key? key}) : super(key: key);
+  final GoodsModel goodsModel;
+  const ShoppingCartGoodsItem({Key? key, required this.goodsModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ShoppingCartController controller = Get.find<ShoppingCartController>();
     return Container(
       height: 120.w,
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.w),
+      padding: EdgeInsets.fromLTRB(0, 15.w, 10.w, 15.w),
       margin: EdgeInsets.only(top: 10.w, left: 15.w, right: 15.w),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -21,17 +26,29 @@ class ShoppingCartGoodsItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image.asset(
-            Assets.imagesShoppingCartGoodsUnselected,
-            width: 19.w,
-            height: 19.w,
+          SafeTapWidget(
+            onTap: () {
+              controller.updateSelectGoodsItem(goodsModel);
+            },
+            child: Obx(
+              (() {
+                return Container(
+                  padding: EdgeInsets.all(10.w),
+                  child: Image.asset(
+                    controller.selectGoodsList.contains(goodsModel)
+                        ? Assets.imagesShoppingCartGoodsSelected
+                        : Assets.imagesShoppingCartGoodsUnselected,
+                    width: 19.w,
+                    height: 19.w,
+                  ),
+                );
+              }),
+            ),
           ),
-          SizedBox(width: 8.w),
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: CachedNetworkImage(
-              imageUrl:
-                  'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Ff70181a20931f7807418b722b4accf9cbd89d0c6c08a-s3JzNf_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663056542&t=17f6675c5cb02a4c4c23dd11959387e9',
+              imageUrl: goodsModel.url ?? '',
               width: 90.w,
               height: 90.w,
             ),
@@ -42,7 +59,7 @@ class ShoppingCartGoodsItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    '1019翡翠玻璃种镶玫瑰金叶子吊坠',
+                    goodsModel.name ?? '',
                     style: TextStyle(
                       color: Color(0xff141519),
                       fontSize: 15.sp,
@@ -59,6 +76,7 @@ class ShoppingCartGoodsItem extends StatelessWidget {
   }
 
   Widget _priceAndCount() {
+    ShoppingCartController controller = Get.find<ShoppingCartController>();
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -70,7 +88,7 @@ class ShoppingCartGoodsItem extends StatelessWidget {
           ),
         ),
         Text(
-          '30000',
+          goodsModel.price ?? '',
           style: TextStyle(
             color: Color(0xff1BDB8A),
             fontSize: 18.sp,
@@ -78,8 +96,12 @@ class ShoppingCartGoodsItem extends StatelessWidget {
         ),
         Expanded(child: SizedBox()),
         GoodsNumberWidget(
-          initNumber: 1,
-          maxNumber: 5,
+          initNumber: goodsModel.num ?? 1,
+          maxNumber: 10000,
+          onChange: (num) {
+            goodsModel.num = num;
+            controller.updateTotalPrice();
+          },
         ),
       ],
     );

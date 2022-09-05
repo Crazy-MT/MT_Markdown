@@ -92,9 +92,9 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
             if (controller.goodsList.isEmpty) {
               return ShoppingCartEmptyView();
             }
-            return ShoppingCartGoodsItem();
+            return ShoppingCartGoodsItem(goodsModel: controller.goodsList[index]);
           },
-          childCount: controller.goodsList.isEmpty ? 1 : 12,
+          childCount: controller.goodsList.isEmpty ? 1 : controller.goodsList.length,
         ),
       ),
     );
