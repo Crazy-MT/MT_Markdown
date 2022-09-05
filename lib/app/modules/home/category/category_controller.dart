@@ -19,11 +19,12 @@ class CategoryController extends GetxController {
   int currentPage = 0;
   int pageSize = 10;
   final RefreshController refreshController = new RefreshController();
+
   @override
   void onInit() {
     super.onInit();
     initData();
-    if(Get.arguments['from'] == 'search') {
+    if (Get.arguments['from'] == 'search') {
       // goodsList.clear();
     } else {
       categoryId = Get.arguments['categoryId'];
@@ -31,20 +32,20 @@ class CategoryController extends GetxController {
     }
   }
 
-  getRecommendList({bool isRefresh = true}) async {
-    if(isRefresh) {
+  getRecommendList({bool isRefresh = true, String? orderBy}) async {
+    if (isRefresh) {
       currentPage = 1;
     }
-    await LRequest.instance.request<
-        CommodityModel>(
+    await LRequest.instance.request<CommodityModel>(
         url: HomeApis.COMMODITY,
         t: CommodityModel(),
         queryParameters: {
-          // "session-id": Get.arguments["id"],
           "categoryId": categoryId,
           "page": currentPage,
           "size": pageSize,
-          "status" : 1
+          "status": 1,
+          "orderBy": orderBy,
+          'order': 'asc'
           // "owner-is-admin": 0
         },
         requestType: RequestType.GET,
@@ -55,12 +56,12 @@ class CategoryController extends GetxController {
         },
         onSuccess: (result) {
           var model = result.value;
-          if(model == null || model.items == null) {
+          if (model == null || model.items == null) {
             refreshController.refreshCompleted();
             refreshController.loadComplete();
             return;
           }
-          if(isRefresh) {
+          if (isRefresh) {
             commodityList.clear();
           } else {
             currentPage++;
@@ -69,12 +70,11 @@ class CategoryController extends GetxController {
           refreshController.refreshCompleted();
           refreshController.loadComplete();
 
-          if(model.totalCount <= commodityList.length) {
+          if (model.totalCount <= commodityList.length) {
             refreshController.loadNoData();
           }
         });
   }
-
 
   initData() {
     pageStatus.value = FTStatusPageType.success;
@@ -82,14 +82,16 @@ class CategoryController extends GetxController {
 
   @override
   void onClose() {}
+
   void setPageName(String newName) {
     pageName.value = newName;
   }
 
-  // TODO 根据销量排序
-  void sortBySales() {}
+  void sortBySales() {
+    getRecommendList(isRefresh: true, orderBy: "trans_count");
+  }
 
   void sortByPrice() {
-    commodityList.sort((a,b) => (int.parse(b.currentPrice ?? "0")).compareTo(int.parse(a.currentPrice ?? "0")));
+    getRecommendList(isRefresh: true, orderBy: "current_price");
   }
 }

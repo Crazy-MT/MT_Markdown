@@ -54,6 +54,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                 _buildIntroParamsList(),
                 _buildParamPicList(),
                 _buildIntroPicList(),
+                _buildDesc(),
               ],
             );
           },
@@ -298,7 +299,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                       borderRadius: BorderRadius.circular(8.w),
                       child: CachedNetworkImage(
                         imageUrl: controller.introPicList[index],
-                        width: (375-26*2).w,
+                        width: (375 - 26 * 2).w,
                       ),
                     ),
                   ],
@@ -516,10 +517,10 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
     //   style: TextStyle(fontSize: 16.sp),
     // );
     String value = param.values.first.toString();
-    if(param.values.first == 1) {
+    if (param.values.first == 1) {
       value = '有';
     }
-    if(param.values.first == 0) {
+    if (param.values.first == 0) {
       value = '无';
     }
     return Row(
@@ -529,7 +530,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
           style: TextStyle(fontSize: 16.sp),
         ),
         Container(
-          width: 280.w,
+          width: 270.w,
           child: Text(
             value,
             style: TextStyle(fontSize: 16.sp),
@@ -547,7 +548,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
           (content, index) {
             return Container(
               width: 375.w,
-                // color: Color(0xff9dc2c4),
+              // color: Color(0xff9dc2c4),
               child: Padding(
                 padding: EdgeInsets.only(left: 26.w, right: 26.w),
                 child: Row(
@@ -556,7 +557,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                       borderRadius: BorderRadius.circular(8.w),
                       child: CachedNetworkImage(
                         imageUrl: controller.thumbnailsList[index],
-                        width: (375-26*2).w,
+                        width: (375 - 26 * 2).w,
                       ),
                     ),
                   ],
@@ -587,7 +588,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                       borderRadius: BorderRadius.circular(8.w),
                       child: CachedNetworkImage(
                         imageUrl: controller.paramsPicList[index],
-                        width: (375-26*2).w,
+                        width: (375 - 26 * 2).w,
                       ),
                     ),
                   ],
@@ -596,6 +597,26 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
             );
           },
           childCount: controller.paramsPicList.length,
+        ),
+      ),
+    );
+  }
+
+  _buildDesc() {
+    return SliverPadding(
+      padding: EdgeInsets.all(15.w),
+      sliver: SliverToBoxAdapter(
+        child: Container(
+          // color: Color(0xff9dc2c4),
+          child: Column(children: [
+            Text(
+              controller.goods.desc ?? "",
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ]),
         ),
       ),
     );
