@@ -47,13 +47,13 @@ class GoodsDetailController extends GetxController {
   }
 
   doBuy() async {
-    String result = await showByDialog(isAddToCat: false);
+    String result = await showByDialog(isAddToCart: false, goods: goods);
     if (result.isEmpty) return;
     Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE);
   }
 
   doAddToCart() async {
-    var result = await showByDialog(isAddToCat: true);
+    var result = await showByDialog(isAddToCart: true, goods: goods);
   }
 
   @override

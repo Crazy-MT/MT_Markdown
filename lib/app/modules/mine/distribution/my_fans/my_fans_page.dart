@@ -240,6 +240,7 @@ class MyFansPage extends GetView<MyFansController> {
   }
 
   _buildCommissionItem(index, data) {
+    //TODO  数据还没开始填充。
     return Container(
       width: 345,
       height: 69.w,

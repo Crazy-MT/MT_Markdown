@@ -1,16 +1,30 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/mine/address_manage/model/create_address_model.dart';
+import 'package:code_zero/app/modules/shopping_cart/shopping_cart_api.dart';
 import 'package:code_zero/app/modules/shopping_cart/widget/goods_number_widget.dart';
+import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
 import 'package:code_zero/common/colors.dart';
+import 'package:code_zero/common/user_helper.dart';
+import 'package:code_zero/network/base_model.dart';
+import 'package:code_zero/network/convert_interface.dart';
+import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class _BuyDialog extends StatelessWidget {
-  final bool isAddToCat;
+  final bool isAddToCart;
+  final CommodityItem goods;
 
-  const _BuyDialog({Key? key, required this.isAddToCat}) : super(key: key);
+  const _BuyDialog({Key? key, required this.isAddToCart, required this.goods}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final BuyDialogController controller = Get.put(BuyDialogController(
+      isAddToCart,
+      goods,
+    ));
     return UnconstrainedBox(
       child: Container(
         width: 375.w,
@@ -37,8 +51,7 @@ class _BuyDialog extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8.w),
                           child: CachedNetworkImage(
-                            imageUrl:
-                                'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Ff70181a20931f7807418b722b4accf9cbd89d0c6c08a-s3JzNf_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663056542&t=17f6675c5cb02a4c4c23dd11959387e9',
+                            imageUrl: (goods.thumbnails ?? []).isEmpty ? '' : goods.thumbnails![0],
                             width: 120.w,
                             height: 120.w,
                           ),
@@ -78,7 +91,7 @@ class _BuyDialog extends StatelessWidget {
                                         ),
                                       ),
                                       TextSpan(
-                                        text: "30000",
+                                        text: "${(goods.currentPrice ?? '0.00').split('.')[0]}",
                                         style: TextStyle(
                                           fontSize: 22.sp,
                                           color: AppColors.green,
@@ -86,7 +99,7 @@ class _BuyDialog extends StatelessWidget {
                                         ),
                                       ),
                                       TextSpan(
-                                        text: ".00",
+                                        text: ".${(goods.currentPrice ?? '0.00').contains('.') ? (goods.currentPrice ?? '0.00').split('.')[1] : '00'}",
                                         style: TextStyle(
                                           fontSize: 12.sp,
                                           color: AppColors.green,
@@ -100,7 +113,7 @@ class _BuyDialog extends StatelessWidget {
                                   height: 4.w,
                                 ),
                                 Text(
-                                  "库存：300件",
+                                  "库存：${goods.inventory}件",
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                     color: Color(0xFFABAAB9),
@@ -128,7 +141,10 @@ class _BuyDialog extends StatelessWidget {
                         ),
                         GoodsNumberWidget(
                           initNumber: 1,
-                          maxNumber: 5,
+                          maxNumber: goods.inventory ?? 1,
+                          onChange: (value) {
+                            controller.commodityCount.value = value;
+                          },
                         ),
                       ],
                     ),
@@ -144,7 +160,7 @@ class _BuyDialog extends StatelessWidget {
               height: 44.w,
               child: ElevatedButton(
                 onPressed: () {
-                  Get.back(result: "1");
+                  controller.clickNext();
                 },
                 style: ElevatedButton.styleFrom(
                   shape: StadiumBorder(),
@@ -156,7 +172,7 @@ class _BuyDialog extends StatelessWidget {
                   elevation: MaterialStateProperty.all(0),
                 ),
                 child: Text(
-                  isAddToCat ? "加入购物车" : "立即购买",
+                  isAddToCart ? "加入购物车" : "立即购买",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16.sp,
@@ -171,14 +187,48 @@ class _BuyDialog extends StatelessWidget {
   }
 }
 
-Future<String> showByDialog({bool isAddToCat = false}) async {
+class BuyDialogController extends GetxController {
+  final bool isAddToCart;
+  final CommodityItem goods;
+  RxInt commodityCount = 1.obs;
+
+  BuyDialogController(
+    this.isAddToCart,
+    this.goods,
+  );
+  clickNext() async {
+    // Get.back(result: "1");
+    if (isAddToCart) {
+      ResultData<ConvertInterface>? _result = await LRequest.instance.request<CreateAddressModel>(
+        url: ShoppingCartApis.ADD_TO_SHOPPING_CART,
+        data: {
+          "commodityCount": commodityCount.value,
+          "commodityId": goods.id,
+          "userId": userHelper.userInfo.value?.id,
+        },
+        requestType: RequestType.POST,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          Utils.showToastMsg("添加失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("添加失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+      );
+      if (_result?.message == "OK") {
+        Utils.showToastMsg("加入购物车成功");
+        Get.back(result: "1");
+      }
+    } else {}
+  }
+}
+
+Future<String> showByDialog({bool isAddToCart = false, required CommodityItem goods}) async {
   var result = await showModalBottomSheet(
       context: Get.context!,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (context) {
         return _BuyDialog(
-          isAddToCat: isAddToCat,
+          isAddToCart: isAddToCart,
+          goods: goods,
         );
       });
   return result is String ? result : "";
