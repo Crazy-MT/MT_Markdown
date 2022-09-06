@@ -1,4 +1,4 @@
-import 'package:code_zero/app/modules/shopping_cart/model/goods_model.dart';
+import 'package:code_zero/app/modules/shopping_cart/model/shopping_cart_list_model.dart';
 import 'package:code_zero/app/modules/shopping_cart/shopping_cart_controller.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
@@ -114,8 +114,8 @@ class ShoppingCartPriceWidget extends StatelessWidget {
                   child: Obx(
                     (() {
                       int num = 0;
-                      for (GoodsModel item in controller.selectGoodsList) {
-                        num += (item.num ?? 0);
+                      for (ShoppingCartItem item in controller.selectGoodsList) {
+                        num += (item.commodityCount ?? 0);
                       }
                       return Text(
                         controller.isManageStatus.value == true ? '删除 x$num' : '结算',

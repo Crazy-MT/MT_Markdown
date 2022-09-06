@@ -2,12 +2,13 @@ import 'package:code_zero/app/modules/shopping_cart/widget/shopping_cart_empty_v
 import 'package:code_zero/app/modules/shopping_cart/widget/shopping_cart_goods_item.dart';
 import 'package:code_zero/app/modules/shopping_cart/widget/shopping_cart_price_widget.dart';
 import 'package:code_zero/common/colors.dart';
-import 'package:code_zero/generated/assets/flutter_assets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'shopping_cart_controller.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import 'shopping_cart_controller.dart';
 
 class ShoppingCartPage extends GetView<ShoppingCartController> {
   const ShoppingCartPage({Key? key}) : super(key: key);
@@ -23,6 +24,9 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
             FTStatusPage(
               type: controller.pageStatus.value,
               errorMsg: controller.errorMsg.value,
+              retryMethod: () {
+                controller.initData();
+              },
               builder: (BuildContext context) {
                 return CustomScrollView(
                   controller: controller.scrollController,
@@ -65,8 +69,7 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
         : Obx(
             (() => GestureDetector(
                   onTap: () {
-                    controller.isManageStatus.value =
-                        !controller.isManageStatus.value;
+                    controller.isManageStatus.value = !controller.isManageStatus.value;
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -93,11 +96,9 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
             if (controller.goodsList.isEmpty) {
               return ShoppingCartEmptyView();
             }
-            return ShoppingCartGoodsItem(
-                goodsModel: controller.goodsList[index]);
+            return ShoppingCartGoodsItem(goodsModel: controller.goodsList[index]);
           },
-          childCount:
-              controller.goodsList.isEmpty ? 1 : controller.goodsList.length,
+          childCount: controller.goodsList.isEmpty ? 1 : controller.goodsList.length,
         ),
       ),
     );

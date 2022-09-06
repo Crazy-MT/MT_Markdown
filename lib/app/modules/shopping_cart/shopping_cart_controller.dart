@@ -1,8 +1,15 @@
-import 'package:code_zero/app/modules/shopping_cart/model/goods_model.dart';
+import 'package:code_zero/app/modules/shopping_cart/model/shopping_cart_list_model.dart';
+import 'package:code_zero/app/modules/shopping_cart/shopping_cart_api.dart';
 import 'package:code_zero/common/components/confirm_dialog.dart';
+import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/user_helper.dart';
+import 'package:code_zero/network/base_model.dart';
+import 'package:code_zero/network/convert_interface.dart';
+import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:code_zero/common/components/status_page/status_page.dart';
 
 class ShoppingCartController extends GetxController {
   final pageName = 'ShoppingCart'.obs;
@@ -11,9 +18,9 @@ class ShoppingCartController extends GetxController {
   ScrollController scrollController = ScrollController();
 
   // 所有商品
-  RxList<GoodsModel> goodsList = RxList<GoodsModel>();
+  RxList<ShoppingCartItem> goodsList = RxList<ShoppingCartItem>();
   // 选中的商品
-  RxList<GoodsModel> selectGoodsList = RxList<GoodsModel>();
+  RxList<ShoppingCartItem> selectGoodsList = RxList<ShoppingCartItem>();
   // 总价
   RxDouble totalPrice = RxDouble(0);
   // 是否是编辑
@@ -25,34 +32,42 @@ class ShoppingCartController extends GetxController {
   void onInit() {
     super.onInit();
     initData();
-    fetchCartData();
   }
 
   initData() {
-    pageStatus.value = FTStatusPageType.success;
+    pageStatus.value = FTStatusPageType.loading;
+    getGoodsList().then((value) {
+      pageStatus.value = FTStatusPageType.success;
+    }).catchError((e) {
+      errorLog(e.toString());
+      pageStatus.value = FTStatusPageType.error;
+    });
   }
 
-  void fetchCartData() {
-    GoodsModel model = GoodsModel();
-    model.id = 111;
-    model.name = '1019翡翠玻璃种镶玫瑰金叶子吊坠';
-    model.price = '30000';
-    model.url =
-        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Ff70181a20931f7807418b722b4accf9cbd89d0c6c08a-s3JzNf_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663056542&t=17f6675c5cb02a4c4c23dd11959387e9';
-    model.num = 2;
-    goodsList.add(model);
-    GoodsModel model2 = GoodsModel();
-    model2.id = 222;
-    model2.name = '1020翡翠玻璃种镶玫瑰金叶子吊坠';
-    model2.price = '10000';
-    model2.url =
-        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Ff70181a20931f7807418b722b4accf9cbd89d0c6c08a-s3JzNf_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663056542&t=17f6675c5cb02a4c4c23dd11959387e9';
-    model2.num = 1;
-    goodsList.add(model2);
+  Future<void> getGoodsList() async {
+    ResultData<ShoppingCartListModel>? _result = await LRequest.instance.request<ShoppingCartListModel>(
+      url: ShoppingCartApis.GET_SHOPPING_CART_LIST,
+      queryParameters: {
+        "userId": userHelper.userInfo.value?.id,
+      },
+      t: ShoppingCartListModel(),
+      requestType: RequestType.GET,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        Utils.showToastMsg("获取失败：${errorCode == -1 ? expMsg : errorMsg}");
+        errorLog("购物车信息获取失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+      },
+    );
+    if (_result?.value != null) {
+      lLog(_result!.value!.toJson().toString());
+      goodsList.value = _result.value!.items ?? [];
+      return;
+    }
   }
+
+  editGoodsItem() {}
 
   // 更新商品的选中状态
-  void updateSelectGoodsItem(GoodsModel goodsModel) {
+  void updateSelectGoodsItem(ShoppingCartItem goodsModel) {
     if (selectGoodsList.contains(goodsModel)) {
       selectGoodsList.removeWhere((element) => goodsModel == element);
     } else {
@@ -66,6 +81,22 @@ class ShoppingCartController extends GetxController {
     updateTotalPrice();
   }
 
+  updateGoodsNumber(ShoppingCartItem goodsModel, int num) async {
+    goodsModel.commodityCount = num;
+    ResultData<ConvertInterface>? _result = await LRequest.instance.request<ConvertInterface>(
+      url: ShoppingCartApis.UPDATE_SHOPPING_CART_NUM,
+      data: {
+        "commodityCount": num,
+        "id": goodsModel.id,
+      },
+      requestType: RequestType.POST,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        // Utils.showToastMsg("更新失败：${errorCode == -1 ? expMsg : errorMsg}");
+        errorLog("更新失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+      },
+    );
+  }
+
   // 更新商品价格
   void updateTotalPrice() {
     totalPrice.value = 0;
@@ -73,8 +104,8 @@ class ShoppingCartController extends GetxController {
       totalPrice.value = 0;
       return;
     }
-    for (GoodsModel item in selectGoodsList) {
-      totalPrice.value += double.parse(item.price ?? '0') * (item.num ?? 1);
+    for (ShoppingCartItem item in selectGoodsList) {
+      totalPrice.value += (item.commodityPrice ?? 0) * (item.commodityCount ?? 1);
     }
   }
 
@@ -94,16 +125,31 @@ class ShoppingCartController extends GetxController {
   // 删除商品
   void delete() {
     int num = 0;
-    for (GoodsModel item in selectGoodsList) {
-      num += (item.num ?? 0);
+    for (ShoppingCartItem item in selectGoodsList) {
+      num += (item.commodityCount ?? 0);
     }
     showConfirmDialog(
       onConfirm: () async {
-        for (GoodsModel item in selectGoodsList) {
-          goodsList.remove(item);
+        var _idList = [];
+        for (ShoppingCartItem item in selectGoodsList) {
+          _idList.add(item.id);
         }
-        selectGoodsList.clear();
-        updateTotalPrice();
+        ResultData<ConvertInterface>? _result = await LRequest.instance.request<ConvertInterface>(
+          url: ShoppingCartApis.DELETE_COMMODITY,
+          data: {
+            "idList": _idList,
+          },
+          requestType: RequestType.POST,
+          errorBack: (errorCode, errorMsg, expMsg) {
+            Utils.showToastMsg("移除失败：${errorCode == -1 ? expMsg : errorMsg}");
+            errorLog("移除失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+          },
+        );
+        if (_result?.message == "OK") {
+          getGoodsList();
+          selectGoodsList.clear();
+          updateTotalPrice();
+        }
       },
       content: "确认要删除这$num件商品吗",
     );

@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:code_zero/app/modules/shopping_cart/model/goods_model.dart';
+import 'package:code_zero/app/modules/shopping_cart/model/shopping_cart_list_model.dart';
 import 'package:code_zero/app/modules/shopping_cart/shopping_cart_controller.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
@@ -10,9 +10,8 @@ import 'package:get/get.dart';
 import 'goods_number_widget.dart';
 
 class ShoppingCartGoodsItem extends StatelessWidget {
-  final GoodsModel goodsModel;
-  const ShoppingCartGoodsItem({Key? key, required this.goodsModel})
-      : super(key: key);
+  final ShoppingCartItem goodsModel;
+  const ShoppingCartGoodsItem({Key? key, required this.goodsModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +35,7 @@ class ShoppingCartGoodsItem extends StatelessWidget {
                 return Container(
                   padding: EdgeInsets.all(10.w),
                   child: Image.asset(
-                    controller.selectGoodsList.contains(goodsModel)
-                        ? Assets.imagesShoppingCartGoodsSelected
-                        : Assets.imagesShoppingCartGoodsUnselected,
+                    controller.selectGoodsList.contains(goodsModel) ? Assets.imagesShoppingCartGoodsSelected : Assets.imagesShoppingCartGoodsUnselected,
                     width: 19.w,
                     height: 19.w,
                   ),
@@ -49,7 +46,7 @@ class ShoppingCartGoodsItem extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: CachedNetworkImage(
-              imageUrl: goodsModel.url ?? '',
+              imageUrl: goodsModel.commodityThumbnail ?? '',
               width: 90.w,
               height: 90.w,
             ),
@@ -57,10 +54,11 @@ class ShoppingCartGoodsItem extends StatelessWidget {
           SizedBox(width: 10.w),
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Text(
-                    goodsModel.name ?? '',
+                    goodsModel.commodityName ?? '',
                     style: TextStyle(
                       color: Color(0xff141519),
                       fontSize: 15.sp,
@@ -89,7 +87,7 @@ class ShoppingCartGoodsItem extends StatelessWidget {
           ),
         ),
         Text(
-          goodsModel.price ?? '',
+          goodsModel.commodityPrice?.toString() ?? '',
           style: TextStyle(
             color: Color(0xff1BDB8A),
             fontSize: 18.sp,
@@ -98,11 +96,12 @@ class ShoppingCartGoodsItem extends StatelessWidget {
         Expanded(child: SizedBox()),
         GoodsNumberWidget(
           key: Key((goodsModel.id ?? 0).toString()),
-          initNumber: goodsModel.num ?? 1,
+          initNumber: goodsModel.commodityCount ?? 1,
           maxNumber: 10000,
           onChange: (num) {
-            goodsModel.num = num;
-            controller.updateTotalPrice();
+            // goodsModel.commodityCount = num;
+            // controller.updateTotalPrice();
+            controller.updateGoodsNumber(goodsModel, num);
           },
         ),
       ],
