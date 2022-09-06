@@ -130,7 +130,7 @@ class OrderItemWidget extends StatelessWidget {
             imageUrl: "http://placekitten.com/1200/315",
             width: 100.w,
             height: 100.w,
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
           ),
         ),
         Expanded(

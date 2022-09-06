@@ -335,7 +335,7 @@ class HomePage extends GetView<HomeController> {
                     imageUrl: item.thumbnails?.first ?? "",
                     width: 165.w,
                     height: 210.w,
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Visibility(

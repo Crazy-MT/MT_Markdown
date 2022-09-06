@@ -92,7 +92,6 @@ class LRequest {
       handleBaseModel?.call(baseModel);
       lLog('MTMTMT LRequest.request ${baseModel.code.runtimeType.toString() == "String"}');
       if(baseModel.code.runtimeType.toString() == "String") {
-
         lLog('MTMTMT LRequest.request ${baseModel.code.runtimeType.toString() == "String"}');
         onStringSuccess?.call(response.toString());
         return null;
@@ -101,6 +100,7 @@ class LRequest {
       /// 权限认证错误，跳转到登录页
       if (baseModel.code == 20001) {
         errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg", "baseModel.code is not 0,this value is ${baseModel.code}");
+        userHelper.whenLogout();
         // g.Get.offAllNamed(RoutesID.LOGIN_PAGE, arguments: {"from": g.Get.currentRoute});
         g.Get.offNamedUntil(RoutesID.LOGIN_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE);
         return null;
@@ -126,7 +126,7 @@ class LRequest {
       onSuccess?.call(resultData);
       return resultData;
     } on DioError catch (e) {
-      debugLog((e.response?.statusCode ?? -1).toString() + "${e.response?.data['message']}" + e.toString());
+      debugLog((e.response?.statusCode ?? -1).toString() + "${e.response?.data?['message']}" + e.toString());
       errorLog(e.toString());
       if (e.response != null && e.response?.data["code"] == 20001) {
         userOutLoginError();

@@ -507,8 +507,8 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
   }
 
   _buildParamsItem(Map param) {
-    lLog(
-        'MTMTMT GoodsDetailPage._buildParamsItem ${param.values.first.toString() == '[]'} ');
+    // lLog(
+    //     'MTMTMT GoodsDetailPage._buildParamsItem ${param.values.first.toString() == '[]'} ');
     if (param.values.first.toString() == '[]') {
       return SizedBox.shrink();
     }

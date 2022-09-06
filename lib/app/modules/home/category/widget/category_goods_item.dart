@@ -39,7 +39,7 @@ class CategoryGoodsItem extends StatelessWidget {
                 imageUrl: item.thumbnails?.first ?? "",
                 width: 90.w,
                 height: 90.w,
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               ),
             ),
             SizedBox(width: 10.w),

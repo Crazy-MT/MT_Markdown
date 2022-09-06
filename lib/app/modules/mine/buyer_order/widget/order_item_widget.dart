@@ -239,7 +239,7 @@ class OrderItemWidget extends StatelessWidget {
             imageUrl: item.thumbnailUrl ?? "",
             width: 100.w,
             height: 100.w,
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
           ),
         ),
         Expanded(
