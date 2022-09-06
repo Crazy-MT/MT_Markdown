@@ -11,6 +11,7 @@ import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+//TODO 全选删除逻辑有bug，后面调  复现步骤，全选->管理->删除->找一个商品加入购物车->回到购物车
 class ShoppingCartController extends GetxController {
   final pageName = 'ShoppingCart'.obs;
   final errorMsg = "".obs;
@@ -95,6 +96,7 @@ class ShoppingCartController extends GetxController {
         errorLog("更新失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
       },
     );
+    updateTotalPrice();
   }
 
   // 更新商品价格
