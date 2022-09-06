@@ -20,7 +20,7 @@ class SellerOrderController extends GetxController with GetSingleTickerProviderS
   final pageStatus = FTStatusPageType.loading.obs;
   final List<OrderTabInfo> myTabs = <OrderTabInfo>[
     /// 卖家
-    // 我的仓库=4   待收款=0   待确认=1  has_complete=1
+    // 我的仓库是 =4(已上架) 待收款=0（待付款）待确认=1（待收款）已完成=4,7,8（已上架、已收货、已取消）
     OrderTabInfo(Tab(text: '我的仓库'), 4, RefreshController(), 1, RxList<OrderItem>()),
     OrderTabInfo(Tab(text: '待收款'), 0, RefreshController(), 1, RxList<OrderItem>()),
     OrderTabInfo(Tab(text: '待确认'), 1, RefreshController(), 1, RxList<OrderItem>()),
@@ -68,7 +68,7 @@ class SellerOrderController extends GetxController with GetSingleTickerProviderS
         "from-user-id": userHelper.userInfo.value?.id,
         "page": tabInfo.currentPage,
         "size": 10,
-        "has-complete": 1,
+        "trade-state-list": "4,7,8",
       } : {
         "from-user-id": userHelper.userInfo.value?.id,
         "page": tabInfo.currentPage,

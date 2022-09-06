@@ -113,7 +113,7 @@ class CategoryPage extends GetView<CategoryController> {
                 prefixWidget: IconButton(
                   onPressed: () {},
                   padding: EdgeInsets.zero,
-                  icon: SvgPicture.asset(
+                  icon: Image.asset(
                     Assets.iconsSearch,
                     width: 14.w,
                     height: 14.w,

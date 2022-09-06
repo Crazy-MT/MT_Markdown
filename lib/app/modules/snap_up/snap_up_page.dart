@@ -101,6 +101,10 @@ class SnapUpPage extends GetView<SnapUpController> {
                 color: AppColors.bg_gray,
                 borderRadius: BorderRadius.circular(8.w),
               ),
+              child: Image.asset(
+                Assets.imagesSnupBanner,
+                fit: BoxFit.cover,
+              ),
             ),
             Container(
               width: 345.w,

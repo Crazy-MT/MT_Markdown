@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:code_zero/app/modules/home/submit_order/model/data_model.dart';
 import 'package:code_zero/app/modules/mine/address_manage/address_apis.dart';
+import 'package:code_zero/app/modules/mine/mine_controller.dart';
 import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
 import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
@@ -32,7 +35,9 @@ class BuyerOrderController extends GetxController
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
   final List<OrderTabInfo> myTabs = <OrderTabInfo>[
-    // 买家，就是 0 -- 待付款、2 -- 已付款、3 -- 待上架
+    /// 我的仓库=0,1,2,3,5,6,7
+    /// 待付=0  已付款可以=1,2   待上架=3
+
 
     OrderTabInfo(
         Tab(text: '我的仓库'), -1, RefreshController(), 1, RxList<OrderItem>()),
@@ -60,6 +65,12 @@ class BuyerOrderController extends GetxController
     initAllData();
   }
 
+  @override
+  onReady() {
+    super.onReady();
+    Get.find<MineController>().showBadge(false);
+  }
+
   initAllData() async {
     pageStatus.value = FTStatusPageType.loading;
     await Future.forEach<OrderTabInfo>(myTabs, (element) async {
@@ -78,15 +89,38 @@ class BuyerOrderController extends GetxController
     } else {
       tabInfo.currentPage++;
     }
-    ResultData<OrderListModel>? _result = await LRequest.instance.request<
-        OrderListModel>(
-      url: SnapApis.ORDER_LIST,
-      queryParameters: {
+
+    Map<String, dynamic>? queryParameters = {};
+    if(tabInfo.tradeState == -1) {
+      queryParameters = {
+        "to-user-id": userHelper.userInfo.value?.id,
+        "page": tabInfo.currentPage,
+        "size": 10,
+        "trade-state-list": '0,1,2,3,5,6,7',
+      };
+    }
+    if(tabInfo.tradeState == 0 || tabInfo.tradeState == 3) {
+      queryParameters = {
         "to-user-id": userHelper.userInfo.value?.id,
         "page": tabInfo.currentPage,
         "size": 10,
         "trade-state": tabInfo.tradeState,
-      },
+      };
+    }
+
+    if(tabInfo.tradeState == 1) {
+      queryParameters = {
+        "to-user-id": userHelper.userInfo.value?.id,
+        "page": tabInfo.currentPage,
+        "size": 10,
+        "trade-state-list": "1,2",
+      };
+    }
+
+    ResultData<OrderListModel>? _result = await LRequest.instance.request<
+        OrderListModel>(
+      url: SnapApis.ORDER_LIST,
+      queryParameters: queryParameters,
       t: OrderListModel(),
       requestType: RequestType.GET,
       errorBack: (errorCode, errorMsg, expMsg) {

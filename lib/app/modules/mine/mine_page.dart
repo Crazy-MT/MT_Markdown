@@ -666,14 +666,17 @@ class MinePage extends GetView<MineController> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           (showBadge != null && showBadge)
-              ? Obx(() => Badge(
-                    elevation: 0,
-                    showBadge: controller.isShowBadge.value,
-                    child: Image.asset(
-                      icon,
-                      width: 20.w,
-                    ),
-                  ))
+              ? Obx(() {
+            lLog('MTMTMT MinePage.buildItem ${controller.isShowBadge.value} ');
+                return Badge(
+                  elevation: 0,
+                  showBadge: controller.isShowBadge.value,
+                  child: Image.asset(
+                    icon,
+                    width: 20.w,
+                  ),
+                );
+          })
               : Image.asset(
                   icon,
                   width: 20.w,

@@ -96,7 +96,7 @@ class MainTabController extends GetxController {
         Get.find<ShoppingCartController>().initData();
         break;
       case 3:
-        Get.find<MineController>().initData();
+        Get.find<MineController>().initData(Get.arguments?['showBadge'] ?? false);
         break;
       default:
     }

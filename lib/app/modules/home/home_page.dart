@@ -152,16 +152,10 @@ class HomePage extends GetView<HomeController> {
           color: AppColors.bg_gray,
           borderRadius: BorderRadius.circular(8.w),
         ),
-        // child: Swiper(
-        //   itemCount: 3,
-        //   itemBuilder: (BuildContext context, int index) {
-        //     return Image.asset(
-        //       Assets.imagesSwiperBg,
-        //       fit: BoxFit.cover,
-        //     );
-        //   },
-        //   pagination: SwiperPagination(),
-        // ),
+        child: Image.asset(
+          Assets.imagesHomeBanner,
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
@@ -238,7 +232,12 @@ class HomePage extends GetView<HomeController> {
                 decoration: BoxDecoration(
                   color: AppColors.bg_gray,
                   borderRadius: BorderRadius.circular(8.w),
-                )),
+                ),
+              child: Image.asset(
+                Assets.imagesHome1,
+                fit: BoxFit.cover,
+              ),
+            ),
             SizedBox(
               width: 10.w,
             ),
@@ -252,6 +251,10 @@ class HomePage extends GetView<HomeController> {
                       color: AppColors.bg_gray,
                       borderRadius: BorderRadius.circular(8.w),
                     ),
+                    child: Image.asset(
+                      Assets.imagesHome2,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   SizedBox(
                     height: 10.w,
@@ -262,6 +265,10 @@ class HomePage extends GetView<HomeController> {
                     decoration: BoxDecoration(
                       color: AppColors.bg_gray,
                       borderRadius: BorderRadius.circular(8.w),
+                    ),
+                    child: Image.asset(
+                      Assets.imagesHome3,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ],

@@ -122,9 +122,9 @@ class OrderItemWidget extends StatelessWidget {
                           title: "申诉",
                           color: Color(0xff000000),
                           onTap: () {
-
+                            Get.toNamed(RoutesID.COMPLAINT_FEEDBACK_PAGE);
                           }),
-                      visible: item.tradeState == 1 || (item.hasComplete == 1),
+                      visible: item.tradeState == 1 || (item.tradeState == -1),
                     ),
                     Visibility(
                       child: _buttonBtnWidget(

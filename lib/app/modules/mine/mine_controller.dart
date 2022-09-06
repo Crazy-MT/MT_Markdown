@@ -1,3 +1,4 @@
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -13,11 +14,12 @@ class MineController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    initData();
+    initData(false);
   }
 
-  initData() {
+  initData(isShowBadge) {
     pageStatus.value = FTStatusPageType.success;
+    showBadge(isShowBadge);
   }
 
   showBadge(bool isShow) {

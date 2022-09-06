@@ -330,22 +330,27 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
               SizedBox(
                 width: 15.w,
               ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Image.asset(
-                    Assets.iconsShoppingCart,
-                    width: 22.w,
-                    height: 22.w,
-                  ),
-                  Text(
-                    "购物车",
-                    style: TextStyle(
-                      fontSize: 10.sp,
-                      color: AppColors.text_dark,
+              SafeTapWidget(
+                onTap: () {
+                  Get.offAllNamed(RoutesID.MAIN_TAB_PAGE, arguments: {'tabIndex': 2});
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      Assets.iconsShoppingCart,
+                      width: 22.w,
+                      height: 22.w,
                     ),
-                  )
-                ],
+                    Text(
+                      "购物车",
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        color: AppColors.text_dark,
+                      ),
+                    )
+                  ],
+                ),
               ),
               SizedBox(
                 width: 35.w,

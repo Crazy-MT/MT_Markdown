@@ -72,8 +72,8 @@ class SubmitOrderController extends GetxController {
         },
         onSuccess: (result) {
           showSuccessDialog(onConfirm: () {
-            Get.find<MineController>().showBadge(true);
-            Get.offAllNamed(RoutesID.MAIN_TAB_PAGE, arguments: {'tabIndex': 3});
+            Get.offAllNamed(RoutesID.MAIN_TAB_PAGE, arguments: {'tabIndex': 3, 'showBadge': true});
+            // Get.find<MineController>().showBadge(true);
           });
           var model = result.value;
           if (model == null) {
