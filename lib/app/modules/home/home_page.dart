@@ -112,7 +112,7 @@ class HomePage extends GetView<HomeController> {
                           left: 14.w,
                           right: 10.w,
                         ),
-                        child: SvgPicture.asset(
+                        child: Image.asset(
                           Assets.iconsSearch,
                           width: 15.w,
                           height: 15.w,
