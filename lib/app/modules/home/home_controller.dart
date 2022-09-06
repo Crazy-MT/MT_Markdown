@@ -24,6 +24,8 @@ class HomeController extends GetxController {
   int pageSize = 10;
   final RefreshController refreshController = new RefreshController();
 
+  var images = [Assets.imagesHomeBanner, Assets.imagesHomeBanner1, Assets.imagesHomeBanner2, Assets.imagesHomeBanner3];
+
   @override
   void onInit() {
     super.onInit();

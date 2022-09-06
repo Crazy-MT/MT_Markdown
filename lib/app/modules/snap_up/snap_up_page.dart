@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:code_zero/app/modules/snap_up/model/session_model.dart';
 import 'package:code_zero/app/modules/snap_up/widget/snap_up_item_title.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
@@ -7,6 +8,7 @@ import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -101,9 +103,18 @@ class SnapUpPage extends GetView<SnapUpController> {
                 color: AppColors.bg_gray,
                 borderRadius: BorderRadius.circular(8.w),
               ),
-              child: Image.asset(
-                Assets.imagesSnupBanner,
-                fit: BoxFit.cover,
+              child: Swiper(
+                autoplay: true,
+                itemCount: controller.images.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final image = controller.images[index];
+                  return ClipRRect(borderRadius: BorderRadius.circular(10.w),child: Image.asset(image, fit: BoxFit.fitWidth,));
+                },
+                pagination: SwiperPagination(builder: DotSwiperPaginationBuilder(
+                    activeColor: AppColors.green,
+                    size: 6,
+                    activeSize: 6
+                )),
               ),
             ),
             Container(

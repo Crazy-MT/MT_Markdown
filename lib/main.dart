@@ -35,6 +35,7 @@ void main() {
     }
     if (kDebugMode) {
       PluginManager.instance
+        ..register(DioInspector(dio: LRequest.dio))
         ..register(WidgetInfoInspector())
         ..register(WidgetDetailInspector())
         ..register(ColorSucker())
@@ -46,8 +47,7 @@ void main() {
         ..register(MemoryInfoPage())
         ..register(CpuInfoPage())
         ..register(DeviceInfoPanel())
-        ..register(Console())
-        ..register(DioInspector(dio: LRequest.dio));
+        ..register(Console());
       // flutter_ume 0.3.0 版本之后
       runApp(UMEWidget(child: App(), enable: true));
     } else {

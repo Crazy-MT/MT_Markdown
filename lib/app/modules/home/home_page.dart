@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
+import 'package:code_zero/common/S.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -152,9 +154,18 @@ class HomePage extends GetView<HomeController> {
           color: AppColors.bg_gray,
           borderRadius: BorderRadius.circular(8.w),
         ),
-        child: Image.asset(
-          Assets.imagesHomeBanner,
-          fit: BoxFit.cover,
+        child: Swiper(
+          autoplay: true,
+          itemCount: controller.images.length,
+          itemBuilder: (BuildContext context, int index) {
+            final image = controller.images[index];
+            return ClipRRect(borderRadius: BorderRadius.circular(10.w),child: Image.asset(image));
+          },
+          pagination: SwiperPagination(builder: DotSwiperPaginationBuilder(
+            activeColor: AppColors.green,
+            size: 6,
+            activeSize: 6
+          )),
         ),
       ),
     );

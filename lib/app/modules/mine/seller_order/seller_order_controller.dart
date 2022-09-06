@@ -61,20 +61,29 @@ class SellerOrderController extends GetxController with GetSingleTickerProviderS
     } else {
       tabInfo.currentPage++;
     }
-
-    ResultData<OrderListModel>? _result = await LRequest.instance.request<OrderListModel>(
-      url: SnapApis.ORDER_LIST,
-      queryParameters: tabInfo.tradeState == -1 ? {
-        "from-user-id": userHelper.userInfo.value?.id,
-        "page": tabInfo.currentPage,
-        "size": 10,
-        "trade-state-list": "4,7,8",
-      } : {
-        "from-user-id": userHelper.userInfo.value?.id,
+    Map<String, dynamic>? queryParameters = {};
+    queryParameters = tabInfo.tradeState == -1 ? {
+      "from-user-id": userHelper.userInfo.value?.id,
+      "page": tabInfo.currentPage,
+      "size": 10,
+      "trade-state-list": "4,7,8",
+    } : {
+      "from-user-id": userHelper.userInfo.value?.id,
+      "page": tabInfo.currentPage,
+      "size": 10,
+      "trade-state": tabInfo.tradeState,
+    };
+    if(tabInfo.tradeState == 4) {
+      queryParameters = {
+        "to-user-id": userHelper.userInfo.value?.id,
         "page": tabInfo.currentPage,
         "size": 10,
         "trade-state": tabInfo.tradeState,
-      },
+      };
+    }
+    ResultData<OrderListModel>? _result = await LRequest.instance.request<OrderListModel>(
+      url: SnapApis.ORDER_LIST,
+      queryParameters: queryParameters,
       t: OrderListModel(),
       requestType: RequestType.GET,
       errorBack: (errorCode, errorMsg, expMsg) {

@@ -32,6 +32,7 @@ dependencies:
   flutter_pickers: 2.1.8
   text_scroll: 0.1.0
   badges: 2.0.3
+  card_swiper: 2.0.4
   flutter:
     sdk: flutter
 

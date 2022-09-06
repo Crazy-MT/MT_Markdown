@@ -3,6 +3,7 @@ import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/user_helper.dart';
+import 'package:code_zero/generated/assets/assets.dart';
 import 'package:date_format/date_format.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -22,6 +23,8 @@ class SnapUpController extends GetxController {
   int currentPage = 1;
   int pageSize = 10;
   final RefreshController refreshController = new RefreshController();
+
+  var images = [Assets.imagesSnupBanner, Assets.imagesSnupBanner1, Assets.imagesSnupBanner2];
 
   @override
   void onInit() {
