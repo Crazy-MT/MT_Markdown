@@ -74,6 +74,11 @@ class BuyerOrderPage extends GetView<BuyerOrderController> {
             children: controller.myTabs.map((OrderTabInfo tab) {
               return KeepAliveWrapper(
                 child: SmartRefresher(
+                  footer: const ClassicFooter(
+                    noDataText: "没有更多数据",
+                    loadingText: "加载中…",
+                    failedText: "加载失败",
+                  ),
                   controller: tab.refreshController,
                   enablePullDown: true,
                   enablePullUp: true,

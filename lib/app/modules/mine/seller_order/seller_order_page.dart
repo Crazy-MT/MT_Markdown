@@ -72,6 +72,11 @@ class SellerOrderPage extends GetView<SellerOrderController> {
             controller: controller.tabController,
             children: controller.myTabs.map((OrderTabInfo tab) {
               return SmartRefresher(
+                footer: const ClassicFooter(
+                  noDataText: "没有更多数据",
+                  loadingText: "加载中…",
+                  failedText: "加载失败",
+                ),
                 controller: tab.refreshController,
                 enablePullDown: true,
                 enablePullUp: true,
