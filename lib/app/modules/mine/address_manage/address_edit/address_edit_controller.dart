@@ -35,6 +35,7 @@ class AddressEditController extends GetxController {
 
   AddressType type = AddressType.add;
   RxList<_MenuItem> menuList = RxList<_MenuItem>();
+  bool noAddress = false;
 
   @override
   void onInit() {
@@ -46,6 +47,8 @@ class AddressEditController extends GetxController {
   initData() {
     pageStatus.value = FTStatusPageType.success;
     type = (Get.arguments['type'] as int) == 0 ? AddressType.add : AddressType.edit;
+    noAddress = Get.arguments?['noAddress'] ?? false;
+    isDefault.value = noAddress;
     if (Get.arguments['item'] is AddressItem) {
       addressItem = Get.arguments['item'];
       _consignee.text = addressItem?.consignee ?? "";
@@ -89,7 +92,7 @@ class AddressEditController extends GetxController {
         "phone": _phone.text,
         "region": _region.text,
         "address": _address.text,
-        "isDefault": isDefault.value ? 1 : 0,
+        "isDefault": noAddress ? 1 : (isDefault.value ? 1 : 0),
         "userId": userHelper.userInfo.value?.id,
       },
       requestType: RequestType.POST,

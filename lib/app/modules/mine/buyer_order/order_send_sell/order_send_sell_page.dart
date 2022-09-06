@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/avoid_quick_click.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
@@ -304,8 +305,11 @@ class OrderSendSellPage extends GetView<OrderSendSellController> {
                                     width: 335.w,
                                     height: 44.w,
                                     child: ElevatedButton(
-                                      onPressed: () {
-                                        controller.pay();
+                                      onPressed: () async {
+                                        if(await controller.pay()) {
+                                          Navigator.pop(context);
+                                          Get.offNamedUntil(RoutesID.SELLER_ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
+                                        }
                                       },
                                       style: ElevatedButton.styleFrom(
                                         shape: StadiumBorder(),

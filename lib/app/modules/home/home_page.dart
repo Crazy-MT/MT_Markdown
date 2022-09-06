@@ -315,7 +315,7 @@ class HomePage extends GetView<HomeController> {
   _buildRecommendGrid() {
     return Obx(() {
       return SliverPadding(
-        padding: EdgeInsets.all(15.w).copyWith(top: 0),
+        padding: EdgeInsets.all(12.w).copyWith(top: 0),
         sliver: SliverGrid(
             delegate: SliverChildBuilderDelegate((context, index) {
               return _buildRecommendItem(index);

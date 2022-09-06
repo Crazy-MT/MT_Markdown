@@ -1,4 +1,5 @@
 import 'package:code_zero/common/extend.dart';
+import 'package:code_zero/common/user_helper.dart';
 import 'package:get/get.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -44,7 +45,8 @@ class SnapDetailController extends GetxController {
           "session-id": Get.arguments["id"],
           "page": currentPage,
           "size": pageSize,
-          "status" : 1
+          "status" : 1,
+          "exclude-owner-id" : userHelper.userInfo.value?.id
           // "owner-is-admin": 0
         },
         requestType: RequestType.GET,

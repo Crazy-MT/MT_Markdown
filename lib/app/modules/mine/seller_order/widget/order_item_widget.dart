@@ -58,12 +58,13 @@ class OrderItemWidget extends StatelessWidget {
                     height: 10.w,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       SvgPicture.asset(
                         Assets.iconsGoodsInfoTitleIcon,
-                        width: 19.w,
-                        height: 19.w,
+                        width: 18.w,
+                        height: 18.w,
                       ),
                       Text(
                         item.sessionName ?? "",
@@ -213,6 +214,18 @@ class OrderItemWidget extends StatelessWidget {
                     fontSize2: 16.sp,
                     text: item.price,
                     fontWeight: FontWeight.w700),
+                Visibility(
+                  visible: item.hasShelf == 1,
+                  child: Text(
+                    '上架时间：${item.shelfTime}',
+                    style: TextStyle(
+                        color: Color(0xff434446),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.end,
+                  ),
+                )
+
               ],
             ),
           ),

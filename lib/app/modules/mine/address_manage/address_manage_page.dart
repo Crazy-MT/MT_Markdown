@@ -199,7 +199,7 @@ class AddressManagePage extends GetView<AddressManageController> {
   Widget _addAddressWidget(BuildContext context) {
     return SafeTapWidget(
       onTap: () {
-        Get.toNamed(RoutesID.ADDRESS_EDIT_PAGE, arguments: {'type': 0})?.then((value) {
+        Get.toNamed(RoutesID.ADDRESS_EDIT_PAGE, arguments: {'type': 0, 'noAddress': controller.addressList.length == 0})?.then((value) {
           if (value == true) {
             controller.getAddressList();
           }

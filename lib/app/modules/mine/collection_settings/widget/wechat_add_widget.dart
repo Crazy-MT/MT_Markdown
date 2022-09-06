@@ -212,7 +212,7 @@ class WechatAddWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(22.w),
         ),
         child: Text(
-          '确认添加',
+          controller.hasNoWeiXin ? "确认添加" : "确认修改",
           style: TextStyle(
             color: Colors.white,
             fontSize: 16.sp,

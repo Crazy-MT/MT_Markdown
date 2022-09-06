@@ -34,7 +34,9 @@ class BankCardInfoWidget extends StatelessWidget {
   Widget _cardInfoWidget(CollectionSettingsController controller) {
     return SafeTapWidget(
       onTap: () {
-        Get.back(result: 0);
+        if(Get.arguments != null && (Get.arguments['title'] != null)) {
+          Get.back(result: 0);
+        }
       },
       child: Column(
         children: [

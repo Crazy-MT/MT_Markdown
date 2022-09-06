@@ -84,7 +84,8 @@ class OrderSendSellController extends GetxController {
     return isSuccess;
   }
 
-  Future<void> pay() async {
+  Future<bool> pay() async {
+    bool isSuccess = false;
     ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
         url: SnapApis.PAY,
         data: {
@@ -96,10 +97,13 @@ class OrderSendSellController extends GetxController {
         errorBack: (errorCode, errorMsg, expMsg) {
           Utils.showToastMsg("模拟支付失败：${errorCode == -1 ? expMsg : errorMsg}");
           errorLog("模拟支付失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+          isSuccess = false;
         },
         onStringSuccess: (rest) {
           lLog('MTMTMT OrderSendSellController.pay ${rest}');
           Utils.showToastMsg("模拟支付成功");
+          isSuccess = true;
         });
+    return isSuccess;
   }
 }

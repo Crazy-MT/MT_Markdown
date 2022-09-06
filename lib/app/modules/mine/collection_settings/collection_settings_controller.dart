@@ -441,11 +441,11 @@ class CollectionSettingsController extends GetxController
     }
 
     if (bankName.contains('招')) {
-      return Assets.imagesBank7;
+      return Assets.imagesBank8;
     }
 
     if (bankName.contains('浦发')) {
-      return Assets.imagesBank8;
+      return Assets.imagesBank7;
     }
 
     return Assets.imagesWalletBankcardBg;

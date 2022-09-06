@@ -215,7 +215,7 @@ class OrderItemWidget extends StatelessWidget {
           color: Color(0xffF3F9FB),
         ),
         height: 27.w,
-        width: 82.w,
+        width: 86.w,
         child: Center(
           child: Text(
             title ?? "",

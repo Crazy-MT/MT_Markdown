@@ -59,7 +59,8 @@ class BuyerOrderController extends GetxController
     tabController?.addListener(() {
       ///避免addListener调用2次
       if (tabController?.index == tabController?.animation?.value) {
-        // print("点击了下标为${tabController?.index}的tab");
+        print("点击了下标为${tabController?.index}的tab");
+        getOrder(true, myTabs[tabController?.index ?? 0]);
       }
     });
     initAllData();

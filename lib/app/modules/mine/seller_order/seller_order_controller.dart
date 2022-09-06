@@ -37,7 +37,8 @@ class SellerOrderController extends GetxController with GetSingleTickerProviderS
     tabController?.addListener(() {
       ///避免addListener调用2次
       if (tabController?.index == tabController?.animation?.value) {
-        // print("点击了下标为${tabController?.index}的tab");
+        print("点击了下标为${tabController?.index}的tab");
+        getOrder(true, myTabs[tabController?.index ?? 0]);
       }
     });
     initAllData();
@@ -66,7 +67,7 @@ class SellerOrderController extends GetxController with GetSingleTickerProviderS
       "from-user-id": userHelper.userInfo.value?.id,
       "page": tabInfo.currentPage,
       "size": 10,
-      "trade-state-list": "4,7,8",
+      "trade-state-list": "2,3,4,5,6,7,8",
     } : {
       "from-user-id": userHelper.userInfo.value?.id,
       "page": tabInfo.currentPage,

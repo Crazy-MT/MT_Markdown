@@ -30,7 +30,9 @@ class WechatInfoWidget extends StatelessWidget {
   Widget _cardInfoWidget(CollectionSettingsController controller) {
     return SafeTapWidget(
       onTap: () {
-        Get.back(result: 1);
+        if(Get.arguments != null && (Get.arguments['title'] != null)) {
+          Get.back(result: 1);
+        }
       },
       child: Column(
         children: [

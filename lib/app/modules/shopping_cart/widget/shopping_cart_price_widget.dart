@@ -118,7 +118,7 @@ class ShoppingCartPriceWidget extends StatelessWidget {
                         num += (item.commodityCount ?? 0);
                       }
                       return Text(
-                        controller.isManageStatus.value == true ? '删除 x$num' : '结算',
+                        controller.isManageStatus.value == true ? '删除' : '结算',
                         style: TextStyle(
                           color: controller.isManageStatus.value == true ? Color(0xff111111) : Color(0xffffffff),
                           fontSize: 15.sp,
