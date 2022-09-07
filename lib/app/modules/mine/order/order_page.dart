@@ -4,8 +4,10 @@ import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../common/components/common_app_bar.dart';
+import '../model/order_tab_info.dart';
 import 'order_controller.dart';
 
 class OrderPage extends GetView<OrderController> {
@@ -35,7 +37,9 @@ class OrderPage extends GetView<OrderController> {
                   alignment: Alignment.bottomCenter,
                   children: [
                     _content(context),
-                    this.controller.editStatus.value != 0 ? _bottomControlWidget(context) : SizedBox(),
+                    this.controller.editStatus.value != 0
+                        ? _bottomControlWidget()
+                        : SizedBox(),
                   ],
                 ));
           },
@@ -50,7 +54,7 @@ class OrderPage extends GetView<OrderController> {
       children: [
         TabBar(
           controller: controller.tabController,
-          tabs: controller.myTabs,
+          tabs: controller.myTabs.map((e) => e.tab).toList(),
           // isScrollable: true,
           indicatorColor: Color(0xff1BDB8A),
           indicatorSize: TabBarIndicatorSize.label,
@@ -67,12 +71,27 @@ class OrderPage extends GetView<OrderController> {
         Expanded(
           child: TabBarView(
             controller: controller.tabController,
-            children: controller.myTabs.map((Tab tab) {
-              return CustomScrollView(
-                slivers: [
-                  _buildOrderList(),
-                  _safeWidget(context),
-                ],
+            children: controller.myTabs.map((OrderTabInfo tab) {
+              return SmartRefresher(
+                footer: const ClassicFooter(
+                  noDataText: "没有更多数据",
+                  loadingText: "加载中…",
+                  failedText: "加载失败",
+                ),
+                controller: tab.refreshController,
+                enablePullDown: true,
+                enablePullUp: true,
+                onRefresh: () {
+                  // controller.getOrder(true, tab);
+                },
+                onLoading: () {
+                  // controller.getOrder(false, tab);
+                },
+                child: CustomScrollView(
+                  slivers: [
+                    _buildOrderList(tab),
+                  ],
+                ),
               );
             }).toList(),
           ),
@@ -81,7 +100,29 @@ class OrderPage extends GetView<OrderController> {
     );
   }
 
-  _buildOrderList() {
+  _buildOrderList(OrderTabInfo tab) {
+    // if (tab.orderList.length == 0) {
+    //   return SliverToBoxAdapter(
+    //     child: Container(
+    //       height: 400.w,
+    //       child: Column(
+    //         mainAxisAlignment: MainAxisAlignment.center,
+    //         children: [
+    //           Image.asset(
+    //             Assets.iconsNoOrder,
+    //             width: 100.w,
+    //             height: 100.w,
+    //           ),
+    //           Text(
+    //             '暂无相关订单',
+    //             style: TextStyle(color: Color(0xFFABAAB9)),
+    //           )
+    //         ],
+    //       ),
+    //     ),
+    //   );
+    // }
+
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (content, index) {
@@ -95,11 +136,12 @@ class OrderPage extends GetView<OrderController> {
     );
   }
 
-  _bottomControlWidget(BuildContext context) {
+  _bottomControlWidget() {
     return Container(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(Get.context!).padding.bottom),
       color: Colors.white,
-      height: 60.w + MediaQuery.of(context).padding.bottom,
+      height: 60.w + MediaQuery.of(Get.context!).padding.bottom,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,7 +158,9 @@ class OrderPage extends GetView<OrderController> {
               }
             },
             child: Image.asset(
-              this.controller.editStatus.value == 2 ? Assets.imagesShoppingCartGoodsSelected : Assets.imagesShoppingCartGoodsUnselected,
+              this.controller.editStatus.value == 2
+                  ? Assets.imagesShoppingCartGoodsSelected
+                  : Assets.imagesShoppingCartGoodsUnselected,
               height: 19.w,
               width: 19.w,
             ),
@@ -154,7 +198,10 @@ class OrderPage extends GetView<OrderController> {
               child: Center(
                 child: Text(
                   "合并结算",
-                  style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500),
                 ),
               ),
             ),

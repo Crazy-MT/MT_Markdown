@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../model/order_list_model.dart';
+import '../model/order_tab_info.dart';
 
 class OrderController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -8,11 +12,18 @@ class OrderController extends GetxController
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
   final editStatus = 0.obs;
-  final List<Tab> myTabs = <Tab>[
-    Tab(text: '全部'),
-    Tab(text: '待付款'),
-    Tab(text: '待发货'),
-    Tab(text: '待收货'),
+
+  final List<OrderTabInfo> myTabs = <OrderTabInfo>[
+    /// 卖家
+    // 我的仓库是 =4(已上架) 待收款=0（待付款）待确认=1（待收款）已完成=4,7,8（已上架、已收货、已取消）
+    OrderTabInfo(
+        Tab(text: '全部'), 4, RefreshController(), 1, RxList<OrderItem>()),
+    OrderTabInfo(
+        Tab(text: '待付款'), 0, RefreshController(), 1, RxList<OrderItem>()),
+    OrderTabInfo(
+        Tab(text: '待发货'), 1, RefreshController(), 1, RxList<OrderItem>()),
+    OrderTabInfo(
+        Tab(text: '待收货'), -1, RefreshController(), 1, RxList<OrderItem>()),
   ];
 
   TabController? tabController;
