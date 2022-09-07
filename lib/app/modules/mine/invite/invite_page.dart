@@ -34,11 +34,10 @@ class InvitePage extends GetView<InviteController> {
                 SizedBox(height: 12.5.h),
                 _cardWidget(),
                 SizedBox(height: 27.h),
-                Expanded(
-                  child: _sharePlatformWidget(),
-                  flex: 1,
-                ),
-                Expanded(child: _closeWidget(context), flex: 2)
+                _sharePlatformWidget(),
+                Expanded(child: SizedBox()),
+                _closeWidget(context),
+                SizedBox(height: 30.h),
               ],
             ),
           );

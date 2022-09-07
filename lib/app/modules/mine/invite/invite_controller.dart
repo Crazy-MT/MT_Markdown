@@ -22,7 +22,7 @@ class InviteController extends GetxController {
   List<Map<String, String>> iconList = [
     {'微信好友': Assets.imagesInviteWechatSession},
     {'朋友圈': Assets.imagesInviteWechatLine},
-    {'复制连接': Assets.imagesInviteCopyLink},
+    {'复制链接': Assets.imagesInviteCopyLink},
     {'生成海报': Assets.imagesInviteDownload},
   ];
 
