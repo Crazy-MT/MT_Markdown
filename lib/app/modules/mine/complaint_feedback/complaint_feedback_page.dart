@@ -168,7 +168,10 @@ class ComplaintFeedbackPage extends GetView<ComplaintFeedbackController> {
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
               ),
-              child: Image.asset(Assets.iconsAdd, width: 80.w,),
+              child: Image.asset(
+                Assets.iconsAdd,
+                width: 80.w,
+              ),
             ),
           )
         : Container(
@@ -186,7 +189,7 @@ class ComplaintFeedbackPage extends GetView<ComplaintFeedbackController> {
                       File(controller.photoItems[index]),
                       width: 80.w,
                       height: 80.w,
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
@@ -197,7 +200,11 @@ class ComplaintFeedbackPage extends GetView<ComplaintFeedbackController> {
                     onTap: () {
                       controller.removeImage(index);
                     },
-                    child: Image.asset(Assets.iconsDelete, width: 30.w,),
+                    child: Image.asset(
+                      Assets.iconsDelete,
+                      width: 15.w,
+                      height: 15.w,
+                    ),
                   ),
                 ),
               ],
