@@ -3,12 +3,14 @@ import 'package:code_zero/app/modules/mine/buyer_order/order_send_sell/model/cha
 import 'package:code_zero/app/modules/mine/buyer_order/order_send_sell/model/shelf_commodity_model.dart';
 import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
 import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:fluwx/fluwx.dart';
 import 'package:get/get.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 
@@ -84,26 +86,62 @@ class OrderSendSellController extends GetxController {
     return isSuccess;
   }
 
-  Future<bool> pay() async {
+  Future<bool> pay(isPaySuccess) async {
     bool isSuccess = false;
     ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
         url: SnapApis.PAY,
         data: {
           "outTradeNo": chargeModel.value?.outTradeNo,
-          "tradeState": "SUCCESS",
+          "tradeState": isPaySuccess ? "SUCCESS" : "PAYERROR",
         },
         t: DataModel(),
         requestType: RequestType.POST,
         errorBack: (errorCode, errorMsg, expMsg) {
-          Utils.showToastMsg("模拟支付失败：${errorCode == -1 ? expMsg : errorMsg}");
-          errorLog("模拟支付失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+          Utils.showToastMsg("支付失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("支付失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
           isSuccess = false;
         },
         onStringSuccess: (rest) {
           lLog('MTMTMT OrderSendSellController.pay ${rest}');
-          Utils.showToastMsg("模拟支付成功");
+          Utils.showToastMsg("成功");
           isSuccess = true;
+
+          Navigator.pop(Get.context!);
+          Get.offNamedUntil(RoutesID.SELLER_ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
+
         });
     return isSuccess;
   }
+
+  void toWxPay() async {
+    var isInstalled = await isWeChatInstalled;
+
+    if (!isInstalled) {
+      Utils.showToastMsg("请先安装微信");
+    }
+    payWithWeChat(
+      appId: 'wxe02b86dc09511f64',
+      partnerId: chargeModel.value?.partnerId ?? "",
+      prepayId: chargeModel.value?.prepayId ?? "",
+      packageValue: chargeModel.value?.package ?? "",
+      nonceStr: chargeModel.value?.nonceStr ?? "",
+      timeStamp: int.parse(chargeModel.value?.timeStamp ?? "0"),
+      sign: chargeModel.value?.sign ?? "",
+    );
+
+    // 支付回调
+    // 一般情况下打开微信支付闪退，errCode为 -1 ，多半是包名、签名和在微信开放平台创建时的配置不一致。
+    weChatResponseEventHandler.listen((data) {
+      print(data.errCode);
+      if (data.errCode == 0) {
+        // Utils.showToastMsg("微信支付成功");
+        pay(true);
+      } else {
+        pay(false);
+
+        // Utils.showToastMsg("微信支付失败");
+      }
+    });
+  }
+
 }
