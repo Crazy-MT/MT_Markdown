@@ -1,15 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
-import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import 'invite_controller.dart';
+import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class InvitePage extends GetView<InviteController> {
   const InvitePage({Key? key}) : super(key: key);
@@ -34,10 +34,10 @@ class InvitePage extends GetView<InviteController> {
                 SizedBox(height: 12.5.h),
                 _cardWidget(),
                 SizedBox(height: 27.h),
-                ConstrainedBox(constraints: BoxConstraints(
-                  minHeight: 100.h
+                Expanded(
+                  child: _sharePlatformWidget(),
+                  flex: 1,
                 ),
-                child: _sharePlatformWidget()),
                 Expanded(child: _closeWidget(context), flex: 2)
               ],
             ),
@@ -55,14 +55,6 @@ class InvitePage extends GetView<InviteController> {
             imageUrl: userHelper.userInfo.value?.avatarUrl ?? "",
             width: 25.w,
             height: 25.w,
-            errorWidget: (_, __, ___) {
-              return Image.asset(Assets
-                  .iconsAvatarPlaceholder);
-            },
-            placeholder: (_, __) {
-              return Image.asset(Assets
-                  .iconsAvatarPlaceholder);
-            },
           ),
         ),
         SizedBox(width: 5.w),
@@ -75,7 +67,7 @@ class InvitePage extends GetView<InviteController> {
           ),
         ),
         Text(
-          userHelper.userInfo.value?.invitationCode ?? "",
+          ' 1RTWET',
           style: TextStyle(
             color: AppColors.green,
             fontSize: 12.sp,
@@ -107,7 +99,7 @@ class InvitePage extends GetView<InviteController> {
             child: Column(
               children: [
                 QrImage(
-                  data: 'https://register.chuancuibaoku.com?invitationCode=${userHelper.userInfo.value?.invitationCode}',
+                  data: 'www.baidu.com',
                   size: 60.w,
                   foregroundColor: Colors.black,
                   backgroundColor: Colors.white,
@@ -161,7 +153,6 @@ class InvitePage extends GetView<InviteController> {
                   color: Color(0xffffffff),
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
-                  height: 1,
                 ),
               ),
             ],

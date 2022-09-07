@@ -22,6 +22,19 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wxe02b86dc09511f64</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -31,16 +44,16 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>App添加地址功能中需要启动定位权限</string>
+	<key>NSCameraUsageDescription</key>
+	<string>App修改头像等功能需要访问你的手机相机</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>App添加地址功能中需要启动定位权限</string>
-	<key>NSLocationUsageDescription</key>
 	<string>App添加地址功能中需要启动定位权限</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>App添加地址功能中需要启动定位权限</string>
-	<key>NSCameraUsageDescription</key>
-	<string>App修改头像等功能需要访问你的手机相机</string>
+	<key>NSLocationUsageDescription</key>
+	<string>App添加地址功能中需要启动定位权限</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App添加地址功能中需要启动定位权限</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>App需要您的同意，才能添加照片到相册</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -64,5 +77,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>weixin</string>
+		<string>weixinULAPI</string>
+		<string>wechat</string>
+	</array>
 </dict>
 </plist>
