@@ -1,12 +1,16 @@
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluwx/fluwx.dart';
 import 'package:package_info/package_info.dart';
 import 'package:sp_util/sp_util.dart';
 
 import '../utils/device_util.dart';
 import 'colors.dart';
 import 'user_helper.dart';
+// AppID：wxe02b86dc09511f64
+// AppSecret: 4dae550e17cbf41d654052f9866cee5d
 
 class _Common {
   _Common();
@@ -18,6 +22,9 @@ class _Common {
     await SpUtil.getInstance();
     userHelper.initToken();
     await deviceUtil.init();
+    registerWxApi(appId: "wxe02b86dc09511f64", universalLink: "https://test.chuancuibaoku.com").then((value) {
+      lLog("registerWxApi result is: $value");
+    });
   }
 
   _initEasyLoading() {

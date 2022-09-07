@@ -1,16 +1,16 @@
+import 'dart:io';
 import 'dart:typed_data';
+import 'dart:ui' as ui;
 
+import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:get/get.dart';
-import 'package:code_zero/common/components/status_page/status_page.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'dart:ui' as ui;
-import 'dart:io';
 import 'package:flutter/services.dart';
-
+import 'package:fluwx/fluwx.dart';
+import 'package:get/get.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class InviteController extends GetxController {
@@ -37,9 +37,41 @@ class InviteController extends GetxController {
   }
 
   // 分享好友
-  shareWechatSession() {}
+  shareWechatSession() async {
+    RenderObject? obj = repaintWidgetKey.currentContext?.findRenderObject();
+    if (obj is RenderRepaintBoundary) {
+      double dpr = ui.window.devicePixelRatio; // 获取当前设备的像素比
+      var image = await obj.toImage(pixelRatio: dpr);
+      ByteData? _byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      Uint8List? sourceBytes = _byteData?.buffer.asUint8List();
+      if (sourceBytes == null) {
+        return;
+      }
+
+      shareToWeChat(
+        WeChatShareImageModel(WeChatImage.binary(sourceBytes), scene: WeChatScene.SESSION),
+      );
+    }
+  }
+
   // 分享朋友圈
-  shareWechatLine() {}
+  shareWechatLine() async {
+    RenderObject? obj = repaintWidgetKey.currentContext?.findRenderObject();
+    if (obj is RenderRepaintBoundary) {
+      double dpr = ui.window.devicePixelRatio; // 获取当前设备的像素比
+      var image = await obj.toImage(pixelRatio: dpr);
+      ByteData? _byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      Uint8List? sourceBytes = _byteData?.buffer.asUint8List();
+      if (sourceBytes == null) {
+        return;
+      }
+
+      shareToWeChat(
+        WeChatShareImageModel(WeChatImage.binary(sourceBytes), scene: WeChatScene.TIMELINE),
+      );
+    }
+  }
+
   // 复制连接
   copyLink() {
     Clipboard.setData(ClipboardData(text: ''));
@@ -51,23 +83,19 @@ class InviteController extends GetxController {
     if (obj is RenderRepaintBoundary) {
       double dpr = ui.window.devicePixelRatio; // 获取当前设备的像素比
       var image = await obj.toImage(pixelRatio: dpr);
-      ByteData? _byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
+      ByteData? _byteData = await image.toByteData(format: ui.ImageByteFormat.png);
       Uint8List? sourceBytes = _byteData?.buffer.asUint8List();
       if (sourceBytes == null) {
         return;
       }
-      Permission filePermission =
-          Platform.isIOS ? Permission.photos : Permission.storage;
+      Permission filePermission = Platform.isIOS ? Permission.photos : Permission.storage;
       var status = await filePermission.status;
       if (!status.isGranted) {
-        Map<Permission, PermissionStatus> statuses =
-            await [filePermission].request();
+        Map<Permission, PermissionStatus> statuses = await [filePermission].request();
         savaImage();
       }
       if (status.isGranted) {
-        final result =
-            await ImageGallerySaver.saveImage(sourceBytes, quality: 80);
+        final result = await ImageGallerySaver.saveImage(sourceBytes, quality: 80);
         if (result["isSuccess"]) {
           Utils.showToastMsg('保存海报成功');
         } else {
