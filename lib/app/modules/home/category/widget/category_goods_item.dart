@@ -32,6 +32,7 @@ class CategoryGoodsItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.w),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),

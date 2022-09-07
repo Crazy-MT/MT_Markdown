@@ -80,6 +80,8 @@ import '../modules/snap_up/balance_rule/balance_rule_binding.dart';
 import '../modules/snap_up/balance_rule/balance_rule_page.dart';
 import '../modules/mine/complaint_feedback/complaint_feedback_binding.dart';
 import '../modules/mine/complaint_feedback/complaint_feedback_page.dart';
+import '../modules/mine/photo_view/photo_view_binding.dart';
+import '../modules/mine/photo_view/photo_view_page.dart';
 
 class AppPages {
   AppPages._();
@@ -87,6 +89,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // photo_view
+    GetPage(
+      name: RoutesID.PHOTO_VIEW_PAGE,
+      page: () => const PhotoViewPage(),
+      binding: PhotoViewBinding(),
+    ),
+
     // complaint_feedback
     GetPage(
       middlewares: [EnsureAuthMiddleware()],

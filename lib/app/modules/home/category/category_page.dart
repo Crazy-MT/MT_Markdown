@@ -79,7 +79,7 @@ class CategoryPage extends GetView<CategoryController> {
           child: controller.commodityList.isEmpty
               ? CategoryEmptyView()
               : ListView.separated(
-                  padding: EdgeInsets.symmetric(vertical: 15.w),
+                  padding: EdgeInsets.only(bottom: 15.w),
                   itemBuilder: (BuildContext context, int index) {
                     return CategoryGoodsItem(controller.commodityList[index]);
                   },
@@ -132,7 +132,7 @@ class CategoryPage extends GetView<CategoryController> {
 
   _buildSortContainer() {
     return SliverPadding(
-      padding: EdgeInsets.all(15.w),
+      padding: EdgeInsets.only(top:15.w, right: 15.w, left: 15.w),
       sliver: SliverToBoxAdapter(
         child: Container(
           alignment: Alignment.center,

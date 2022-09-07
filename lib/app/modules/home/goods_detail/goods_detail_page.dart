@@ -169,32 +169,35 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                       )
                     ]),
               ),
-              Expanded(
-                  child: Container(
-                      alignment: Alignment.centerRight,
-                      child: RichText(
-                        text: TextSpan(
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: " ",
-                                style: TextStyle(
-                                  fontSize: 26.sp,
-                                  fontWeight: FontWeight.w700,
-                                ),
+              Visibility(
+                visible: Get.arguments?["from"] == RoutesID.SNAP_DETAIL_PAGE,
+                child: Expanded(
+                    child: Container(
+                        alignment: Alignment.centerRight,
+                        child: RichText(
+                          text: TextSpan(
+                              style: TextStyle(
+                                color: Colors.white,
                               ),
-                              TextSpan(
-                                text: "藏品归属人：${controller.goods.shelfNickname}",
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFF007B47),
+                              children: [
+                                TextSpan(
+                                  text: " ",
+                                  style: TextStyle(
+                                    fontSize: 26.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
-                              )
-                            ]),
-                      )))
+                                TextSpan(
+                                  text: "藏品归属人：${controller.goods.shelfNickname}",
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFF007B47),
+                                  ),
+                                )
+                              ]),
+                        ))),
+              )
             ],
           ),
         ),

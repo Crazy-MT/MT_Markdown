@@ -4,12 +4,14 @@ import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/avoid_quick_click.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
+import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:photo_view/photo_view.dart';
 
 class OrderDetailPage extends GetView<OrderDetailController> {
   const OrderDetailPage({Key? key}) : super(key: key);
@@ -73,7 +75,7 @@ class OrderDetailPage extends GetView<OrderDetailController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  Get.arguments['status'] ?? "已完成",
+                  Get.arguments?['status'] ?? "已完成",
                   style: TextStyle(
                     color: Color(0xffffffff),
                     fontSize: 16.sp,
@@ -116,14 +118,19 @@ class OrderDetailPage extends GetView<OrderDetailController> {
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w400),
                           ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(5.w),
-                            child: Obx(() => CachedNetworkImage(
-                                  imageUrl: controller.item.value?.tradeUrl ?? "",
-                                  width: 115.w,
-                                  height: 123.w,
-                                  fit: BoxFit.fitWidth,
-                                )),
+                          SafeTapWidget(
+                            onTap: () {
+                              Get.toNamed(RoutesID.PHOTO_VIEW_PAGE, arguments: {"url" : controller.item.value?.tradeUrl ?? ""});
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(5.w),
+                              child: Obx(() => CachedNetworkImage(
+                                    imageUrl: controller.item.value?.tradeUrl ?? "",
+                                    width: 115.w,
+                                    height: 123.w,
+                                    fit: BoxFit.fitWidth,
+                                  )),
+                            ),
                           )
                         ],
                       ),

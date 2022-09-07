@@ -5,9 +5,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'app/routes/app_pages.dart';
 import 'app/routes/app_routes.dart';
@@ -69,6 +71,16 @@ class App extends StatelessWidget {
         return OKToast(
           dismissOtherOnShow: true,
           child: GetMaterialApp(
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              RefreshLocalizations.delegate
+            ],
+            supportedLocales: [
+              Locale('zh', ''),
+              Locale('en', ''),
+            ],
             theme: ThemeData(
               splashColor: Colors.transparent, // 点击时的高亮效果设置为透明
               highlightColor: Colors.transparent, // 长按时的扩散效果设置为透明

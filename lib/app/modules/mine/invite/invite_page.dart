@@ -34,10 +34,10 @@ class InvitePage extends GetView<InviteController> {
                 SizedBox(height: 12.5.h),
                 _cardWidget(),
                 SizedBox(height: 27.h),
-                Expanded(
-                  child: _sharePlatformWidget(),
-                  flex: 1,
+                ConstrainedBox(constraints: BoxConstraints(
+                  minHeight: 100.h
                 ),
+                child: _sharePlatformWidget()),
                 Expanded(child: _closeWidget(context), flex: 2)
               ],
             ),
@@ -55,6 +55,14 @@ class InvitePage extends GetView<InviteController> {
             imageUrl: userHelper.userInfo.value?.avatarUrl ?? "",
             width: 25.w,
             height: 25.w,
+            errorWidget: (_, __, ___) {
+              return Image.asset(Assets
+                  .iconsAvatarPlaceholder);
+            },
+            placeholder: (_, __) {
+              return Image.asset(Assets
+                  .iconsAvatarPlaceholder);
+            },
           ),
         ),
         SizedBox(width: 5.w),
@@ -67,7 +75,7 @@ class InvitePage extends GetView<InviteController> {
           ),
         ),
         Text(
-          ' 1RTWET',
+          userHelper.userInfo.value?.invitationCode ?? "",
           style: TextStyle(
             color: AppColors.green,
             fontSize: 12.sp,
@@ -99,7 +107,7 @@ class InvitePage extends GetView<InviteController> {
             child: Column(
               children: [
                 QrImage(
-                  data: 'www.baidu.com',
+                  data: 'https://register.chuancuibaoku.com?invitationCode=${userHelper.userInfo.value?.invitationCode}',
                   size: 60.w,
                   foregroundColor: Colors.black,
                   backgroundColor: Colors.white,

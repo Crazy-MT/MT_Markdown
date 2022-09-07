@@ -6,6 +6,7 @@ import '../../network/convert_interface.dart';
 
 class UserModel extends ConvertInterface {
   int? id;
+  String? invitationCode;
   String? nickname;
   int? gender;
   String? avatarUrl;
@@ -18,6 +19,7 @@ class UserModel extends ConvertInterface {
   String? token;
   int? hasSignature;
   String? signatureUrl;
+  int? hasPassword;
   int? hasAddress;  //	是否有收货地址：0->否、1->是
   int? hasPaymentMethod; // 是否有收款方式：0->否、1->是
 
@@ -26,11 +28,12 @@ class UserModel extends ConvertInterface {
     return UserModel.fromJson(json);
   }
 
-  UserModel({this.id, this.nickname, this.gender, this.avatarUrl, this.hasPhone, this.phone, this.isCaptain, this.isMember, this.hasBirthday, this.birthday, this.token, this.hasSignature, this.signatureUrl, this.hasAddress, this.hasPaymentMethod});
+  UserModel({this.id, this.nickname, this.gender, this.avatarUrl, this.hasPhone, this.phone, this.isCaptain, this.isMember, this.hasBirthday, this.birthday, this.token, this.hasSignature, this.signatureUrl, this.hasAddress, this.hasPaymentMethod, this.hasPassword, this.invitationCode});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nickname = json['nickname'];
+    invitationCode = json['invitationCode'];
     gender = json['gender'];
     avatarUrl = json['avatarUrl'];
     hasPhone = json['hasPhone'];
@@ -50,6 +53,7 @@ class UserModel extends ConvertInterface {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['nickname'] = this.nickname;
+    data['invitationCode'] = this.invitationCode;
     data['gender'] = this.gender;
     data['avatarUrl'] = this.avatarUrl;
     data['hasPhone'] = this.hasPhone;

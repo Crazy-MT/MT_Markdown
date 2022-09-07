@@ -45,11 +45,7 @@ class FTStatusPage extends StatelessWidget {
 
       ///Copy from SmartRefresher
       this.header,
-      this.footer = const ClassicFooter(
-        noDataText: "没有更多数据",
-        loadingText: "加载中…",
-        failedText: "加载失败",
-      ),
+      this.footer,
       this.enablePullDown = false,
       this.enablePullUp = false,
       this.enableTwoLevel = false,

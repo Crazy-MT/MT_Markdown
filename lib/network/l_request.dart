@@ -90,9 +90,7 @@ class LRequest {
       // if (!skipError) await handleError(response, context: context, url: url);
       BaseModel<T> baseModel = BaseModel.fromJson(response.data, t);
       handleBaseModel?.call(baseModel);
-      lLog('MTMTMT LRequest.request ${baseModel.code.runtimeType.toString() == "String"}');
       if(baseModel.code.runtimeType.toString() == "String") {
-        lLog('MTMTMT LRequest.request ${baseModel.code.runtimeType.toString() == "String"}');
         onStringSuccess?.call(response.toString());
         return null;
       }
