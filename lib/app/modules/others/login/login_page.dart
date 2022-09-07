@@ -130,7 +130,6 @@ class LoginPage extends GetView<LoginController> {
                   onPressed: controller.sendCodeCountDown.value > 0
                       ? null
                       : () {
-                          controller.startCountDown();
                           controller.getSMS();
                         },
                   child: Text(
