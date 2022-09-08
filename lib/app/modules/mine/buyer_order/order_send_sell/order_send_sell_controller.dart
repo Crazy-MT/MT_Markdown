@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:code_zero/app/modules/home/submit_order/model/data_model.dart';
 import 'package:code_zero/app/modules/mine/buyer_order/order_send_sell/model/charge_model.dart';
 import 'package:code_zero/app/modules/mine/buyer_order/order_send_sell/model/shelf_commodity_model.dart';
@@ -10,6 +12,7 @@ import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluwx/fluwx.dart';
 import 'package:get/get.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -144,16 +147,43 @@ class OrderSendSellController extends GetxController {
     // 支付回调
     // 一般情况下打开微信支付闪退，errCode为 -1 ，多半是包名、签名和在微信开放平台创建时的配置不一致。
     weChatResponseEventHandler.listen((data) {
+      if(Get.currentRoute != RoutesID.ORDER_SEND_SELL_PAGE) {
+        return ;
+      }
+
       print("MTMTMT ${data.errCode}");
       if (data.errCode == 0) {
         Utils.showToastMsg("微信支付成功");
-        pay(true);
+        // pay(true);
+
+        Navigator.pop(Get.context!);
+        Get.offNamedUntil(RoutesID.SELLER_ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
+        // Utils.showToastMsg("微信支付成功");
+
+        /*EasyLoading.show();
+        Future.delayed(Duration(seconds: Random().nextInt(10),)).then((value) {
+          EasyLoading.dismiss();
+          Navigator.pop(Get.context!);
+          Get.offNamedUntil(RoutesID.SELLER_ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
+        });*/
+
+        // pay(true);
       } else {
         // pay(false);
-
         Utils.showToastMsg("微信支付失败");
+
+        /*EasyLoading.show();
+        int seconds = Random().nextInt(10);
+        lLog('MTMTMT OrderSendSellController.toWxPay  ${seconds}');
+          Future.delayed(Duration(seconds: seconds,)).then((value) async {
+            lLog('MTMTMT OrderSendSellController.toWxPay1 ${seconds}');
+            await EasyLoading.dismiss();
+          // Navigator.pop(Get.context!);
+
+          Get.offNamedUntil(RoutesID.SELLER_ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
+        });*/
       }
-    });
+    }, );
   }
 
 }

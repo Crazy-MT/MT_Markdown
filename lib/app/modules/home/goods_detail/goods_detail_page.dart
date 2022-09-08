@@ -51,8 +51,8 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                 _buildGoodsParams(),
                 _buildIntroPicDivider(),
                 _buildThumbnailsPicList(),
-                _buildIntroParamsList(),
                 _buildDesc(),
+                _buildIntroParamsList(),
                 _buildParamPicList(),
                 _buildIntroPicList(),
               ],
@@ -589,7 +589,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
               width: 375.w,
               // color: Color(0xff9dc2c4),
               child: Padding(
-                padding: EdgeInsets.only(left: 26.w, right: 26.w),
+                padding: EdgeInsets.only(left: 26.w, right: 26.w, bottom: 15.w),
                 child: Row(
                   children: [
                     ClipRRect(
@@ -620,7 +620,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
               width: 375.w,
               // color: Colors.white,
               child: Padding(
-                padding: EdgeInsets.only(left: 26.w, right: 26.w),
+                padding: EdgeInsets.only(left: 26.w, right: 26.w, bottom: 15.w),
                 child: Row(
                   children: [
                     ClipRRect(
@@ -643,7 +643,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
 
   _buildDesc() {
     return SliverPadding(
-      padding: EdgeInsets.all(15.w),
+      padding: EdgeInsets.all(25.w),
       sliver: SliverToBoxAdapter(
         child: Container(
           // color: Color(0xff9dc2c4),

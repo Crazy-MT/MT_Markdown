@@ -323,11 +323,6 @@ class OrderSendSellPage extends GetView<OrderSendSellController> {
                                     child: ElevatedButton(
                                       onPressed: () async {
                                         controller.toWxPay();
-
-                                        // if(await controller.pay()) {
-                                        //   Navigator.pop(context);
-                                        //   Get.offNamedUntil(RoutesID.SELLER_ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
-                                        // }
                                       },
                                       style: ElevatedButton.styleFrom(
                                         shape: StadiumBorder(),
