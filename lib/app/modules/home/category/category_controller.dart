@@ -19,6 +19,7 @@ class CategoryController extends GetxController {
   int currentPage = 0;
   int pageSize = 10;
   final RefreshController refreshController = new RefreshController();
+  var choose = 1.obs;
 
   @override
   void onInit() {

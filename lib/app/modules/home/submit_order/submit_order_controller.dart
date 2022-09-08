@@ -44,7 +44,7 @@ class SubmitOrderController extends GetxController {
       t: AddressListModel(),
       requestType: RequestType.GET,
       errorBack: (errorCode, errorMsg, expMsg) {
-        Utils.showToastMsg("获取失败：${errorCode == -1 ? expMsg : errorMsg}");
+        Utils.showToastMsg("获取失败：${errorCode == -1 ? "" : errorMsg}");
         errorLog("地址信息获取失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
       },
     );
@@ -72,6 +72,7 @@ class SubmitOrderController extends GetxController {
         },
         onSuccess: (result) {
           showSuccessDialog(onConfirm: () {
+            userHelper.isShowBadge.value = true;
             Get.offAllNamed(RoutesID.MAIN_TAB_PAGE, arguments: {'tabIndex': 3, 'showBadge': true});
             // Get.find<MineController>().showBadge(true);
           });

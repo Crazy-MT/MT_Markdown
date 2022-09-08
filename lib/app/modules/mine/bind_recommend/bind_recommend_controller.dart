@@ -68,6 +68,9 @@ class BindRecommendController extends GetxController {
         Utils.showToastMsg("获取验证码失败：${errorCode == -1 ? expMsg : errorMsg}");
         errorLog("获取验证码失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
       },
+      onSuccess: (_) {
+        startCountDown();
+      }
     );
 
     if (_result?.value == null) {

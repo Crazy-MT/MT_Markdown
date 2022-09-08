@@ -200,7 +200,8 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
                   child: CachedNetworkImage(
                     imageUrl: controller.goods.thumbnails?.first ?? "",
                     width: 80.w,
-                    // height: 100.w,
+                    fit: BoxFit.cover,
+                    height: 100.w,
                   ),
                 ),
                 SizedBox(

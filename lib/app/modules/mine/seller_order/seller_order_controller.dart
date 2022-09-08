@@ -67,7 +67,7 @@ class SellerOrderController extends GetxController with GetSingleTickerProviderS
       "from-user-id": userHelper.userInfo.value?.id,
       "page": tabInfo.currentPage,
       "size": 10,
-      "trade-state-list": "2,3,4,5,6,7,8",
+      "trade-state-list": "2,3,4,5,6,7",
     } : {
       "from-user-id": userHelper.userInfo.value?.id,
       "page": tabInfo.currentPage,
@@ -134,5 +134,47 @@ class SellerOrderController extends GetxController with GetSingleTickerProviderS
           initAllData();
         }
     );
+  }
+
+  String getTradeState(tradeState) {
+    if(tabController?.index == 3) {
+      return "已转卖";
+    }
+    if(tabController?.index == 2) {
+      return "待收款";
+    }
+    if(tabController?.index == 1) {
+      return "待确认";
+    }
+    /// 0->待付款、
+    // 1->待收款、
+    // 2->已付款、
+    // 3->待上架、
+    // 4->已上架、
+    // 5->待发货、
+    // 6->待收货、
+    // 7->已收货、
+    // 8->已取消、
+    switch (tradeState) {
+      case 0:
+        return "待付款";
+      case 1:
+        return "待收款";
+      case 2:
+        return "已付款";
+      case 3:
+        return "待上架";
+      case 4:
+        return "已上架";
+      case 5:
+        return "待发货";
+      case 6:
+        return "待收货";
+      case 7:
+        return "已收货";
+      case 8:
+        return "已取消";
+    }
+    return "其它方式";
   }
 }

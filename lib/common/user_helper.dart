@@ -13,6 +13,7 @@ class _UserHelper {
   // RxBool guestLogin = false.obs;
   String userToken = "";
   Rx<UserModel?> userInfo = Rx<UserModel?>(null);
+  var isShowBadge = false.obs;
 
   void initToken() {
     userToken = SpUtil.getString(SpConst.USER_TOKEN) ?? "";

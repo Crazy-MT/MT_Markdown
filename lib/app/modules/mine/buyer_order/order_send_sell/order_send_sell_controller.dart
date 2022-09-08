@@ -21,6 +21,7 @@ class OrderSendSellController extends GetxController {
   Rx<ShelfCommodityModel?> model = Rx<ShelfCommodityModel?>(null);
   Rx<OrderItem?> item = Rx<OrderItem?>(null);
   Rx<ChargeModel?> chargeModel = Rx<ChargeModel?>(null);
+  final TextEditingController editingController = TextEditingController();
 
   @override
   void onInit() {
@@ -44,7 +45,7 @@ class OrderSendSellController extends GetxController {
         t: ShelfCommodityModel(),
         requestType: RequestType.POST,
         errorBack: (errorCode, errorMsg, expMsg) {
-          Utils.showToastMsg("获取寄卖信息失败：${errorCode == -1 ? expMsg : errorMsg}");
+          Utils.showToastMsg("获取寄卖信息失败：${errorCode == -1 ? "" : errorMsg}");
           errorLog("获取寄卖信息失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
         },
         onSuccess: (rest) {
@@ -60,6 +61,10 @@ class OrderSendSellController extends GetxController {
   }
 
   Future<bool> createCharge() async {
+    if(editingController.text.isEmpty) {
+     Utils.showToastMsg('请输入上架金额');
+     return Future.value(false);
+    }
     bool isSuccess = false;
     ResultData<ChargeModel>? _result = await LRequest.instance.request<
         ChargeModel>(
@@ -68,7 +73,7 @@ class OrderSendSellController extends GetxController {
           "buyingTransactionId": item.value?.id,
           "commodityId": item.value?.commodityId,
           "userId": userHelper.userInfo.value?.id,
-          "newPrice": model.value?.commodityPrice,
+          "newPrice": editingController.text,
         },
         t: ChargeModel(),
         requestType: RequestType.POST,
@@ -103,7 +108,7 @@ class OrderSendSellController extends GetxController {
         },
         onStringSuccess: (rest) {
           lLog('MTMTMT OrderSendSellController.pay ${rest}');
-          Utils.showToastMsg("成功");
+          Utils.showToastMsg(isPaySuccess ? "支付成功" : "支付失败");
           isSuccess = true;
 
           Navigator.pop(Get.context!);
@@ -132,14 +137,14 @@ class OrderSendSellController extends GetxController {
     // 支付回调
     // 一般情况下打开微信支付闪退，errCode为 -1 ，多半是包名、签名和在微信开放平台创建时的配置不一致。
     weChatResponseEventHandler.listen((data) {
-      print(data.errCode);
+      print("MTMTMT ${data.errCode}");
       if (data.errCode == 0) {
-        // Utils.showToastMsg("微信支付成功");
+        Utils.showToastMsg("微信支付成功");
         pay(true);
       } else {
-        pay(false);
+        // pay(false);
 
-        // Utils.showToastMsg("微信支付失败");
+        Utils.showToastMsg("微信支付失败");
       }
     });
   }

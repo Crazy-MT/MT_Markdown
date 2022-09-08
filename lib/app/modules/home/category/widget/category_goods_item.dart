@@ -25,13 +25,14 @@ class CategoryGoodsItem extends StatelessWidget {
         });
       },
       child: Container(
-        height: 120.w,
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.w),
+        height: 110.w,
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.w),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10.w),
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             ClipRRect(
@@ -73,14 +74,14 @@ class CategoryGoodsItem extends StatelessWidget {
         Text(
           '￥',
           style: TextStyle(
-            color: S.colors.red,
-            fontSize: 10.sp,
+            color: Color(0xFFD0A06D),
+            fontSize: 12.sp,
           ),
         ),
         Text(
           item.currentPrice ?? "",
           style: TextStyle(
-            color: S.colors.red,
+            color: Color(0xFFD0A06D),
             fontSize: 18.sp,
           ),
         ),

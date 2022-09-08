@@ -85,7 +85,8 @@ class OrderItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      "${item.getTradeState()}",
+                      controller.getTradeState(item.tradeState),
+                      // "${item.getTradeState()}",
                       style: TextStyle(
                           color: Color(0xff1BDB8A),
                           fontSize: 15.sp,
@@ -108,7 +109,7 @@ class OrderItemWidget extends StatelessWidget {
           ),
           _middelWidget(),
           SizedBox(
-            height: 15.w,
+            height: 5.w,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -155,7 +156,7 @@ class OrderItemWidget extends StatelessWidget {
     return SafeTapWidget(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(right: 8.w),
+        margin: EdgeInsets.only(left: 8.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14.w),
           color: Color(0xffF3F9FB),

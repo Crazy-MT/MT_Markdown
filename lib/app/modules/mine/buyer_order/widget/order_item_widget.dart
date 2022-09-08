@@ -86,16 +86,10 @@ class OrderItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      "${item.getTradeState()}",
+                      controller.getTradeState(item.tradeState),
                       style: TextStyle(color: Color(0xff1BDB8A), fontSize: 15.sp, fontWeight: FontWeight.w500),
                       textAlign: TextAlign.end,
                     ),
-                    // _richText(fontSize1: 10.sp, fontSize2: 14.sp, text: "3000"),
-                    // Text(
-                    //   "共1件",
-                    //   textAlign: TextAlign.end,
-                    //   style: TextStyle(color: Color(0xffABAAB9), fontSize: 12.sp, fontWeight: FontWeight.normal),
-                    // ),
                   ],
                 ),
               ))
@@ -106,7 +100,7 @@ class OrderItemWidget extends StatelessWidget {
           ),
           _middelWidget(),
           SizedBox(
-            height: 15.w,
+            height: 5.w,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -209,7 +203,7 @@ class OrderItemWidget extends StatelessWidget {
     return SafeTapWidget(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(right: 8.w),
+        margin: EdgeInsets.only(left: 8.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14.w),
           color: Color(0xffF3F9FB),

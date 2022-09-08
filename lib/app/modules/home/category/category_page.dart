@@ -37,29 +37,30 @@ class CategoryPage extends GetView<CategoryController> {
         elevation: 0,
       ),
       body: Obx(
-        () => FTStatusPage(
-          type: controller.pageStatus.value,
-          errorMsg: controller.errorMsg.value,
-          enablePullUp: true,
-          enablePullDown: true,
-          controller: controller.refreshController,
-          onRefresh: () {
-            controller.getRecommendList();
-          },
-          onLoading: () {
-            controller.getRecommendList(isRefresh: false);
-          },
-          builder: (BuildContext context) {
-            return CustomScrollView(
-              controller: controller.scrollController,
-              slivers: [
-                _buildSearchContainer(),
-                _buildSortContainer(),
-                _buildOrderContent(context)
-              ],
-            );
-          },
-        ),
+            () =>
+            FTStatusPage(
+              type: controller.pageStatus.value,
+              errorMsg: controller.errorMsg.value,
+              enablePullUp: true,
+              enablePullDown: true,
+              controller: controller.refreshController,
+              onRefresh: () {
+                controller.getRecommendList();
+              },
+              onLoading: () {
+                controller.getRecommendList(isRefresh: false);
+              },
+              builder: (BuildContext context) {
+                return CustomScrollView(
+                  controller: controller.scrollController,
+                  slivers: [
+                    _buildSearchContainer(),
+                    _buildSortContainer(),
+                    _buildOrderContent(context)
+                  ],
+                );
+              },
+            ),
       ),
     );
   }
@@ -73,21 +74,24 @@ class CategoryPage extends GetView<CategoryController> {
               64.w -
               60.w -
               64.w -
-              MediaQuery.of(context).padding.bottom,
+              MediaQuery
+                  .of(context)
+                  .padding
+                  .bottom,
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           // margin: EdgeInsets.only(top: 15.w),
           child: controller.commodityList.isEmpty
               ? CategoryEmptyView()
               : ListView.separated(
-                  padding: EdgeInsets.only(bottom: 15.w),
-                  itemBuilder: (BuildContext context, int index) {
-                    return CategoryGoodsItem(controller.commodityList[index]);
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(height: 10.w);
-                  },
-                  itemCount: controller.commodityList.length,
-                ),
+            padding: EdgeInsets.only(bottom: 15.w),
+            itemBuilder: (BuildContext context, int index) {
+              return CategoryGoodsItem(controller.commodityList[index]);
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return SizedBox();
+            },
+            itemCount: controller.commodityList.length,
+          ),
         ),
       );
     });
@@ -102,27 +106,24 @@ class CategoryPage extends GetView<CategoryController> {
         child: Row(
           children: [
             Expanded(
-              child: buildInputWithTitle(
-                SizedBox.shrink(),
-                // padding: EdgeInsets.all(20.w).copyWith(top: 0, bottom: 15.w),
-                inputController: controller.keyWordController,
-                hintText: Get.arguments['from'] == 'search'
-                    ? '搜索更多'
-                    : Get.arguments['title'],
-                // obscureText: !controller.showNewPassword.value,
-                prefixWidget: IconButton(
-                  onPressed: () {},
-                  padding: EdgeInsets.zero,
-                  icon: Image.asset(
-                    Assets.iconsSearch,
-                    width: 14.w,
-                    height: 14.w,
-                  ),
-                ),
-                onSubmitted: (keyword) {
-                  controller.getRecommendList(isRefresh: true, name: keyword);
-                }
-              ),
+              child: buildInputWithTitle(SizedBox.shrink(),
+                  // padding: EdgeInsets.all(20.w).copyWith(top: 0, bottom: 15.w),
+                  inputController: controller.keyWordController,
+                  hintText: Get.arguments['from'] == 'search'
+                      ? '搜索更多'
+                      : Get.arguments['title'],
+                  // obscureText: !controller.showNewPassword.value,
+                  prefixWidget: IconButton(
+                    onPressed: () {},
+                    padding: EdgeInsets.zero,
+                    icon: Image.asset(
+                      Assets.iconsSearch,
+                      width: 14.w,
+                      height: 14.w,
+                    ),
+                  ), onSubmitted: (keyword) {
+                    controller.getRecommendList(isRefresh: true, name: keyword);
+                  }),
             ),
           ],
         ),
@@ -132,33 +133,61 @@ class CategoryPage extends GetView<CategoryController> {
 
   _buildSortContainer() {
     return SliverPadding(
-      padding: EdgeInsets.only(top:15.w, right: 15.w, left: 15.w),
+      padding:
+      EdgeInsets.only(top: 15.w, right: 15.w, left: 15.w, bottom: 10.w),
       sliver: SliverToBoxAdapter(
         child: Container(
           alignment: Alignment.center,
           // color: Colors.black,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                  child: SafeTapWidget(
-                      onTap: () {
-                        controller.getRecommendList(isRefresh: true);
-                      },
-                      child: Center(child: Text('全部')))),
-              Expanded(
-                  child: SafeTapWidget(
-                      onTap: () {
-                        controller.sortBySales();
-                      }, child: Center(child: Text('销量')))),
-              Expanded(
-                  child: SafeTapWidget(
-                      onTap: () {
-                        controller.sortByPrice();
-                      }, child: Center(child: Text('价格')))),
-            ],
-          ),
+          child: Obx(() {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                    child: SafeTapWidget(
+                        onTap: () {
+                          controller.choose.value = 1;
+                          controller.getRecommendList(isRefresh: true);
+                        },
+                        child: Center(
+                            child: Text(
+                              '全部',
+                              style: TextStyle(
+                                fontWeight: controller.choose.value == 1
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            )))),
+                Expanded(
+                    child: SafeTapWidget(
+                        onTap: () {
+                          controller.choose.value = 2;
+                          controller.sortBySales();
+                        },
+                        child: Center(
+                            child: Text('销量',
+                                style: TextStyle(
+                                  fontWeight: controller.choose.value == 2
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                ))))),
+                Expanded(
+                    child: SafeTapWidget(
+                        onTap: () {
+                          controller.choose.value = 3;
+                          controller.sortByPrice();
+                        },
+                        child: Center(
+                            child: Text('价格',
+                                style: TextStyle(
+                                  fontWeight: controller.choose.value == 3
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                ))))),
+              ],
+            );
+          }),
         ),
       ),
     );

@@ -3,7 +3,9 @@ import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/avoid_quick_click.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
+import 'package:code_zero/common/components/common_input.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
+import 'package:code_zero/utils/input_format_utils.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -170,7 +172,7 @@ class OrderSendSellPage extends GetView<OrderSendSellController> {
               _orderInfoItemWidget(
                   '推荐价格', controller.model.value?.recommendPrice ?? ""),
               _orderInfoItemWidget(
-                  '上架价格', controller.model.value?.commodityPrice ?? ""),
+                  '上架价格', controller.model.value?.commodityPrice ?? "", isEdit: true),
               _orderInfoItemWidget('收续费', controller.model.value?.charge ?? ""),
             ],
           )),
@@ -181,7 +183,7 @@ class OrderSendSellPage extends GetView<OrderSendSellController> {
     String title,
     String desc, {
     TextStyle? titleStyle,
-    TextStyle? descStyle,
+    TextStyle? descStyle, bool? isEdit
   }) {
     return Container(
       height: 42.w,
@@ -199,7 +201,21 @@ class OrderSendSellPage extends GetView<OrderSendSellController> {
                   fontWeight: FontWeight.w400,
                 ),
           ),
-          Text(
+          (isEdit ?? false) ? Container(
+            width: 120.w,
+            height: 100.w,
+            alignment: Alignment.centerRight,
+            child: CommonInput(hintText: '请输入上架金额',
+              keyboardType: TextInputType.number,
+              controller: controller.editingController,
+              hintStyle: TextStyle(
+                color: Color(0xffABAAB9),
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w400,
+              ),
+              textAlign: TextAlign.end,
+            ),
+          ) :Text(
             desc,
             style: descStyle ??
                 TextStyle(

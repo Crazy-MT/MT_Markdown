@@ -69,7 +69,7 @@ class BuyerOrderController extends GetxController
   @override
   onReady() {
     super.onReady();
-    Get.find<MineController>().showBadge(false);
+    userHelper.isShowBadge.value = false;
   }
 
   initAllData() async {
@@ -131,9 +131,15 @@ class BuyerOrderController extends GetxController
       },
     );
     if (_result?.value != null) {
+      lLog('MTMTMT BuyerOrderController.getOrder ${tabInfo.orderList.value.length} ');
+      if(isRefresh) {
+        tabInfo.orderList.clear();
+      }
       isRefresh
           ? tabInfo.orderList.value = _result?.value?.items ?? []
           : tabInfo.orderList.addAll(_result?.value?.items ?? []);
+      lLog('MTMTMT BuyerOrderController.getOrder ${tabInfo.orderList.value.length} ');
+      tabInfo.orderList.refresh();
     }
 
     if (isRefresh) {
@@ -347,4 +353,48 @@ class BuyerOrderController extends GetxController
 
     return nowTime >= start && nowTime <= end;
   }
+
+  String getTradeState(tradeState) {
+    lLog('MTMTMT BuyerOrderController.getTradeState ${tabController?.index} ');
+    if(tabController?.index == 3) {
+      return "待上架";
+    }
+    if(tabController?.index == 2) {
+      return "待卖方确认收款";
+    }
+    if(tabController?.index == 1) {
+      return "待付款";
+    }
+    /// 0->待付款、
+    // 1->待收款、
+    // 2->已付款、
+    // 3->待上架、
+    // 4->已上架、
+    // 5->待发货、
+    // 6->待收货、
+    // 7->已收货、
+    // 8->已取消、
+    switch (tradeState) {
+      case 0:
+        return "待付款";
+      case 1:
+        return "待卖方确认收款";
+      case 2:
+        return "已付款";
+      case 3:
+        return "待上架";
+      case 4:
+        return "已上架";
+      case 5:
+        return "待发货";
+      case 6:
+        return "待收货";
+      case 7:
+        return "已收货";
+      case 8:
+        return "已取消";
+    }
+    return "其它方式";
+  }
+
 }

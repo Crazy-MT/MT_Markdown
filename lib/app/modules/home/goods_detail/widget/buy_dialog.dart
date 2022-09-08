@@ -56,6 +56,7 @@ class _BuyDialog extends StatelessWidget {
                                   imageUrl: (goods.thumbnails ?? []).isEmpty ? '' : goods.thumbnails![0],
                                   width: 120.w,
                                   height: 120.w,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                               SizedBox(

@@ -108,7 +108,6 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
         child: ElevatedButton(
           onPressed: controller.sendSmsCountdown.value <= 0
               ? () {
-                  controller.startCountDown();
                   controller.getSMS();
                 }
               : null,

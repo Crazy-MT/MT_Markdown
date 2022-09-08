@@ -85,7 +85,6 @@ class BindRecommendPage extends GetView<BindRecommendController> {
         child: Obx(() => ElevatedButton(
           onPressed: controller.sendCodeCountDown.value <= 0
               ? () {
-            controller.startCountDown();
             controller.getSMS();
           }
               : null,

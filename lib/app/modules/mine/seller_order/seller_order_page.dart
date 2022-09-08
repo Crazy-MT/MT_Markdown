@@ -18,7 +18,7 @@ class SellerOrderPage extends GetView<SellerOrderController> {
     return Scaffold(
       backgroundColor: Color(0xffF5F5F5),
       appBar: CommonAppBar(
-        titleText: "全部订单",
+        titleText: "卖方订单",
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -29,14 +29,15 @@ class SellerOrderPage extends GetView<SellerOrderController> {
         ),
       ),
       body: Obx(
-        () => FTStatusPage(
-          physics: NeverScrollableScrollPhysics(),
-          type: controller.pageStatus.value,
-          errorMsg: controller.errorMsg.value,
-          builder: (BuildContext context) {
-            return _content(context);
-          },
-        ),
+            () =>
+            FTStatusPage(
+              physics: NeverScrollableScrollPhysics(),
+              type: controller.pageStatus.value,
+              errorMsg: controller.errorMsg.value,
+              builder: (BuildContext context) {
+                return _content(context);
+              },
+            ),
       ),
     );
   }
@@ -68,32 +69,34 @@ class SellerOrderPage extends GetView<SellerOrderController> {
           ),
         ),
         Expanded(
-          child: TabBarView(
-            controller: controller.tabController,
-            children: controller.myTabs.map((OrderTabInfo tab) {
-              return SmartRefresher(
-                footer: const ClassicFooter(
-                  noDataText: "没有更多数据",
-                  loadingText: "加载中…",
-                  failedText: "加载失败",
-                ),
-                controller: tab.refreshController,
-                enablePullDown: true,
-                enablePullUp: true,
-                onRefresh: () {
-                  controller.getOrder(true, tab);
-                },
-                onLoading: () {
-                  controller.getOrder(false, tab);
-                },
-                child: CustomScrollView(
-                  slivers: [
-                    _buildOrderList(tab),
-                  ],
-                ),
-              );
-            }).toList(),
-          ),
+          child: Obx(() {
+            return TabBarView(
+              controller: controller.tabController,
+              children: controller.myTabs.map((OrderTabInfo tab) {
+                return SmartRefresher(
+                  footer: const ClassicFooter(
+                    noDataText: "没有更多数据",
+                    loadingText: "加载中…",
+                    failedText: "加载失败",
+                  ),
+                  controller: tab.refreshController,
+                  enablePullDown: true,
+                  enablePullUp: true,
+                  onRefresh: () {
+                    controller.getOrder(true, tab);
+                  },
+                  onLoading: () {
+                    controller.getOrder(false, tab);
+                  },
+                  child: CustomScrollView(
+                    slivers: [
+                      _buildOrderList(tab),
+                    ],
+                  ),
+                );
+              }).toList(),
+            );
+          }),
         ),
       ],
     );
@@ -124,11 +127,14 @@ class SellerOrderPage extends GetView<SellerOrderController> {
 
     return SliverPadding(
       padding: EdgeInsets.only(
-        bottom: MediaQuery.of(Get.context!).padding.bottom,
+        bottom: MediaQuery
+            .of(Get.context!)
+            .padding
+            .bottom,
       ),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
-          (content, index) {
+              (content, index) {
             return OrderItemWidget(
               index: index,
               text: tab.tab.text ?? "已完成",

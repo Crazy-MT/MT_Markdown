@@ -124,14 +124,15 @@ class LRequest {
       onSuccess?.call(resultData);
       return resultData;
     } on DioError catch (e) {
+      // print(e);
       debugLog((e.response?.statusCode ?? -1).toString() + "${e.response?.data?['message']}" + e.toString());
       errorLog(e.toString());
-      if (e.response != null && e.response?.data["code"] == 20001) {
+      if (e.response != null && e.response?.data?["code"] == 20001) {
         userOutLoginError();
         return null;
       }
       if (errorBack != null) {
-        errorBack(e.response?.statusCode ?? -1, e.response?.data["message"], e.toString());
+        errorBack(e.response?.statusCode ?? -1, e.response?.data?["message"] ?? "", "网络错误");
       } else {
         handleError(e.response?.statusCode ?? -1, e.message, isShowErrorToast);
       }

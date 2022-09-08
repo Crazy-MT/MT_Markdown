@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:code_zero/generated/assets/assets.dart';
+import 'package:code_zero/utils/utils.dart';
 
 import '../../../../common/components/safe_tap_widget.dart';
 import '../../../routes/app_routes.dart';
@@ -76,6 +77,10 @@ class SnapDetailPage extends GetView<SnapDetailController> {
     CommodityItem item = controller.commodityList[index];
     return SafeTapWidget(
       onTap: () async {
+        if(item.status == 4) {
+          Utils.showToastMsg('已被售罄');
+          return;
+        }
         await Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
           "from": RoutesID.SNAP_DETAIL_PAGE,
           "good": item,
@@ -100,6 +105,7 @@ class SnapDetailPage extends GetView<SnapDetailController> {
                     fit: BoxFit.cover,
                   ),
                 ),
+                item.status == 4 ? Positioned(right: 0,child: Image.asset(Assets.imagesHasNoGood, width: 50.w, height: 50.w,)) : SizedBox()
               ],
             ),
             SizedBox(

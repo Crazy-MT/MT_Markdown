@@ -45,7 +45,9 @@ class SnapDetailController extends GetxController {
           "session-id": Get.arguments["id"],
           "page": currentPage,
           "size": pageSize,
-          "status" : 1,
+          // "status" : 1,
+          "status-list" : "1,4",
+          "is-delete" : 0,
           "exclude-owner-id" : userHelper.userInfo.value?.id
           // "owner-is-admin": 0
         },

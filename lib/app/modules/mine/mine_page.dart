@@ -667,10 +667,10 @@ class MinePage extends GetView<MineController> {
         children: [
           (showBadge != null && showBadge)
               ? Obx(() {
-            lLog('MTMTMT MinePage.buildItem ${controller.isShowBadge.value} ');
+            lLog('MTMTMT MinePage.buildItem ${userHelper.isShowBadge.value} ');
                 return Badge(
                   elevation: 0,
-                  showBadge: controller.isShowBadge.value,
+                  showBadge: userHelper.isShowBadge.value,
                   child: Image.asset(
                     icon,
                     width: 20.w,

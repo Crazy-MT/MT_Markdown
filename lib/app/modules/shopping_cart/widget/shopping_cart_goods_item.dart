@@ -49,6 +49,7 @@ class ShoppingCartGoodsItem extends StatelessWidget {
               imageUrl: goodsModel.commodityThumbnail ?? '',
               width: 90.w,
               height: 90.w,
+              fit: BoxFit.cover,
             ),
           ),
           SizedBox(width: 10.w),
