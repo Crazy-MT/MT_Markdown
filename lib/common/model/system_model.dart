@@ -22,6 +22,7 @@ class SystemSettingModel extends ConvertInterface{
   String? paymentBank;
   String? updatedAt;
   String? hotline;
+  String? sponsoredLinks;
 
   SystemSettingModel(
       {this.id,
@@ -37,6 +38,7 @@ class SystemSettingModel extends ConvertInterface{
         this.shelfStartTime,
         this.shelfEndTime,
         this.confirmReceiptTime,
+        this.sponsoredLinks,
         this.paymentName,
         this.paymentPhone,
         this.paymentBankCardNum,
@@ -56,6 +58,7 @@ class SystemSettingModel extends ConvertInterface{
     buyingNotice = json['buyingNotice'];
     buyingCount = json['buyingCount'];
     maxPriceRate = json['maxPriceRate'];
+    sponsoredLinks = json['sponsoredLinks'];
     recommendPriceRate = json['recommendPriceRate'];
     shelfStartTime = json['shelfStartTime'];
     shelfEndTime = json['shelfEndTime'];

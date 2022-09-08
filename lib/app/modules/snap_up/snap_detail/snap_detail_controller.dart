@@ -1,5 +1,6 @@
 import 'package:code_zero/common/extend.dart';
 import 'package:code_zero/common/user_helper.dart';
+import 'package:date_format/date_format.dart';
 import 'package:get/get.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -48,7 +49,9 @@ class SnapDetailController extends GetxController {
           // "status" : 1,
           "status-list" : "1,4",
           "is-delete" : 0,
-          "exclude-owner-id" : userHelper.userInfo.value?.id
+          "exclude-owner-id" : userHelper.userInfo.value?.id,
+          "start-time": formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', '00', ':', '00', ':', '00']),
+          "end-time": formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]),
           // "owner-is-admin": 0
         },
         requestType: RequestType.GET,

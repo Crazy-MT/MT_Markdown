@@ -3,6 +3,8 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/system_setting.dart';
+import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,7 @@ class InviteController extends GetxController {
   final pageName = 'Invite'.obs;
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
-
+  var url = '${systemSetting.model.value?.sponsoredLinks ?? "https://register.chuancuibaoku.com"}?invitationCode=${userHelper.userInfo.value?.invitationCode}';
   GlobalKey repaintWidgetKey = GlobalKey();
   List<Map<String, String>> iconList = [
     {'微信好友': Assets.imagesInviteWechatSession},
@@ -78,7 +80,8 @@ class InviteController extends GetxController {
 
   // 复制连接
   copyLink() {
-    Clipboard.setData(ClipboardData(text: ''));
+    Clipboard.setData(ClipboardData(text: url));
+    Utils.showToastMsg('复制链接成功');
   }
 
   // 保存海报

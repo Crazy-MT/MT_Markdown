@@ -106,7 +106,7 @@ class InvitePage extends GetView<InviteController> {
             child: Column(
               children: [
                 QrImage(
-                  data: 'https://register.chuancuibaoku.com?invitationCode=${userHelper.userInfo.value?.invitationCode}',
+                  data: controller.url,
                   size: 60.w,
                   foregroundColor: Colors.black,
                   backgroundColor: Colors.white,

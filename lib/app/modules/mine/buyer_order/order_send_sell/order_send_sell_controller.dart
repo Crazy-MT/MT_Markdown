@@ -62,9 +62,16 @@ class OrderSendSellController extends GetxController {
 
   Future<bool> createCharge() async {
     if(editingController.text.isEmpty) {
-     Utils.showToastMsg('请输入上架金额');
-     return Future.value(false);
+      editingController.text = model.value?.recommendPrice ?? "";
     }
+
+    try {
+      if(num.parse(editingController.text) > num.parse(model.value?.maxPrice ?? "0")) {
+        Utils.showToastMsg('上架金额不得超过最高上浮价格');
+        return Future.value(false);
+      }
+    } catch(e) {}
+
     bool isSuccess = false;
     ResultData<ChargeModel>? _result = await LRequest.instance.request<
         ChargeModel>(

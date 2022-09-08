@@ -7,6 +7,7 @@ import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -68,6 +69,8 @@ class SellerOrderController extends GetxController with GetSingleTickerProviderS
       "page": tabInfo.currentPage,
       "size": 10,
       "trade-state-list": "2,3,4,5,6,7",
+      "start-time": formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', '00', ':', '00', ':', '00']),
+      "end-time": formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]),
     } : {
       "from-user-id": userHelper.userInfo.value?.id,
       "page": tabInfo.currentPage,
