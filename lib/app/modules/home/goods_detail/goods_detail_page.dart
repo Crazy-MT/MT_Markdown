@@ -643,7 +643,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
 
   _buildDesc() {
     return SliverPadding(
-      padding: EdgeInsets.all(25.w),
+      padding: EdgeInsets.all((controller.goods.desc ?? "").isNotEmpty ? 25.w : 0.w),
       sliver: SliverToBoxAdapter(
         child: Container(
           // color: Color(0xff9dc2c4),
