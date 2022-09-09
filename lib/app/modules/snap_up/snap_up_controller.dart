@@ -64,9 +64,8 @@ class SnapUpController extends GetxController {
 
           if(isRefresh) {
             snapUpList.value = [];
-          } else {
-            currentPage++;
           }
+          currentPage++;
 
           snapUpList.addAll(model.items!);
 

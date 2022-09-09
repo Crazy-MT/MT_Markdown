@@ -61,8 +61,8 @@ class IncomeListController extends GetxController {
           if(isRefresh) {
             incomeList.value = [];
           } else {
-            currentPage++;
           }
+          currentPage++;
 
           incomeList.addAll(model.items!);
 

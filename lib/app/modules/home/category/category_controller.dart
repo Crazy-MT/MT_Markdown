@@ -66,8 +66,8 @@ class CategoryController extends GetxController {
           if (isRefresh) {
             commodityList.clear();
           } else {
-            currentPage++;
           }
+          currentPage++;
           commodityList.addAll(model.items!);
           refreshController.refreshCompleted();
           refreshController.loadComplete();

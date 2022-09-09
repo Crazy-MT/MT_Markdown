@@ -77,6 +77,7 @@ class HomeController extends GetxController {
           }
           if(isRefresh) {
             commodityList.clear();
+            currentPage++;
           } else {
             currentPage++;
           }

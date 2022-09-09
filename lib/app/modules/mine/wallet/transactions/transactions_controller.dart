@@ -56,8 +56,9 @@ class TransactionsController extends GetxController {
           if(isRefresh) {
             balanceList.clear();
           } else {
-            currentPage++;
           }
+          currentPage++;
+
           balanceList.addAll(model.items!);
           refreshController.refreshCompleted();
           refreshController.loadComplete();

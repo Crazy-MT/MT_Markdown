@@ -35,6 +35,7 @@ class SnapDetailController extends GetxController {
   }
 
   getRecommendList({bool isRefresh = true}) async {
+    lLog('MTMTMT SnapDetailController.getRecommendList 1: ${currentPage} ');
     if(isRefresh) {
       currentPage = 1;
     }
@@ -69,9 +70,12 @@ class SnapDetailController extends GetxController {
           }
           if(isRefresh) {
             commodityList.clear();
+            currentPage++;
           } else {
             currentPage++;
           }
+
+          lLog('MTMTMT SnapDetailController.getRecommendList ${currentPage} ');
           commodityList.addAll(model.items!);
           refreshController.refreshCompleted();
           refreshController.loadComplete();

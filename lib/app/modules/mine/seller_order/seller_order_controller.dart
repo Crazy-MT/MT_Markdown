@@ -83,6 +83,8 @@ class SellerOrderController extends GetxController with GetSingleTickerProviderS
         "page": tabInfo.currentPage,
         "size": 10,
         "trade-state": tabInfo.tradeState,
+        "start-time": formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', '00', ':', '00', ':', '00']),
+        "end-time": formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]),
       };
     }
     ResultData<OrderListModel>? _result = await LRequest.instance.request<OrderListModel>(
