@@ -55,7 +55,9 @@ class LoginController extends GetxController {
   }
 
   checkCanLogin() {
-    if (phoneController.text.isNotEmpty && passwordController.text.isNotEmpty && agreePrivacyPolicy.value) {
+    if (phoneController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        agreePrivacyPolicy.value) {
       enableLogin.value = true;
     } else {
       enableLogin.value = false;
@@ -79,9 +81,35 @@ class LoginController extends GetxController {
     if (_result?.value == null) {
       return;
     }
+    loginSuccess(_result);
+  }
+
+  Future<void> loginSuccess(ResultData<UserModel>? _result) async {
     userHelper.whenLogin(_result!.value!);
 
-    if(Get.arguments == null || Get.arguments["from"] == null) {
+    /// TODO 若是新用户
+    /// TODO 进入身份校验界面
+
+    /// TODO 进入设置银行卡信息页面
+    /// TODO 进入设置收货地址页面
+    if (false) {
+      bool result = await Get.toNamed(RoutesID.AUTH_CHECK_PAGE);
+      if(result) {
+        if ((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0) {
+          Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE);
+          return;
+        }
+
+        if ((userHelper.userInfo.value?.hasAddress ?? 0) == 0) {
+          Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE);
+          return;
+        }
+      } else {
+        return;
+      }
+    }
+
+    if (Get.arguments == null || Get.arguments["from"] == null) {
       Get.back();
     } else {
       Get.offAllNamed(RoutesID.MAIN_TAB_PAGE);
@@ -106,12 +134,7 @@ class LoginController extends GetxController {
     if (_result?.value == null) {
       return;
     }
-    userHelper.whenLogin(_result!.value!);
-    if(Get.arguments == null || Get.arguments["from"] == null) {
-      Get.back();
-    } else {
-      Get.offAllNamed(RoutesID.MAIN_TAB_PAGE);
-    }
+    loginSuccess(_result);
   }
 
   startCountDown() {
@@ -128,24 +151,22 @@ class LoginController extends GetxController {
   }
 
   getSMS() async {
-    lLog('MTMTMT LoginController.getSMS ${phoneController.text}');
     ResultData<UserModel>? _result = await LRequest.instance.request<UserModel>(
-      url: UserApis.SMS,
-      t: UserModel(),
-      queryParameters: {
-        "phone": phoneController.text,
-      },
-      requestType: RequestType.GET,
-      errorBack: (errorCode, errorMsg, expMsg) {
-        sendCodeCountDown.value = 0;
-        timer?.cancel();
-        Utils.showToastMsg("获取验证码失败：${errorCode == -1 ? expMsg : errorMsg}");
-        errorLog("获取验证码失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
-      },
-      onSuccess: (_) {
-        startCountDown();
-      }
-    );
+        url: UserApis.SMS,
+        t: UserModel(),
+        queryParameters: {
+          "phone": phoneController.text,
+        },
+        requestType: RequestType.GET,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          sendCodeCountDown.value = 0;
+          timer?.cancel();
+          Utils.showToastMsg("获取验证码失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("获取验证码失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+        onSuccess: (_) {
+          startCountDown();
+        });
 
     if (_result?.value == null) {
       return;
@@ -164,7 +185,7 @@ class LoginController extends GetxController {
   }
 
   void forgetPasswordClick() {
-    if(phoneController.value.text.isEmpty) {
+    if (phoneController.value.text.isEmpty) {
       Utils.showToastMsg("请输入手机号");
       return;
     }

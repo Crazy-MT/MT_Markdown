@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/shopping_cart/shopping_cart_api.dart';
 import 'package:code_zero/app/modules/shopping_cart/shopping_cart_controller.dart';
 import 'package:code_zero/app/modules/shopping_cart/widget/goods_number_widget.dart';
 import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/network/base_model.dart';
@@ -11,6 +14,7 @@ import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -194,7 +198,7 @@ class _BuyDialog extends StatelessWidget {
 class BuyDialogController extends GetxController {
   final bool isAddToCart;
   final CommodityItem goods;
-  final containerWidth = 375.w.obs;
+  final containerWidth = 374.w.obs;
   RxInt commodityCount = 1.obs;
 
   BuyDialogController(

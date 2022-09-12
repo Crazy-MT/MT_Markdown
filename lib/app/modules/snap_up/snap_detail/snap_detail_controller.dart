@@ -48,7 +48,7 @@ class SnapDetailController extends GetxController {
           "page": currentPage,
           "size": pageSize,
           // "status" : 1,
-          "status-list" : "1,4",
+          "status-list" : "1",
           "is-delete" : 0,
           "exclude-owner-id" : userHelper.userInfo.value?.id,
           "start-time": formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', '00', ':', '00', ':', '00']),

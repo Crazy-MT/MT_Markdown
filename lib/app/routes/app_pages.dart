@@ -82,6 +82,8 @@ import '../modules/mine/complaint_feedback/complaint_feedback_binding.dart';
 import '../modules/mine/complaint_feedback/complaint_feedback_page.dart';
 import '../modules/mine/photo_view/photo_view_binding.dart';
 import '../modules/mine/photo_view/photo_view_page.dart';
+import '../modules/others/login/auth_check/auth_check_binding.dart';
+import '../modules/others/login/auth_check/auth_check_page.dart';
 
 class AppPages {
   AppPages._();
@@ -89,6 +91,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // auth_check
+    GetPage(
+      name: RoutesID.AUTH_CHECK_PAGE,
+      page: () => const AuthCheckPage(),
+      binding: AuthCheckBinding(),
+    ),
+
     // photo_view
     GetPage(
       name: RoutesID.PHOTO_VIEW_PAGE,
@@ -219,7 +228,7 @@ class AppPages {
       binding: CollectionSettingsBinding(),
     ),
 
-    // 查看他人收款信息
+    // 查看他人收款信息，只有查看没有编辑功能
     GetPage(
       middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.COLLECTION_PAGE,

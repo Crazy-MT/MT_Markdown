@@ -94,15 +94,7 @@ class SnapUpController extends GetxController {
     if(toastText.isEmpty) {
       // snapUpList[index].startTime = "15:19";
       // snapUpList[index].endTime = "15:45";
-      if((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0 ) {
-        Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE);
-        return;
-      }
 
-      if((userHelper.userInfo.value?.hasAddress ?? 0) == 0 ) {
-        Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE);
-        return;
-      }
 
       if((userHelper.userInfo.value?.hasSignature ?? 0) == 0) {
         Get.toNamed(

@@ -90,15 +90,11 @@ class InvitePage extends GetView<InviteController> {
       key: controller.repaintWidgetKey,
       child: Stack(
         children: [
-          ClipRRect(
-            clipBehavior: Clip.hardEdge,
-            borderRadius: BorderRadius.circular(10.w),
-            child: Image.asset(
-              Assets.imagesInvitePosterTemplate,
-              // width: double.infinity,
-              height: 480.h,
-              fit: BoxFit.fitHeight,
-            ),
+          Image.asset(
+            Assets.imagesInvitePosterTemplate,
+            // width: double.infinity,
+            height: 480.h,
+            fit: BoxFit.fitHeight,
           ),
           Positioned(
             right: 15.w,

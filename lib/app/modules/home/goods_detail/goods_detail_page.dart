@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/snap_up/widget/count_down.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
@@ -7,6 +9,7 @@ import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:text_scroll/text_scroll.dart';
@@ -188,7 +191,8 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: "藏品归属人：${controller.goods.shelfNickname}",
+                                  text:
+                                      "藏品归属人：${controller.goods.shelfNickname}",
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w500,
@@ -433,6 +437,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                     "立即购买",
                     style: TextStyle(
                       fontSize: 16.sp,
+                      color: Colors.white,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -643,7 +648,8 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
 
   _buildDesc() {
     return SliverPadding(
-      padding: EdgeInsets.all((controller.goods.desc ?? "").isNotEmpty ? 25.w : 0.w),
+      padding:
+          EdgeInsets.all((controller.goods.desc ?? "").isNotEmpty ? 25.w : 0.w),
       sliver: SliverToBoxAdapter(
         child: Container(
           // color: Color(0xff9dc2c4),

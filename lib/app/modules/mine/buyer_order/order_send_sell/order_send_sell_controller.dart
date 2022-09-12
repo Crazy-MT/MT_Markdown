@@ -6,6 +6,7 @@ import 'package:code_zero/app/modules/mine/buyer_order/order_send_sell/model/she
 import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
 import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
+import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
@@ -30,6 +31,7 @@ class OrderSendSellController extends GetxController {
   void onInit() {
     super.onInit();
     initData();
+
   }
 
   initData() {
@@ -101,6 +103,7 @@ class OrderSendSellController extends GetxController {
     return isSuccess;
   }
 
+  /// 废弃方法
   Future<bool> pay(isPaySuccess) async {
     bool isSuccess = false;
     ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
@@ -143,47 +146,36 @@ class OrderSendSellController extends GetxController {
       timeStamp: int.parse(chargeModel.value?.timeStamp ?? "0"),
       sign: chargeModel.value?.sign ?? "",
     );
-
     // 支付回调
     // 一般情况下打开微信支付闪退，errCode为 -1 ，多半是包名、签名和在微信开放平台创建时的配置不一致。
-    weChatResponseEventHandler.listen((data) {
+    // weChatResponseEventHandler 存在多次 listen 且无法关闭的情况。 解决办法，可以是放在单独的对象里，另一个办法就是只取第一个
+    weChatResponseEventHandler.first.asStream().listen((data) {
       if(Get.currentRoute != RoutesID.ORDER_SEND_SELL_PAGE) {
         return ;
       }
 
-      print("MTMTMT ${data.errCode}");
-      if (data.errCode == 0) {
-        Utils.showToastMsg("微信支付成功");
-        // pay(true);
-
-        Navigator.pop(Get.context!);
-        Get.offNamedUntil(RoutesID.SELLER_ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
-        // Utils.showToastMsg("微信支付成功");
-
-        /*EasyLoading.show();
-        Future.delayed(Duration(seconds: Random().nextInt(10),)).then((value) {
-          EasyLoading.dismiss();
-          Navigator.pop(Get.context!);
-          Get.offNamedUntil(RoutesID.SELLER_ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
-        });*/
-
-        // pay(true);
-      } else {
-        // pay(false);
-        Utils.showToastMsg("微信支付失败");
-
-        /*EasyLoading.show();
-        int seconds = Random().nextInt(10);
-        lLog('MTMTMT OrderSendSellController.toWxPay  ${seconds}');
-          Future.delayed(Duration(seconds: seconds,)).then((value) async {
-            lLog('MTMTMT OrderSendSellController.toWxPay1 ${seconds}');
-            await EasyLoading.dismiss();
-          // Navigator.pop(Get.context!);
-
-          Get.offNamedUntil(RoutesID.SELLER_ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
-        });*/
-      }
+      checkPayResult();
     }, );
+  }
+
+  void checkPayResult() {
+    EasyLoading.show();
+    // TODO 开始三十秒，查询订单状态接口，成功跳转，不成功弹窗提示
+    Future.delayed(Duration(seconds: 30,)).then((value) async {
+      EasyLoading.dismiss();
+      /// todo 不成功
+      showConfirmDialog(
+        singleText: '确定',
+        onSingle: () async {
+          Get.back();
+        },
+        content: '查询支付结果超时，请稍后查询或联系工作人员',
+      );
+    });
+
+    /// todo 成功
+    // EasyLoading.dismiss();
+    // Get.offNamedUntil(RoutesID.SELLER_ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
   }
 
 }

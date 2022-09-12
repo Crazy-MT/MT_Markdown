@@ -3,6 +3,7 @@
 // ignore_for_file: constant_identifier_names
 
 class RoutesID {
+  static const AUTH_CHECK_PAGE = "/auth_check_page";
   static const PHOTO_VIEW_PAGE = "/photo_view_page";
   static const COMPLAINT_FEEDBACK_PAGE = "/complaint_feedback_page";
   static const BALANCE_RULE_PAGE = "/balance_rule_page";
