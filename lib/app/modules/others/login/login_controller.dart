@@ -92,9 +92,10 @@ class LoginController extends GetxController {
 
     /// TODO 进入设置银行卡信息页面
     /// TODO 进入设置收货地址页面
-    if (false) {
+    ///
+    if (_result.value?.checkRes == 0) {
       bool result = await Get.toNamed(RoutesID.AUTH_CHECK_PAGE);
-      if(result) {
+      if (result) {
         if ((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0) {
           await Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE);
         }
@@ -102,9 +103,8 @@ class LoginController extends GetxController {
         if ((userHelper.userInfo.value?.hasAddress ?? 0) == 0) {
           await Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE);
         }
-      } else {
-        return;
       }
+      return;
     }
 
     if (Get.arguments == null || Get.arguments["from"] == null) {

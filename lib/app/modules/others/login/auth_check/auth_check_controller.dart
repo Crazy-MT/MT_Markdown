@@ -1,6 +1,12 @@
+import 'package:code_zero/common/user_helper.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+
+import '../../../../../network/base_model.dart';
+import '../../../../../network/l_request.dart';
+import '../../../../../utils/utils.dart';
+import '../../user_apis.dart';
 
 class AuthCheckController extends GetxController {
   final pageName = 'AuthCheck'.obs;
@@ -40,13 +46,34 @@ class AuthCheckController extends GetxController {
     pageName.value = newName;
   }
 
-  void check() {
-    Get.back(result: true);
+  Future<void> check() async {
+    var userId = userHelper.userInfo.value?.id;
+    if (userId == null) {
+      Get.back(result: false);
+      return;
+    }
+
+    var params = {
+      "name": nameController.text,
+      "idCard": idCodeController.text,
+      "id": userId,
+    };
+
+    ResultData? _result = await LRequest.instance.request(
+      url: UserApis.IDENTITIY_CHECK,
+      data: params,
+      requestType: RequestType.POST,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        Utils.showToastMsg("核验失败：${errorCode == -1 ? expMsg : errorMsg}");
+      },
+    );
+    if (_result?.value?.code == 0) {
+      Get.back(result: true);
+    }
   }
 
   checkCanConfirm() {
-    if (nameController.text.isNotEmpty &&
-        idCodeController.text.isNotEmpty) {
+    if (nameController.text.isNotEmpty && idCodeController.text.isNotEmpty) {
       enableConfirm.value = true;
     } else {
       enableConfirm.value = false;

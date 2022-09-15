@@ -20,15 +20,35 @@ class UserModel extends ConvertInterface {
   int? hasSignature;
   String? signatureUrl;
   int? hasPassword;
-  int? hasAddress;  //	是否有收货地址：0->否、1->是
+  int? hasAddress; //	是否有收货地址：0->否、1->是
   int? hasPaymentMethod; // 是否有收款方式：0->否、1->是
+  int? checkRes; // 身份校验结果 0 未校验 1 校验通过 2 校验未通过 3 无记录
 
   @override
   fromJson(Map<String, dynamic> json) {
     return UserModel.fromJson(json);
   }
 
-  UserModel({this.id, this.nickname, this.gender, this.avatarUrl, this.hasPhone, this.phone, this.isCaptain, this.isMember, this.hasBirthday, this.birthday, this.token, this.hasSignature, this.signatureUrl, this.hasAddress, this.hasPaymentMethod, this.hasPassword, this.invitationCode});
+  UserModel({
+    this.id,
+    this.nickname,
+    this.gender,
+    this.avatarUrl,
+    this.hasPhone,
+    this.phone,
+    this.isCaptain,
+    this.isMember,
+    this.hasBirthday,
+    this.birthday,
+    this.token,
+    this.hasSignature,
+    this.signatureUrl,
+    this.hasAddress,
+    this.hasPaymentMethod,
+    this.hasPassword,
+    this.invitationCode,
+    this.checkRes,
+  });
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -47,6 +67,7 @@ class UserModel extends ConvertInterface {
     signatureUrl = json['signatureUrl'];
     hasAddress = json['hasAddress'];
     hasPaymentMethod = json['hasPaymentMethod'];
+    checkRes = json['checkRes'];
   }
 
   Map<String, dynamic> toJson() {
@@ -67,6 +88,7 @@ class UserModel extends ConvertInterface {
     data['signatureUrl'] = this.signatureUrl;
     data['hasAddress'] = this.hasAddress;
     data['hasPaymentMethod'] = this.hasPaymentMethod;
+    data['checkRes'] = this.checkRes;
     return data;
   }
 

@@ -10,13 +10,17 @@ class UserApis {
   static const String BIND = NetConstant.HOST + PREFIX + "/bind-from-user";
   static const String PHONE_LOGIN = NetConstant.HOST + PREFIX + "/phone-login";
   static const String SMS = NetConstant.HOST + "/sms" + "/send-user-login-code";
+  static const String IDENTITIY_CHECK =
+      NetConstant.HOST + "/open-api/identity-check";
 
   static const String UPLOAD = NetConstant.HOST + "/file/uploads";
   static const String UPDATE_INFO = NetConstant.HOST + PREFIX + "/update-info";
 
-  static const String UPDATE_PASSWORD = NetConstant.HOST + PREFIX + "/update-password";
+  static const String UPDATE_PASSWORD =
+      NetConstant.HOST + PREFIX + "/update-password";
 
-  static const String UPDATE_SIGNATURE = NetConstant.HOST + PREFIX + "/update-signature";
+  static const String UPDATE_SIGNATURE =
+      NetConstant.HOST + PREFIX + "/update-signature";
 
   static const String SYSTEM_SETTING = NetConstant.HOST + "/system-setting/get";
 
