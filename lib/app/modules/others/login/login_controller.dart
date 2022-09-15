@@ -96,13 +96,11 @@ class LoginController extends GetxController {
       bool result = await Get.toNamed(RoutesID.AUTH_CHECK_PAGE);
       if(result) {
         if ((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0) {
-          Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE);
-          return;
+          await Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE);
         }
 
         if ((userHelper.userInfo.value?.hasAddress ?? 0) == 0) {
-          Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE);
-          return;
+          await Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE);
         }
       } else {
         return;

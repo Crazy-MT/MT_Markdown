@@ -42,7 +42,7 @@ class SplashPage extends GetView<SplashController> {
                               ),
                               Center(
                                 child: Text(
-                                  "传翠宝库",
+                                  "亿翠珠宝商城",
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
