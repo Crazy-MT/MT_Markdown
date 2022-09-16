@@ -1,3 +1,4 @@
+import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,9 @@ class _Common {
   PackageInfo? packageInfo;
 
   Future initCommon() async {
+    LRequest.instance.init();
     packageInfo = await PackageInfo.fromPlatform();
     _initEasyLoading();
-    await SpUtil.getInstance();
     userHelper.initToken();
     await deviceUtil.init();
     registerWxApi(appId: "wxe02b86dc09511f64", universalLink: "https://test.chuancuibaoku.com").then((value) {

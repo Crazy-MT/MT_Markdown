@@ -1,4 +1,5 @@
 import 'package:code_zero/common/user_helper.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -56,7 +57,7 @@ class AuthCheckController extends GetxController {
     var params = {
       "name": nameController.text,
       "idCard": idCodeController.text,
-      "id": userId,
+      "userId": userId,
     };
 
     ResultData? _result = await LRequest.instance.request(
@@ -66,10 +67,12 @@ class AuthCheckController extends GetxController {
       errorBack: (errorCode, errorMsg, expMsg) {
         Utils.showToastMsg("核验失败：${errorCode == -1 ? expMsg : errorMsg}");
       },
+      onSuccess: (ret) {
+        userHelper.userInfo.value?.checkRes = 1;
+        userHelper.whenLogin(userHelper.userInfo.value!);
+        Get.back(result: true);
+      }
     );
-    if (_result?.value?.code == 0) {
-      Get.back(result: true);
-    }
   }
 
   checkCanConfirm() {

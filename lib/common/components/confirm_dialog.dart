@@ -198,6 +198,7 @@ Future<bool> showConfirmDialog({
   String confirmText = "确定",
   String? singleText,
   Color? confirmTextColor,
+  bool barrierDismissible = true
 }) async {
   var result = await Get.dialog(_ConfirmDialog(
       title: title,
@@ -211,7 +212,7 @@ Future<bool> showConfirmDialog({
       confirmText: confirmText,
       confirmTextColor: confirmTextColor,
       onSingle: onSingle,
-      singleText: singleText));
+      singleText: singleText), barrierDismissible: barrierDismissible);
   if (result == true) return true;
   return false;
 }

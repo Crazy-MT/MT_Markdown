@@ -87,24 +87,26 @@ class LoginController extends GetxController {
   Future<void> loginSuccess(ResultData<UserModel>? _result) async {
     userHelper.whenLogin(_result!.value!);
 
-    /// TODO 若是新用户
-    /// TODO 进入身份校验界面
-
-    /// TODO 进入设置银行卡信息页面
-    /// TODO 进入设置收货地址页面
-    ///
-    if (_result.value?.checkRes == 0) {
+    if ((userHelper.userInfo.value?.checkRes ?? 0) != 1) {
       bool result = await Get.toNamed(RoutesID.AUTH_CHECK_PAGE);
-      if (result) {
-        if ((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0) {
-          await Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE);
-        }
-
-        if ((userHelper.userInfo.value?.hasAddress ?? 0) == 0) {
-          await Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE);
-        }
+      if (!result) {
+        return;
       }
-      return;
+    }
+
+    if ((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0) {
+      await Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE);
+
+      if ((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0) {
+        return;
+      }
+    }
+
+    if ((userHelper.userInfo.value?.hasAddress ?? 0) == 0) {
+      await Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE);
+      if ((userHelper.userInfo.value?.hasAddress ?? 0) == 0) {
+        return;
+      }
     }
 
     if (Get.arguments == null || Get.arguments["from"] == null) {
