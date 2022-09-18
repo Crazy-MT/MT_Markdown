@@ -7,6 +7,7 @@ import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -350,10 +351,16 @@ class HomePage extends GetView<HomeController> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.w),
                   child: CachedNetworkImage(
-                    imageUrl: item.thumbnails?.first ?? "",
+                    imageUrl: item.thumbnails?.firstWhere((element) => element.isNotEmpty, orElse: () => "") ?? '',
                     width: 165.w,
                     height: 210.w,
                     fit: BoxFit.cover,
+                    errorWidget: (_,__, ___) {
+                      return Container(decoration: BoxDecoration(
+                        color: AppColors.bg_gray,
+                        borderRadius: BorderRadius.circular(8.w),
+                      ),);
+                    },
                   ),
                 ),
                 Visibility(

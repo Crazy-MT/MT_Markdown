@@ -1,4 +1,5 @@
 import 'package:code_zero/app/modules/home/goods_detail/widget/buy_dialog.dart';
+import 'package:code_zero/app/modules/shopping_cart/model/shopping_cart_list_model.dart';
 import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -19,10 +20,12 @@ class GoodsDetailController extends GetxController {
   var timerRefresh = false.obs;
 
   final currentIndex = 0.obs;
+  var isFromSnap;
 
   @override
   void onInit() {
     super.onInit();
+    isFromSnap = Get.arguments?["from"] == RoutesID.SNAP_DETAIL_PAGE;
     goods = Get.arguments?["good"] ?? CommodityItem();
     initData();
     pageController.addListener(() {
@@ -49,7 +52,22 @@ class GoodsDetailController extends GetxController {
   doBuy() async {
     String result = await showByDialog(isAddToCart: false, goods: goods);
     if (result.isEmpty) return;
-    Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE);
+    goToSubmitOrderPage();
+  }
+
+  void goToSubmitOrderPage() {
+    Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE, arguments: {
+      "goods": [
+        ShoppingCartItem(
+            commodityId: goods.id,
+            commodityName: goods.name,
+            commodityCount: 1,
+            commodityPrice: double.tryParse(goods.currentPrice ?? "0"),
+            commodityThumbnail: goods.thumbnails?.firstWhere((element) => element.isNotEmpty, orElse: () => "")
+        )
+      ].obs,
+      "isFromSnap": isFromSnap
+    });
   }
 
   doAddToCart() async {
@@ -58,6 +76,7 @@ class GoodsDetailController extends GetxController {
 
   @override
   void onClose() {}
+
   void setPageName(String newName) {
     pageName.value = newName;
   }

@@ -226,7 +226,9 @@ class BuyDialogController extends GetxController {
         Get.find<ShoppingCartController>().getGoodsList();
         Get.back(result: "1");
       }
-    } else {}
+    } else {
+      Get.back(result: "1");
+    }
   }
 }
 

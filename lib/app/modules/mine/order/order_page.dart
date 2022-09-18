@@ -1,4 +1,6 @@
+import 'package:code_zero/app/modules/mine/order/model/self_order_tab_info.dart';
 import 'package:code_zero/app/modules/mine/order/widget/order_item_widget.dart';
+import 'package:code_zero/common/components/keep_alive_wrapper.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
@@ -69,69 +71,73 @@ class OrderPage extends GetView<OrderController> {
           ),
         ),
         Expanded(
-          child: TabBarView(
-            controller: controller.tabController,
-            children: controller.myTabs.map((OrderTabInfo tab) {
-              return SmartRefresher(
-                footer: const ClassicFooter(
-                  noDataText: "没有更多数据",
-                  loadingText: "加载中…",
-                  failedText: "加载失败",
-                ),
-                controller: tab.refreshController,
-                enablePullDown: true,
-                enablePullUp: true,
-                onRefresh: () {
-                  // controller.getOrder(true, tab);
-                },
-                onLoading: () {
-                  // controller.getOrder(false, tab);
-                },
-                child: CustomScrollView(
-                  slivers: [
-                    _buildOrderList(tab),
-                  ],
-                ),
-              );
-            }).toList(),
-          ),
+          child: Obx(() {
+            return TabBarView(
+              controller: controller.tabController,
+              children: controller.myTabs.map((SelfOrderTabInfo tab) {
+                return KeepAliveWrapper(
+                  child: SmartRefresher(
+                    controller: tab.refreshController,
+                    enablePullDown: true,
+                    enablePullUp: true,
+                    onRefresh: () {
+                      controller.getOrder(true, tab);
+                    },
+                    onLoading: () {
+                      controller.getOrder(false, tab);
+                    },
+                    child: CustomScrollView(
+                      slivers: [
+                        _buildOrderList(tab),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList(),
+            );
+          }),
         ),
       ],
     );
   }
 
-  _buildOrderList(OrderTabInfo tab) {
-    // if (tab.orderList.length == 0) {
-    //   return SliverToBoxAdapter(
-    //     child: Container(
-    //       height: 400.w,
-    //       child: Column(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: [
-    //           Image.asset(
-    //             Assets.iconsNoOrder,
-    //             width: 100.w,
-    //             height: 100.w,
-    //           ),
-    //           Text(
-    //             '暂无相关订单',
-    //             style: TextStyle(color: Color(0xFFABAAB9)),
-    //           )
-    //         ],
-    //       ),
-    //     ),
-    //   );
-    // }
+  _buildOrderList(SelfOrderTabInfo tab) {
+    if (tab.orderList.length == 0) {
+      return SliverToBoxAdapter(
+        child: Container(
+          height: 400.w,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                Assets.iconsNoOrder,
+                width: 100.w,
+                height: 100.w,
+              ),
+              Text(
+                '暂无相关订单',
+                style: TextStyle(color: Color(0xFFABAAB9)),
+              )
+            ],
+          ),
+        ),
+      );
+    }
 
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (content, index) {
-          return Obx(() => OrderItemWidget(
-                index: index,
-                editStatus: this.controller.editStatus.value,
-              ));
-        },
-        childCount: 10,
+    return SliverPadding(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(Get.context!).padding.bottom),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (content, index) {
+            return Obx(() => OrderItemWidget(
+                  index: index,
+              item: tab.orderList[index],
+              editStatus: this.controller.editStatus.value,
+                ));
+          },
+          childCount: tab.orderList.length,
+        ),
       ),
     );
   }
@@ -210,14 +216,6 @@ class OrderPage extends GetView<OrderController> {
             width: 10.w,
           )
         ],
-      ),
-    );
-  }
-
-  _safeWidget(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: SizedBox(
-        height: MediaQuery.of(context).padding.bottom,
       ),
     );
   }

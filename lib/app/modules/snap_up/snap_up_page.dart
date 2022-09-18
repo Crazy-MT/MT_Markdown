@@ -145,18 +145,11 @@ class SnapUpPage extends GetView<SnapUpController> {
                     SizedBox(
                       width: 13.w,
                     ),
-                    SafeTapWidget(
-                      onTap: (){
-                        // Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE, arguments: {
-                          // "goods": controller.goods,
-                        // });
-                      },
-                      child: Text(
-                        "可提前20分钟进入浏览",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14.sp,
-                        ),
+                    Text(
+                      "可提前20分钟进入浏览",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.sp,
                       ),
                     ),
                     Expanded(child: SizedBox()),

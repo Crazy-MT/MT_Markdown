@@ -37,8 +37,6 @@ class BuyerOrderController extends GetxController
   final List<OrderTabInfo> myTabs = <OrderTabInfo>[
     /// 我的仓库=0,1,2,3,5,6,7
     /// 待付=0  已付款可以=1,2   待上架=3
-
-
     OrderTabInfo(
         Tab(text: '我的仓库'), -1, RefreshController(), 1, RxList<OrderItem>()),
     OrderTabInfo(

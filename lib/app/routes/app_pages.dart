@@ -84,6 +84,8 @@ import '../modules/mine/photo_view/photo_view_binding.dart';
 import '../modules/mine/photo_view/photo_view_page.dart';
 import '../modules/others/login/auth_check/auth_check_binding.dart';
 import '../modules/others/login/auth_check/auth_check_page.dart';
+import '../modules/mine/order/self_order_detail/self_order_detail_binding.dart';
+import '../modules/mine/order/self_order_detail/self_order_detail_page.dart';
 
 class AppPages {
   AppPages._();
@@ -91,6 +93,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // self_order_detail
+    GetPage(
+      name: RoutesID.SELF_ORDER_DETAIL_PAGE,
+      page: () => const SelfOrderDetailPage(),
+      binding: SelfOrderDetailBinding(),
+    ),
+
     // auth_check
     GetPage(
       name: RoutesID.AUTH_CHECK_PAGE,

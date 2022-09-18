@@ -500,10 +500,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                       children: [
                         SafeTapWidget(
                           onTap: () {
-                            Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE, arguments: {
-                              "goods": controller.goods,
-                            });
-                            // controller.doSnapUpCreate(commodityId, addressId);
+                            controller.goToSubmitOrderPage();
                           },
                           child: Container(
                             width: 335.w,

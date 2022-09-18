@@ -99,7 +99,7 @@ class SnapDetailPage extends GetView<SnapDetailController> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.w),
                   child: CachedNetworkImage(
-                    imageUrl: item.thumbnails?.first ?? "",
+                    imageUrl: item.thumbnails?.firstWhere((element) => element.isNotEmpty, orElse: () => "") ?? '',
                     width: 165.w,
                     height: 210.w,
                     fit: BoxFit.cover,

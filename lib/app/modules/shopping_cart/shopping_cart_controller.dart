@@ -1,5 +1,6 @@
 import 'package:code_zero/app/modules/shopping_cart/model/shopping_cart_list_model.dart';
 import 'package:code_zero/app/modules/shopping_cart/shopping_cart_api.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/user_helper.dart';
@@ -95,8 +96,10 @@ class ShoppingCartController extends GetxController {
         // Utils.showToastMsg("更新失败：${errorCode == -1 ? expMsg : errorMsg}");
         errorLog("更新失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
       },
+      onSuccess: (_) {
+        updateTotalPrice();
+      }
     );
-    updateTotalPrice();
   }
 
   // 更新商品价格
@@ -122,7 +125,12 @@ class ShoppingCartController extends GetxController {
   }
 
   // 提交订单
-  void submit() {}
+  void submit() {
+    Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE, arguments: {
+      "goods": selectGoodsList,
+      "isFromSnap": false
+    });
+  }
 
   // 删除商品
   void delete() {
