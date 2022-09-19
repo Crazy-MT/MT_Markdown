@@ -59,7 +59,7 @@ class HomeController extends GetxController {
           "page": currentPage,
           "size": pageSize,
           "status" : 1,
-          "is-delete": 0
+          "isDelete": 0
           // "owner-is-admin": 0
         },
         requestType: RequestType.GET,
