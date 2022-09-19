@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/mine/order/model/self_order_list_model.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
@@ -33,39 +34,82 @@ class SelfOrderDetailPage extends GetView<SelfOrderDetailController> {
           type: controller.pageStatus.value,
           errorMsg: controller.errorMsg.value,
           builder: (BuildContext context) {
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Column(
-                children: [
-                  SizedBox(height: 15.w),
-                  _payInfoWidget(),
-                  SizedBox(height: 10.w),
-                  _oderInfoWidget(),
-                ],
-              ),
-            );
+            return Obx(() {
+              return Container(
+                color: AppColors.bg_gray,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 15.w),
+                      _payInfoWidget(),
+                      SizedBox(height: 15.w),
+                      _goodsWidget(),
+                      SizedBox(height: 10.w),
+                      _pay(),
+                      SizedBox(height: 10.w),
+                      _oderInfoWidget(),
+                    ],
+                  ),
+                ),
+              );
+            });
           },
         ),
       ),
     );
   }
 
+  SingleChildScrollView _goodsWidget() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Column(
+            children: (controller.item.value?.commodityList ?? [])
+                .map<Widget>((element) {
+              return Container(
+                padding: EdgeInsets.all(10.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _middelWidget(element),
+                    SizedBox(
+                      height: 5.w,
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+          // _buildGoodsInfo(),
+        ],
+      ),
+    );
+  }
+
   Widget _payInfoWidget() {
+    SelfOrderItems? item = controller.item.value;
     return Container(
-      height: (222 + 62).w,
-      clipBehavior: Clip.hardEdge,
+      height: (120).w,
+      // clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            alignment: Alignment.center,
             padding: EdgeInsets.only(left: 20.w, right: 35.w),
             height: 62.w,
             decoration: BoxDecoration(
               color: AppColors.green,
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,64 +130,72 @@ class SelfOrderDetailPage extends GetView<SelfOrderDetailController> {
               ],
             ),
           ),
-          Expanded(
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 5.w, horizontal: 15.w),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5), color: Colors.white),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Visibility(
-
-                  child: Container(
-                    height: 50.w,
-                    child: Obx(() => _orderInfoItemWidget(
-                        '支付方式', controller.item.value?.getTradeMethod())),
-                  ),
-                  visible: true,
-                ),
-                Visibility(
-                  visible: true,
-                  child: Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15.w),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '支付凭证',
-                            style: TextStyle(
-                                color: Color(0xff434446),
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w400),
-                          ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(5.w),
-                            child: CachedNetworkImage(
-                              imageUrl: "",
-                              width: 115.w,
-                              height: 123.w,
-                              fit: BoxFit.fitWidth,
-                            ),
-                          )
-                        ],
-                      ),
+                Row(
+                  children: [
+                    Image.asset(
+                      Assets.imagesAddressLocationIcon,
+                      width: 20.w,
                     ),
-                  ),
+                    Text('${item?.receiptConsignee}    ${item?.receiptPhone}'),
+                  ],
                 ),
-                Container(
-                  height: 50.w,
-                  child: Obx(() => _orderInfoItemWidget(
-                    '商品金额',
-                    "￥ ${controller.item.value?.newPrice}",
-                    titleStyle: TextStyle(
-                        color: Color(0xff111111),
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600),
-                    descStyle: TextStyle(
-                        color: AppColors.green,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500),
-                  )),
-                ),
+                Text('${item?.receiptRegion}${item?.receiptAddress}')
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _pay() {
+    SelfOrderItems? item = controller.item.value;
+    return Container(
+      height: 200.w,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        children: [
+          Visibility(
+            child: Container(
+              height: 50.w,
+              child: _orderInfoItemWidget('支付方式', item?.getTradeMethod()),
+            ),
+            visible: true,
+          ),
+          Visibility(
+            child: Container(
+              height: 50.w,
+              child: _orderInfoItemWidget('商品价格', item?.amount ?? ""),
+            ),
+            visible: true,
+          ),
+          Container(
+            height: 50.w,
+            child: _orderInfoItemWidget('物流公司', item?.getTradeMethod()),
+          ),
+          Container(
+            height: 50.w,
+            child: _orderInfoItemWidget(
+              '应付金额',
+              "￥ ${item?.paidAmount}",
+              titleStyle: TextStyle(
+                  color: Color(0xff111111),
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600),
+              descStyle: TextStyle(
+                  color: AppColors.green,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500),
             ),
           ),
         ],
@@ -153,7 +205,7 @@ class SelfOrderDetailPage extends GetView<SelfOrderDetailController> {
 
   Widget _oderInfoWidget() {
     return Container(
-      height: 84.w,
+      height: 96.w,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -162,22 +214,24 @@ class SelfOrderDetailPage extends GetView<SelfOrderDetailController> {
       child: Column(
         children: [
           Obx(() => _orderInfoItemWidget(
-              '订单号', (controller.item.value?.id ?? 0).toString())),
+              '订单号', (controller.item.value?.outTradeNo ?? 0).toString())),
           Obx(() => _orderInfoItemWidget(
-              '完成时间', controller.item.value?.createdAt ?? "")),
+              '交易编号', controller.item.value?.paymentFlowNo ?? "")),
+          Obx(() => _orderInfoItemWidget(
+              '创建时间', controller.item.value?.createdAt ?? "")),
         ],
       ),
     );
   }
 
   Widget _orderInfoItemWidget(
-      String title,
-      String desc, {
-        TextStyle? titleStyle,
-        TextStyle? descStyle,
-      }) {
+    String title,
+    String desc, {
+    TextStyle? titleStyle,
+    TextStyle? descStyle,
+  }) {
     return Container(
-      height: 42.w,
+      height: 32.w,
       alignment: Alignment.centerLeft,
       padding: EdgeInsets.symmetric(horizontal: 15.w),
       child: Row(
@@ -206,6 +260,78 @@ class SelfOrderDetailPage extends GetView<SelfOrderDetailController> {
     );
   }
 
+  Widget _middelWidget(CommodityList commodity) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.w),
+          child: CachedNetworkImage(
+            imageUrl: commodity.commodityThumbnailUrl ?? "",
+            width: 100.w,
+            height: 100.w,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Expanded(
+          child: Container(
+            height: 100.w,
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  commodity.commodityName ?? "",
+                  style: TextStyle(
+                      color: Color(0xff111111),
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.end,
+                ),
+                SizedBox(height: 10.w,),
+                Text(
+                  "共${commodity.commodityCount}件",
+                  textAlign: TextAlign.end,
+                  style: TextStyle(
+                      color: Color(0xffABAAB9),
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.normal),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
-
+  _richText(
+      {double? fontSize1,
+      double? fontSize2,
+      FontWeight? fontWeight,
+      String? text}) {
+    return RichText(
+      text: TextSpan(
+        style: TextStyle(
+          color: Color(0xff111111),
+        ),
+        children: [
+          TextSpan(
+            text: "￥",
+            style: TextStyle(
+              fontSize: fontSize1 ?? 12.sp,
+              fontWeight: fontWeight ?? FontWeight.normal,
+            ),
+          ),
+          TextSpan(
+            text: text ?? "",
+            style: TextStyle(
+              fontSize: fontSize2 ?? 14.sp,
+              fontWeight: fontWeight ?? FontWeight.normal,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

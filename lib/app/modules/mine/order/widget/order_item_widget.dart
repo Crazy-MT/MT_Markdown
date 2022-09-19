@@ -20,10 +20,11 @@ class OrderItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    OrderController controller = Get.find<OrderController>();
     return SafeClickGesture(
       onTap: () {
         // if(item.tradeState == 2 || item.tradeState == 3) {
-        Get.toNamed(RoutesID.SELF_ORDER_DETAIL_PAGE, arguments: {"item": item});
+        Get.toNamed(RoutesID.SELF_ORDER_DETAIL_PAGE, arguments: {"item": item, "status" : controller.getTradeState(item.tradeState)});
         // }
       },
       child: _contentWidget(),
