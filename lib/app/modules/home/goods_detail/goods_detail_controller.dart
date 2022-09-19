@@ -66,7 +66,8 @@ class GoodsDetailController extends GetxController {
             commodityThumbnail: goods.thumbnails?.firstWhere((element) => element.isNotEmpty, orElse: () => "")
         )
       ].obs,
-      "isFromSnap": isFromSnap
+      "isFromSnap": isFromSnap,
+      "totalPrice": goods.currentPrice
     });
   }
 

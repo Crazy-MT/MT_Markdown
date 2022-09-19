@@ -103,6 +103,9 @@ class SnapDetailPage extends GetView<SnapDetailController> {
                     width: 165.w,
                     height: 210.w,
                     fit: BoxFit.cover,
+                      errorWidget: (_,__, ___) {
+                        return Image.asset(Assets.imagesHolderImg);
+                      },
                   ),
                 ),
                 item.status == 4 ? Positioned(right: 0,child: Image.asset(Assets.imagesHasNoGood, width: 50.w, height: 50.w,)) : SizedBox()

@@ -50,7 +50,8 @@ class OrderController extends GetxController
 
   _settingEditStatus() {
     if (tabController?.index == 1) {
-      this.editStatus.value = 1;
+      /// todo 暂时不做合单支付
+      // this.editStatus.value = 1;
     } else {
       this.editStatus.value = 0;
     }
@@ -151,7 +152,6 @@ class OrderController extends GetxController
   }
 
   String getTradeState(tradeState) {
-    lLog('MTMTMT SelfOrderController.getTradeState ${tabController?.index} ');
     if(tabController?.index == 3) {
       return "待收货";
     }

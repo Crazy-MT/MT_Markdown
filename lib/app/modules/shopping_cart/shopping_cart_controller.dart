@@ -128,7 +128,8 @@ class ShoppingCartController extends GetxController {
   void submit() {
     Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE, arguments: {
       "goods": selectGoodsList,
-      "isFromSnap": false
+      "isFromSnap": false,
+      "totalPrice": totalPrice
     });
   }
 

@@ -125,7 +125,7 @@ class LRequest {
       return resultData;
     } on DioError catch (e) {
       // print(e);
-      debugLog((e.response?.statusCode ?? -1).toString() + "${e.response?.data?['message']}" + e.toString());
+      debugLog((e.response?.statusCode ?? -1).toString() + e.toString());
       errorLog(e.toString());
       if (e.response != null && e.response?.data?["code"] == 20001) {
         userOutLoginError();

@@ -301,7 +301,7 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
           ),
         ),
         Text(
-          '￥${controller.goodsList[0].commodityPrice.toString()}',
+          '￥${Get.arguments['totalPrice']}',
           style: TextStyle(
             color: AppColors.text_dark,
             fontSize: 15.sp,
@@ -312,24 +312,25 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
         SizedBox(
           width: 100.w,
           height: 40.w,
-          child: ElevatedButton(
-            onPressed: () {
+          child: SafeTapWidget(
+            milliseconds: 1500,
+            onTap: () {
               controller.doCreateOrder();
             },
-            style: ElevatedButton.styleFrom(
-              shape: StadiumBorder(),
-            ).copyWith(
-              padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
-              backgroundColor: MaterialStateProperty.all(
-                AppColors.green,
+            child: Container(
+              width: 100.w,
+              height: 40.w,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Color(0xff1BDB8A),
+                borderRadius: BorderRadius.circular(20.w),
               ),
-              elevation: MaterialStateProperty.all(0),
-            ),
-            child: Text(
-              "提交订单",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16.sp,
+              child: Text(
+                '提交订单',
+                style: TextStyle(
+                  color:  Color(0xffffffff),
+                  fontSize: 15.sp,
+                ),
               ),
             ),
           ),

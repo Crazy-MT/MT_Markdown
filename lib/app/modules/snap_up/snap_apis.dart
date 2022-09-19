@@ -22,4 +22,5 @@ class SnapApis {
   static const String GET_SHELF_COMMODITY_INFO = NetConstant.HOST + "/buying-transaction/get-shelf-commodity-info";
   static const String CREATE_CHARGE = NetConstant.HOST + "/pay-transaction/create-charge";
   static const String PAY = NetConstant.HOST + "/wechat/trade-notify-mock";
+  static const String PAY_STATUS = NetConstant.HOST + "/pay-transaction/get";
 }

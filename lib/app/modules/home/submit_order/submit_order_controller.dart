@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:code_zero/app/modules/home/submit_order/model/data_model.dart';
 import 'package:code_zero/app/modules/mine/buyer_order/order_send_sell/model/charge_model.dart';
 import 'package:code_zero/app/modules/mine/mine_controller.dart';
@@ -29,6 +31,7 @@ class SubmitOrderController extends GetxController {
   Rx<ChargeModel?> chargeModel = Rx<ChargeModel?>(null);
   RxList<ShoppingCartItem> goodsList = RxList<ShoppingCartItem>();
   var isFromSnap;
+
   @override
   void onInit() {
     super.onInit();
@@ -43,7 +46,8 @@ class SubmitOrderController extends GetxController {
   }
 
   getAddressList() async {
-    ResultData<AddressListModel>? _result = await LRequest.instance.request<AddressListModel>(
+    ResultData<AddressListModel>? _result =
+        await LRequest.instance.request<AddressListModel>(
       url: AddressApis.GET_ADDRESS_LIST,
       queryParameters: {
         "user-id": userHelper.userInfo.value?.id,
@@ -57,14 +61,17 @@ class SubmitOrderController extends GetxController {
     );
     if (_result?.value != null) {
       lLog(_result!.value!.toJson().toString());
-      addressList.value = _result.value!.items?.where((element) => element.isDefault == 1).toList() ?? [];
+      addressList.value = _result.value!.items
+              ?.where((element) => element.isDefault == 1)
+              .toList() ??
+          [];
 
       return;
     }
   }
 
   doCreateOrder() {
-    if(isFromSnap) {
+    if (isFromSnap) {
       doSnapUpCreate();
     } else {
       doCreate();
@@ -73,12 +80,26 @@ class SubmitOrderController extends GetxController {
 
   // 自营商品
   doCreate() async {
-    ResultData<ChargeModel>? _result = await LRequest.instance.request<ChargeModel>(
+    /// "commodityList": [
+    //     {
+    //       "commodityId": 1,
+    //       "commodityCount": 2
+    //     }
+    //   ],
+    var commodityList = [];
+    for (ShoppingCartItem item in goodsList) {
+      commodityList.add({
+        "commodityId": item.commodityId,
+        "commodityCount": item.commodityCount
+      });
+    }
+    ResultData<ChargeModel>? _result = await LRequest.instance.request<
+            ChargeModel>(
         url: SnapApis.CREATE,
         t: ChargeModel(),
         data: {
           "addressId": addressList.first.id,
-          "shoppingCartId": [goodsList[0].id],
+          "commodityList": commodityList,
           "userId": userHelper.userInfo.value?.id,
         },
         requestType: RequestType.POST,
@@ -110,36 +131,64 @@ class SubmitOrderController extends GetxController {
     // 支付回调
     // 一般情况下打开微信支付闪退，errCode为 -1 ，多半是包名、签名和在微信开放平台创建时的配置不一致。
     // weChatResponseEventHandler 存在多次 listen 且无法关闭的情况。 解决办法，可以是放在单独的对象里，另一个办法就是只取第一个
-    weChatResponseEventHandler.first.asStream().listen((data) {
-      if(Get.currentRoute != RoutesID.SUBMIT_ORDER_PAGE) {
-        return ;
+    weChatResponseEventHandler.first.asStream().listen(
+      (data) {
+        if (Get.currentRoute != RoutesID.SUBMIT_ORDER_PAGE) {
+          return;
+        }
+        lLog('MTMTMT SubmitOrderController.toWxPay ${data.errCode}');
+        if (data.errCode == -2) {
+          Utils.showToastMsg('支付失败，请重试');
+        } else {
+          checkPayResult();
+        }
+      },
+    );
+  }
+
+  Future<void> checkPayResult() async {
+    EasyLoading.show();
+
+    int count = 0;
+    Timer.periodic(Duration(seconds: 5), (timer) async {
+      count += 1;
+      int status = await checkPayStatus();
+      lLog('MTMTMT SubmitOrderController.checkPayResult ${status}');
+
+      if(count >= 15) {
+        timer.cancel();
+        showConfirmDialog(
+          singleText: '确定',
+          onSingle: () async {
+            Get.back();
+          },
+          content: '查询支付结果超时，请稍后查询或联系工作人员',
+        );
+        return;
       }
 
-      checkPayResult();
-    }, );
-  }
+      // 3 6 需要再查，1 成功，其它失败
+      if(status == 3 || status == 6) {
 
-  void checkPayResult() {
-    EasyLoading.show();
-    // TODO 开始三十秒，查询订单状态接口，成功跳转，不成功弹窗提示
-    Future.delayed(Duration(seconds: 30,)).then((value) async {
-      EasyLoading.dismiss();
-      /// todo 不成功
-      showConfirmDialog(
-        singleText: '确定',
-        onSingle: () async {
-          Get.back();
-        },
-        content: '查询支付结果超时，请稍后查询或联系工作人员',
-      );
+      } else {
+        timer.cancel();
+        EasyLoading.dismiss();
+        if(status == 1) {
+          /// 支付成功
+          Utils.showToastMsg('支付成功');
+          Get.offNamedUntil(RoutesID.SELLER_ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
+        } else {
+          showConfirmDialog(
+            singleText: '确定',
+            onSingle: () async {
+              Get.back();
+            },
+            content: '支付异常，请联系工作人员',
+          );
+        }
+      }
     });
-
-    /// todo 成功
-    // EasyLoading.dismiss();
-    // Get.offNamedUntil(RoutesID.SELLER_ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
   }
-
-
 
   doSnapUpCreate() async {
     ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
@@ -158,7 +207,8 @@ class SubmitOrderController extends GetxController {
         onSuccess: (result) {
           showSuccessDialog(onConfirm: () {
             userHelper.isShowBadge.value = true;
-            Get.offAllNamed(RoutesID.MAIN_TAB_PAGE, arguments: {'tabIndex': 3, 'showBadge': true});
+            Get.offAllNamed(RoutesID.MAIN_TAB_PAGE,
+                arguments: {'tabIndex': 3, 'showBadge': true});
           });
           var model = result.value;
           if (model == null) {
@@ -167,8 +217,28 @@ class SubmitOrderController extends GetxController {
         });
   }
 
+  Future<int> checkPayStatus() async {
+    int status = -1;
+    ResultData<ChargeModel>? _result = await LRequest.instance.request<
+        ChargeModel>(
+        url: SnapApis.PAY_STATUS,
+        t: ChargeModel(),
+        queryParameters: {
+          "id": chargeModel.value?.id
+        },
+        requestType: RequestType.GET,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          status = -1;
+        },
+        onSuccess: (result) {
+          status = result.value?.tradeState ?? 0;
+        });
+    return status;
+  }
+
   @override
   void onClose() {}
+
   void setPageName(String newName) {
     pageName.value = newName;
   }

@@ -47,7 +47,8 @@ class CategoryController extends GetxController {
           "size": pageSize,
           "status": 1,
           "orderBy": orderBy,
-          'order': 'asc'
+          'order': 'asc',
+          'isDelete': 0
           // "owner-is-admin": 0
         },
         requestType: RequestType.GET,

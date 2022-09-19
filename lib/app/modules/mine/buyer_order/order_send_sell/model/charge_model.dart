@@ -9,6 +9,7 @@ class ChargeModel extends ConvertInterface{
   String? nonceStr;
   String? package;
   String? sign;
+  int? tradeState;
 
   ChargeModel(
       {this.id,
@@ -18,6 +19,7 @@ class ChargeModel extends ConvertInterface{
       this.timeStamp,
       this.nonceStr,
       this.package,
+        this.tradeState,
       this.sign});
 
   ChargeModel.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,7 @@ class ChargeModel extends ConvertInterface{
     nonceStr = json['nonceStr'];
     package = json['package'];
     sign = json['sign'];
+    tradeState = json['tradeState'];
   }
 
   Map<String, dynamic> toJson() {
@@ -41,6 +44,7 @@ class ChargeModel extends ConvertInterface{
     data['nonceStr'] = this.nonceStr;
     data['package'] = this.package;
     data['sign'] = this.sign;
+    data['tradeState'] = this.tradeState;
     return data;
   }
 

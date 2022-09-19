@@ -356,10 +356,7 @@ class HomePage extends GetView<HomeController> {
                     height: 210.w,
                     fit: BoxFit.cover,
                     errorWidget: (_,__, ___) {
-                      return Container(decoration: BoxDecoration(
-                        color: AppColors.bg_gray,
-                        borderRadius: BorderRadius.circular(8.w),
-                      ),);
+                      return Image.asset(Assets.imagesHolderImg);
                     },
                   ),
                 ),
