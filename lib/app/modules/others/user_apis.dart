@@ -12,6 +12,7 @@ class UserApis {
   static const String SMS = NetConstant.HOST + "/sms" + "/send-user-login-code";
   static const String IDENTITIY_CHECK =
       NetConstant.HOST + "/open-api/identity-check";
+  static const String LOG_OUT = NetConstant.HOST + "/user/logout";
 
   static const String UPLOAD = NetConstant.HOST + "/file/uploads";
   static const String UPDATE_INFO = NetConstant.HOST + PREFIX + "/update-info";

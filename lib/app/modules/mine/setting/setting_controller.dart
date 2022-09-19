@@ -1,8 +1,11 @@
+import 'package:code_zero/app/modules/others/user_apis.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/user_helper.dart';
+import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -38,7 +41,7 @@ class SettingController extends GetxController {
     ));
     // menuList.add(_MenuItem(title: "支付密码管理", showDivider: false));
 
-   /* menuList.add(
+    /* menuList.add(
       _MenuItem(
         title: "申诉反馈",
         showTopDivider: false,
@@ -95,9 +98,22 @@ class SettingController extends GetxController {
           showConfirmDialog(
             content: "确认注销账号吗?",
             confirmTextColor: Colors.white,
-            onConfirm: () {
-              //TODO
-              // Get.back();
+            onConfirm: () async {
+              /// 注销账号
+              var userId = userHelper.userInfo.value?.id;
+              var params = {"id": userId};
+              LRequest.instance.request(
+                  url: UserApis.LOG_OUT,
+                  data: params,
+                  requestType: RequestType.GET,
+                  errorBack: (errorCode, errorMsg, expMsg) {
+                    Utils.showToastMsg(
+                        "注销失败：${errorCode == -1 ? expMsg : errorMsg}");
+                  },
+                  onSuccess: (ret) {
+                    userHelper.whenLogout();
+                    Get.back();
+                  });
             },
           );
         }));

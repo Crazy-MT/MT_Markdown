@@ -37,6 +37,7 @@ class BaseModel<T extends ConvertInterface> {
 
 class ResultData<T> {
   String? message;
+  int? intData;
   T? value;
   List<T?> valueList = [];
 }

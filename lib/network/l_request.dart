@@ -44,9 +44,12 @@ class LRequest {
     dio.options.sendTimeout = 10000;
     dio.options.headers[NetConstant.VERSION] = common.packageInfo?.version;
     dio.options.headers[NetConstant.APP] = "1";
-    dio.options.headers[NetConstant.PLATFORM] = Platform.isAndroid ? "android" : "ios";
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-      client.badCertificateCallback = (X509Certificate cert, String host, int port) {
+    dio.options.headers[NetConstant.PLATFORM] =
+        Platform.isAndroid ? "android" : "ios";
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) {
         return true;
       };
       /*client.findProxy = (uri) {
@@ -77,7 +80,8 @@ class LRequest {
   }) async {
     Response response;
     dio.options.headers[NetConstant.UNIQUE_ID] = deviceUtil.getUniqueID();
-    dio.options.headers[NetConstant.AUTHORIZATION] = "Bearer " + userHelper.userToken;
+    dio.options.headers[NetConstant.AUTHORIZATION] =
+        "Bearer " + userHelper.userToken;
     try {
       lLog("request get start =======>net: $url");
       if (requestType == RequestType.GET) {
@@ -90,22 +94,25 @@ class LRequest {
       // if (!skipError) await handleError(response, context: context, url: url);
       BaseModel<T> baseModel = BaseModel.fromJson(response.data, t);
       handleBaseModel?.call(baseModel);
-      if(baseModel.code.runtimeType.toString() == "String") {
+      if (baseModel.code.runtimeType.toString() == "String") {
         onStringSuccess?.call(response.toString());
         return null;
       }
 
       /// 权限认证错误，跳转到登录页
       if (baseModel.code == 20001) {
-        errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg", "baseModel.code is not 0,this value is ${baseModel.code}");
+        errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg",
+            "baseModel.code is not 0,this value is ${baseModel.code}");
         userHelper.whenLogout();
         // g.Get.offAllNamed(RoutesID.LOGIN_PAGE, arguments: {"from": g.Get.currentRoute});
-        g.Get.offNamedUntil(RoutesID.LOGIN_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE);
+        g.Get.offNamedUntil(RoutesID.LOGIN_PAGE,
+            (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE);
         return null;
       }
 
       if (baseModel.code != 0) {
-        errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg", "baseModel.code is not 0,this value is ${baseModel.code}");
+        errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg",
+            "baseModel.code is not 0,this value is ${baseModel.code}");
         return null;
       }
       ResultData<T> resultData = ResultData();
@@ -116,6 +123,9 @@ class LRequest {
         resultData.message = baseModel.message;
       } else if (baseModel.data is String) {
         resultData.message = baseModel.data;
+      } else if (baseModel.data is int) {
+        resultData.message = baseModel.message;
+        resultData.intData = baseModel.data;
       } else {
         resultData.value = baseModel.data;
         resultData.valueList = [resultData.value];
@@ -132,7 +142,8 @@ class LRequest {
         return null;
       }
       if (errorBack != null) {
-        errorBack(e.response?.statusCode ?? -1, e.response?.data?["message"] ?? "", "网络错误");
+        errorBack(e.response?.statusCode ?? -1,
+            e.response?.data?["message"] ?? "", "网络错误");
       } else {
         handleError(e.response?.statusCode ?? -1, e.message, isShowErrorToast);
       }
