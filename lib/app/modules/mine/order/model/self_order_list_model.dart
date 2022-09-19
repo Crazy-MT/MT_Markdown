@@ -60,6 +60,7 @@ class SelfOrderItems {
   int? tradeType;
   String? bankType;
   int? isNotify;
+  List<CommodityList>? commodityList;
 
   SelfOrderItems(
       {this.id,
@@ -120,6 +121,12 @@ class SelfOrderItems {
     tradeType = json['tradeType'];
     bankType = json['bankType'];
     isNotify = json['isNotify'];
+    if (json['commodityList'] != null) {
+      commodityList = <CommodityList>[];
+      json['commodityList'].forEach((v) {
+        commodityList!.add(new CommodityList.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -152,6 +159,10 @@ class SelfOrderItems {
     data['tradeType'] = this.tradeType;
     data['bankType'] = this.bankType;
     data['isNotify'] = this.isNotify;
+    if (this.commodityList != null) {
+      data['commodityList'] =
+          this.commodityList!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 
@@ -169,4 +180,49 @@ class SelfOrderItems {
     return "其它方式";
   }
 
+}
+
+class CommodityList {
+  int? commodityId;
+  String? commodityName;
+  String? commodityThumbnailUrl;
+  String? commodityPrice;
+  int? commodityCount;
+  int? payId;
+  int? orderNo;
+  int? id;
+
+  CommodityList(
+      {this.commodityId,
+        this.commodityName,
+        this.commodityThumbnailUrl,
+        this.commodityPrice,
+        this.commodityCount,
+        this.payId,
+        this.orderNo,
+        this.id});
+
+  CommodityList.fromJson(Map<String, dynamic> json) {
+    commodityId = json['commodityId'];
+    commodityName = json['commodityName'];
+    commodityThumbnailUrl = json['commodityThumbnailUrl'];
+    commodityPrice = json['commodityPrice'];
+    commodityCount = json['commodityCount'];
+    payId = json['payId'];
+    orderNo = json['orderNo'];
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['commodityId'] = this.commodityId;
+    data['commodityName'] = this.commodityName;
+    data['commodityThumbnailUrl'] = this.commodityThumbnailUrl;
+    data['commodityPrice'] = this.commodityPrice;
+    data['commodityCount'] = this.commodityCount;
+    data['payId'] = this.payId;
+    data['orderNo'] = this.orderNo;
+    data['id'] = this.id;
+    return data;
+  }
 }

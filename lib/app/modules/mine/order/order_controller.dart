@@ -20,13 +20,13 @@ class OrderController extends GetxController
 
   final List<SelfOrderTabInfo> myTabs = <SelfOrderTabInfo>[
     SelfOrderTabInfo(
-        Tab(text: '全部'), 4, RefreshController(), 1, RxList<SelfOrderItems>()),
+        Tab(text: '全部'), 0, RefreshController(), 1, RxList<SelfOrderItems>()),
     SelfOrderTabInfo(
-        Tab(text: '待付款'), 0, RefreshController(), 1, RxList<SelfOrderItems>()),
+        Tab(text: '待付款'), 1, RefreshController(), 1, RxList<SelfOrderItems>()),
     SelfOrderTabInfo(
-        Tab(text: '待发货'), 1, RefreshController(), 1, RxList<SelfOrderItems>()),
+        Tab(text: '待发货'), 2, RefreshController(), 1, RxList<SelfOrderItems>()),
     SelfOrderTabInfo(
-        Tab(text: '待收货'), -1, RefreshController(), 1, RxList<SelfOrderItems>()),
+        Tab(text: '待收货'), 3, RefreshController(), 1, RxList<SelfOrderItems>()),
   ];
 
   TabController? tabController;
@@ -76,29 +76,34 @@ class OrderController extends GetxController
     }
 
     Map<String, dynamic>? queryParameters = {};
-    if(tabInfo.tradeState == -1) {
+    if(tabInfo.tradeState == 0) {
       queryParameters = {
-        "to-user-id": userHelper.userInfo.value?.id,
         "page": tabInfo.currentPage,
         "size": 10,
-        "trade-state-list": '0,1,2,3,5,6,7',
+        "tradeStateList": '0,1,2,3,4,5,6,7,8,9',
       };
     }
-    if(tabInfo.tradeState == 0 || tabInfo.tradeState == 3) {
+    if(tabInfo.tradeState == 1) {
       queryParameters = {
-        "to-user-id": userHelper.userInfo.value?.id,
         "page": tabInfo.currentPage,
         "size": 10,
-        "trade-state": tabInfo.tradeState,
+        "tradeStateList": '0,3,6',
       };
     }
 
-    if(tabInfo.tradeState == 1) {
+    if(tabInfo.tradeState == 2) {
       queryParameters = {
-        "to-user-id": userHelper.userInfo.value?.id,
         "page": tabInfo.currentPage,
         "size": 10,
-        "trade-state-list": "1,2",
+        "tradeStateList": "8",
+      };
+    }
+
+    if(tabInfo.tradeState == 3) {
+      queryParameters = {
+        "page": tabInfo.currentPage,
+        "size": 10,
+        "tradeStateList": "9",
       };
     }
 
@@ -148,43 +153,43 @@ class OrderController extends GetxController
   String getTradeState(tradeState) {
     lLog('MTMTMT SelfOrderController.getTradeState ${tabController?.index} ');
     if(tabController?.index == 3) {
-      return "待上架";
+      return "待收货";
     }
     if(tabController?.index == 2) {
-      return "待卖方确认收款";
+      return "待发货";
     }
     if(tabController?.index == 1) {
       return "待付款";
     }
-    /// 0->待付款、
-    // 1->待收款、
-    // 2->已付款、
-    // 3->待上架、
-    // 4->已上架、
-    // 5->待发货、
-    // 6->待收货、
-    // 7->已收货、
-    // 8->已取消、
+
     switch (tradeState) {
       case 0:
-        return "待付款";
+        return "未支付";
       case 1:
-        return "待卖方确认收款";
+        return "支付成功";
       case 2:
-        return "已付款";
+        return "转入退款";
       case 3:
-        return "待上架";
+        return "未支付";
       case 4:
-        return "已上架";
+        return "已关闭";
       case 5:
-        return "待发货";
+        return "已撤销";
       case 6:
-        return "待收货";
+        return "用户支付中";
       case 7:
-        return "已收货";
+        return "支付失败";
       case 8:
-        return "已取消";
+        return "代发货";
+      case 9:
+        return "已发货";
     }
     return "其它方式";
   }
+
+  void cancelOrder(int? id) {}
+
+  void pay(int? id) {}
+
+  void shouhuo(int? id) {}
 }

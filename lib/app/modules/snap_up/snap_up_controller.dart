@@ -24,7 +24,7 @@ class SnapUpController extends GetxController {
   int pageSize = 10;
   final RefreshController refreshController = new RefreshController();
 
-  var images = [Assets.imagesSnupBanner, Assets.imagesSnupBanner1, Assets.imagesSnupBanner2];
+  var images = [Assets.imagesSnupBanner, Assets.imagesSnupBanner1, Assets.imagesSnupBanner2, Assets.imagesSnupBanner3];
 
   @override
   void onInit() {
