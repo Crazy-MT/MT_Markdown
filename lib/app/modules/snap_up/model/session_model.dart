@@ -35,6 +35,7 @@ class Item {
     this.imageUrl,
     this.orderNo,
     this.status,
+    this.hasCommodity
   });
 
   int? id;
@@ -44,6 +45,7 @@ class Item {
   String? imageUrl;
   int? orderNo;
   int? status;
+  int? hasCommodity;
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
     id: json["id"],
@@ -53,6 +55,7 @@ class Item {
     imageUrl: json["imageUrl"],
     orderNo: json["orderNo"],
     status: json["status"],
+    hasCommodity: json["hasCommodity"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -63,6 +66,7 @@ class Item {
     "imageUrl": imageUrl,
     "orderNo": orderNo,
     "status": status,
+    "hasCommodity": hasCommodity,
   };
 
   statusText() {
@@ -76,6 +80,13 @@ class Item {
       map["toast_text"] = "还未开放，敬请期待";
       return map;
     }
+
+    if(hasCommodity == 0) {
+      map["text"] = "已售罄";
+      map["toast_text"] = "所有商品已售罄，请下次再来";
+      return map;
+    }
+
     String now = formatDate(DateTime.now(), [HH, ':', nn]);
     var nowArr = now.split(":");
     var startArr = startTime?.split(":");

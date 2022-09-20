@@ -82,10 +82,10 @@ class OrderController extends GetxController
       "size": 10,
     };
     if(tabInfo.tradeState == 0) {
-      queryParameters["tradeStateList"] = '0,1,2,3,4,5,6,7,8,9';
+      queryParameters["tradeStateList"] = '1,2,3,4,5,6,7,8,9';
     }
     if(tabInfo.tradeState == 1) {
-      queryParameters["tradeStateList"] = '0,3,6';
+      queryParameters["tradeStateList"] = '3,6';
     }
     if(tabInfo.tradeState == 2) {
       queryParameters["tradeStateList"] = '8';

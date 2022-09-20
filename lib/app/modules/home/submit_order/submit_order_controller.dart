@@ -93,15 +93,22 @@ class SubmitOrderController extends GetxController {
         "commodityCount": item.commodityCount
       });
     }
+
+    Map<String, dynamic>? data = {
+      "addressId": addressList.first.id,
+      "commodityList": commodityList,
+      "userId": userHelper.userInfo.value?.id,
+    };
+    if(goodsList.length > 1) {
+      data["cartIdList"] = goodsList.map((element) => element.id).toList();
+    }
+    lLog('MTMTMT SubmitOrderController.doCreate ${data["cartIdList"]} ');
+
     ResultData<ChargeModel>? _result = await LRequest.instance.request<
             ChargeModel>(
         url: SnapApis.CREATE,
         t: ChargeModel(),
-        data: {
-          "addressId": addressList.first.id,
-          "commodityList": commodityList,
-          "userId": userHelper.userInfo.value?.id,
-        },
+        data: data,
         requestType: RequestType.POST,
         errorBack: (errorCode, errorMsg, expMsg) {
           Utils.showToastMsg("创建抢购订单失败：${errorCode == -1 ? expMsg : errorMsg}");

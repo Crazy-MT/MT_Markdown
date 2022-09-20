@@ -125,12 +125,13 @@ class ShoppingCartController extends GetxController {
   }
 
   // 提交订单
-  void submit() {
-    Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE, arguments: {
+  Future<void> submit() async {
+    await Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE, arguments: {
       "goods": selectGoodsList,
       "isFromSnap": false,
       "totalPrice": totalPrice
     });
+    initData();
   }
 
   // 删除商品
