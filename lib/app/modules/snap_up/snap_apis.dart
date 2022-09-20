@@ -13,6 +13,8 @@ class SnapApis {
   static const String CREATE = NetConstant.HOST + "/pay-transaction/create-self-commodity";
   static const String ORDER_LIST = NetConstant.HOST + "/buying-transaction/list";
   static const String SELF_ORDER_LIST = NetConstant.HOST + "/pay-transaction/list";
+  static const String CLOSE_ORDER_LIST = NetConstant.HOST + "/pay-transaction/close";
+  static const String SHOUHUO = NetConstant.HOST + "/pay-transaction/receipt";
   static const String CANCEL_ORDER = NetConstant.HOST + "/buying-transaction/cancel";
   static const String CONFIRM_ORDER = NetConstant.HOST + "/buying-transaction/confirm-payment";
   static const String CONFIRM_RECEIPT_ORDER = NetConstant.HOST + "/buying-transaction/confirm-receipt";

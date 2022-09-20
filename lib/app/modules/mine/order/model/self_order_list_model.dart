@@ -61,6 +61,14 @@ class SelfOrderItems {
   String? bankType;
   int? isNotify;
   List<CommodityList>? commodityList;
+  String? prepayId;
+  String? partnerId;
+  String? timeStamp;
+  String? nonceStr;
+  String? package;
+  String? sign;
+  String? courierCompany;
+  String? trackingNumber;
 
   SelfOrderItems(
       {this.id,
@@ -90,7 +98,16 @@ class SelfOrderItems {
       this.tradeCategoryDesc,
       this.tradeType,
       this.bankType,
-      this.isNotify});
+      this.isNotify,
+        this.prepayId,
+        this.partnerId,
+        this.timeStamp,
+        this.nonceStr,
+        this.package,
+      this.sign,
+      this.commodityList,
+      this.courierCompany,
+      this.trackingNumber});
 
   SelfOrderItems.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -121,6 +138,14 @@ class SelfOrderItems {
     tradeType = json['tradeType'];
     bankType = json['bankType'];
     isNotify = json['isNotify'];
+    prepayId = json['prepayId'];
+    partnerId = json['partnerId'];
+    timeStamp = json['timeStamp'];
+    nonceStr = json['nonceStr'];
+    package = json['package'];
+    sign = json['sign'];
+    courierCompany = json['courierCompany'];
+    trackingNumber = json['trackingNumber'];
     if (json['commodityList'] != null) {
       commodityList = <CommodityList>[];
       json['commodityList'].forEach((v) {
@@ -163,6 +188,14 @@ class SelfOrderItems {
       data['commodityList'] =
           this.commodityList!.map((v) => v.toJson()).toList();
     }
+    data['prepayId'] = this.prepayId;
+    data['partnerId'] = this.partnerId;
+    data['timeStamp'] = this.timeStamp;
+    data['nonceStr'] = this.nonceStr;
+    data['package'] = this.package;
+    data['sign'] = this.sign;
+    data['courierCompany'] = this.courierCompany;
+    data['trackingNumber'] = this.trackingNumber;
     return data;
   }
 

@@ -95,7 +95,7 @@ class SelfOrderDetailPage extends GetView<SelfOrderDetailController> {
   Widget _payInfoWidget() {
     SelfOrderItems? item = controller.item.value;
     return Container(
-      height: (120).w,
+      height: (140).w,
       // clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -137,16 +137,23 @@ class SelfOrderDetailPage extends GetView<SelfOrderDetailController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 10.w,),
                 Row(
                   children: [
                     Image.asset(
                       Assets.imagesAddressLocationIcon,
                       width: 20.w,
                     ),
-                    Text('${item?.receiptConsignee}    ${item?.receiptPhone}'),
+                    SizedBox(width: 10.w,),
+                    Text('${item?.receiptConsignee}    ${item?.receiptPhone}', style: TextStyle(
+                      color: Color(0xff111111)
+                    ),),
                   ],
                 ),
-                Text('${item?.receiptRegion}${item?.receiptAddress}')
+                SizedBox(height: 5.w,),
+                Text('${item?.receiptRegion}${item?.receiptAddress}', style: TextStyle(
+                    color: Color(0xff757575)
+                ))
               ],
             ),
           ),
@@ -205,7 +212,7 @@ class SelfOrderDetailPage extends GetView<SelfOrderDetailController> {
 
   Widget _oderInfoWidget() {
     return Container(
-      height: 96.w,
+      height: 150.w,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -213,12 +220,21 @@ class SelfOrderDetailPage extends GetView<SelfOrderDetailController> {
       ),
       child: Column(
         children: [
-          Obx(() => _orderInfoItemWidget(
-              '订单号', (controller.item.value?.outTradeNo ?? 0).toString())),
-          Obx(() => _orderInfoItemWidget(
-              '交易编号', controller.item.value?.paymentFlowNo ?? "")),
-          Obx(() => _orderInfoItemWidget(
-              '创建时间', controller.item.value?.createdAt ?? "")),
+          Obx(() => Container(
+            height: 50.w,
+            child: _orderInfoItemWidget(
+                '订单号', (controller.item.value?.outTradeNo ?? 0).toString()),
+          )),
+          Obx(() => Container(
+            height: 50.w,
+            child: _orderInfoItemWidget(
+                '交易编号', controller.item.value?.paymentFlowNo ?? ""),
+          )),
+          Obx(() => Container(
+            height: 50.w,
+            child: _orderInfoItemWidget(
+                '创建时间', controller.item.value?.createdAt ?? ""),
+          )),
         ],
       ),
     );

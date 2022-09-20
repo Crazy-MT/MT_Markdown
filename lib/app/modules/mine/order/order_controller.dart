@@ -1,12 +1,19 @@
+import 'dart:async';
+
+import 'package:code_zero/app/modules/mine/buyer_order/order_send_sell/model/charge_model.dart';
 import 'package:code_zero/app/modules/mine/order/model/self_order_list_model.dart';
 import 'package:code_zero/app/modules/mine/order/model/self_order_tab_info.dart';
 import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
+import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluwx/fluwx.dart';
 import 'package:get/get.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -88,7 +95,7 @@ class OrderController extends GetxController
       queryParameters["tradeStateList"] = '3,6';
     }
     if(tabInfo.tradeState == 2) {
-      queryParameters["tradeStateList"] = '8';
+      queryParameters["tradeStateList"] = '1';
     }
 
     if(tabInfo.tradeState == 3) {
@@ -174,9 +181,142 @@ class OrderController extends GetxController
     return "其它方式";
   }
 
-  void cancelOrder(int? id) {}
+  Future<void> cancelOrder(int? id) async {
+    ResultData<SelfOrderListModel>? _result = await LRequest.instance.request<
+        SelfOrderListModel>(
+      url: SnapApis.CLOSE_ORDER_LIST,
+      queryParameters: {
+        "id": id
+      },
+      t: SelfOrderListModel(),
+      requestType: RequestType.GET,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        Utils.showToastMsg("取消订单失败：${errorCode == -1 ? expMsg : errorMsg}");
+        errorLog("取消订单失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+      },
+      onSuccess: (_) {
+        Utils.showToastMsg("取消订单成功");
+        initAllData();
+      }
+    );
+  }
 
-  void pay(int? id) {}
+  Future<void> shouhuo(int? id) async {
+    ResultData<SelfOrderListModel>? _result = await LRequest.instance.request<
+        SelfOrderListModel>(
+        url: SnapApis.SHOUHUO,
+        data: {
+          "id": id
+        },
+        t: SelfOrderListModel(),
+        requestType: RequestType.POST,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          Utils.showToastMsg("确认收货失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("确认收货失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+        onSuccess: (_) {
+          Utils.showToastMsg("确认收货成功");
+          initAllData();
+        }
+    );
+  }
 
-  void shouhuo(int? id) {}
+  void pay(SelfOrderItems item) {
+    toWxPay(item);
+  }
+
+  void toWxPay(SelfOrderItems item) async {
+    var isInstalled = await isWeChatInstalled;
+
+    if (!isInstalled) {
+      Utils.showToastMsg("请先安装微信");
+    }
+    payWithWeChat(
+      appId: 'wxe02b86dc09511f64',
+      partnerId: item.partnerId ?? "",
+      prepayId: item.prepayId ?? "",
+      packageValue: item.package ?? "",
+      nonceStr: item.nonceStr ?? "",
+      timeStamp: int.parse(item.timeStamp ?? "0"),
+      sign: item.sign ?? "",
+    );
+    // 支付回调
+    // 一般情况下打开微信支付闪退，errCode为 -1 ，多半是包名、签名和在微信开放平台创建时的配置不一致。
+    // weChatResponseEventHandler 存在多次 listen 且无法关闭的情况。 解决办法，可以是放在单独的对象里，另一个办法就是只取第一个
+    weChatResponseEventHandler.first.asStream().listen((data) {
+      if(Get.currentRoute != RoutesID.ORDER_SEND_SELL_PAGE) {
+        return ;
+      }
+
+      if (data.errCode == -2) {
+        Utils.showToastMsg('支付失败，请重试');
+      } else {
+        checkPayResult(item.id);
+      }
+    }, );
+  }
+
+  void checkPayResult(int? id) {
+    EasyLoading.show();
+
+    int count = 0;
+    Timer.periodic(Duration(seconds: 5), (timer) async {
+      count += 1;
+      int status = await checkPayStatus(id);
+      lLog('MTMTMT checkPayResult ${status}');
+
+      if(count >= 15) {
+        timer.cancel();
+        EasyLoading.dismiss();
+        showConfirmDialog(
+          singleText: '确定',
+          onSingle: () async {
+            Get.back();
+          },
+          content: '查询支付结果超时，请稍后查询或联系工作人员',
+        );
+        return;
+      }
+
+      // 3 6 需要再查，1 成功，其它失败
+      if(status == 3 || status == 6) {
+
+      } else {
+        timer.cancel();
+        EasyLoading.dismiss();
+        if(status == 1) {
+          /// 支付成功
+          Utils.showToastMsg('支付成功');
+          initAllData();
+        } else {
+          showConfirmDialog(
+            singleText: '确定',
+            onSingle: () async {
+              Get.back();
+            },
+            content: '支付异常，请联系工作人员',
+          );
+        }
+      }
+    });
+  }
+
+  Future<int> checkPayStatus(int? id) async {
+    int status = -1;
+    ResultData<ChargeModel>? _result = await LRequest.instance.request<
+        ChargeModel>(
+        url: SnapApis.PAY_STATUS,
+        t: ChargeModel(),
+        queryParameters: {
+          "id": id
+        },
+        requestType: RequestType.GET,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          status = -1;
+        },
+        onSuccess: (result) {
+          status = result.value?.tradeState ?? 0;
+        });
+    return status;
+  }
 }

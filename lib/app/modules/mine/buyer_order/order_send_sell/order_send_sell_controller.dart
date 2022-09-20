@@ -174,6 +174,7 @@ class OrderSendSellController extends GetxController {
 
       if(count >= 15) {
         timer.cancel();
+        EasyLoading.dismiss();
         showConfirmDialog(
           singleText: '确定',
           onSingle: () async {
