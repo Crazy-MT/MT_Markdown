@@ -76,36 +76,23 @@ class OrderController extends GetxController
       tabInfo.currentPage++;
     }
 
-    Map<String, dynamic>? queryParameters = {};
+    Map<String, dynamic>? queryParameters = {
+      "userId": userHelper.userInfo.value?.id,
+      "page": tabInfo.currentPage,
+      "size": 10,
+    };
     if(tabInfo.tradeState == 0) {
-      queryParameters = {
-        "page": tabInfo.currentPage,
-        "size": 10,
-        "tradeStateList": '0,1,2,3,4,5,6,7,8,9',
-      };
+      queryParameters["tradeStateList"] = '0,1,2,3,4,5,6,7,8,9';
     }
     if(tabInfo.tradeState == 1) {
-      queryParameters = {
-        "page": tabInfo.currentPage,
-        "size": 10,
-        "tradeStateList": '0,3,6',
-      };
+      queryParameters["tradeStateList"] = '0,3,6';
     }
-
     if(tabInfo.tradeState == 2) {
-      queryParameters = {
-        "page": tabInfo.currentPage,
-        "size": 10,
-        "tradeStateList": "8",
-      };
+      queryParameters["tradeStateList"] = '8';
     }
 
     if(tabInfo.tradeState == 3) {
-      queryParameters = {
-        "page": tabInfo.currentPage,
-        "size": 10,
-        "tradeStateList": "9",
-      };
+      queryParameters["tradeStateList"] = '9';
     }
 
     ResultData<SelfOrderListModel>? _result = await LRequest.instance.request<

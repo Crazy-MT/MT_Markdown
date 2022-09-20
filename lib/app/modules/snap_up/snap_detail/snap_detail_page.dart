@@ -103,6 +103,9 @@ class SnapDetailPage extends GetView<SnapDetailController> {
                     width: 165.w,
                     height: 210.w,
                     fit: BoxFit.cover,
+                      placeholder: (_, __) {
+                        return Image.asset(Assets.imagesHolderImg);
+                      },
                       errorWidget: (_,__, ___) {
                         return Image.asset(Assets.imagesHolderImg);
                       },

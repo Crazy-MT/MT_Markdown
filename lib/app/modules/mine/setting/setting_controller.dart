@@ -104,7 +104,7 @@ class SettingController extends GetxController {
               var params = {"id": userId};
               LRequest.instance.request(
                   url: UserApis.LOG_OUT,
-                  data: params,
+                  queryParameters: params,
                   requestType: RequestType.GET,
                   errorBack: (errorCode, errorMsg, expMsg) {
                     Utils.showToastMsg(

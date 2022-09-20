@@ -53,6 +53,7 @@ dev_dependencies:
 
 flutter:
   assets:
+    - assets/html/
     - assets/icons/
     - assets/images/
     - assets/images/dialog_bg/

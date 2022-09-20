@@ -126,6 +126,7 @@ class OrderItemWidget extends StatelessWidget {
                           }),
                       visible: controller.tabController?.index == 1,
                     ),
+                    SizedBox(width: 10.w,),
                     Visibility(
                       child: _buttonBtnWidget(
                           title: "待付款",
@@ -139,7 +140,9 @@ class OrderItemWidget extends StatelessWidget {
                       child: _buttonBtnWidget(
                           title: "查看物流",
                           color: Color(0xff000000),
-                          onTap: () {}),
+                          onTap: () {
+
+                          }),
                       visible: controller.tabController?.index == 3,
                     ),
                     Visibility(

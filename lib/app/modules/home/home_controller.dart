@@ -16,7 +16,14 @@ class HomeController extends GetxController {
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
   RxList<_FenquItem> fenquList = RxList<_FenquItem>();
+  /// 总商品
   RxList<CommodityItem> commodityList = RxList<CommodityItem>();
+  // 下面商品列表
+  RxList<CommodityItem> homeList = RxList<CommodityItem>();
+  // 顶部 banner
+  RxList<CommodityItem> bannerList = RxList<CommodityItem>();
+  // 广告
+  RxList<CommodityItem> advList = RxList<CommodityItem>();
   ScrollController scrollController = ScrollController();
   final showScrollToTop = false.obs;
 
@@ -36,6 +43,8 @@ class HomeController extends GetxController {
     pageStatus.value = FTStatusPageType.success;
     initFenquList();
     getRecommendList();
+    getBannerList();
+    getAdvList();
     scrollController.addListener(() {
       if (scrollController.position.pixels >= 200 && !showScrollToTop.value) {
         showScrollToTop.value = true;
@@ -59,7 +68,9 @@ class HomeController extends GetxController {
           "page": currentPage,
           "size": pageSize,
           "status" : 1,
-          "isDelete": 0
+          "isDelete": 0,
+          "order": "asc",
+          "orderBy":"order_no"
           // "owner-is-admin": 0
         },
         requestType: RequestType.GET,
@@ -82,12 +93,73 @@ class HomeController extends GetxController {
             currentPage++;
           }
           commodityList.addAll(model.items!);
+          homeList.value = commodityList.where((p0) => (p0.isNew == 0 && p0.isHot == 0)).toList();
           refreshController.refreshCompleted();
           refreshController.loadComplete();
 
           if(model.totalCount <= commodityList.length) {
             refreshController.loadNoData();
           }
+        });
+  }
+
+  getBannerList() async {
+    await LRequest.instance.request<
+        CommodityModel>(
+        url: HomeApis.COMMODITY,
+        t: CommodityModel(),
+        queryParameters: {
+          // "session-id": Get.arguments["id"],
+          "page": currentPage,
+          "size": pageSize,
+          "status" : 1,
+          "isDelete": 0,
+          "filter": 2,
+          "order": "asc",
+          // "orderBy":"order_no"
+          // "owner-is-admin": 0
+        },
+        requestType: RequestType.GET,
+        errorBack: (errorCode, errorMsg, expMsg) {
+        },
+        onSuccess: (result) {
+          var model = result.value;
+          if(model == null || model.items == null) {
+            return;
+          }
+          bannerList.clear();
+          bannerList.addAll(model.items!);
+          lLog('MTMTMT HomeController.getBannerList ${bannerList.length} ');
+        });
+  }
+
+  getAdvList() async {
+    await LRequest.instance.request<
+        CommodityModel>(
+        url: HomeApis.COMMODITY,
+        t: CommodityModel(),
+        queryParameters: {
+          // "session-id": Get.arguments["id"],
+          "page": currentPage,
+          "size": pageSize,
+          "status" : 1,
+          "isDelete": 0,
+          "filter": 3,
+          "order": "asc",
+          // "orderBy":"order_no"
+          // "owner-is-admin": 0
+        },
+        requestType: RequestType.GET,
+        errorBack: (errorCode, errorMsg, expMsg) {
+        },
+        onSuccess: (result) {
+          var model = result.value;
+          if(model == null || model.items == null) {
+            return;
+          }
+          advList.clear();
+          advList.addAll(model.items!);
+          lLog('MTMTMT HomeController.getAdvList ${advList.length} ');
         });
   }
 

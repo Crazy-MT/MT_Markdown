@@ -32,6 +32,8 @@ class HomePage extends GetView<HomeController> {
                 controller: controller.refreshController,
                 onRefresh: () {
                   controller.getRecommendList();
+                  controller.getBannerList();
+                  controller.getAdvList();
                 },
                 onLoading: () {
                   controller.getRecommendList(isRefresh: false);
@@ -98,7 +100,8 @@ class HomePage extends GetView<HomeController> {
             Expanded(
               child: SafeTapWidget(
                 onTap: () {
-                  Get.toNamed(RoutesID.CATEGORY_PAGE, arguments: {'title': '搜索', 'from': 'search'});
+                  Get.toNamed(RoutesID.CATEGORY_PAGE,
+                      arguments: {'title': '搜索', 'from': 'search'});
                 },
                 child: Container(
                   height: 33.w,
@@ -160,13 +163,22 @@ class HomePage extends GetView<HomeController> {
           itemCount: controller.images.length,
           itemBuilder: (BuildContext context, int index) {
             final image = controller.images[index];
-            return ClipRRect(borderRadius: BorderRadius.circular(10.w),child: Image.asset(image));
+            return SafeTapWidget(
+                onTap: () {
+                  Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
+                    "from": RoutesID.HOME_PAGE,
+                    "good": controller.bannerList[index],
+                    // "startTime": Get.arguments['startTime'],
+                    // "endTime": Get.arguments['endTime'],
+                  });
+                },
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.w),
+                    child: Image.asset(image)));
           },
-          pagination: SwiperPagination(builder: DotSwiperPaginationBuilder(
-            activeColor: AppColors.green,
-            size: 6,
-            activeSize: 6
-          )),
+          pagination: SwiperPagination(
+              builder: DotSwiperPaginationBuilder(
+                  activeColor: AppColors.green, size: 6, activeSize: 6)),
         ),
       ),
     );
@@ -193,7 +205,11 @@ class HomePage extends GetView<HomeController> {
     var image = controller.fenquList[index].image;
     return SafeTapWidget(
       onTap: () {
-        Get.toNamed(RoutesID.CATEGORY_PAGE, arguments: {'title': '${name}', 'from': 'type', 'categoryId': controller.fenquList[index].categoryId});
+        Get.toNamed(RoutesID.CATEGORY_PAGE, arguments: {
+          'title': '${name}',
+          'from': 'type',
+          'categoryId': controller.fenquList[index].categoryId
+        });
       },
       child: Container(
         width: 108.w,
@@ -238,16 +254,28 @@ class HomePage extends GetView<HomeController> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
+            SafeTapWidget(
+              onTap: () {
+                if (controller.advList.length >= 1) {
+                  Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
+                    "from": RoutesID.HOME_PAGE,
+                    "good": controller.advList[0],
+                    // "startTime": Get.arguments['startTime'],
+                    // "endTime": Get.arguments['endTime'],
+                  });
+                }
+              },
+              child: Container(
                 width: 167.w,
                 height: 200.w,
                 decoration: BoxDecoration(
                   color: AppColors.bg_gray,
                   borderRadius: BorderRadius.circular(8.w),
                 ),
-              child: Image.asset(
-                Assets.imagesHome1,
-                fit: BoxFit.cover,
+                child: Image.asset(
+                  Assets.imagesHome1,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(
@@ -256,31 +284,55 @@ class HomePage extends GetView<HomeController> {
             Expanded(
               child: Column(
                 children: [
-                  Container(
-                    width: 167.w,
-                    height: 95.w,
-                    decoration: BoxDecoration(
-                      color: AppColors.bg_gray,
-                      borderRadius: BorderRadius.circular(8.w),
-                    ),
-                    child: Image.asset(
-                      Assets.imagesHome2,
-                      fit: BoxFit.cover,
+                  SafeTapWidget(
+                    onTap: () {
+                      if (controller.advList.length >= 3) {
+                        Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
+                          "from": RoutesID.HOME_PAGE,
+                          "good": controller.advList[2],
+                          // "startTime": Get.arguments['startTime'],
+                          // "endTime": Get.arguments['endTime'],
+                        });
+                      }
+                    },
+                    child: Container(
+                      width: 167.w,
+                      height: 95.w,
+                      decoration: BoxDecoration(
+                        color: AppColors.bg_gray,
+                        borderRadius: BorderRadius.circular(8.w),
+                      ),
+                      child: Image.asset(
+                        Assets.imagesHome2,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: 10.w,
                   ),
-                  Container(
-                    width: 167.w,
-                    height: 95.w,
-                    decoration: BoxDecoration(
-                      color: AppColors.bg_gray,
-                      borderRadius: BorderRadius.circular(8.w),
-                    ),
-                    child: Image.asset(
-                      Assets.imagesHome3,
-                      fit: BoxFit.cover,
+                  SafeTapWidget(
+                    onTap: () {
+                      if (controller.advList.length >= 2) {
+                        Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
+                          "from": RoutesID.HOME_PAGE,
+                          "good": controller.advList[1],
+                          // "startTime": Get.arguments['startTime'],
+                          // "endTime": Get.arguments['endTime'],
+                        });
+                      }
+                    },
+                    child: Container(
+                      width: 167.w,
+                      height: 95.w,
+                      decoration: BoxDecoration(
+                        color: AppColors.bg_gray,
+                        borderRadius: BorderRadius.circular(8.w),
+                      ),
+                      child: Image.asset(
+                        Assets.imagesHome3,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ],
@@ -320,7 +372,7 @@ class HomePage extends GetView<HomeController> {
         sliver: SliverGrid(
             delegate: SliverChildBuilderDelegate((context, index) {
               return _buildRecommendItem(index);
-            }, childCount: controller.commodityList.length),
+            }, childCount: controller.homeList.length),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               childAspectRatio: 165 / 280,
@@ -332,7 +384,7 @@ class HomePage extends GetView<HomeController> {
   }
 
   _buildRecommendItem(index) {
-    CommodityItem item = controller.commodityList[index];
+    CommodityItem item = controller.homeList[index];
     return SafeTapWidget(
       onTap: () {
         Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
@@ -351,11 +403,17 @@ class HomePage extends GetView<HomeController> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.w),
                   child: CachedNetworkImage(
-                    imageUrl: item.thumbnails?.firstWhere((element) => element.isNotEmpty, orElse: () => "") ?? '',
+                    imageUrl: item.thumbnails?.firstWhere(
+                            (element) => element.isNotEmpty,
+                            orElse: () => "") ??
+                        '',
                     width: 165.w,
                     height: 210.w,
                     fit: BoxFit.cover,
-                    errorWidget: (_,__, ___) {
+                    placeholder: (_, __) {
+                      return Image.asset(Assets.imagesHolderImg);
+                    },
+                    errorWidget: (_, __, ___) {
                       return Image.asset(Assets.imagesHolderImg);
                     },
                   ),
