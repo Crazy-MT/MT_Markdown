@@ -20,7 +20,7 @@ class MyFansController extends GetxController with GetTickerProviderStateMixin {
 
   RxList<FansListModel?> fansDataList = RxList<FansListModel?>();
 
-  List<String> tabList = [];
+  RxList<String> tabList = RxList<String>();
   TabController? tabController;
   RxInt currentIndex = 0.obs;
 

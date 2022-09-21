@@ -1,3 +1,4 @@
+import 'package:code_zero/app/modules/mine/distribution/model/fans_list_model.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
@@ -19,22 +20,23 @@ class MyFansPage extends GetView<MyFansController> {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       body: Obx(
-        () => FTStatusPage(
-          type: controller.pageStatus.value,
-          errorMsg: controller.errorMsg.value,
-          builder: (BuildContext context) {
-            return Column(
-              children: [
-                _buildHeaderAppBar(),
-                _buildHeader(),
-                _tabTitleWidget(),
-                _tabContentWidget(),
+            () =>
+            FTStatusPage(
+              type: controller.pageStatus.value,
+              errorMsg: controller.errorMsg.value,
+              builder: (BuildContext context) {
+                return Column(
+                  children: [
+                    _buildHeaderAppBar(),
+                    _buildHeader(),
+                    _tabTitleWidget(),
+                    _tabContentWidget(),
 
-                // _buildCommissionList(),
-              ],
-            );
-          },
-        ),
+                    // _buildCommissionList(),
+                  ],
+                );
+              },
+            ),
       ),
     );
   }
@@ -107,7 +109,8 @@ class MyFansPage extends GetView<MyFansController> {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "${controller.fansStatistics.value?.todayCount ?? 0}",
+                      text: "${controller.fansStatistics.value?.todayCount ??
+                          0}",
                       style: TextStyle(
                         fontSize: 28.sp,
                         color: AppColors.text_dark,
@@ -145,7 +148,8 @@ class MyFansPage extends GetView<MyFansController> {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "${controller.fansStatistics.value?.historyCount ?? 0}",
+                      text: "${controller.fansStatistics.value?.historyCount ??
+                          0}",
                       style: TextStyle(
                         fontSize: 28.sp,
                         color: AppColors.text_dark,
@@ -194,7 +198,8 @@ class MyFansPage extends GetView<MyFansController> {
           labelColor: Color(0xff111111),
           unselectedLabelColor: Color(0xff434446),
           labelStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
-          unselectedLabelStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
+          unselectedLabelStyle: TextStyle(
+              fontSize: 16.sp, fontWeight: FontWeight.w400),
         ),
       ),
     );
@@ -228,9 +233,13 @@ class MyFansPage extends GetView<MyFansController> {
           child: Text("暂无记录"));
     }
     return ListView.separated(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(Get.context!).padding.bottom),
+      padding: EdgeInsets.only(bottom: MediaQuery
+          .of(Get.context!)
+          .padding
+          .bottom),
       itemBuilder: (BuildContext context, int index) {
-        return _buildCommissionItem(index, controller.fansDataList[index]!.items![index]);
+        return _buildCommissionItem(
+            index, controller.fansDataList[index]!.items![index]);
       },
       separatorBuilder: (BuildContext context, int index) {
         return SizedBox(height: 10.w);
@@ -239,8 +248,7 @@ class MyFansPage extends GetView<MyFansController> {
     );
   }
 
-  _buildCommissionItem(index, data) {
-    //TODO  数据还没开始填充。
+  _buildCommissionItem(index, FansItem data) {
     return Container(
       width: 345,
       height: 69.w,
@@ -272,7 +280,7 @@ class MyFansPage extends GetView<MyFansController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "用户名：翠翠",
+                "用户名：${data.nickname}",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 14.sp,
@@ -284,7 +292,7 @@ class MyFansPage extends GetView<MyFansController> {
                 height: 6.w,
               ),
               Text(
-                "2022-08-18 13:00:23",
+                data.createdAt ?? "",
                 style: TextStyle(
                   color: Color(0xFFABAAB9),
                   fontSize: 12.sp,
@@ -295,13 +303,16 @@ class MyFansPage extends GetView<MyFansController> {
             ],
           ),
           Expanded(child: SizedBox()),
-          Text(
-            "+18.46",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w500,
-              height: 1,
+          Visibility(
+            visible: false,
+            child: Text(
+              "+18.46",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
+                height: 1,
+              ),
             ),
           ),
         ],
@@ -311,20 +322,26 @@ class MyFansPage extends GetView<MyFansController> {
 
   _tabContentWidget() {
     return Expanded(
-      child: TabBarView(
-        physics: NeverScrollableScrollPhysics(),
-        controller: controller.tabController,
-        // children: [
-        //   _buildCommissionList(),
-        //   _buildCommissionList(),
-        // ],
-        // children: controller.tabList.map((e) => _buildCommissionList()).toList(),
-        children: controller.tabList.asMap().keys.map(
-          (index) {
-            return _buildCommissionList(index);
-          },
-        ).toList(),
-      ),
+      child: Obx(() {
+        return TabBarView(
+          physics: NeverScrollableScrollPhysics(),
+          controller: controller.tabController,
+          // children: [
+          //   _buildCommissionList(),
+          //   _buildCommissionList(),
+          // ],
+          // children: controller.tabList.map((e) => _buildCommissionList()).toList(),
+          children: controller.tabList
+              .asMap()
+              .keys
+              .map(
+                (index) {
+              return _buildCommissionList(index);
+            },
+          )
+              .toList(),
+        );
+      }),
     );
   }
 }
