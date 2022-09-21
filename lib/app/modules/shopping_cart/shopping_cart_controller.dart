@@ -37,6 +37,10 @@ class ShoppingCartController extends GetxController {
   }
 
   initData() {
+    totalPrice.value = 0;
+    isManageStatus.value = false;
+    isSelectAll.value = false;
+    selectGoodsList.clear();
     pageStatus.value = FTStatusPageType.loading;
     getGoodsList().then((value) {
       pageStatus.value = FTStatusPageType.success;
