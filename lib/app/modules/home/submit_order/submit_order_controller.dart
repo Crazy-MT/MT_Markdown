@@ -157,7 +157,7 @@ class SubmitOrderController extends GetxController {
     EasyLoading.show();
 
     int count = 0;
-    Timer.periodic(Duration(seconds: 5), (timer) async {
+    Timer.periodic(Duration(seconds: 2), (timer) async {
       count += 1;
       int status = await checkPayStatus();
       lLog('MTMTMT SubmitOrderController.checkPayResult ${status}');
@@ -184,7 +184,7 @@ class SubmitOrderController extends GetxController {
         if(status == 1) {
           /// 支付成功
           Utils.showToastMsg('支付成功');
-          Get.offNamedUntil(RoutesID.SELLER_ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
+          Get.offNamedUntil(isFromSnap ? RoutesID.SELLER_ORDER_PAGE : RoutesID.ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
         } else {
           showConfirmDialog(
             singleText: '确定',
