@@ -39,17 +39,19 @@ class SelfOrderDetailPage extends GetView<SelfOrderDetailController> {
                 color: AppColors.bg_gray,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 15.w),
-                      _payInfoWidget(),
-                      SizedBox(height: 15.w),
-                      _goodsWidget(),
-                      SizedBox(height: 10.w),
-                      _pay(),
-                      SizedBox(height: 10.w),
-                      _oderInfoWidget(),
-                    ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 15.w),
+                        _payInfoWidget(),
+                        SizedBox(height: 15.w),
+                        _goodsWidget(),
+                        _pay(),
+                        SizedBox(height: 10.w),
+                        _oderInfoWidget(),
+                        SizedBox(height: 20.w),
+                      ],
+                    ),
                   ),
                 ),
               );
@@ -69,6 +71,7 @@ class SelfOrderDetailPage extends GetView<SelfOrderDetailController> {
                 .map<Widget>((element) {
               return Container(
                 padding: EdgeInsets.all(10.w),
+                margin: EdgeInsets.only(bottom: 10.w),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -85,6 +88,7 @@ class SelfOrderDetailPage extends GetView<SelfOrderDetailController> {
                 ),
               );
             }).toList(),
+
           ),
           // _buildGoodsInfo(),
         ],
@@ -188,13 +192,13 @@ class SelfOrderDetailPage extends GetView<SelfOrderDetailController> {
           ),
           Container(
             height: 50.w,
-            child: _orderInfoItemWidget('物流公司', item?.getTradeMethod()),
+            child: _orderInfoItemWidget('物流公司', item?.courierCompany ?? ""),
           ),
           Container(
             height: 50.w,
             child: _orderInfoItemWidget(
               '应付金额',
-              "￥ ${item?.paidAmount}",
+              "￥ ${item?.amount}",
               titleStyle: TextStyle(
                   color: Color(0xff111111),
                   fontSize: 14.sp,
