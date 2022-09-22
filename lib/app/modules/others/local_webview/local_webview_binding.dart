@@ -1,12 +1,12 @@
+import 'package:code_zero/app/modules/others/local_webview/local_webview_controller.dart';
 import 'package:get/get.dart';
 
-import 'local_html_controller.dart';
 
-class LocalHtmlBinding extends Bindings {
+class LocalWebViewBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<LocalHtmlController>(
-      () => LocalHtmlController(),
+    Get.lazyPut<LocalWebViewController>(
+      () => LocalWebViewController(),
     );
   }
 }

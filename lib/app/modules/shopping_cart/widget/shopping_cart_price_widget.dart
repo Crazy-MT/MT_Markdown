@@ -2,6 +2,7 @@ import 'package:code_zero/app/modules/shopping_cart/model/shopping_cart_list_mod
 import 'package:code_zero/app/modules/shopping_cart/shopping_cart_controller.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
+import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -94,7 +95,11 @@ class ShoppingCartPriceWidget extends StatelessWidget {
                   if (controller.isManageStatus.value) {
                     controller.delete();
                   } else {
-                    controller.submit();
+                    if(controller.selectGoodsList.isNotEmpty) {
+                      controller.submit();
+                    } else {
+                      Utils.showToastMsg('你还没有选择商品哦');
+                    }
                   }
                 },
                 child: Container(

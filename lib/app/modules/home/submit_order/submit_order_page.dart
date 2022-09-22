@@ -254,7 +254,7 @@ class SubmitOrderPage extends GetView<SubmitOrderController> {
                             ),
                           ),
                           TextSpan(
-                            text: goods.commodityPrice.toString(),
+                            text: ((goods.commodityPrice ?? 1) * 100 * (goods.commodityCount ?? 1) / 100).toString() ,
                             style: TextStyle(
                               fontSize: 16.sp,
                               color: AppColors.text_dark,

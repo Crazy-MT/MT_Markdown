@@ -2,6 +2,8 @@ import 'package:code_zero/app/middleware/auth_middleware.dart';
 import 'package:code_zero/app/modules/mine/buyer_order/buyer_order_binding.dart';
 import 'package:code_zero/app/modules/mine/buyer_order/buyer_order_page.dart';
 import 'package:code_zero/app/modules/mine/seller_order/seller_order_page.dart';
+import 'package:code_zero/app/modules/others/local_webview/local_webview_binding.dart';
+import 'package:code_zero/app/modules/others/local_webview/local_webview_page.dart';
 import 'package:get/get.dart';
 
 import '../modules/home/category/category_binding.dart';
@@ -156,6 +158,11 @@ class AppPages {
       name: RoutesID.LOCAL_HTML_PAGE,
       page: () => const LocalHtmlPage(),
       binding: LocalHtmlBinding(),
+    ),
+    GetPage(
+      name: RoutesID.LOCAL_WEBVIEW_PAGE,
+      page: () => const LocalWebViewPage(),
+      binding: LocalWebViewBinding(),
     ),
     // snap_detail 某抢购场次列表页
     GetPage(

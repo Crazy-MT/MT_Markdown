@@ -40,6 +40,7 @@ class _UserHelper {
 
   void whenLogout() {
     isLogin.value = false;
+    isShowBadge.value = false;
     // guestLogin.value = false;
     userInfo.value = null;
     userToken = "";

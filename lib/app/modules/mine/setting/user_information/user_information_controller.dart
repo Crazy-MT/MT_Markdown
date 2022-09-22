@@ -78,6 +78,10 @@ class UserInformationController extends GetxController {
             lockAspectRatio: true),
         IOSUiSettings(
           title: '裁剪图片',
+          // rectWidth: 500,
+          // rectHeight: 500
+          // rectX: 500,
+          // rectY: 500
         ),
       ],
     );

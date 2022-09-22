@@ -31,6 +31,7 @@ dependencies:
   flutter_pickers: 2.1.8
   text_scroll: 0.1.0
   badges: 2.0.3
+  webview_flutter: 3.0.4
   card_swiper: 2.0.4
   photo_view: 0.14.0
   fluwx: 3.9.2

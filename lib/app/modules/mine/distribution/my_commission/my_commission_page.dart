@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
 import 'package:code_zero/app/modules/mine/wallet/model/walle_model.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
@@ -32,6 +33,15 @@ class MyCommissionPage extends GetView<MyCommissionController> {
         () => FTStatusPage(
           type: controller.pageStatus.value,
           errorMsg: controller.errorMsg.value,
+          enablePullUp: true,
+          enablePullDown: true,
+          controller: controller.refreshController,
+          onRefresh: () {
+            controller.getOrder(true);
+          },
+          onLoading: () {
+            controller.getOrder(false);
+          },
           builder: (BuildContext context) {
             return CustomScrollView(
               slivers: [
@@ -90,7 +100,7 @@ class MyCommissionPage extends GetView<MyCommissionController> {
                         ),
                       ),
                       TextSpan(
-                        text: model?.tranTotalPrice ?? "",
+                        text: model?.tranTotalPrice ?? "0",
                         style: TextStyle(
                           fontSize: 28.sp,
                           color: AppColors.text_dark,
@@ -128,7 +138,7 @@ class MyCommissionPage extends GetView<MyCommissionController> {
                         ),
                       ),
                       TextSpan(
-                        text: model?.tranTotalCount.toString() ?? "",
+                        text: model?.tranTotalCount.toString() ?? "0",
                         style: TextStyle(
                           fontSize: 28.sp,
                           color: AppColors.text_dark,
@@ -147,7 +157,7 @@ class MyCommissionPage extends GetView<MyCommissionController> {
   }
 
   _buildCommissionList() {
-    if (controller.commissionList.isEmpty) {
+    if (controller.orderList.isEmpty) {
       return SliverToBoxAdapter(
         child: Container(
             width: 345,
@@ -170,12 +180,13 @@ class MyCommissionPage extends GetView<MyCommissionController> {
         (content, index) {
           return _buildCommissionItem(index);
         },
-        childCount: controller.commissionList.length,
+        childCount: controller.orderList.length,
       ),
     );
   }
 
   _buildCommissionItem(index) {
+    OrderItem? item = controller.orderList[index];
     return Container(
       width: 345,
       height: 69.w,
@@ -193,8 +204,7 @@ class MyCommissionPage extends GetView<MyCommissionController> {
         children: [
           ClipOval(
             child: CachedNetworkImage(
-              imageUrl:
-                  "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202107%2F05%2F20210705140730_666eb.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663560845&t=9ee89b2b30e3b41ada6612b73b939b8f",
+              imageUrl: item?.thumbnailUrl ?? "",
               width: 36.w,
               height: 36.w,
             ),
@@ -207,7 +217,7 @@ class MyCommissionPage extends GetView<MyCommissionController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "用户名：翠翠",
+                "用户名：${item?.toUserNickname}",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 14.sp,
@@ -219,7 +229,7 @@ class MyCommissionPage extends GetView<MyCommissionController> {
                 height: 6.w,
               ),
               Text(
-                "2022-08-18 13:00:23",
+                item?.createdAt ?? "",
                 style: TextStyle(
                   color: Color(0xFFABAAB9),
                   fontSize: 12.sp,
@@ -231,7 +241,7 @@ class MyCommissionPage extends GetView<MyCommissionController> {
           ),
           Expanded(child: SizedBox()),
           Text(
-            "+18.46",
+            item?.commission ?? "",
             style: TextStyle(
               color: Colors.black,
               fontSize: 16.sp,

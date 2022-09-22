@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class LocalHtmlController extends GetxController {
+class LocalWebViewController extends GetxController {
   final pageName = 'LocalHtml'.obs;
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;

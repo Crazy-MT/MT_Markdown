@@ -236,7 +236,7 @@ class OrderItemWidget extends StatelessWidget {
                 _richText(
                     fontSize1: 12.sp,
                     fontSize2: 16.sp,
-                    text: commodity.commodityPrice,
+                    text: item.amount,
                     fontWeight: FontWeight.w700),
               ],
             ),

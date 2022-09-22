@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -28,18 +29,28 @@ class FansOrderPage extends GetView<FansOrderController> {
         ),
       ),
       body: Obx(
-        () => FTStatusPage(
-          type: controller.pageStatus.value,
-          errorMsg: controller.errorMsg.value,
-          builder: (BuildContext context) {
-            return CustomScrollView(
-              slivers: [
-                _buildHeader(),
-                _buildOrderList(),
-              ],
-            );
-          },
-        ),
+            () =>
+            FTStatusPage(
+              type: controller.pageStatus.value,
+              errorMsg: controller.errorMsg.value,
+              enablePullUp: true,
+              enablePullDown: true,
+              controller: controller.refreshController,
+              onRefresh: () {
+                controller.getOrder(true);
+              },
+              onLoading: () {
+                controller.getOrder(false);
+              },
+              builder: (BuildContext context) {
+                return CustomScrollView(
+                  slivers: [
+                    _buildHeader(),
+                    _buildOrderList(),
+                  ],
+                );
+              },
+            ),
       ),
     );
   }
@@ -59,87 +70,89 @@ class FansOrderPage extends GetView<FansOrderController> {
             fit: BoxFit.fill,
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  "订单总总额",
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: Color(0xFF434446),
-                    fontWeight: FontWeight.w400,
+        child: Obx(() {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "订单总总额",
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: Color(0xFF434446),
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 8.w,
-                ),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "¥",
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          color: AppColors.text_dark,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      TextSpan(
-                        text: "46447",
-                        style: TextStyle(
-                          fontSize: 28.sp,
-                          color: AppColors.text_dark,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                  SizedBox(
+                    height: 8.w,
                   ),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  "订单数",
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: Color(0xFF434446),
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(
-                  height: 8.w,
-                ),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "",
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          color: AppColors.text_dark,
-                          fontWeight: FontWeight.w500,
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "¥",
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            color: AppColors.text_dark,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: "4",
-                        style: TextStyle(
-                          fontSize: 28.sp,
-                          color: AppColors.text_dark,
-                          fontWeight: FontWeight.w500,
+                        TextSpan(
+                          text: controller.model.value?.tranTotalPrice.toString() ?? "",
+                          style: TextStyle(
+                            fontSize: 28.sp,
+                            color: AppColors.text_dark,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
-        ),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "订单数",
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: Color(0xFF434446),
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8.w,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "",
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            color: AppColors.text_dark,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        TextSpan(
+                          text: controller.model.value?.tranTotalCount.toString() ?? "",
+                          style: TextStyle(
+                            fontSize: 28.sp,
+                            color: AppColors.text_dark,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
@@ -165,7 +178,7 @@ class FansOrderPage extends GetView<FansOrderController> {
     }
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        (content, index) {
+            (content, index) {
           return _buildOrderItem(index);
         },
         childCount: controller.orderList.length,
@@ -174,6 +187,7 @@ class FansOrderPage extends GetView<FansOrderController> {
   }
 
   _buildOrderItem(index) {
+    OrderItem? item = controller.orderList[index];
     return Container(
         width: 345,
         margin: EdgeInsets.symmetric(
@@ -192,7 +206,7 @@ class FansOrderPage extends GetView<FansOrderController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "订单号: D2022081684784724857",
+                  "订单号: ${item?.tradeNo}",
                   style: TextStyle(
                     color: Color(0xFF434445),
                     fontSize: 12.sp,
@@ -202,7 +216,7 @@ class FansOrderPage extends GetView<FansOrderController> {
                 Padding(
                   padding: EdgeInsets.only(right: 5.w),
                   child: Text(
-                    "已完成",
+                    "${controller.getTradeState(item?.tradeState)}",
                     style: TextStyle(
                       color: Color(0xFF757575),
                       fontSize: 14.sp,
@@ -220,10 +234,15 @@ class FansOrderPage extends GetView<FansOrderController> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.w),
                   child: CachedNetworkImage(
-                    imageUrl:
-                        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Ff70181a20931f7807418b722b4accf9cbd89d0c6c08a-s3JzNf_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663056542&t=17f6675c5cb02a4c4c23dd11959387e9",
+                    imageUrl: item?.thumbnailUrl ?? "",
                     width: 100.w,
                     height: 100.w,
+                    placeholder: (_, __) {
+                      return Image.asset(Assets.imagesHolderImg);
+                    },
+                    errorWidget: (_, __, ___) {
+                      return Image.asset(Assets.imagesHolderImg);
+                    },
                   ),
                 ),
                 SizedBox(
@@ -234,7 +253,7 @@ class FansOrderPage extends GetView<FansOrderController> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "以心参玉A货翡翠吊坠男女吊坠男女吊坠男女吊坠男女",
+                        "${item?.name ?? ""}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -258,17 +277,9 @@ class FansOrderPage extends GetView<FansOrderController> {
                               ),
                             ),
                             TextSpan(
-                              text: "30000",
+                              text: item?.price,
                               style: TextStyle(
                                 fontSize: 14.sp,
-                                color: AppColors.text_dark,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            TextSpan(
-                              text: ".00",
-                              style: TextStyle(
-                                fontSize: 10.sp,
                                 color: AppColors.text_dark,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -280,7 +291,7 @@ class FansOrderPage extends GetView<FansOrderController> {
                         height: 29.w,
                       ),
                       Text(
-                        "佣金:¥ 300.00",
+                        "佣金:¥ ${item?.commission}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -313,7 +324,7 @@ class FansOrderPage extends GetView<FansOrderController> {
                         ),
                       ),
                       TextSpan(
-                        text: "仔仔妈",
+                        text: item?.fromUserNickname,
                         style: TextStyle(
                           color: AppColors.text_dark,
                           fontSize: 14.sp,
@@ -337,7 +348,7 @@ class FansOrderPage extends GetView<FansOrderController> {
                           ),
                         ),
                         TextSpan(
-                          text: "仔仔",
+                          text: item?.toUserNickname,
                           style: TextStyle(
                             color: AppColors.text_dark,
                             fontSize: 14.sp,

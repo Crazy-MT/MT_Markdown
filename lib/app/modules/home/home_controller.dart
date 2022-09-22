@@ -39,10 +39,11 @@ class HomeController extends GetxController {
     initData();
   }
 
-  initData() {
+  initData() async {
     pageStatus.value = FTStatusPageType.success;
     initFenquList();
-    getRecommendList();
+    await getRecommendList();
+    getRecommendList(isRefresh: false);
     getBannerList();
     getAdvList();
     scrollController.addListener(() {

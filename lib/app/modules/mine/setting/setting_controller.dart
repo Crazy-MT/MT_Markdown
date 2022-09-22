@@ -83,10 +83,10 @@ class SettingController extends GetxController {
         title: "用户隐私政策",
         onClick: () {
           Get.toNamed(
-            RoutesID.LOCAL_HTML_PAGE,
+            RoutesID.LOCAL_WEBVIEW_PAGE,
             arguments: {
               "page_title": "用户隐私政策",
-              "html_file": "assets/html/privacy_policy.html",
+              "html_file": "assets/html/privacy_policy_1.html",
             },
           );
         },
@@ -94,6 +94,8 @@ class SettingController extends GetxController {
     );
     menuList.add(_MenuItem(
         title: "注销账号",
+        showTopDivider: false,
+        showDivider: true,
         onClick: () {
           showConfirmDialog(
             content: "确认注销账号吗?",

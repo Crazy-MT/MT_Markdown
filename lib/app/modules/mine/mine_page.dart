@@ -75,7 +75,8 @@ class MinePage extends GetView<MineController> {
                                                           .value?.avatarUrl ??
                                                       "",
                                                   width: 60.w,
-                                                  // height: 90.w,
+                                                  height: 60.w,
+                                                  fit: BoxFit.fill,
                                                   errorWidget: (_, __, ___) {
                                                     return Image.asset(Assets
                                                         .iconsAvatarPlaceholder);

@@ -95,6 +95,7 @@ class BindRecommendController extends GetxController {
       },
       onSuccess: (_) {
         Utils.showToastMsg("绑定成功");
+        Get.back();
       }
     );
   }

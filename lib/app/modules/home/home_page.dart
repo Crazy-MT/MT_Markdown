@@ -30,8 +30,9 @@ class HomePage extends GetView<HomeController> {
                 enablePullUp: true,
                 enablePullDown: true,
                 controller: controller.refreshController,
-                onRefresh: () {
-                  controller.getRecommendList();
+                onRefresh: () async {
+                  await controller.getRecommendList();
+                  controller.getRecommendList(isRefresh: false);
                   controller.getBannerList();
                   controller.getAdvList();
                 },
@@ -94,7 +95,7 @@ class HomePage extends GetView<HomeController> {
       child: Container(
         width: 375.w,
         height: 58.w,
-        padding: EdgeInsets.all(15.w),
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
         child: Row(
           children: [
             Expanded(
@@ -104,7 +105,7 @@ class HomePage extends GetView<HomeController> {
                       arguments: {'title': '搜索', 'from': 'search'});
                 },
                 child: Container(
-                  height: 33.w,
+                  height: 40.w,
                   decoration: BoxDecoration(
                     color: AppColors.bg_gray,
                     borderRadius: BorderRadius.circular(20.w),

@@ -64,7 +64,8 @@ class SettingPage extends GetView<SettingController> {
                         .value?.avatarUrl ??
                         "",
                     width: 60.w,
-                    // height: 90.w,
+                    fit: BoxFit.fill,
+                    height: 60.w,
                     errorWidget: (_, __, ___) {
                       return Image.asset(Assets
                           .iconsAvatarPlaceholder);
@@ -131,7 +132,6 @@ class SettingPage extends GetView<SettingController> {
       color: Colors.white,
       child: Column(
         children: [
-          if (item.showTopDivider) _buildDivider(height: 10.w),
           SafeTapWidget(
             onTap: () {
               item.onClick?.call();

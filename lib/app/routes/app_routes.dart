@@ -45,4 +45,6 @@ class RoutesID {
   static const SPLASH_PAGE = "/splash_page";
   static const BUYER_ORDER_PAGE = "/buyer_order_page";
   static const SELLER_ORDER_PAGE = "/seller_order_page";
+
+  static const LOCAL_WEBVIEW_PAGE = "/local_webview_page";
 }

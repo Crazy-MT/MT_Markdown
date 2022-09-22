@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/mine/income_list/model/income_model.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
@@ -235,6 +236,14 @@ class IncomeListPage extends GetView<IncomeListController> {
               borderRadius: BorderRadius.circular(50.w),
               color: Color(0xFFDDF3EA),
             ),
+            child: CachedNetworkImage(
+                imageUrl: "",
+                width: 60.w,
+                height: 60.w,
+                errorWidget: (_, __, ___) {
+                  return Image.asset(
+                      Assets.iconsAvatarPlaceholder);
+                }),
           ),
           Expanded(
             child: SizedBox(

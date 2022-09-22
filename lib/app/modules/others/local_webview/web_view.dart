@@ -3,7 +3,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:code_zero/common/colors.dart';
+import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -73,8 +77,7 @@ class WebViewExample extends StatefulWidget {
 }
 
 class _WebViewExampleState extends State<WebViewExample> {
-  final Completer<WebViewController> _controller =
-  Completer<WebViewController>();
+  final Completer<WebViewController> _controller = Completer<WebViewController>();
 
   @override
   void initState() {
@@ -82,25 +85,41 @@ class _WebViewExampleState extends State<WebViewExample> {
     if (Platform.isAndroid) {
       WebView.platform = SurfaceAndroidWebView();
     }
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
-      appBar: AppBar(
-        title: const Text('Flutter WebView example'),
-        // This drop down menu demonstrates that Flutter widgets can be shown over the web view.
+      // backgroundColor: Colors.green,
+      appBar: CommonAppBar(
+        child: Text(
+          Get.arguments['page_title'],
+          style: TextStyle(
+            fontSize: 16.sp,
+            color: AppColors.text_dark,
+            fontWeight: FontWeight.w500,
+          ),
+
+        ),
         actions: <Widget>[
-          NavigationControls(_controller.future),
           SampleMenu(widget.str!, _controller.future, widget.cookieManager),
         ],
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Color(0xFF14181F),
+          onPressed: () {
+            Get.back();
+          },
+        ),
       ),
       body: WebView(
         initialUrl: 'https://flutter.cn',
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (WebViewController webViewController) {
           _controller.complete(webViewController);
+
         },
         onProgress: (int progress) {
           print('WebView is loading (progress : $progress%)');
@@ -125,7 +144,6 @@ class _WebViewExampleState extends State<WebViewExample> {
         gestureNavigationEnabled: true,
         backgroundColor: const Color(0x00000000),
       ),
-      floatingActionButton: favoriteButton(),
     );
   }
 
@@ -139,31 +157,24 @@ class _WebViewExampleState extends State<WebViewExample> {
         });
   }
 
-  Widget favoriteButton() {
-    return FutureBuilder<WebViewController>(
-        future: _controller.future,
-        builder: (BuildContext context,
-            AsyncSnapshot<WebViewController> controller) {
-          return FloatingActionButton(
-            onPressed: () async {
-              String? url;
-              if (controller.hasData) {
-                url = await controller.data!.currentUrl();
-              }
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    controller.hasData
-                        ? 'Favorited $url'
-                        : 'Unable to favorite',
-                  ),
-                ),
-              );
-            },
-            child: const Icon(Icons.favorite),
-          );
-        });
+  Future<void> _onLoadLocalFileExample(
+      WebViewController controller) async {
+    final String pathToIndex = await _prepareLocalFile(widget.str!);
+
+    await controller.loadFile(pathToIndex);
   }
+
+  static Future<String> _prepareLocalFile(String str) async {
+    final String tmpDir = (await getTemporaryDirectory()).path;
+    final File indexFile = File(
+        <String>{tmpDir, 'www', 'index.html'}.join(Platform.pathSeparator));
+
+    await indexFile.create(recursive: true);
+    await indexFile.writeAsString(str);
+
+    return indexFile.path;
+  }
+
 }
 
 enum MenuOptions {
@@ -198,108 +209,8 @@ class SampleMenu extends StatelessWidget {
       future: controller,
       builder:
           (BuildContext context, AsyncSnapshot<WebViewController> controller) {
-        return PopupMenuButton<MenuOptions>(
-          key: const ValueKey<String>('ShowPopupMenu'),
-          onSelected: (MenuOptions value) {
-            switch (value) {
-              case MenuOptions.showUserAgent:
-                _onShowUserAgent(controller.data!, context);
-                break;
-              case MenuOptions.listCookies:
-                _onListCookies(controller.data!, context);
-                break;
-              case MenuOptions.clearCookies:
-                _onClearCookies(context);
-                break;
-              case MenuOptions.addToCache:
-                _onAddToCache(controller.data!, context);
-                break;
-              case MenuOptions.listCache:
-                _onListCache(controller.data!, context);
-                break;
-              case MenuOptions.clearCache:
-                _onClearCache(controller.data!, context);
-                break;
-              case MenuOptions.navigationDelegate:
-                _onNavigationDelegateExample(controller.data!, context);
-                break;
-              case MenuOptions.doPostRequest:
-                _onDoPostRequest(controller.data!, context);
-                break;
-              case MenuOptions.loadLocalFile:
-                _onLoadLocalFileExample(controller.data!, context);
-                break;
-              case MenuOptions.loadFlutterAsset:
-                _onLoadFlutterAssetExample(controller.data!, context);
-                break;
-              case MenuOptions.loadHtmlString:
-                _onLoadHtmlStringExample(controller.data!, context);
-                break;
-              case MenuOptions.transparentBackground:
-                _onTransparentBackground(controller.data!, context);
-                break;
-              case MenuOptions.setCookie:
-                _onSetCookie(controller.data!, context);
-                break;
-            }
-          },
-          itemBuilder: (BuildContext context) => <PopupMenuItem<MenuOptions>>[
-            PopupMenuItem<MenuOptions>(
-              value: MenuOptions.showUserAgent,
-              enabled: controller.hasData,
-              child: const Text('Show user agent'),
-            ),
-            const PopupMenuItem<MenuOptions>(
-              value: MenuOptions.listCookies,
-              child: Text('List cookies'),
-            ),
-            const PopupMenuItem<MenuOptions>(
-              value: MenuOptions.clearCookies,
-              child: Text('Clear cookies'),
-            ),
-            const PopupMenuItem<MenuOptions>(
-              value: MenuOptions.addToCache,
-              child: Text('Add to cache'),
-            ),
-            const PopupMenuItem<MenuOptions>(
-              value: MenuOptions.listCache,
-              child: Text('List cache'),
-            ),
-            const PopupMenuItem<MenuOptions>(
-              value: MenuOptions.clearCache,
-              child: Text('Clear cache'),
-            ),
-            const PopupMenuItem<MenuOptions>(
-              value: MenuOptions.navigationDelegate,
-              child: Text('Navigation Delegate example'),
-            ),
-            const PopupMenuItem<MenuOptions>(
-              value: MenuOptions.doPostRequest,
-              child: Text('Post Request'),
-            ),
-            const PopupMenuItem<MenuOptions>(
-              value: MenuOptions.loadHtmlString,
-              child: Text('Load HTML string'),
-            ),
-            const PopupMenuItem<MenuOptions>(
-              value: MenuOptions.loadLocalFile,
-              child: Text('Load local file'),
-            ),
-            const PopupMenuItem<MenuOptions>(
-              value: MenuOptions.loadFlutterAsset,
-              child: Text('Load Flutter Asset'),
-            ),
-            const PopupMenuItem<MenuOptions>(
-              key: ValueKey<String>('ShowTransparentBackgroundExample'),
-              value: MenuOptions.transparentBackground,
-              child: Text('Transparent background example'),
-            ),
-            const PopupMenuItem<MenuOptions>(
-              value: MenuOptions.setCookie,
-              child: Text('Set cookie'),
-            ),
-          ],
-        );
+            _onLoadLocalFileExample(controller.data!, context);
+            return SizedBox();
       },
     );
   }

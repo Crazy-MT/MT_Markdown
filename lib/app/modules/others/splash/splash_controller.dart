@@ -91,7 +91,7 @@ class SplashController extends GetxController {
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   Get.toNamed(
-                    RoutesID.LOCAL_HTML_PAGE,
+                    RoutesID.LOCAL_WEBVIEW_PAGE,
                     arguments: {
                       "page_title": "用户隐私政策",
                       "html_file": "assets/html/privacy_policy_1.html",

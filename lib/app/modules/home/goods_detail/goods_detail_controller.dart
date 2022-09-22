@@ -50,9 +50,7 @@ class GoodsDetailController extends GetxController {
   }
 
   doBuy() async {
-    String result = await showByDialog(isAddToCart: false, goods: goods);
-    if (result.isEmpty) return;
-    goToSubmitOrderPage();
+    String result = await showByDialog(isAddToCart: false, goods: goods, isFromSnap: isFromSnap);
   }
 
   void goToSubmitOrderPage() {
@@ -72,7 +70,7 @@ class GoodsDetailController extends GetxController {
   }
 
   doAddToCart() async {
-    var result = await showByDialog(isAddToCart: true, goods: goods);
+    var result = await showByDialog(isAddToCart: true, goods: goods, isFromSnap: isFromSnap);
   }
 
   @override

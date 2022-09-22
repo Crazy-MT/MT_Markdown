@@ -76,7 +76,7 @@ class DistributionController extends GetxController {
         title: "粉丝订单",
         showDivider: false,
         onClick: () {
-          Get.toNamed(RoutesID.FANS_ORDER_PAGE);
+          Get.toNamed(RoutesID.FANS_ORDER_PAGE, arguments: {"wallet": model.value});
         }));
   }
 

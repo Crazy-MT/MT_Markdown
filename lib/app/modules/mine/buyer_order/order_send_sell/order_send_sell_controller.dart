@@ -167,7 +167,7 @@ class OrderSendSellController extends GetxController {
     EasyLoading.show();
 
     int count = 0;
-    Timer.periodic(Duration(seconds: 5), (timer) async {
+    Timer.periodic(Duration(seconds: 2), (timer) async {
       count += 1;
       int status = await checkPayStatus();
       lLog('MTMTMT checkPayResult ${status}');

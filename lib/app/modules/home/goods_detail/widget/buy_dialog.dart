@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/shopping_cart/model/shopping_cart_list_model.dart';
 import 'package:code_zero/app/modules/shopping_cart/shopping_cart_api.dart';
 import 'package:code_zero/app/modules/shopping_cart/shopping_cart_controller.dart';
 import 'package:code_zero/app/modules/shopping_cart/widget/goods_number_widget.dart';
@@ -21,14 +22,22 @@ import 'package:get/get.dart';
 class _BuyDialog extends StatelessWidget {
   final bool isAddToCart;
   final CommodityItem goods;
+  final bool isFromSnap;
 
-  const _BuyDialog({Key? key, required this.isAddToCart, required this.goods}) : super(key: key);
+  const _BuyDialog(
+      {Key? key,
+      required this.isAddToCart,
+      required this.goods,
+      required this.isFromSnap})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetX<BuyDialogController>(
         init: BuyDialogController(
           isAddToCart,
           goods,
+          isFromSnap,
         ),
         builder: (controller) {
           return UnconstrainedBox(
@@ -57,7 +66,9 @@ class _BuyDialog extends StatelessWidget {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8.w),
                                 child: CachedNetworkImage(
-                                  imageUrl: (goods.thumbnails ?? []).isEmpty ? '' : goods.thumbnails![0],
+                                  imageUrl: (goods.thumbnails ?? []).isEmpty
+                                      ? ''
+                                      : goods.thumbnails![0],
                                   width: 120.w,
                                   height: 120.w,
                                   fit: BoxFit.cover,
@@ -70,7 +81,8 @@ class _BuyDialog extends StatelessWidget {
                                 child: SizedBox(
                                   height: 120.w,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Align(
                                         alignment: Alignment.centerRight,
@@ -98,7 +110,8 @@ class _BuyDialog extends StatelessWidget {
                                               ),
                                             ),
                                             TextSpan(
-                                              text: "${(goods.currentPrice ?? '0.00').split('.')[0]}",
+                                              text:
+                                                  "${(goods.currentPrice ?? '0.00').split('.')[0]}",
                                               style: TextStyle(
                                                 fontSize: 22.sp,
                                                 color: AppColors.green,
@@ -106,7 +119,8 @@ class _BuyDialog extends StatelessWidget {
                                               ),
                                             ),
                                             TextSpan(
-                                              text: ".${(goods.currentPrice ?? '0.00').contains('.') ? (goods.currentPrice ?? '0.00').split('.')[1] : '00'}",
+                                              text:
+                                                  ".${(goods.currentPrice ?? '0.00').contains('.') ? (goods.currentPrice ?? '0.00').split('.')[1] : '00'}",
                                               style: TextStyle(
                                                 fontSize: 12.sp,
                                                 color: AppColors.green,
@@ -167,12 +181,17 @@ class _BuyDialog extends StatelessWidget {
                     height: 44.w,
                     child: ElevatedButton(
                       onPressed: () {
+                        if((controller.goods.inventory ?? 0) == 0) {
+                          Utils.showToastMsg('商品库存不够');
+                          return;
+                        }
                         controller.clickNext();
                       },
                       style: ElevatedButton.styleFrom(
                         shape: StadiumBorder(),
                       ).copyWith(
-                        padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+                        padding:
+                            MaterialStateProperty.all(const EdgeInsets.all(0)),
                         backgroundColor: MaterialStateProperty.all(
                           AppColors.green,
                         ),
@@ -200,15 +219,15 @@ class BuyDialogController extends GetxController {
   final CommodityItem goods;
   final containerWidth = 374.w.obs;
   RxInt commodityCount = 1.obs;
+  final bool isFromSnap;
 
-  BuyDialogController(
-    this.isAddToCart,
-    this.goods,
-  );
+  BuyDialogController(this.isAddToCart, this.goods, this.isFromSnap);
+
   clickNext() async {
     // Get.back(result: "1");
     if (isAddToCart) {
-      ResultData<ConvertInterface>? _result = await LRequest.instance.request<ConvertInterface>(
+      ResultData<ConvertInterface>? _result =
+          await LRequest.instance.request<ConvertInterface>(
         url: ShoppingCartApis.ADD_TO_SHOPPING_CART,
         data: {
           "commodityCount": commodityCount.value,
@@ -227,12 +246,30 @@ class BuyDialogController extends GetxController {
         Get.back(result: "1");
       }
     } else {
-      Get.back(result: "1");
+      // Get.back(result: "1");
+      lLog(
+          'MTMTMT BuyDialogController.clickNext ${(double.tryParse(goods.currentPrice ?? "0") ?? 1) * 100} ${commodityCount.value} ${((double.tryParse(goods.currentPrice ?? "0") ?? 1) * 100 * commodityCount.value / 100)} ${0.01 * 2}');
+      Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE, arguments: {
+        "goods": [
+          ShoppingCartItem(
+              commodityId: goods.id,
+              commodityName: goods.name,
+              commodityCount: commodityCount.value,
+              commodityPrice: double.tryParse(goods.currentPrice ?? "0") ?? 1 ,
+              commodityThumbnail: goods.thumbnails?.firstWhere((element) => element.isNotEmpty, orElse: () => "")
+          )
+        ].obs,
+        "isFromSnap": isFromSnap,
+        "totalPrice": ((double.tryParse(goods.currentPrice ?? "0") ?? 1) * 100 * commodityCount.value / 100)
+      });
     }
   }
 }
 
-Future<String> showByDialog({bool isAddToCart = false, required CommodityItem goods}) async {
+Future<String> showByDialog(
+    {bool isAddToCart = false,
+    required CommodityItem goods,
+    bool isFromSnap = false}) async {
   var result = await showModalBottomSheet(
       context: Get.context!,
       backgroundColor: Colors.transparent,
@@ -241,6 +278,7 @@ Future<String> showByDialog({bool isAddToCart = false, required CommodityItem go
         return _BuyDialog(
           isAddToCart: isAddToCart,
           goods: goods,
+          isFromSnap: isFromSnap,
         );
       });
   return result is String ? result : "";

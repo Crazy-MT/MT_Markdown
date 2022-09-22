@@ -8,6 +8,7 @@ import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -422,6 +423,10 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
               ),
               SafeTapWidget(
                 onTap: () {
+                  if((controller.goods.inventory ?? 0) == 0) {
+                    Utils.showToastMsg('商品库存不够');
+                    return;
+                  }
                   controller.doBuy();
                 },
                 child: Container(

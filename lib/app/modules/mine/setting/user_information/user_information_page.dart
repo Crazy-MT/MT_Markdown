@@ -83,14 +83,18 @@ class UserInformationPage extends GetView<UserInformationController> {
                       controller.chooseAndUploadImage();
                     },
                     child: Obx(() => ClipOval(
-                          child: CachedNetworkImage(
-                              imageUrl: controller.avatarImg.value,
-                              width: 60.w,
-                              height: 60.w,
-                              errorWidget: (_, __, ___) {
-                                return Image.asset(
-                                    Assets.iconsAvatarPlaceholder);
-                              }),
+                          child: Container(
+                            color: Colors.black,
+                            child: CachedNetworkImage(
+                                imageUrl: controller.avatarImg.value,
+                                width: 60.w,
+                                height: 60.w,
+                                fit: BoxFit.fill,
+                                errorWidget: (_, __, ___) {
+                                  return Image.asset(
+                                      Assets.iconsAvatarPlaceholder);
+                                }),
+                          ),
                         )),
                   )
                 ],
