@@ -6,6 +6,7 @@ import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/common.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart' as g;
 
 import '../common/user_helper.dart';
@@ -77,6 +78,7 @@ class LRequest {
     OnStringSuccess? onStringSuccess,
     bool isShowErrorToast = true,
     FormData? formData,
+    bool isShowLoading = true,
   }) async {
     Response response;
     dio.options.headers[NetConstant.UNIQUE_ID] = deviceUtil.getUniqueID();
@@ -84,6 +86,9 @@ class LRequest {
         "Bearer " + userHelper.userToken;
     try {
       lLog("request get start =======>net: $url");
+      if(isShowLoading) {
+        EasyLoading.show();
+      }
       if (requestType == RequestType.GET) {
         response = await dio.get(url, queryParameters: queryParameters);
       } else {
@@ -96,6 +101,9 @@ class LRequest {
       handleBaseModel?.call(baseModel);
       if (baseModel.code.runtimeType.toString() == "String") {
         onStringSuccess?.call(response.toString());
+        if(isShowLoading) {
+          EasyLoading.dismiss();
+        }
         return null;
       }
 
@@ -107,12 +115,18 @@ class LRequest {
         // g.Get.offAllNamed(RoutesID.LOGIN_PAGE, arguments: {"from": g.Get.currentRoute});
         g.Get.offNamedUntil(RoutesID.LOGIN_PAGE,
             (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE);
+        if(isShowLoading) {
+          EasyLoading.dismiss();
+        }
         return null;
       }
 
       if (baseModel.code != 0) {
         errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg",
             "baseModel.code is not 0,this value is ${baseModel.code}");
+        if(isShowLoading) {
+          EasyLoading.dismiss();
+        }
         return null;
       }
       ResultData<T> resultData = ResultData();
@@ -132,8 +146,14 @@ class LRequest {
         resultData.message = baseModel.message;
       }
       onSuccess?.call(resultData);
+      if(isShowLoading) {
+        EasyLoading.dismiss();
+      }
       return resultData;
     } on DioError catch (e) {
+      if(isShowLoading) {
+        EasyLoading.dismiss();
+      }
       // print(e);
       debugLog((e.response?.statusCode ?? -1).toString() + e.toString());
       errorLog(e.toString());
@@ -149,6 +169,9 @@ class LRequest {
       }
       return null;
     } on Exception catch (e) {
+      if(isShowLoading) {
+        EasyLoading.dismiss();
+      }
       errorLog(e.toString());
       if (errorBack != null) {
         errorBack(-1, "数据处理异常", e.toString());

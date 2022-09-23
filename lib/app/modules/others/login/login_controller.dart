@@ -95,7 +95,7 @@ class LoginController extends GetxController {
     }
 
     if ((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0) {
-      await Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE);
+      await Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE, arguments: {'from': RoutesID.LOGIN_PAGE});
 
       if ((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0) {
         return;
@@ -103,7 +103,7 @@ class LoginController extends GetxController {
     }
 
     if ((userHelper.userInfo.value?.hasAddress ?? 0) == 0) {
-      await Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE);
+      await Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE, arguments: {'from': RoutesID.LOGIN_PAGE});
       if ((userHelper.userInfo.value?.hasAddress ?? 0) == 0) {
         return;
       }

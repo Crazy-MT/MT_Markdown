@@ -44,6 +44,7 @@ class SnapUpController extends GetxController {
     ResultData<SessionModel>? _result = await LRequest.instance.request<SessionModel>(
         url: SnapApis.LIST,
         t: SessionModel(),
+        isShowLoading: false,
         queryParameters: {
           "page": currentPage,
           "size": pageSize,

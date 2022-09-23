@@ -236,14 +236,14 @@ class IncomeListPage extends GetView<IncomeListController> {
               borderRadius: BorderRadius.circular(50.w),
               color: Color(0xFFDDF3EA),
             ),
-            child: CachedNetworkImage(
-                imageUrl: "",
-                width: 60.w,
-                height: 60.w,
-                errorWidget: (_, __, ___) {
-                  return Image.asset(
-                      Assets.iconsAvatarPlaceholder);
-                }),
+            child: Stack(
+                alignment : AlignmentDirectional.center,
+              children: [
+                Image.asset('assets/icons/income_2.png'),
+                Image.asset('assets/icons/income_3.png', width: 45.w, height: 45.w,),
+                Image.asset('assets/icons/income_1.png', width: 42.w, height: 42.w,),
+              ],
+            ),
           ),
           Expanded(
             child: SizedBox(

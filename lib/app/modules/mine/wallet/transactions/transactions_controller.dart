@@ -35,6 +35,7 @@ class TransactionsController extends GetxController {
     await LRequest.instance.request<BalanceModel>(
         url: TransactionsApis.LIST,
         t: BalanceModel(),
+        isShowLoading: false,
         queryParameters: {
           "status": 2,
           "page": currentPage,

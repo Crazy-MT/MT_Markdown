@@ -234,6 +234,7 @@ class SubmitOrderController extends GetxController {
         queryParameters: {
           "id": chargeModel.value?.id
         },
+        isShowLoading: false,
         requestType: RequestType.GET,
         errorBack: (errorCode, errorMsg, expMsg) {
           status = -1;

@@ -60,7 +60,8 @@ class MinePage extends GetView<MineController> {
                                         child: Stack(
                                           children: [
                                             Container(
-                                              // height: 60.w,
+                                              width: 62.w,
+                                              height: 62.w,
                                               decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.all(

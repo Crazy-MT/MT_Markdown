@@ -42,6 +42,7 @@ class SnapDetailController extends GetxController {
     await LRequest.instance.request<
         c.CommodityModel>(
         url: SnapApis.COMMODITY,
+        isShowLoading: false,
         t: c.CommodityModel(),
         queryParameters: {
           "session-id": Get.arguments["id"],

@@ -1,6 +1,7 @@
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 

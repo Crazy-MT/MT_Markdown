@@ -50,6 +50,7 @@ class IncomeListController extends GetxController {
           Utils.showToastMsg("获取收益列表失败：${errorCode == -1 ? expMsg : errorMsg}");
           errorLog("获取收益列表失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
         },
+        isShowLoading: false,
         onSuccess: (result) {
           var model = result.value;
           if(model == null || model.items == null) {
@@ -65,6 +66,7 @@ class IncomeListController extends GetxController {
           currentPage++;
 
           incomeList.addAll(model.items!);
+          // incomeList.add(IncomeItems(id: 1, buyPrice: "2", sellPrice: '2', ));
 
           refreshController.refreshCompleted();
           refreshController.loadComplete();

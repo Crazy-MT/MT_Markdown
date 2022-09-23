@@ -125,7 +125,7 @@ class OrderItemWidget extends StatelessWidget {
                           onTap: () {
                             controller.cancelOrder(item.id);
                           }),
-                      visible: controller.tabController?.index == 1,
+                      visible: controller.tabController?.index == 1 || item.tradeState == 3 || item.tradeState == 6,
                     ),
                     SizedBox(width: 10.w,),
                     Visibility(
@@ -135,7 +135,7 @@ class OrderItemWidget extends StatelessWidget {
                           onTap: () {
                             controller.pay(item);
                           }),
-                      visible: controller.tabController?.index == 1,
+                      visible: controller.tabController?.index == 1 || item.tradeState == 3 || item.tradeState == 6,
                     ),
                     Visibility(
                       child: _buttonBtnWidget(
@@ -144,12 +144,12 @@ class OrderItemWidget extends StatelessWidget {
                           onTap: () {
                               controller.checkWuliu(item);
                           }),
-                      visible: controller.tabController?.index == 3,
+                      visible: controller.tabController?.index == 3 || item.tradeState == 9,
                     ),
                     Visibility(
                       child: _buttonBtnWidget(
                           title: "已付款", color: Color(0xff1BDB8A)),
-                      visible: controller.tabController?.index == 2,
+                      visible: controller.tabController?.index == 2 || item.tradeState == 1,
                     ),
                     Visibility(
                       child: _buttonBtnWidget(
@@ -158,7 +158,7 @@ class OrderItemWidget extends StatelessWidget {
                           onTap: () {
                             controller.shouhuo(item.id);
                           }),
-                      visible: controller.tabController?.index == 3,
+                      visible: controller.tabController?.index == 3 || item.tradeState == 9,
                     )
                   ],
                 ),

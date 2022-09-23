@@ -92,6 +92,7 @@ class SellerOrderController extends GetxController with GetSingleTickerProviderS
       queryParameters: queryParameters,
       t: OrderListModel(),
       requestType: RequestType.GET,
+      isShowLoading: false,
       errorBack: (errorCode, errorMsg, expMsg) {
         Utils.showToastMsg("获取失败：${errorCode == -1 ? expMsg : errorMsg}");
         errorLog("订单列表获取失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");

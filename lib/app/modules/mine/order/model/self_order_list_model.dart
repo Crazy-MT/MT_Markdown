@@ -36,7 +36,7 @@ class SelfOrderItems {
   int? tradeState;
   String? tradeStateDesc;
   String? amount;
-  int? paidAmount;
+  String? paidAmount;
   String? newPrice;
   String? outTradeNo;
   String? createdAt;

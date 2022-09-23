@@ -120,6 +120,7 @@ class BuyerOrderController extends GetxController
         OrderListModel>(
       url: SnapApis.ORDER_LIST,
       queryParameters: queryParameters,
+      isShowLoading: false,
       t: OrderListModel(),
       requestType: RequestType.GET,
       errorBack: (errorCode, errorMsg, expMsg) {

@@ -15,7 +15,7 @@ class CategoryController extends GetxController {
   ScrollController scrollController = ScrollController();
   TextEditingController keyWordController = new TextEditingController();
   RxList<CommodityItem> commodityList = RxList<CommodityItem>();
-  int categoryId = 1;
+  int? categoryId;
   int currentPage = 0;
   int pageSize = 10;
   final RefreshController refreshController = new RefreshController();
@@ -25,12 +25,7 @@ class CategoryController extends GetxController {
   void onInit() {
     super.onInit();
     initData();
-    if (Get.arguments['from'] == 'search') {
-      // goodsList.clear();
-    } else {
-      categoryId = Get.arguments['categoryId'];
-      getRecommendList();
-    }
+
   }
 
   getRecommendList({bool isRefresh = true, String? orderBy, String? name}) async {
@@ -40,6 +35,7 @@ class CategoryController extends GetxController {
     await LRequest.instance.request<CommodityModel>(
         url: HomeApis.COMMODITY,
         t: CommodityModel(),
+        isShowLoading: false,
         queryParameters: {
           'name' : name,
           "categoryId": categoryId,
@@ -79,8 +75,18 @@ class CategoryController extends GetxController {
         });
   }
 
-  initData() {
+  initData() async {
     pageStatus.value = FTStatusPageType.success;
+
+    if (Get.arguments['from'] == 'search') {
+      await getRecommendList();
+      getRecommendList(isRefresh: false);
+      // goodsList.clear();
+    } else {
+      categoryId = Get.arguments['categoryId'];
+      await getRecommendList();
+      getRecommendList(isRefresh: false);
+    }
   }
 
   @override

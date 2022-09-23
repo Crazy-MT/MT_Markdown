@@ -42,6 +42,13 @@ class CategoryGoodsItem extends StatelessWidget {
                 width: 90.w,
                 height: 90.w,
                 fit: BoxFit.cover,
+                placeholder: (_, __) {
+                  return Image.asset(Assets.imagesHolderImg, fit: BoxFit.fill,);
+                },
+                errorWidget: (_, __, ___) {
+                  return Image.asset(Assets.imagesHolderImg, fit: BoxFit.fill);
+                },
+
               ),
             ),
             SizedBox(width: 10.w),

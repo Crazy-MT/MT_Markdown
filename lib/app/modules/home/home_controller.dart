@@ -80,6 +80,7 @@ class HomeController extends GetxController {
           Utils.showToastMsg("获取列表失败：${errorCode == -1 ? expMsg : errorMsg}");
           errorLog("获取列表失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
         },
+        isShowLoading: false,
         onSuccess: (result) {
           var model = result.value;
           if(model == null || model.items == null) {
@@ -111,7 +112,7 @@ class HomeController extends GetxController {
         t: CommodityModel(),
         queryParameters: {
           // "session-id": Get.arguments["id"],
-          "page": currentPage,
+          "page": 1,
           "size": pageSize,
           "status" : 1,
           "isDelete": 0,
@@ -141,7 +142,7 @@ class HomeController extends GetxController {
         t: CommodityModel(),
         queryParameters: {
           // "session-id": Get.arguments["id"],
-          "page": currentPage,
+          "page": 1,
           "size": pageSize,
           "status" : 1,
           "isDelete": 0,

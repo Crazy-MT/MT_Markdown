@@ -111,7 +111,8 @@ class OrderController extends GetxController
       url: SnapApis.SELF_ORDER_LIST,
       queryParameters: queryParameters,
       t: SelfOrderListModel(),
-      requestType: RequestType.GET,
+          isShowLoading: false,
+          requestType: RequestType.GET,
       errorBack: (errorCode, errorMsg, expMsg) {
         Utils.showToastMsg("获取失败：${errorCode == -1 ? expMsg : errorMsg}");
         errorLog("订单列表获取失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
@@ -313,6 +314,7 @@ class OrderController extends GetxController
             errorBack: (errorCode, errorMsg, expMsg) {
               status = -1;
             },
+            isShowLoading: false,
             onSuccess: (result) {
               status = result.value?.tradeState ?? 0;
             });

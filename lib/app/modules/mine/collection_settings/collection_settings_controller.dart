@@ -4,6 +4,7 @@ import 'package:code_zero/app/modules/mine/collection_settings/collection_settin
 import 'package:code_zero/app/modules/mine/collection_settings/model/user_bank_card_model.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/model/user_wechat_model.dart';
 import 'package:code_zero/app/modules/others/user_apis.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/model/user_model.dart';
@@ -101,9 +102,9 @@ class CollectionSettingsController extends GetxController
       Get.back();
       return;
     }
-    if (tabController?.index == 0 && isBankEdit.value == true) {
+    if (tabController?.index == 0 && isBankEdit.value == true && !hasNoBankCard) {
       isBankEdit.value = false;
-    } else if (tabController?.index == 1 && isWechatEdit.value == true) {
+    } else if (tabController?.index == 1 && isWechatEdit.value == true && !hasNoWeiXin) {
       isWechatEdit.value = false;
     } else {
       Get.back();
@@ -215,7 +216,11 @@ class CollectionSettingsController extends GetxController
     bankcardInfo.value = _result?.value;
     userHelper.userInfo.value?.hasPaymentMethod = 1;
     userHelper.updateSp(userHelper.userInfo.value);
-    fetchBankCardData();
+    if(Get.arguments?["from"] == RoutesID.LOGIN_PAGE) {
+      Get.back();
+    } else {
+      fetchBankCardData();
+    }
 }
 
   /// 编辑银行卡信息
@@ -276,10 +281,15 @@ class CollectionSettingsController extends GetxController
       return;
     }
     wechatInfo.value = _result?.value;
-      fetchWeChatData();
 
     userHelper.userInfo.value?.hasPaymentMethod = 1;
     userHelper.updateSp(userHelper.userInfo.value);
+
+    if(Get.arguments?["from"] == RoutesID.LOGIN_PAGE) {
+      Get.back();
+    } else {
+      fetchWeChatData();
+    }
   }
 
   /// 编辑银行卡信息

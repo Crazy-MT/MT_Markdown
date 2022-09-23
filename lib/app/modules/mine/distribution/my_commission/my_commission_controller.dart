@@ -52,6 +52,7 @@ class MyCommissionController extends GetxController {
       url: SnapApis.ORDER_LIST,
       queryParameters: queryParameters,
       t: OrderListModel(),
+      isShowLoading: false,
       requestType: RequestType.GET,
       errorBack: (errorCode, errorMsg, expMsg) {
         Utils.showToastMsg("获取失败：${errorCode == -1 ? expMsg : errorMsg}");

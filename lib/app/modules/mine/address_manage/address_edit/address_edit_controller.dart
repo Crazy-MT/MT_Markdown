@@ -1,6 +1,7 @@
 import 'package:code_zero/app/modules/mine/address_manage/address_apis.dart';
 import 'package:code_zero/app/modules/mine/address_manage/model/address_list_model.dart';
 import 'package:code_zero/app/modules/mine/address_manage/model/create_address_model.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/user_helper.dart';
@@ -105,7 +106,12 @@ class AddressEditController extends GetxController {
       lLog(_result!.value!.toJson().toString());
       userHelper.userInfo.value?.hasAddress = 1;
       userHelper.updateSp(userHelper.userInfo.value);
-      Get.back(result: true);
+      if(Get.arguments?["from"] == RoutesID.LOGIN_PAGE) {
+        Get.offAllNamed(RoutesID.MAIN_TAB_PAGE, arguments: {'tabIndex': 3});
+      } else {
+        Get.back(result: true);
+      }
+
       return;
     }
   }
