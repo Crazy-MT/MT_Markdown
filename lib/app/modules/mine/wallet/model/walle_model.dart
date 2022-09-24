@@ -3,9 +3,9 @@ import 'package:code_zero/network/convert_interface.dart';
 class WalletModel extends ConvertInterface {
   String? points;
   String? balance;
-  String? commission;        //累计佣金
-  String? commissionToday;	//今日佣金
-  String? commissionWeek;   //近7日佣金
+  String? commission;        //累计收益
+  String? commissionToday;	//今日收益
+  String? commissionWeek;   //近7日收益
   String? tranTotalPrice;	//订单总额
   int? tranTotalCount;	//订单数
   WalletModel({this.points, this.balance, this.commission, this.commissionToday, this.commissionWeek, this.tranTotalCount, this.tranTotalPrice});

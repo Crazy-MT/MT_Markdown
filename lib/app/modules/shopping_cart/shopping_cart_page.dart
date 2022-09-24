@@ -17,6 +17,19 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.page_bg,
+      appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          flexibleSpace: FlexibleSpaceBar(
+            centerTitle: true,
+            title: Text('购物车'),
+            background: Image.asset(
+              Assets.imagesAppBarBg,
+              fit: BoxFit.cover,
+            ),
+          )
+      ),
       body: Obx(
         () => Stack(
           alignment: Alignment.center,
@@ -31,7 +44,6 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
                 return CustomScrollView(
                   controller: controller.scrollController,
                   slivers: [
-                    _buildSliverAppBar(),
                     _buildOrderContent(context),
                   ],
                 );

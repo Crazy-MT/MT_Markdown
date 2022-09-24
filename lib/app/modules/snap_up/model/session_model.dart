@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:code_zero/common/system_setting.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 
@@ -109,7 +110,7 @@ class Item {
       return map;
     }
 
-    if((start - nowTime) > 20) {
+    if((start - nowTime) > (systemSetting.model.value?.buyingAdvanceTime ?? 20)) {
       map["text"] = (startTime ?? "") + "--" + (endTime ?? "");;
       map["toast_text"] = "还未开始，请稍后哦";
       return map;

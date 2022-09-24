@@ -259,7 +259,7 @@ class AppPages {
       page: () => const DrawingPage(),
       binding: DrawingBinding(),
     ),
-    // distribution 分销中心
+    // distribution 团队中心
     GetPage(
       middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.DISTRIBUTION_PAGE,

@@ -9,6 +9,6 @@ class NetConstant {
   static const String APP = "app";
 
   static const String HOST = "https://dev.api.chuancuibaoku.com/v1";
-  // static const String HOST = "https://test.chuancuibaoku.com/v1";
+  // static const String HOST = "https://api.chuancuibaoku.com/v1";
   // static const String HOST = "https://test.net:8443";
 }

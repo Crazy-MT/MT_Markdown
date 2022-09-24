@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/mine/distribution/model/fans_list_model.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -20,23 +22,22 @@ class MyFansPage extends GetView<MyFansController> {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       body: Obx(
-            () =>
-            FTStatusPage(
-              type: controller.pageStatus.value,
-              errorMsg: controller.errorMsg.value,
-              builder: (BuildContext context) {
-                return Column(
-                  children: [
-                    _buildHeaderAppBar(),
-                    _buildHeader(),
-                    _tabTitleWidget(),
-                    _tabContentWidget(),
+        () => FTStatusPage(
+          type: controller.pageStatus.value,
+          errorMsg: controller.errorMsg.value,
+          builder: (BuildContext context) {
+            return Column(
+              children: [
+                _buildHeaderAppBar(),
+                _buildHeader(),
+                _tabTitleWidget(),
+                _tabContentWidget(),
 
-                    // _buildCommissionList(),
-                  ],
-                );
-              },
-            ),
+                // _buildCommissionList(),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -109,8 +110,8 @@ class MyFansPage extends GetView<MyFansController> {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "${controller.fansStatistics.value?.todayCount ??
-                          0}",
+                      text:
+                          "${controller.fansStatistics.value?.todayCount ?? 0}",
                       style: TextStyle(
                         fontSize: 28.sp,
                         color: AppColors.text_dark,
@@ -148,8 +149,8 @@ class MyFansPage extends GetView<MyFansController> {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "${controller.fansStatistics.value?.historyCount ??
-                          0}",
+                      text:
+                          "${controller.fansStatistics.value?.historyCount ?? 0}",
                       style: TextStyle(
                         fontSize: 28.sp,
                         color: AppColors.text_dark,
@@ -198,8 +199,8 @@ class MyFansPage extends GetView<MyFansController> {
           labelColor: Color(0xff111111),
           unselectedLabelColor: Color(0xff434446),
           labelStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
-          unselectedLabelStyle: TextStyle(
-              fontSize: 16.sp, fontWeight: FontWeight.w400),
+          unselectedLabelStyle:
+              TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
         ),
       ),
     );
@@ -212,6 +213,8 @@ class MyFansPage extends GetView<MyFansController> {
   }
 
   Widget _buildCommissionList(int index) {
+    lLog(
+        'MTMTMT MyFansPage._buildCommissionList ${controller.fansDataList.length} ${controller.fansDataList[index]?.items?.length} ');
     if (controller.fansDataList.length < index) {
       return SizedBox();
     }
@@ -233,13 +236,13 @@ class MyFansPage extends GetView<MyFansController> {
           child: Text("暂无记录"));
     }
     return ListView.separated(
-      padding: EdgeInsets.only(bottom: MediaQuery
-          .of(Get.context!)
-          .padding
-          .bottom),
-      itemBuilder: (BuildContext context, int index) {
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(Get.context!).padding.bottom),
+      itemBuilder: (BuildContext context, int inde) {
+        lLog(
+            'MTMTMT MyFansPage._buildCommissionList ${index} ${controller.fansDataList.length}');
         return _buildCommissionItem(
-            index, controller.fansDataList[index]!.items![index]);
+            controller.fansDataList[index]!.items![inde]);
       },
       separatorBuilder: (BuildContext context, int index) {
         return SizedBox(height: 10.w);
@@ -248,10 +251,10 @@ class MyFansPage extends GetView<MyFansController> {
     );
   }
 
-  _buildCommissionItem(index, FansItem data) {
+  _buildCommissionItem(FansItem data) {
     return Container(
       width: 345,
-      height: 69.w,
+      height: 90.w,
       margin: EdgeInsets.symmetric(
         horizontal: 15.w,
         vertical: 3.w,
@@ -264,14 +267,52 @@ class MyFansPage extends GetView<MyFansController> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          /*ClipOval(
-            child: CachedNetworkImage(
-              imageUrl:
-                  "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202107%2F05%2F20210705140730_666eb.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663560845&t=9ee89b2b30e3b41ada6612b73b939b8f",
-              width: 36.w,
-              height: 36.w,
+          Container(
+            width: 36.w,
+            height: 45.w,
+            // color: Colors.red,
+            child: Stack(
+              children: [
+                ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl: data.avatarUrl ?? "",
+                    fit: BoxFit.fill,
+                    errorWidget: (_, __, ___) {
+                      return Image.asset(Assets.iconsAvatarPlaceholder);
+                    },
+                    placeholder: (_, __) {
+                      return Image.asset(Assets.iconsAvatarPlaceholder);
+                    },
+                  ),
+                ),
+                (data.isCaptain ?? 0) == 1
+                    ? Positioned(
+                        bottom: 0,
+                        child: Image.asset(
+                          Assets.iconsCaptain,
+                          width: 20.w,
+                        ))
+                    : SizedBox.shrink(),
+              ],
+              alignment: (data.isCaptain ?? 0) == 1
+                  ? AlignmentDirectional.topCenter
+                  : AlignmentDirectional.center,
             ),
-          ),*/
+          ),
+          // ClipOval(
+          //   child: CachedNetworkImage(
+          //     imageUrl: data.avatarUrl ?? "",
+          //     width: 36.w,
+          //     height: 36.w,
+          //     fit: BoxFit.cover,
+          //     placeholder: (_, __) {
+          //       return Image.asset(Assets.iconsAvatarPlaceholder);
+          //     },
+          //     errorWidget: (_, __, ___) {
+          //       return Image.asset(Assets.iconsAvatarPlaceholder);
+          //     },
+          //   ),
+          // ),
           SizedBox(
             width: 10.w,
           ),
@@ -331,15 +372,13 @@ class MyFansPage extends GetView<MyFansController> {
           //   _buildCommissionList(),
           // ],
           // children: controller.tabList.map((e) => _buildCommissionList()).toList(),
-          children: controller.tabList
-              .asMap()
-              .keys
-              .map(
-                (index) {
-              return _buildCommissionList(index);
+          children: controller.tabList.asMap().keys.map(
+            (index) {
+              return Obx(() {
+                return _buildCommissionList(index);
+              });
             },
-          )
-              .toList(),
+          ).toList(),
         );
       }),
     );

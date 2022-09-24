@@ -53,7 +53,7 @@ class DistributionController extends GetxController {
 
   initMenuList() {
     menuList.add(_MenuItem(
-        title: "我的佣金",
+        title: "我的收益",
         onClick: () {
           Get.toNamed(RoutesID.MY_COMMISSION_PAGE, arguments: {
             'model' : model.value

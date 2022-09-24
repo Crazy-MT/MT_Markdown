@@ -115,15 +115,10 @@ class MainTabController extends GetxController {
         t: SystemSettingModel(),
         requestType: RequestType.GET,
         errorBack: (errorCode, errorMsg, expMsg) {
-          // Utils.showToastMsg("获取收益失败：${errorCode == -1 ? expMsg : errorMsg}");
-          // errorLog("获取收益失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
         },
         onSuccess: (rest) {
-          // print('MTMTMT BuyerOrderController.cancelOrder ${rest} ');
-          // Utils.showToastMsg("获取收益");
-          // model.value = rest.value;
           systemSetting.model.value = rest.value as SystemSettingModel;
-          lLog('MTMTMT MainTabController.initSystemSetting ${systemSetting.model.value?.hotline} ');
+          // systemSetting.model.value?.auditSwitch = 1;
         });
   }
 }

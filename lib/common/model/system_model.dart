@@ -9,6 +9,7 @@ class SystemSettingModel extends ConvertInterface{
   int? tradeConfirmTime;
   String? buyingNotice;
   int? buyingCount;
+  int? buyingAdvanceTime;
   String? maxPriceRate;
   String? recommendPriceRate;
   String? shelfStartTime;
@@ -23,6 +24,7 @@ class SystemSettingModel extends ConvertInterface{
   String? updatedAt;
   String? hotline;
   String? sponsoredLinks;
+  int? auditSwitch; // 审核开关：0->关闭、1->开启
 
   SystemSettingModel(
       {this.id,
@@ -43,10 +45,12 @@ class SystemSettingModel extends ConvertInterface{
         this.paymentPhone,
         this.paymentBankCardNum,
         this.paymentBankAddress,
+        this.buyingAdvanceTime,
         this.paymentBankName,
         this.paymentBank,
         this.updatedAt,
-        this.hotline});
+        this.hotline,
+      this.auditSwitch});
 
   SystemSettingModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -68,9 +72,11 @@ class SystemSettingModel extends ConvertInterface{
     paymentBankCardNum = json['paymentBankCardNum'];
     paymentBankAddress = json['paymentBankAddress'];
     paymentBankName = json['paymentBankName'];
+    buyingAdvanceTime = json['buyingAdvanceTime'];
     paymentBank = json['paymentBank'];
     updatedAt = json['updatedAt'];
     hotline = json['hotline'];
+    auditSwitch = json['auditSwitch'];
   }
 
   Map<String, dynamic> toJson() {
@@ -96,6 +102,8 @@ class SystemSettingModel extends ConvertInterface{
     data['paymentBank'] = this.paymentBank;
     data['updatedAt'] = this.updatedAt;
     data['hotline'] = this.hotline;
+    data['buyingAdvanceTime'] = this.buyingAdvanceTime;
+    data['auditSwitch'] = this.auditSwitch;
     return data;
   }
 

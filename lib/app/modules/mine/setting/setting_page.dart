@@ -55,59 +55,53 @@ class SettingPage extends GetView<SettingController> {
             width: double.infinity,
             padding: EdgeInsets.all(20.w).copyWith(bottom: 10.w),
             child: Obx(() => Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ClipOval(
-                  child: CachedNetworkImage(
-                    imageUrl: userHelper.userInfo
-                        .value?.avatarUrl ??
-                        "",
-                    width: 60.w,
-                    fit: BoxFit.fill,
-                    height: 60.w,
-                    errorWidget: (_, __, ___) {
-                      return Image.asset(Assets
-                          .iconsAvatarPlaceholder);
-                    },
-                    placeholder: (_, __) {
-                      return Image.asset(Assets
-                          .iconsAvatarPlaceholder);
-                    },
-                  ),
-                ),
-                SizedBox(
-                  width: 15.w,
-                ),
-                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      userHelper.userInfo
-                          .value?.nickname ?? "",
-                      style: TextStyle(
-                        color: AppColors.text_dark,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w500,
+                    ClipOval(
+                      child: CachedNetworkImage(
+                        imageUrl: userHelper.userInfo.value?.avatarUrl ?? "",
+                        width: 60.w,
+                        fit: BoxFit.fill,
+                        height: 60.w,
+                        errorWidget: (_, __, ___) {
+                          return Image.asset(Assets.iconsAvatarPlaceholder);
+                        },
+                        placeholder: (_, __) {
+                          return Image.asset(Assets.iconsAvatarPlaceholder);
+                        },
                       ),
                     ),
                     SizedBox(
-                      height: 5.w,
+                      width: 15.w,
                     ),
-                    Text(
-                      userHelper.userInfo
-                          .value?.phone ?? "",
-                      style: TextStyle(
-                        color: Color(0xFF757575),
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          userHelper.userInfo.value?.nickname ?? "",
+                          style: TextStyle(
+                            color: AppColors.text_dark,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5.w,
+                        ),
+                        Text(
+                          userHelper.userInfo.value?.phone ?? "",
+                          style: TextStyle(
+                            color: Color(0xFF757575),
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
-                ),
-              ],
-            )),
+                )),
           ),
           _buildDivider(),
         ],
@@ -145,7 +139,8 @@ class SettingPage extends GetView<SettingController> {
                   Expanded(
                     child: Text(
                       item.title,
-                      textAlign: item.isCenter ? TextAlign.center : TextAlign.start,
+                      textAlign:
+                          item.isCenter ? TextAlign.center : TextAlign.start,
                       style: TextStyle(
                         color: item.titleColor,
                         fontSize: 14.sp,

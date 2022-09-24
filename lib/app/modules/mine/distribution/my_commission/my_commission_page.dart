@@ -19,7 +19,7 @@ class MyCommissionPage extends GetView<MyCommissionController> {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       appBar: CommonAppBar(
-        titleText: "我的佣金",
+        titleText: "我的收益",
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -78,7 +78,7 @@ class MyCommissionPage extends GetView<MyCommissionController> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "佣金总额",
+                  "收益总额",
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: Color(0xFF434446),

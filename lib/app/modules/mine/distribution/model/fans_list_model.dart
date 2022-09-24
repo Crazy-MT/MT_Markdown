@@ -39,6 +39,7 @@ class FansItem {
   int? fromUserId;
   String? fromUserNickname;
   int? isMember;
+  int? isCaptain;
   String? points;
   String? income;
   String? balance;
@@ -58,7 +59,8 @@ class FansItem {
       this.todayTransCount,
       this.fromUserId,
       this.fromUserNickname,
-      this.isMember,
+        this.isMember,
+        this.isCaptain,
       this.points,
       this.income,
       this.balance,
@@ -79,6 +81,7 @@ class FansItem {
     fromUserId = json['fromUserId'];
     fromUserNickname = json['fromUserNickname'];
     isMember = json['isMember'];
+    isCaptain = json['isCaptain'];
     points = json['points'];
     income = json['income'];
     balance = json['balance'];
@@ -101,6 +104,7 @@ class FansItem {
     data['fromUserId'] = this.fromUserId;
     data['fromUserNickname'] = this.fromUserNickname;
     data['isMember'] = this.isMember;
+    data['isCaptain'] = this.isCaptain;
     data['points'] = this.points;
     data['income'] = this.income;
     data['balance'] = this.balance;

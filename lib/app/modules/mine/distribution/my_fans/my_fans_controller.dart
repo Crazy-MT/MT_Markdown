@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:code_zero/app/modules/mine/distribution/distribution_apis.dart';
 import 'package:code_zero/app/modules/mine/distribution/model/fans_list_model.dart';
 import 'package:code_zero/app/modules/mine/distribution/model/fans_statistics_model.dart';
@@ -105,6 +107,7 @@ class MyFansController extends GetxController with GetTickerProviderStateMixin {
 
       ResultData<FansListModel>? _result = await LRequest.instance.request<FansListModel>(
         url: DistributionApis.LIST,
+        isShowLoading: false,
         queryParameters: {
           "from-user-id": userHelper.userInfo.value?.id,
           "order-by": "created_at",
@@ -121,6 +124,9 @@ class MyFansController extends GetxController with GetTickerProviderStateMixin {
       if (_result?.value != null) {
         lLog(_result!.value!.toJson().toString());
         fansDataList[index] = _result.value;
+
+        // _debug(index);
+
         return;
       }
     });
@@ -130,5 +136,601 @@ class MyFansController extends GetxController with GetTickerProviderStateMixin {
   void onClose() {}
   void setPageName(String newName) {
     pageName.value = newName;
+  }
+
+  _debug(index) {
+            fansDataList[index] = FansListModel.fromJson(json.decode("{\n" +
+            "    \"items\": [\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 0,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"id\": 8,\n" +
+            "            \"avatarUrl\": \"http://47.100.192.214:8080/uploads/20220821/c2ed7d8ce299966f5bb49fceb9600bc4.img\",\n" +
+            "            \"nickname\": \"bM\",\n" +
+            "            \"todayTransCount\": \"0单\",\n" +
+            "            \"fromUserId\": 0,\n" +
+            "            \"fromUserNickname\": \"\",\n" +
+            "            \"isCaptain\": 1,\n" +
+            "            \"isMember\": 1,\n" +
+            "            \"points\": \"0.00元\",\n" +
+            "            \"income\": \"0.00元\",\n" +
+            "            \"balance\": \"0.00元\",\n" +
+            "            \"phone\": \"170****563\",\n" +
+            "            \"createdAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyAt\": \"2022-08-21 11:54:07\",\n" +
+            "            \"buyLimit\": 0,\n" +
+            "            \"buySwitch\": 0,\n" +
+            "            \"status\": 1,\n" +
+            "            \"hasSignature\": 0,\n" +
+            "            \"signatureUrl\": \"\"\n" +
+            "        }\n" +
+            "    ],\n" +
+            "    \"totalCount\": 28\n" +
+            "}"));
   }
 }

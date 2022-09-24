@@ -21,6 +21,19 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+          flexibleSpace: FlexibleSpaceBar(
+            centerTitle: true,
+            title: Text('首页'),
+            background: Image.asset(
+              Assets.imagesAppBarBg,
+              fit: BoxFit.cover,
+            ),
+          )
+      ),
       backgroundColor: AppColors.page_bg,
       body: Obx(() => Stack(
             children: [
@@ -43,7 +56,6 @@ class HomePage extends GetView<HomeController> {
                   return CustomScrollView(
                     controller: controller.scrollController,
                     slivers: [
-                      _buildSliverAppBar(),
                       _buildSearchContainer(),
                       _buildSwiperContainer(),
                       _buildFenquGridView(),

@@ -19,7 +19,7 @@ class DistributionPage extends GetView<DistributionController> {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       appBar: CommonAppBar(
-        titleText: "分销中心",
+        titleText: "团队中心",
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -145,7 +145,7 @@ class DistributionPage extends GetView<DistributionController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "可提现佣金",
+                        "可提现收益",
                         style: TextStyle(
                             color: S.colors.white.withOpacity(0.5),
                             fontSize: 13.sp),

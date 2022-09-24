@@ -291,7 +291,7 @@ class FansOrderPage extends GetView<FansOrderController> {
                         height: 29.w,
                       ),
                       Text(
-                        "佣金:¥ ${item?.commission}",
+                        "收益:¥ ${item?.commission}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(

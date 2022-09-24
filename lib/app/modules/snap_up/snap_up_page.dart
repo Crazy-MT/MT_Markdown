@@ -6,6 +6,7 @@ import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/system_setting.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -22,6 +23,22 @@ class SnapUpPage extends GetView<SnapUpController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+          actions: [
+            _rightManage(),
+          ],
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          flexibleSpace: FlexibleSpaceBar(
+            centerTitle: true,
+            title: Text('寄买寄卖'),
+            background: Image.asset(
+              Assets.imagesAppBarBg,
+              fit: BoxFit.cover,
+            ),
+          )
+      ),
       body: Obx(
         () => FTStatusPage(
           type: controller.pageStatus.value,
@@ -38,7 +55,6 @@ class SnapUpPage extends GetView<SnapUpController> {
           builder: (BuildContext context) {
             return CustomScrollView(
               slivers: [
-                _buildSliverAppBar(),
                 _buildHeaderContainer(),
                 _buildListDivider(),
                 _buildSnapUpList(),
@@ -146,7 +162,7 @@ class SnapUpPage extends GetView<SnapUpController> {
                       width: 13.w,
                     ),
                     Text(
-                      "可提前20分钟进入浏览",
+                      "可提前${systemSetting.model.value?.buyingAdvanceTime ?? 20}分钟进入浏览",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14.sp,

@@ -25,7 +25,10 @@ class OrderItemWidget extends StatelessWidget {
     return SafeClickGesture(
       onTap: () {
         // if(item.tradeState == 2 || item.tradeState == 3) {
-        Get.toNamed(RoutesID.SELF_ORDER_DETAIL_PAGE, arguments: {"item": item, "status" : controller.getTradeState(item.tradeState)});
+        Get.toNamed(RoutesID.SELF_ORDER_DETAIL_PAGE, arguments: {
+          "item": item,
+          "status": controller.getTradeState(item.tradeState)
+        });
         // }
       },
       child: _contentWidget(),
@@ -125,9 +128,13 @@ class OrderItemWidget extends StatelessWidget {
                           onTap: () {
                             controller.cancelOrder(item.id);
                           }),
-                      visible: controller.tabController?.index == 1 || item.tradeState == 3 || item.tradeState == 6,
+                      visible: controller.tabController?.index == 1 ||
+                          item.tradeState == 3 ||
+                          item.tradeState == 6,
                     ),
-                    SizedBox(width: 10.w,),
+                    SizedBox(
+                      width: 10.w,
+                    ),
                     Visibility(
                       child: _buttonBtnWidget(
                           title: "待付款",
@@ -135,21 +142,25 @@ class OrderItemWidget extends StatelessWidget {
                           onTap: () {
                             controller.pay(item);
                           }),
-                      visible: controller.tabController?.index == 1 || item.tradeState == 3 || item.tradeState == 6,
+                      visible: controller.tabController?.index == 1 ||
+                          item.tradeState == 3 ||
+                          item.tradeState == 6,
                     ),
                     Visibility(
                       child: _buttonBtnWidget(
                           title: "查看物流",
                           color: Color(0xff000000),
                           onTap: () {
-                              controller.checkWuliu(item);
+                            controller.checkWuliu(item);
                           }),
-                      visible: controller.tabController?.index == 3 || item.tradeState == 9,
+                      visible: controller.tabController?.index == 3 ||
+                          item.tradeState == 9,
                     ),
                     Visibility(
                       child: _buttonBtnWidget(
                           title: "已付款", color: Color(0xff1BDB8A)),
-                      visible: controller.tabController?.index == 2 || item.tradeState == 1,
+                      visible: controller.tabController?.index == 2 ||
+                          item.tradeState == 1,
                     ),
                     Visibility(
                       child: _buttonBtnWidget(
@@ -158,7 +169,8 @@ class OrderItemWidget extends StatelessWidget {
                           onTap: () {
                             controller.shouhuo(item.id);
                           }),
-                      visible: controller.tabController?.index == 3 || item.tradeState == 9,
+                      visible: controller.tabController?.index == 3 ||
+                          item.tradeState == 9,
                     )
                   ],
                 ),
@@ -236,7 +248,13 @@ class OrderItemWidget extends StatelessWidget {
                 _richText(
                     fontSize1: 12.sp,
                     fontSize2: 16.sp,
-                    text: item.amount,
+                    // (double.tryParse(goods.currentPrice ?? "0") ?? 1) * 100 * commodityCount.value / 100
+                    text: ((double.tryParse(commodity.commodityPrice ?? "0") ??
+                                1) *
+                            100 *
+                            (commodity.commodityCount ?? 0) /
+                            100)
+                        .toString(),
                     fontWeight: FontWeight.w700),
               ],
             ),
