@@ -147,11 +147,16 @@ class HomePage extends GetView<HomeController> {
               ),
             ),
             SizedBox(width: 18.w),
-            Container(
-              width: 24.w,
-              height: 24.w,
-              child: SvgPicture.asset(
-                Assets.iconsChat,
+            SafeTapWidget(
+              onTap: () {
+                Get.toNamed(RoutesID.MESSAGE_PAGE);
+              },
+              child: Container(
+                width: 24.w,
+                height: 24.w,
+                child: SvgPicture.asset(
+                  Assets.iconsChat,
+                ),
               ),
             ),
           ],

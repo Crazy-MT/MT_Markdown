@@ -14,9 +14,9 @@ class MessagePage extends GetView<MessageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFFFFF),
+      backgroundColor: Color(0xFFF5F5F5),
       appBar: CommonAppBar(
-        titleText: "消息",
+        titleText: "平台消息",
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -30,10 +30,24 @@ class MessagePage extends GetView<MessageController> {
         () => FTStatusPage(
           type: controller.pageStatus.value,
           errorMsg: controller.errorMsg.value,
+          footer: SliverToBoxAdapter(
+            child: SizedBox.shrink(),
+          ),
+          enablePullUp: true,
+          enablePullDown: true,
+          controller: controller.refreshController,
+          onRefresh: () {
+            controller.getMessageList();
+          },
+          onLoading: () {
+            controller.getMessageList(isRefresh: false);
+          },
           builder: (BuildContext context) {
             return CustomScrollView(
               slivers: [
-                _buildMessageList(),
+                Obx(() {
+                  return _buildMessageList();
+                }),
               ],
             );
           },
@@ -43,59 +57,95 @@ class MessagePage extends GetView<MessageController> {
   }
 
   _buildMessageList() {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (content, index) {
-          return _buildMessageItem(index);
-        },
-        childCount: controller.messageList.length,
+    if (controller.messageList.length == 0) {
+      return SliverPadding(
+        padding: EdgeInsets.all(15.w).copyWith(top: 10.w),
+        sliver: SliverToBoxAdapter(
+          child: Container(
+            width: 335.w,
+            height: 80.w,
+            alignment: Alignment.center,
+            // decoration: BoxDecoration(
+            //   borderRadius: BorderRadius.circular(10.w),
+            //   color: Colors.white,
+            // ),
+            child: Text(
+              "暂无消息",
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w400,
+                color: AppColors.text_dark,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+    return SliverPadding(
+      padding: EdgeInsets.all(15.w).copyWith(top: 10.w),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (content, index) {
+            return _buildMessageItem(index);
+          },
+          childCount: controller.messageList.length,
+        ),
       ),
     );
   }
 
   _buildMessageItem(index) {
     var item = controller.messageList[index];
-    return Container(
-      color: Colors.white,
-      padding: EdgeInsets.fromLTRB(20.w, 10.w, 20.w, 10.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Image.asset(
-            index == 0
-                ? Assets.imagesMessagePlatform
-                : Assets.imagesMessagePrivate,
-            width: 50,
-            height: 50,
+    return Column(
+      children: [
+        Text(item.createdAt ?? "",
+            style: TextStyle(
+              color: Color(0xffABAAB9),
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w400,
+            )),
+        SizedBox(height: 10.h,),
+        Container(
+          width: 335.w,
+          margin: EdgeInsets.only(bottom: 10.w),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.w),
+            color: Colors.white,
           ),
-          SizedBox(width: 13.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  item,
-                  style: TextStyle(
-                    color: AppColors.text_dark,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
+          padding: EdgeInsets.all(15.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      item.msgTitle ?? "",
+                      style: TextStyle(
+                        color: AppColors.text_dark,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(height: 3.w),
+                    Text(
+                      item.msgContent ?? "",
+                      style: TextStyle(
+                        color: Color(0xffABAAB9),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 3.w),
-                Text(
-                  item,
-                  style: TextStyle(
-                    color: Color(0xffABAAB9),
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

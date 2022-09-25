@@ -41,7 +41,7 @@ class SettingController extends GetxController {
     ));
     // menuList.add(_MenuItem(title: "支付密码管理", showDivider: false));
 
-    /* menuList.add(
+     menuList.add(
       _MenuItem(
         title: "申诉反馈",
         showTopDivider: false,
@@ -49,7 +49,7 @@ class SettingController extends GetxController {
           Get.toNamed(RoutesID.COMPLAINT_FEEDBACK_PAGE);
         },
       ),
-    );*/
+    );
     menuList.add(_MenuItem(
         title: "C2C个人支付风险提示",
         onClick: () {

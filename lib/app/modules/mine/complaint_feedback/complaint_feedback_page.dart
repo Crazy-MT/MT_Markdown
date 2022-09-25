@@ -160,17 +160,20 @@ class ComplaintFeedbackPage extends GetView<ComplaintFeedbackController> {
 
   _photoItem(int index) {
     return controller.photoItems[index] == "add"
-        ? GestureDetector(
-            onTap: () {
-              controller.addImage();
-            },
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
-              ),
-              child: Image.asset(
-                Assets.iconsAdd,
-                width: 80.w,
+        ? Visibility(
+            visible: controller.photoItems.length < 5,
+            child: GestureDetector(
+              onTap: () {
+                controller.addImage();
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                child: Image.asset(
+                  Assets.iconsAdd,
+                  width: 80.w,
+                ),
               ),
             ),
           )
@@ -202,8 +205,8 @@ class ComplaintFeedbackPage extends GetView<ComplaintFeedbackController> {
                     },
                     child: Image.asset(
                       Assets.iconsDelete,
-                      width: 15.w,
-                      height: 15.w,
+                      width: 25.w,
+                      height: 25.w,
                     ),
                   ),
                 ),

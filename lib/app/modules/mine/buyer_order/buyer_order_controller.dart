@@ -210,7 +210,7 @@ class BuyerOrderController extends GetxController
       return;
     }
     CroppedFile? croppedFile = await ImageCropper().cropImage(
-      sourcePath: image?.path ?? "",
+      sourcePath: image.path ?? "",
       aspectRatioPresets: [
         // CropAspectRatioPreset.square,
         // CropAspectRatioPreset.ratio3x2,

@@ -167,9 +167,7 @@ class OrderItemWidget extends StatelessWidget {
                           title: "委托上架",
                           color: Color(0xff000000),
                           onTap: () {
-                            controller.chooseAndUploadImage(item.id ?? 0);
-
-                            // controller.shangjia(item);
+                            controller.shangjia(item);
                           }),
                       visible: item.tradeState == 3,
                     )
