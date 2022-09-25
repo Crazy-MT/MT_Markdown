@@ -18,6 +18,11 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
     return Scaffold(
       backgroundColor: AppColors.page_bg,
       appBar: AppBar(
+          actions: [
+            Obx(() {
+              return _rightManage();
+            }),
+          ],
           centerTitle: true,
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -31,27 +36,28 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
           )
       ),
       body: Obx(
-        () => Stack(
-          alignment: Alignment.center,
-          children: [
-            FTStatusPage(
-              type: controller.pageStatus.value,
-              errorMsg: controller.errorMsg.value,
-              retryMethod: () {
-                controller.initData();
-              },
-              builder: (BuildContext context) {
-                return CustomScrollView(
-                  controller: controller.scrollController,
-                  slivers: [
-                    _buildOrderContent(context),
-                  ],
-                );
-              },
+            () =>
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                FTStatusPage(
+                  type: controller.pageStatus.value,
+                  errorMsg: controller.errorMsg.value,
+                  retryMethod: () {
+                    controller.initData();
+                  },
+                  builder: (BuildContext context) {
+                    return CustomScrollView(
+                      controller: controller.scrollController,
+                      slivers: [
+                        _buildOrderContent(context),
+                      ],
+                    );
+                  },
+                ),
+                _totalPrice(),
+              ],
             ),
-            _totalPrice(),
-          ],
-        ),
       ),
     );
   }
@@ -79,24 +85,26 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
     return controller.goodsList.isEmpty
         ? Container()
         : Obx(
-            (() => GestureDetector(
-                  onTap: () {
-                    controller.isManageStatus.value = !controller.isManageStatus.value;
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w),
-                    alignment: Alignment.center,
-                    color: Colors.transparent,
-                    child: Text(
-                      controller.isManageStatus.value == true ? '完成' : '管理',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.sp,
-                      ),
-                    ),
-                  ),
-                )),
-          );
+      (() =>
+          GestureDetector(
+            onTap: () {
+              controller.isManageStatus.value =
+              !controller.isManageStatus.value;
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              alignment: Alignment.center,
+              color: Colors.transparent,
+              child: Text(
+                controller.isManageStatus.value == true ? '完成' : '管理',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14.sp,
+                ),
+              ),
+            ),
+          )),
+    );
   }
 
   Widget _buildOrderContent(BuildContext context) {
@@ -104,13 +112,15 @@ class ShoppingCartPage extends GetView<ShoppingCartController> {
       padding: EdgeInsets.only(bottom: 70.w),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
-          (content, index) {
+              (content, index) {
             if (controller.goodsList.isEmpty) {
               return ShoppingCartEmptyView();
             }
-            return ShoppingCartGoodsItem(goodsModel: controller.goodsList[index]);
+            return ShoppingCartGoodsItem(
+                goodsModel: controller.goodsList[index]);
           },
-          childCount: controller.goodsList.isEmpty ? 1 : controller.goodsList.length,
+          childCount: controller.goodsList.isEmpty ? 1 : controller.goodsList
+              .length,
         ),
       ),
     );

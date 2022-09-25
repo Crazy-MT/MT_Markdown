@@ -46,7 +46,11 @@ class FansOrderPage extends GetView<FansOrderController> {
                 return CustomScrollView(
                   slivers: [
                     _buildHeader(),
-                    _buildOrderList(),
+
+                    Obx(() {
+                      return _buildOrderList();
+                    }),
+
                   ],
                 );
               },
@@ -78,7 +82,7 @@ class FansOrderPage extends GetView<FansOrderController> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "订单总总额",
+                    "订单总额",
                     style: TextStyle(
                       fontSize: 14.sp,
                       color: Color(0xFF434446),
@@ -100,7 +104,8 @@ class FansOrderPage extends GetView<FansOrderController> {
                           ),
                         ),
                         TextSpan(
-                          text: controller.model.value?.tranTotalPrice.toString() ?? "",
+                          text: controller.model.value?.tranTotalPrice
+                              .toString() ?? "",
                           style: TextStyle(
                             fontSize: 28.sp,
                             color: AppColors.text_dark,
@@ -138,7 +143,8 @@ class FansOrderPage extends GetView<FansOrderController> {
                           ),
                         ),
                         TextSpan(
-                          text: controller.model.value?.tranTotalCount.toString() ?? "",
+                          text: controller.model.value?.tranTotalCount
+                              .toString() ?? "",
                           style: TextStyle(
                             fontSize: 28.sp,
                             color: AppColors.text_dark,
@@ -237,6 +243,7 @@ class FansOrderPage extends GetView<FansOrderController> {
                     imageUrl: item?.thumbnailUrl ?? "",
                     width: 100.w,
                     height: 100.w,
+                    fit: BoxFit.cover,
                     placeholder: (_, __) {
                       return Image.asset(Assets.imagesHolderImg);
                     },

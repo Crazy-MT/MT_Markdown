@@ -50,13 +50,17 @@ class ShoppingCartController extends GetxController {
     });
   }
 
-  Future<void> getGoodsList() async {
+  Future<void> getGoodsList({isShowLoading = true}) async {
+    if(userHelper.userInfo.value?.id == null) {
+      return;
+    }
     ResultData<ShoppingCartListModel>? _result = await LRequest.instance.request<ShoppingCartListModel>(
       url: ShoppingCartApis.GET_SHOPPING_CART_LIST,
       queryParameters: {
         "userId": userHelper.userInfo.value?.id,
       },
       t: ShoppingCartListModel(),
+      isShowLoading: isShowLoading,
       requestType: RequestType.GET,
       errorBack: (errorCode, errorMsg, expMsg) {
         Utils.showToastMsg("获取失败：${errorCode == -1 ? expMsg : errorMsg}");
@@ -133,7 +137,8 @@ class ShoppingCartController extends GetxController {
     await Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE, arguments: {
       "goods": selectGoodsList,
       "isFromSnap": false,
-      "totalPrice": totalPrice
+      "totalPrice": totalPrice,
+      "isFromCart": true,
     });
     initData();
   }

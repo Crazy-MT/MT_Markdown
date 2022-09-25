@@ -641,17 +641,19 @@ class MinePage extends GetView<MineController> {
                                                                       height: 10
                                                                           .w,
                                                                     ),
-                                                                    Text(
-                                                                      systemSetting
-                                                                          .model
-                                                                          .value
-                                                                          ?.hotline ??
-                                                                          "",
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                          22
-                                                                              .sp),
-                                                                    ),
+                                                                    Obx(() {
+                                                                      return Text(
+                                                                        systemSetting
+                                                                            .model
+                                                                            .value
+                                                                            ?.hotline ??
+                                                                            "",
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                            22
+                                                                                .sp),
+                                                                      );
+                                                                    }),
                                                                     SizedBox(
                                                                       height: 10
                                                                           .w,
@@ -667,7 +669,11 @@ class MinePage extends GetView<MineController> {
                                                                           launchUrl(
                                                                               Uri
                                                                                   .parse(
-                                                                                  'tel://18888888888'));
+                                                                                  'tel://${systemSetting
+                                                                                      .model
+                                                                                      .value
+                                                                                      ?.hotline ??
+                                                                                      ""}'));
                                                                         },
                                                                         // style: ButtonStyle(
                                                                         //   padding: MaterialStateProperty.all(const EdgeInsets.all(0)),

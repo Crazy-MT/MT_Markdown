@@ -30,33 +30,36 @@ class MyCommissionPage extends GetView<MyCommissionController> {
         ),
       ),
       body: Obx(
-        () => FTStatusPage(
-          type: controller.pageStatus.value,
-          errorMsg: controller.errorMsg.value,
-          enablePullUp: true,
-          enablePullDown: true,
-          controller: controller.refreshController,
-          onRefresh: () {
-            controller.getOrder(true);
-          },
-          onLoading: () {
-            controller.getOrder(false);
-          },
-          builder: (BuildContext context) {
-            return CustomScrollView(
-              slivers: [
-                _buildHeader(),
-                _buildCommissionList(),
-              ],
-            );
-          },
-        ),
+            () =>
+            FTStatusPage(
+              type: controller.pageStatus.value,
+              errorMsg: controller.errorMsg.value,
+              enablePullUp: true,
+              enablePullDown: true,
+              controller: controller.refreshController,
+              onRefresh: () {
+                controller.getOrder(true);
+              },
+              onLoading: () {
+                controller.getOrder(false);
+              },
+              builder: (BuildContext context) {
+                return CustomScrollView(
+                  slivers: [
+                    _buildHeader(),
+                    Obx(() {
+                      return _buildCommissionList();
+                    }),
+                  ],
+                );
+              },
+            ),
       ),
     );
   }
 
   _buildHeader() {
-    WalletModel? model = Get.arguments == null ? null :Get.arguments['model'];
+    WalletModel? model = Get.arguments == null ? null : Get.arguments['model'];
     return SliverToBoxAdapter(
       child: Container(
         alignment: Alignment.center,
@@ -100,9 +103,10 @@ class MyCommissionPage extends GetView<MyCommissionController> {
                         ),
                       ),
                       TextSpan(
-                        text: model?.tranTotalPrice ?? "0",
+                        text: model?.commission ?? "0",
+                        // text: '00000000.00',
                         style: TextStyle(
-                          fontSize: 28.sp,
+                          fontSize: 23.sp,
                           color: AppColors.text_dark,
                           fontWeight: FontWeight.w500,
                         ),
@@ -138,9 +142,10 @@ class MyCommissionPage extends GetView<MyCommissionController> {
                         ),
                       ),
                       TextSpan(
-                        text: model?.tranTotalCount.toString() ?? "0",
+                        text: model?.tranTotalPrice.toString() ?? "0",
+                        // text: "00000000.00",
                         style: TextStyle(
-                          fontSize: 28.sp,
+                          fontSize: 23.sp,
                           color: AppColors.text_dark,
                           fontWeight: FontWeight.w500,
                         ),
@@ -177,7 +182,7 @@ class MyCommissionPage extends GetView<MyCommissionController> {
     }
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        (content, index) {
+            (content, index) {
           return _buildCommissionItem(index);
         },
         childCount: controller.orderList.length,
@@ -207,6 +212,7 @@ class MyCommissionPage extends GetView<MyCommissionController> {
               imageUrl: item?.thumbnailUrl ?? "",
               width: 36.w,
               height: 36.w,
+              fit: BoxFit.cover,
             ),
           ),
           SizedBox(

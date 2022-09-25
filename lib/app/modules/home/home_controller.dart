@@ -3,6 +3,7 @@ import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
 import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/extend.dart';
+import 'package:code_zero/common/system_setting.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/log_utils.dart';
@@ -28,7 +29,7 @@ class HomeController extends GetxController {
   final showScrollToTop = false.obs;
 
   int currentPage = 0;
-  int pageSize = 10;
+  int pageSize = 20;
   final RefreshController refreshController = new RefreshController();
 
   var images = [Assets.imagesHomeBanner, Assets.imagesHomeBanner1, Assets.imagesHomeBanner2, Assets.imagesHomeBanner3];
@@ -42,8 +43,7 @@ class HomeController extends GetxController {
   initData() async {
     pageStatus.value = FTStatusPageType.success;
     initFenquList();
-    await getRecommendList();
-    getRecommendList(isRefresh: false);
+    getRecommendList();
     getBannerList();
     getAdvList();
     scrollController.addListener(() {
@@ -57,6 +57,7 @@ class HomeController extends GetxController {
   }
 
   getRecommendList({bool isRefresh = true}) async {
+    systemSetting.initSystemSetting();
     if(isRefresh) {
       currentPage = 1;
     }

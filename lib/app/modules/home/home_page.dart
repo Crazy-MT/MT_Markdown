@@ -44,8 +44,7 @@ class HomePage extends GetView<HomeController> {
                 enablePullDown: true,
                 controller: controller.refreshController,
                 onRefresh: () async {
-                  await controller.getRecommendList();
-                  controller.getRecommendList(isRefresh: false);
+                  controller.getRecommendList();
                   controller.getBannerList();
                   controller.getAdvList();
                 },

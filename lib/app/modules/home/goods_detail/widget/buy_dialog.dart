@@ -242,7 +242,7 @@ class BuyDialogController extends GetxController {
       );
       if (_result?.message == "OK") {
         Utils.showToastMsg("加入购物车成功");
-        Get.find<ShoppingCartController>().getGoodsList();
+        Get.find<ShoppingCartController>().getGoodsList(isShowLoading: false);
         Get.back(result: "1");
       }
     } else {

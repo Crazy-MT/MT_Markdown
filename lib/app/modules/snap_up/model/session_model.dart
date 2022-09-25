@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:code_zero/common/system_setting.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 
@@ -70,7 +71,7 @@ class Item {
     "hasCommodity": hasCommodity,
   };
 
-  statusText() {
+  statusText(int currentTimeFromNet) {
     Map map = {};
 
     // startTime = "14:55";
@@ -88,7 +89,8 @@ class Item {
       return map;
     }
 
-    String now = formatDate(DateTime.now(), [HH, ':', nn]);
+    String now = formatDate(DateTime.fromMillisecondsSinceEpoch(currentTimeFromNet), [HH, ':', nn]);
+    lLog('MTMTMT Item.statusText ${now} ');
     var nowArr = now.split(":");
     var startArr = startTime?.split(":");
     var endArr = endTime?.split(":");

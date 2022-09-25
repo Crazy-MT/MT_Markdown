@@ -37,7 +37,7 @@ class MainTabController extends GetxController {
   initData() {
     pageStatus.value = FTStatusPageType.success;
     initTab();
-    initSystemSetting();
+    systemSetting.initSystemSetting();
   }
 
   initTab() {
@@ -107,19 +107,6 @@ class MainTabController extends GetxController {
   void onClose() {}
   void setPageName(String newName) {
     pageName.value = newName;
-  }
-
-  Future<void> initSystemSetting() async {
-    ResultData<SystemSettingModel>? _result = await LRequest.instance.request<SystemSettingModel>(
-        url: UserApis.SYSTEM_SETTING,
-        t: SystemSettingModel(),
-        requestType: RequestType.GET,
-        errorBack: (errorCode, errorMsg, expMsg) {
-        },
-        onSuccess: (rest) {
-          systemSetting.model.value = rest.value as SystemSettingModel;
-          // systemSetting.model.value?.auditSwitch = 1;
-        });
   }
 }
 

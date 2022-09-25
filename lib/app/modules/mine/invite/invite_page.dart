@@ -53,6 +53,7 @@ class InvitePage extends GetView<InviteController> {
           child: CachedNetworkImage(
             imageUrl: userHelper.userInfo.value?.avatarUrl ?? "",
             width: 25.w,
+            fit: BoxFit.cover,
             height: 25.w,
             errorWidget: (_, __, ___) {
               return Image.asset(Assets
@@ -101,6 +102,15 @@ class InvitePage extends GetView<InviteController> {
             bottom: 15.w,
             child: Column(
               children: [
+                Text(
+                  '扫码即可注册',
+                  style: TextStyle(
+                    color: Color(0xffBAEED8),
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(height: 8.w),
                 QrImage(
                   data: controller.url,
                   size: 60.w,
@@ -110,14 +120,27 @@ class InvitePage extends GetView<InviteController> {
                   gapless: false,
                 ),
                 SizedBox(height: 8.w),
+
+            Row(
+              children: [
                 Text(
-                  '扫码即可注册',
+                  '邀请码: ',
                   style: TextStyle(
-                    color: Color(0xffBAEED8),
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.w400,
+                    color: Color(0xffffffff),
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
+                Text(
+                  userHelper.userInfo.value?.invitationCode ?? "",
+                  style: TextStyle(
+                    color: AppColors.green,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            )
               ],
             ),
           ),

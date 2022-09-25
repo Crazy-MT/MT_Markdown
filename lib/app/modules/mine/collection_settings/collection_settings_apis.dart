@@ -16,5 +16,5 @@ class CollectionSettingsApis {
   static const String USEADDWECHAT = NetConstant.HOST + PREFIX + "/create-wechat";
 
   // 用户编辑
-  static const String USEPAYMENTUPDATE = NetConstant.HOST + PREFIX + "/update";
+  static const String USEPAYMENTUPDATE = NetConstant.HOST + '/update-payment/create';
 }

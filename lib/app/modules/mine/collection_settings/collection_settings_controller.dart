@@ -26,7 +26,7 @@ class CollectionSettingsController extends GetxController
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
 
-  List<String> tabList = ['银行卡', '微信'];
+  List<String> tabList = [ '微信','银行卡'];
   TabController? tabController;
 
   // 银行卡数据
@@ -63,7 +63,7 @@ class CollectionSettingsController extends GetxController
   RxString wechatQrImg = "".obs;
 
   RxBool isBankEdit = RxBool(true);
-  RxBool isWechatEdit = RxBool(false);
+  RxBool isWechatEdit = RxBool(true);
 
   var hasNoBankCard = true;
   var hasNoWeiXin = true;
@@ -231,15 +231,15 @@ class CollectionSettingsController extends GetxController
             url: url,
             t: UserBankCardModel(),
             data: {
-              "id": id,
+              "paymentMethodId": id,
               "method": 0,
               "name": bankNameController.text,
               "phone": bankPhoneController.text,
-              "authCode": bankCodeController.text,
+              // "authCode": bankCodeController.text,
               "bankCardNum": bankCardNumController.text,
               "bank": bankBelongController.text,
               "userId": userHelper.userInfo.value?.id,
-              "isAdmin": 0,
+              // "isAdmin": 0,
             },
             requestType: RequestType.POST,
             errorBack: (errorCode, errorMsg, expMsg) {
@@ -292,7 +292,7 @@ class CollectionSettingsController extends GetxController
     }
   }
 
-  /// 编辑银行卡信息
+  /// 编辑微信信息
   Future<void> editWeiXinCard(id) async {
     String url = CollectionSettingsApis.USEPAYMENTUPDATE;
     ResultData<UserBankCardModel>? _result =
@@ -300,15 +300,15 @@ class CollectionSettingsController extends GetxController
       url: url,
       t: UserBankCardModel(),
       data: {
-        "id": id,
+        "paymentMethodId": id,
         "method": 1,
         "wechatAccount": wechatAccountController.text,
         "name": wechatNameController.text,
         "phone": userHelper.userInfo.value?.phone,
-        "authCode": wechatCodeController.text,
+        // "authCode": wechatCodeController.text,
         "wechatPaymentCodeUrl": wechatQrImg.value,
         "userId": userHelper.userInfo.value?.id,
-        "isAdmin": 0,
+        // "isAdmin": 0,
       },
       requestType: RequestType.POST,
       errorBack: (errorCode, errorMsg, expMsg) {

@@ -141,7 +141,7 @@ class OrderDetailPage extends GetView<OrderDetailController> {
                   height: 50.w,
                   child: Obx(() => _orderInfoItemWidget(
                         '商品金额',
-                        "￥ ${controller.item.value?.price}",
+                        "￥ ${controller.item.value?.newPrice}",
                         titleStyle: TextStyle(
                             color: Color(0xff111111),
                             fontSize: 14.sp,

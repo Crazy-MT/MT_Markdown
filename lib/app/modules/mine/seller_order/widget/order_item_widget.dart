@@ -213,7 +213,7 @@ class OrderItemWidget extends StatelessWidget {
                 _richText(
                     fontSize1: 12.sp,
                     fontSize2: 16.sp,
-                    text: item.price,
+                    text: item.newPrice,
                     fontWeight: FontWeight.w700),
                 Visibility(
                   visible: item.hasShelf == 1,

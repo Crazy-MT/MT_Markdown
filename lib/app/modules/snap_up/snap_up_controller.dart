@@ -2,9 +2,11 @@ import 'package:code_zero/app/modules/snap_up/model/session_model.dart';
 import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/system_setting.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:date_format/date_format.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -25,6 +27,7 @@ class SnapUpController extends GetxController {
   final RefreshController refreshController = new RefreshController();
 
   var images = [Assets.imagesSnupBanner, Assets.imagesSnupBanner1, Assets.imagesSnupBanner2, Assets.imagesSnupBanner3];
+  final currentTimeFromNet = DateTime.now().millisecondsSinceEpoch.obs;
 
   @override
   void onInit() {
@@ -34,10 +37,12 @@ class SnapUpController extends GetxController {
 
   initData() {
     pageStatus.value = FTStatusPageType.success;
+    systemSetting.initSystemSetting();
     getSnapUpList();
   }
 
   getSnapUpList({bool isRefresh = true}) async {
+    await getNetTime();
     if(isRefresh) {
       currentPage = 1;
     }
@@ -90,8 +95,9 @@ class SnapUpController extends GetxController {
       Utils.showToastMsg('请先登录');
       return;
     }
+    await getNetTime();
 
-    String toastText = snapUpList[index].statusText()["toast_text"] ?? "";
+    String toastText = snapUpList[index].statusText(currentTimeFromNet.value)["toast_text"] ?? "";
     if(toastText.isEmpty) {
       // snapUpList[index].startTime = "15:19";
       // snapUpList[index].endTime = "15:45";
@@ -118,5 +124,22 @@ class SnapUpController extends GetxController {
     } else {
       Utils.showToastMsg(toastText);
     }
+  }
+
+  Future<void> getNetTime() async {
+    /// http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp
+    EasyLoading.show();
+    try{
+      Map? _result = await LRequest.instance.requestGet(
+        url: 'http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp',);
+      lLog('MTMTMT SnapUpController.getNetTime ${_result['data']['t']} ');
+      lLog('MTMTMT SnapUpController.getNetTime ${DateTime.fromMillisecondsSinceEpoch(int.parse(_result['data']['t']))} ');
+
+      currentTimeFromNet.value = int.parse(_result['data']['t']);
+
+    } catch(e) {
+      currentTimeFromNet.value = DateTime.now().millisecondsSinceEpoch;
+    }
+    EasyLoading.dismiss();
   }
 }

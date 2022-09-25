@@ -273,16 +273,21 @@ class MyFansPage extends GetView<MyFansController> {
             // color: Colors.red,
             child: Stack(
               children: [
-                ClipOval(
-                  child: CachedNetworkImage(
-                    imageUrl: data.avatarUrl ?? "",
-                    fit: BoxFit.fill,
-                    errorWidget: (_, __, ___) {
-                      return Image.asset(Assets.iconsAvatarPlaceholder);
-                    },
-                    placeholder: (_, __) {
-                      return Image.asset(Assets.iconsAvatarPlaceholder);
-                    },
+                Container(
+                  width: 36.w,
+                  height: 36.w,
+
+                  child: ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl: data.avatarUrl ?? "",
+                      fit: BoxFit.fill,
+                      errorWidget: (_, __, ___) {
+                        return Image.asset(Assets.iconsAvatarPlaceholder);
+                      },
+                      placeholder: (_, __) {
+                        return Image.asset(Assets.iconsAvatarPlaceholder);
+                      },
+                    ),
                   ),
                 ),
                 (data.isCaptain ?? 0) == 1

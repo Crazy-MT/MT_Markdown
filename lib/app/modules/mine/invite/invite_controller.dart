@@ -2,10 +2,12 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/system_setting.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -98,10 +100,19 @@ class InviteController extends GetxController {
       }
       Permission filePermission =
           Platform.isIOS ? Permission.photos : Permission.storage;
+      lLog('MTMTMT InviteController.savaImage ${filePermission} ');
       var status = await filePermission.status;
       if (!status.isGranted) {
         Map<Permission, PermissionStatus> statuses =
             await [filePermission].request();
+        lLog('MTMTMT InviteController.savaImage ${statuses} ${statuses['Permission.photos']}');
+        if(statuses[Permission.photos] == PermissionStatus.limited || statuses[Permission.photos] == PermissionStatus.denied) {
+          // Utils.showToastMsg('相册权限被拒绝，请去设置打开权限');
+          showConfirmDialog(title: '需要您的相册权限，请在设置里打开', onConfirm: () {
+            openAppSettings();
+          });
+          return;
+        }
         savaImage();
       }
       if (status.isGranted) {

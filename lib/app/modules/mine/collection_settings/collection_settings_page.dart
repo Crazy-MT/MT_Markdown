@@ -87,8 +87,8 @@ class CollectionSettingsPage extends GetView<CollectionSettingsController> {
         physics: NeverScrollableScrollPhysics(),
         controller: controller.tabController,
         children: [
-          BankCardInfoWidget(),
           WechatInfoWidget(),
+          BankCardInfoWidget(),
         ],
       ),
     );

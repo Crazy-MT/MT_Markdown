@@ -45,13 +45,15 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
           errorMsg: controller.errorMsg.value,
           builder: (BuildContext context) {
             return Obx(
-              () => Column(
-                children: [
-                  _buildVerifyCodeInput(),
-                  _buildNewPassword(),
-                  _buildConfirmPassword(),
-                  _buildResetBtn(),
-                ],
+              () => SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _buildVerifyCodeInput(),
+                    _buildNewPassword(),
+                    _buildConfirmPassword(),
+                    _buildResetBtn(),
+                  ],
+                ),
               ),
             );
           },

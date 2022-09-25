@@ -99,7 +99,7 @@ class SubmitOrderController extends GetxController {
       "commodityList": commodityList,
       "userId": userHelper.userInfo.value?.id,
     };
-    if(goodsList.length > 1) {
+    if(Get.arguments?['isFromCart'] ?? false) {
       data["cartIdList"] = goodsList.map((element) => element.id).toList();
     }
     lLog('MTMTMT SubmitOrderController.doCreate ${data["cartIdList"]} ');

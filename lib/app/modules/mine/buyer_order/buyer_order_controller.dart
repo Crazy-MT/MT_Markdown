@@ -206,6 +206,9 @@ class BuyerOrderController extends GetxController
     final ImagePicker _picker = ImagePicker();
     // Pick an image
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if(image == null) {
+      return;
+    }
     CroppedFile? croppedFile = await ImageCropper().cropImage(
       sourcePath: image?.path ?? "",
       aspectRatioPresets: [
