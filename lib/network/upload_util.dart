@@ -8,7 +8,7 @@ import '../../../../../utils/log_utils.dart';
 import '../../../../../utils/utils.dart';
 import '../app/modules/others/user_apis.dart';
 
-uploadFile(path) async {
+uploadFile(path, {isShowLoading = true}) async {
   dio.FormData formData = dio.FormData.fromMap({
     "file": await dio.MultipartFile.fromFile(
         path,
@@ -20,6 +20,7 @@ uploadFile(path) async {
     url: UserApis.UPLOAD,
     t: UploadModel(),
     formData: formData,
+    isShowLoading: isShowLoading,
     requestType: RequestType.POST,
     errorBack: (errorCode, errorMsg, expMsg) {
       Utils.showToastMsg("上传失败：${errorCode == -1 ? expMsg : errorMsg}");

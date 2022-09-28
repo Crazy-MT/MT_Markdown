@@ -78,6 +78,8 @@ class OrderItem {
   String? region;
   String? address;
   int? parentId;
+  String? courierCompany;
+  String? trackingNumber;
 
   OrderItem(
       {this.id,
@@ -125,7 +127,9 @@ class OrderItem {
       this.phone,
       this.region,
       this.address,
-      this.parentId});
+      this.parentId,
+      this.trackingNumber,
+      this.courierCompany});
 
   OrderItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -174,6 +178,8 @@ class OrderItem {
     region = json['region'];
     address = json['address'];
     parentId = json['parentId'];
+    trackingNumber = json['trackingNumber'];
+    courierCompany = json['courierCompany'];
   }
 
   Map<String, dynamic> toJson() {
@@ -225,6 +231,8 @@ class OrderItem {
     data['region'] = this.region;
     data['address'] = this.address;
     data['parentId'] = this.parentId;
+    data['trackingNumber'] = this.trackingNumber;
+    data['courierCompany'] = this.courierCompany;
     return data;
   }
 

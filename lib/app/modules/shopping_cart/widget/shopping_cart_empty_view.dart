@@ -31,7 +31,7 @@ class ShoppingCartEmptyView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 75.w),
+          SizedBox(height: 200.w),
           Image.asset(
             Assets.imagesShoppingCartEmptyView,
             width: 100.w,

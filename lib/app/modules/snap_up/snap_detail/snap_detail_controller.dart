@@ -51,6 +51,7 @@ class SnapDetailController extends GetxController {
           // "status" : 1,
           "status-list" : "1",
           "is-delete" : 0,
+          "has-inventory":1,
           "exclude-owner-id" : userHelper.userInfo.value?.id,
           "start-time": formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', '00', ':', '00', ':', '00']),
           "end-time": formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]),

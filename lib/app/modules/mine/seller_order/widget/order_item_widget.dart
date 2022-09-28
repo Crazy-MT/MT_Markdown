@@ -26,7 +26,7 @@ class OrderItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeClickGesture(
       onTap: () {
-        Get.toNamed(RoutesID.ORDER_DETAIL_PAGE, arguments: {"item": item, 'status': text});
+        Get.toNamed(RoutesID.ORDER_DETAIL_PAGE, arguments: {"item": item, 'status': text, 'from': RoutesID.SELLER_ORDER_PAGE});
       },
       child: _contentWidget(),
     );
@@ -124,7 +124,7 @@ class OrderItemWidget extends StatelessWidget {
                           title: "申诉",
                           color: Color(0xff000000),
                           onTap: () {
-                            Get.toNamed(RoutesID.COMPLAINT_FEEDBACK_PAGE);
+                            Get.toNamed(RoutesID.COMPLAINT_FEEDBACK_PAGE, arguments: {'appealType': 0, 'id': item.id});
                           }),
                       visible: item.tradeState == 1 || (item.tradeState == -1),
                     ),

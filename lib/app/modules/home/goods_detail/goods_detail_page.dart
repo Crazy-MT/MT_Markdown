@@ -192,8 +192,9 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                                   ),
                                 ),
                                 TextSpan(
+                                  // todo
                                   text:
-                                      "藏品归属人：${controller.goods.shelfNickname}",
+                                      "藏品归属人：${controller.goods.ownerNickname}",
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w500,

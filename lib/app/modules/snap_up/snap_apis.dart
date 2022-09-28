@@ -25,4 +25,8 @@ class SnapApis {
   static const String CREATE_CHARGE = NetConstant.HOST + "/pay-transaction/create-charge";
   static const String PAY = NetConstant.HOST + "/wechat/trade-notify-mock";
   static const String PAY_STATUS = NetConstant.HOST + "/pay-transaction/get";
+  static const String SET_PAY_STATUS = NetConstant.HOST + "/pay-transaction/update-trade-state";
+
+  static const String CREATE_APPEAL = NetConstant.HOST + "/appeal/create";
+
 }

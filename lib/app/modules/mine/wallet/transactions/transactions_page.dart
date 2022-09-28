@@ -27,26 +27,30 @@ class TransactionsPage extends GetView<TransactionsController> {
         ),
       ),
       body: Obx(
-        () => FTStatusPage(
-          type: controller.pageStatus.value,
-          errorMsg: controller.errorMsg.value,
-          enablePullDown: true,
-          enablePullUp: true,
-          controller: controller.refreshController,
-          onLoading: () {
-            controller.getBalanceList(isRefresh: false);
-          },
-          onRefresh: () {
-            controller.getBalanceList(isRefresh: true);
-          },
-          builder: (BuildContext context) {
-            return CustomScrollView(
-              slivers: [
-                _buildContent(),
-              ],
-            );
-          },
-        ),
+            () =>
+            FTStatusPage(
+              type: controller.pageStatus.value,
+              errorMsg: controller.errorMsg.value,
+              enablePullDown: true,
+              enablePullUp: true,
+              controller: controller.refreshController,
+              onLoading: () {
+                controller.getBalanceList(isRefresh: false);
+              },
+              onRefresh: () {
+                controller.getBalanceList(isRefresh: true);
+              },
+              builder: (BuildContext context) {
+                return CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(child: SizedBox(height: 10.w,)),
+                    Obx(() {
+                      return _buildContent();
+                    }),
+                  ],
+                );
+              },
+            ),
       ),
     );
   }
@@ -56,7 +60,7 @@ class TransactionsPage extends GetView<TransactionsController> {
       padding: EdgeInsets.symmetric(horizontal: 15.w),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
-          (content, index) {
+              (content, index) {
             /*if (index == 0 || index == 3) {
               return _dateWidget();
             }*/
@@ -136,13 +140,27 @@ class TransactionsPage extends GetView<TransactionsController> {
                   ],
                 ),
                 SizedBox(height: 11.w),
-                Text(
-                  items.updatedAt ?? "",
-                  style: TextStyle(
-                    color: Color(0xffABAAB9),
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        items.updatedAt ?? "",
+                        style: TextStyle(
+                          color: Color(0xffABAAB9),
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      items.getStatus()?['text'] ?? "",
+                      style: TextStyle(
+                        color: Color(items.getStatus()?['color']),
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )
+                  ],
                 )
               ],
             ),

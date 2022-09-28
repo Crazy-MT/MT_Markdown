@@ -1,4 +1,6 @@
 import 'package:code_zero/network/convert_interface.dart';
+import 'package:code_zero/utils/log_utils.dart';
+import 'package:flutter/cupertino.dart';
 
 class BalanceModel extends ConvertInterface{
   List<BalanceItems>? items;
@@ -125,5 +127,34 @@ class BalanceItems {
     data['updatedAt'] = this.updatedAt;
     data['userId'] = this.userId;
     return data;
+  }
+
+  getStatus() {
+    lLog('MTMTMT BalanceItems.getStatus ${status} ');
+    Map s = {};
+    switch(status) {
+      case 0:
+        s['text'] = '待审核';
+        s['color'] = Color(0xFFD0A06D).value;
+        break;
+      case 1:
+        s['text'] = '待打款';
+        s['color'] = Color(0xFFFF3939).value;
+        break;
+      case 2:
+        lLog('MTMTMT BalanceItems.getStatus } ');
+        s['text'] = '已完成';
+        s['color'] = Color(0xFF1BDB8A).value;
+        break;
+      case 3:
+        s['text'] = '打款异常';
+        s['color'] = Color(0xFFFF3939).value;
+        break;
+      case 4:
+        s['text'] = '审核未通过';
+        s['color'] = Color(0xFFFF3939).value;
+        break;
+    }
+    return s;
   }
 }

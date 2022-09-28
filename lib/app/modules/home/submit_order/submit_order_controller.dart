@@ -227,9 +227,8 @@ class SubmitOrderController extends GetxController {
 
   Future<int> checkPayStatus() async {
     int status = -1;
-    ResultData<ChargeModel>? _result = await LRequest.instance.request<
-        ChargeModel>(
-        url: SnapApis.PAY_STATUS,
+    await LRequest.instance.request(
+        url: SnapApis.SET_PAY_STATUS,
         t: ChargeModel(),
         queryParameters: {
           "id": chargeModel.value?.id
@@ -240,7 +239,7 @@ class SubmitOrderController extends GetxController {
           status = -1;
         },
         onSuccess: (result) {
-          status = result.value?.tradeState ?? 0;
+          status = 1;
         });
     return status;
   }

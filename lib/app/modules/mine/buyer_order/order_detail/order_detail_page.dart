@@ -6,6 +6,7 @@ import 'package:code_zero/common/components/avoid_quick_click.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/generated/assets/assets.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -55,8 +56,10 @@ class OrderDetailPage extends GetView<OrderDetailController> {
   }
 
   Widget _payInfoWidget() {
+    lLog(
+        'MTMTMT OrderDetailPage._payInfoWidget ${controller.item.value?.toJson()} ');
     return Container(
-      height: (222 + 62).w,
+      height: (222 + 62 + 50 + 60).w,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -94,7 +97,6 @@ class OrderDetailPage extends GetView<OrderDetailController> {
             child: Column(
               children: [
                 Visibility(
-
                   child: Container(
                     height: 50.w,
                     child: Obx(() => _orderInfoItemWidget(
@@ -120,14 +122,17 @@ class OrderDetailPage extends GetView<OrderDetailController> {
                           ),
                           SafeTapWidget(
                             onTap: () {
-                              Get.toNamed(RoutesID.PHOTO_VIEW_PAGE, arguments: {"url" : controller.item.value?.tradeUrl ?? ""});
+                              Get.toNamed(RoutesID.PHOTO_VIEW_PAGE, arguments: {
+                                "url": controller.item.value?.tradeUrl ?? ""
+                              });
                             },
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(5.w),
                               child: Obx(() => CachedNetworkImage(
-                                    imageUrl: controller.item.value?.tradeUrl ?? "",
-                                    width: 115.w,
-                                    height: 123.w,
+                                    imageUrl:
+                                        controller.item.value?.tradeUrl ?? "",
+                                    // width: 115.w,
+                                    // height: 123.w,
                                     fit: BoxFit.fitWidth,
                                   )),
                             ),
@@ -137,11 +142,37 @@ class OrderDetailPage extends GetView<OrderDetailController> {
                     ),
                   ),
                 ),
+                Visibility(
+                  visible: Get.arguments?['from'] == RoutesID.BUYER_ORDER_PAGE && (controller.item.value?.courierCompany ?? "").isNotEmpty,
+                  child: Container(
+                    height: 30.w,
+                    child: Obx(() => _orderInfoItemWidget(
+                        '物流公司',
+                        controller.item.value?.courierCompany ?? "")),
+                  ),
+                ),
+                Visibility(
+                  visible: Get.arguments?['from'] == RoutesID.BUYER_ORDER_PAGE && (controller.item.value?.trackingNumber ?? "").isNotEmpty,
+                  child: Container(
+                    height: 30.w,
+                    child: Obx(() => _orderInfoItemWidget(
+                        '物流单号',
+                        controller.item.value?.trackingNumber ?? "", isSelectable: true)),
+                  ),
+                ),
+                Visibility(
+                  child: Container(
+                    height: 30.w,
+                    child: Obx(() => _orderInfoItemWidget(
+                        '${Get.arguments?['from'] == RoutesID.BUYER_ORDER_PAGE ? '卖方' : '买方'}',
+                        '${Get.arguments?['from'] == RoutesID.BUYER_ORDER_PAGE ? controller.item.value?.fromUserNickname : controller.item.value?.toUserNickname}')),
+                  ),
+                ),
                 Container(
-                  height: 50.w,
+                  height: 30.w,
                   child: Obx(() => _orderInfoItemWidget(
                         '商品金额',
-                        "￥ ${controller.item.value?.newPrice}",
+                        "￥ ${Get.arguments?['from'] == RoutesID.BUYER_ORDER_PAGE ? controller.item.value?.price : controller.item.value?.newPrice}",
                         titleStyle: TextStyle(
                             color: Color(0xff111111),
                             fontSize: 14.sp,
@@ -184,6 +215,7 @@ class OrderDetailPage extends GetView<OrderDetailController> {
     String desc, {
     TextStyle? titleStyle,
     TextStyle? descStyle,
+        bool isSelectable = false
   }) {
     return Container(
       height: 42.w,
@@ -201,7 +233,7 @@ class OrderDetailPage extends GetView<OrderDetailController> {
                   fontWeight: FontWeight.w400,
                 ),
           ),
-          Text(
+          isSelectable ? SelectableText(
             desc,
             style: descStyle ??
                 TextStyle(
@@ -209,7 +241,15 @@ class OrderDetailPage extends GetView<OrderDetailController> {
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
                 ),
-          )
+          ) : Text(
+            desc,
+            style: descStyle ??
+                TextStyle(
+                  color: Color(0xff757575),
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+          ),
         ],
       ),
     );

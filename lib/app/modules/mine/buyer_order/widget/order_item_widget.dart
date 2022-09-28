@@ -25,9 +25,10 @@ class OrderItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeClickGesture(
       onTap: () {
-        if(item.tradeState == 2 || item.tradeState == 3) {
+        if(item.tradeState == 2 || item.tradeState == 3 || item.tradeState == 6) {
           Get.toNamed(RoutesID.ORDER_DETAIL_PAGE, arguments: {
-            "item": item
+            "item": item,
+            'from': RoutesID.BUYER_ORDER_PAGE
           });
         }
       },
@@ -152,7 +153,7 @@ class OrderItemWidget extends StatelessWidget {
                     ),
                     Visibility(
                       child: _buttonBtnWidget(title: "申诉", color: Color(0xffFF3939), onTap: () {
-                        Get.toNamed(RoutesID.COMPLAINT_FEEDBACK_PAGE);
+                        Get.toNamed(RoutesID.COMPLAINT_FEEDBACK_PAGE, arguments: {'appealType': 1, 'id': item.id});
                       }),
                       visible: item.tradeState == 3,
                     ),

@@ -2,6 +2,7 @@ import 'package:code_zero/app/modules/home/submit_order/model/data_model.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/collection_settings_apis.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/model/user_bank_card_model.dart';
 import 'package:code_zero/app/modules/mine/wallet/drawing/drawing_apis.dart';
+import 'package:code_zero/app/modules/mine/wallet/wallet_controller.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/network/base_model.dart';
@@ -96,6 +97,8 @@ class DrawingController extends GetxController {
         },
         onSuccess: (rest) {
           Utils.showToastMsg("提现成功");
+          Get.find<WalletController>().getStatistics();
+          Get.back();
         }
     );
   }

@@ -92,7 +92,7 @@ class WechatInfoWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12.w),
                     ),
                     child: Text(
-                      '编辑',
+                      '更改收款',
                       style: TextStyle(
                         color: Color(0xff111111),
                         fontSize: 12.sp,

@@ -81,6 +81,7 @@ class ComplaintFeedbackPage extends GetView<ComplaintFeedbackController> {
           child: Column(
             children: [
               TextField(
+                controller: controller.textEditingController,
                 style: TextStyle(
                   color: const Color(0xFF111111),
                   fontWeight: FontWeight.w400,
@@ -116,8 +117,7 @@ class ComplaintFeedbackPage extends GetView<ComplaintFeedbackController> {
           if (controller.textCount.value <= 0) {
             return;
           }
-          // TODO
-          print("触发提交接口---");
+          controller.createAppeal();
         },
         child: Container(
           decoration: BoxDecoration(

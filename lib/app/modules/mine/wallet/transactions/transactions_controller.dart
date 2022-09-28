@@ -37,7 +37,6 @@ class TransactionsController extends GetxController {
         t: BalanceModel(),
         isShowLoading: false,
         queryParameters: {
-          "status": 2,
           "page": currentPage,
           "size": pageSize,
         },

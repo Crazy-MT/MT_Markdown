@@ -58,6 +58,7 @@ class CommodityItem {
         this.thumbnails,
         this.parameterImages,
         this.images,
+        this.ownerNickname
     });
 
     int? id;
@@ -95,6 +96,7 @@ class CommodityItem {
     List<String>? thumbnails;
     List<String>? parameterImages;
     List<String>? images;
+    String? ownerNickname;
 
     factory CommodityItem.fromJson(Map<String, dynamic> json) => CommodityItem(
         id: json["id"],
@@ -129,6 +131,7 @@ class CommodityItem {
         ownerIsAdmin: json["ownerIsAdmin"],
         inventory: json["inventory"],
         transCount: json["transCount"],
+        ownerNickname: json["ownerNickname"],
         thumbnails: List<String>.from(json["thumbnails"].map((x) => x)),
         parameterImages: List<String>.from(json["parameterImages"].map((x) => x)),
         images: List<String>.from(json["images"].map((x) => x)),
@@ -167,6 +170,7 @@ class CommodityItem {
         "ownerIsAdmin": ownerIsAdmin,
         "inventory": inventory,
         "transCount": transCount,
+        "ownerNickname": ownerNickname,
         "thumbnails": thumbnails != null ? List<dynamic>.from(thumbnails!.map((x) => x)) : [],
         "parameterImages": parameterImages != null ? List<dynamic>.from(parameterImages!.map((x) => x))  : [],
         "images": images != null ? List<dynamic>.from(images!.map((x) => x)) : [],

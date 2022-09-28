@@ -37,7 +37,7 @@ class BankCardAddWidget extends StatelessWidget {
                 _buildInputItem('手机号', controller.bankPhoneController),
                 _buildInputItem('短信验证码', controller.bankCodeController),
                 _buildInputItem('银行卡号', controller.bankCardNumController),
-                _buildInputItem('所属银行', controller.bankBelongController),
+                _buildInputItem('开户行', controller.bankBelongController),
                 Expanded(child: SizedBox()),
                 _addButtonWidget(),
                 SizedBox(height: MediaQuery.of(context).padding.bottom + 20.w),

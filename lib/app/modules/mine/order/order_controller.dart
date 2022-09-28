@@ -61,7 +61,7 @@ class OrderController extends GetxController
 
   _settingEditStatus() {
     if (tabController?.index == 1) {
-      /// todo 暂时不做合单支付
+      /// 不做合单支付
       // this.editStatus.value = 1;
     } else {
       this.editStatus.value = 0;
