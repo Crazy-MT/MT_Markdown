@@ -11,6 +11,7 @@ import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/network/upload_util.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -74,8 +75,9 @@ class OrderController extends GetxController
       await getOrder(true, element);
     }).catchError((e) {
       errorLog(e.toString());
-      pageStatus.value = FTStatusPageType.success;
+      pageStatus.value = FTStatusPageType.error;
     });
+    EasyLoading.dismiss();
     pageStatus.value = FTStatusPageType.success;
   }
 
@@ -246,79 +248,27 @@ class OrderController extends GetxController
     // weChatResponseEventHandler 存在多次 listen 且无法关闭的情况。 解决办法，可以是放在单独的对象里，另一个办法就是只取第一个
     weChatResponseEventHandler.first.asStream().listen(
       (data) {
-        if (Get.currentRoute != RoutesID.ORDER_SEND_SELL_PAGE) {
+        lLog('MTMTMT OrderController.toWxPay ${data} ${Get.currentRoute}');
+        if (Get.currentRoute != RoutesID.ORDER_PAGE) {
           return;
         }
 
         if (data.errCode == -2) {
           Utils.showToastMsg('支付失败，请重试');
         } else {
-          checkPayResult(item.id);
+          checkPayResult(item.id, () {
+            lLog('MTMTMT OrderController.toWxPay} ');
+            EasyLoading.show();
+            initAllData();
+            EasyLoading.dismiss();
+          }, () {
+            Get.back();
+          }, () {
+            Get.back();
+          });
         }
       },
     );
-  }
-
-  void checkPayResult(int? id) {
-    EasyLoading.show();
-
-    int count = 0;
-    Timer.periodic(Duration(seconds: 2), (timer) async {
-      count += 1;
-      int status = await checkPayStatus(id);
-      lLog('MTMTMT checkPayResult ${status}');
-
-      if (count >= 15) {
-        timer.cancel();
-        EasyLoading.dismiss();
-        showConfirmDialog(
-          singleText: '确定',
-          onSingle: () async {
-            Get.back();
-          },
-          content: '查询支付结果超时，请稍后查询或联系工作人员',
-        );
-        return;
-      }
-
-      // 3 6 需要再查，1 成功，其它失败
-      if (status == 3 || status == 6) {
-      } else {
-        timer.cancel();
-        EasyLoading.dismiss();
-        if (status == 1) {
-          /// 支付成功
-          Utils.showToastMsg('支付成功');
-          initAllData();
-        } else {
-          showConfirmDialog(
-            singleText: '确定',
-            onSingle: () async {
-              Get.back();
-            },
-            content: '支付异常，请联系工作人员',
-          );
-        }
-      }
-    });
-  }
-
-  Future<int> checkPayStatus(int? id) async {
-    int status = -1;
-    ResultData<ChargeModel>? _result =
-        await LRequest.instance.request<ChargeModel>(
-            url: SnapApis.PAY_STATUS,
-            t: ChargeModel(),
-            queryParameters: {"id": id},
-            requestType: RequestType.GET,
-            errorBack: (errorCode, errorMsg, expMsg) {
-              status = -1;
-            },
-            isShowLoading: false,
-            onSuccess: (result) {
-              status = result.value?.tradeState ?? 0;
-            });
-    return status;
   }
 
   void checkWuliu(SelfOrderItems item) {

@@ -51,7 +51,7 @@ class SellerOrderController extends GetxController with GetSingleTickerProviderS
       await getOrder(true, element);
     }).catchError((e) {
       errorLog(e);
-      pageStatus.value = FTStatusPageType.success;
+      pageStatus.value = FTStatusPageType.error;
     });
     pageStatus.value = FTStatusPageType.success;
   }

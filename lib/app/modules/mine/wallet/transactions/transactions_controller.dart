@@ -1,5 +1,6 @@
 import 'package:code_zero/app/modules/mine/wallet/transactions/model/balance_model.dart';
 import 'package:code_zero/app/modules/mine/wallet/transactions/transactions_apis.dart';
+import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
@@ -39,6 +40,7 @@ class TransactionsController extends GetxController {
         queryParameters: {
           "page": currentPage,
           "size": pageSize,
+          'user-id': userHelper.userInfo.value?.id
         },
         requestType: RequestType.GET,
         errorBack: (errorCode, errorMsg, expMsg) {

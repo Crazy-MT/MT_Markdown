@@ -25,7 +25,7 @@ class SnapUpPage extends GetView<SnapUpController> {
       backgroundColor: Colors.white,
       appBar: AppBar(
           actions: [
-            _rightManage(),
+            // _rightManage(),
           ],
           centerTitle: true,
           backgroundColor: Colors.transparent,

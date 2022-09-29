@@ -23,12 +23,14 @@ class OrderItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BuyerOrderController controller = Get.find<BuyerOrderController>();
     return SafeClickGesture(
       onTap: () {
         if(item.tradeState == 2 || item.tradeState == 3 || item.tradeState == 6) {
           Get.toNamed(RoutesID.ORDER_DETAIL_PAGE, arguments: {
             "item": item,
-            'from': RoutesID.BUYER_ORDER_PAGE
+            'from': RoutesID.BUYER_ORDER_PAGE,
+            'status': controller.getTradeState(item.tradeState)
           });
         }
       },

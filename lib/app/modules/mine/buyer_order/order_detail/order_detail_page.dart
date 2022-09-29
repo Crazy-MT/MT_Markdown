@@ -143,21 +143,24 @@ class OrderDetailPage extends GetView<OrderDetailController> {
                   ),
                 ),
                 Visibility(
-                  visible: Get.arguments?['from'] == RoutesID.BUYER_ORDER_PAGE && (controller.item.value?.courierCompany ?? "").isNotEmpty,
+                  visible: Get.arguments?['from'] ==
+                          RoutesID.BUYER_ORDER_PAGE &&
+                      (controller.item.value?.courierCompany ?? "").isNotEmpty,
                   child: Container(
                     height: 30.w,
                     child: Obx(() => _orderInfoItemWidget(
-                        '物流公司',
-                        controller.item.value?.courierCompany ?? "")),
+                        '物流公司', controller.item.value?.courierCompany ?? "")),
                   ),
                 ),
                 Visibility(
-                  visible: Get.arguments?['from'] == RoutesID.BUYER_ORDER_PAGE && (controller.item.value?.trackingNumber ?? "").isNotEmpty,
+                  visible: Get.arguments?['from'] ==
+                          RoutesID.BUYER_ORDER_PAGE &&
+                      (controller.item.value?.trackingNumber ?? "").isNotEmpty,
                   child: Container(
                     height: 30.w,
                     child: Obx(() => _orderInfoItemWidget(
-                        '物流单号',
-                        controller.item.value?.trackingNumber ?? "", isSelectable: true)),
+                        '物流单号', controller.item.value?.trackingNumber ?? "",
+                        isSelectable: true)),
                   ),
                 ),
                 Visibility(
@@ -172,7 +175,7 @@ class OrderDetailPage extends GetView<OrderDetailController> {
                   height: 30.w,
                   child: Obx(() => _orderInfoItemWidget(
                         '商品金额',
-                        "￥ ${Get.arguments?['from'] == RoutesID.BUYER_ORDER_PAGE ? controller.item.value?.price : controller.item.value?.newPrice}",
+                        "￥ ${Get.arguments?['from'] == RoutesID.BUYER_ORDER_PAGE ? controller.item.value?.price : ((double.tryParse(controller.item.value?.newPrice ?? "0") ?? 0) <= 0 ? controller.item.value?.price : controller.item.value?.newPrice)}",
                         titleStyle: TextStyle(
                             color: Color(0xff111111),
                             fontSize: 14.sp,
@@ -210,13 +213,10 @@ class OrderDetailPage extends GetView<OrderDetailController> {
     );
   }
 
-  Widget _orderInfoItemWidget(
-    String title,
-    String desc, {
-    TextStyle? titleStyle,
-    TextStyle? descStyle,
-        bool isSelectable = false
-  }) {
+  Widget _orderInfoItemWidget(String title, String desc,
+      {TextStyle? titleStyle,
+      TextStyle? descStyle,
+      bool isSelectable = false}) {
     return Container(
       height: 42.w,
       alignment: Alignment.centerLeft,
@@ -233,23 +233,25 @@ class OrderDetailPage extends GetView<OrderDetailController> {
                   fontWeight: FontWeight.w400,
                 ),
           ),
-          isSelectable ? SelectableText(
-            desc,
-            style: descStyle ??
-                TextStyle(
-                  color: Color(0xff757575),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
+          isSelectable
+              ? SelectableText(
+                  desc,
+                  style: descStyle ??
+                      TextStyle(
+                        color: Color(0xff757575),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                )
+              : Text(
+                  desc,
+                  style: descStyle ??
+                      TextStyle(
+                        color: Color(0xff757575),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
                 ),
-          ) : Text(
-            desc,
-            style: descStyle ??
-                TextStyle(
-                  color: Color(0xff757575),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-          ),
         ],
       ),
     );

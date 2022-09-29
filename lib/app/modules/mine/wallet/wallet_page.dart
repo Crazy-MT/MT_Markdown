@@ -18,6 +18,9 @@ class WalletPage extends GetView<WalletController> {
       appBar: CommonAppBar(
         titleText: "我的钱包",
         centerTitle: true,
+        actions: [
+          _rightManage()
+        ],
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           color: Color(0xFF14181F),
@@ -41,6 +44,27 @@ class WalletPage extends GetView<WalletController> {
       ),
     );
   }
+
+  Widget _rightManage() {
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(RoutesID.BALANCE_RULE_PAGE);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.w),
+        alignment: Alignment.center,
+        color: Colors.transparent,
+        child: Text(
+          '提现说明',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 14.sp,
+          ),
+        ),
+      ),
+    );
+  }
+
 
   Widget _buildContent() {
     return SliverList(

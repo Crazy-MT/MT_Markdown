@@ -11,6 +11,7 @@ import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/network/upload_util.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -158,73 +159,14 @@ class OrderSendSellController extends GetxController {
       if (data.errCode == -2) {
         Utils.showToastMsg('支付失败，请重试');
       } else {
-        checkPayResult();
+        checkPayResult(chargeModel.value?.id, () {
+          Get.offNamedUntil(RoutesID.SELLER_ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
+        }, () {
+          Get.back();
+        }, () {
+          Get.back();
+        });
       }
     }, );
   }
-
-  void checkPayResult() {
-    EasyLoading.show();
-
-    int count = 0;
-    Timer.periodic(Duration(seconds: 2), (timer) async {
-      count += 1;
-      int status = await checkPayStatus();
-      lLog('MTMTMT checkPayResult ${status}');
-
-      if(count >= 15) {
-        timer.cancel();
-        EasyLoading.dismiss();
-        showConfirmDialog(
-          singleText: '确定',
-          onSingle: () async {
-            Get.back();
-          },
-          content: '查询支付结果超时，请稍后查询或联系工作人员',
-        );
-        return;
-      }
-
-      // 3 6 需要再查，1 成功，其它失败
-      if(status == 3 || status == 6) {
-
-      } else {
-        timer.cancel();
-        EasyLoading.dismiss();
-        if(status == 1) {
-          /// 支付成功
-          Utils.showToastMsg('支付成功');
-          Get.offNamedUntil(RoutesID.SELLER_ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
-        } else {
-          showConfirmDialog(
-            singleText: '确定',
-            onSingle: () async {
-              Get.back();
-            },
-            content: '支付异常，请联系工作人员',
-          );
-        }
-      }
-    });
-  }
-
-  Future<int> checkPayStatus() async {
-    int status = -1;
-    await LRequest.instance.request(
-        url: SnapApis.SET_PAY_STATUS,
-        t: ChargeModel(),
-        queryParameters: {
-          "id": chargeModel.value?.id
-        },
-        isShowLoading: false,
-        requestType: RequestType.GET,
-        errorBack: (errorCode, errorMsg, expMsg) {
-          status = -1;
-        },
-        onSuccess: (result) {
-          status = 1;
-        });
-    return status;
-  }
-
 }

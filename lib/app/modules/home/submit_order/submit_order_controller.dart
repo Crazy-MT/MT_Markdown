@@ -7,6 +7,7 @@ import 'package:code_zero/app/modules/shopping_cart/model/shopping_cart_list_mod
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/network/upload_util.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluwx/fluwx.dart';
 import 'package:get/get.dart';
@@ -147,55 +148,16 @@ class SubmitOrderController extends GetxController {
         if (data.errCode == -2) {
           Utils.showToastMsg('支付失败，请重试');
         } else {
-          checkPayResult();
+          checkPayResult(chargeModel.value?.id, () {
+            Get.offNamedUntil(isFromSnap ? RoutesID.SELLER_ORDER_PAGE : RoutesID.ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
+          }, () {
+            Get.back();
+          }, () {
+            Get.back();
+          });
         }
       },
     );
-  }
-
-  Future<void> checkPayResult() async {
-    EasyLoading.show();
-
-    int count = 0;
-    Timer.periodic(Duration(seconds: 2), (timer) async {
-      count += 1;
-      int status = await checkPayStatus();
-      lLog('MTMTMT SubmitOrderController.checkPayResult ${status}');
-
-      if(count >= 15) {
-        timer.cancel();
-        EasyLoading.dismiss();
-        showConfirmDialog(
-          singleText: '确定',
-          onSingle: () async {
-            Get.back();
-          },
-          content: '查询支付结果超时，请稍后查询或联系工作人员',
-        );
-        return;
-      }
-
-      // 3 6 需要再查，1 成功，其它失败
-      if(status == 3 || status == 6) {
-
-      } else {
-        timer.cancel();
-        EasyLoading.dismiss();
-        if(status == 1) {
-          /// 支付成功
-          Utils.showToastMsg('支付成功');
-          Get.offNamedUntil(isFromSnap ? RoutesID.SELLER_ORDER_PAGE : RoutesID.ORDER_PAGE, (route) => route.settings.name == RoutesID.MAIN_TAB_PAGE, arguments: {"index": 0});
-        } else {
-          showConfirmDialog(
-            singleText: '确定',
-            onSingle: () async {
-              Get.back();
-            },
-            content: '支付异常，请联系工作人员',
-          );
-        }
-      }
-    });
   }
 
   doSnapUpCreate() async {
@@ -223,25 +185,6 @@ class SubmitOrderController extends GetxController {
             return;
           }
         });
-  }
-
-  Future<int> checkPayStatus() async {
-    int status = -1;
-    await LRequest.instance.request(
-        url: SnapApis.SET_PAY_STATUS,
-        t: ChargeModel(),
-        queryParameters: {
-          "id": chargeModel.value?.id
-        },
-        isShowLoading: false,
-        requestType: RequestType.GET,
-        errorBack: (errorCode, errorMsg, expMsg) {
-          status = -1;
-        },
-        onSuccess: (result) {
-          status = 1;
-        });
-    return status;
   }
 
   @override

@@ -63,7 +63,7 @@ class UserInformationController extends GetxController {
       return;
     }
     CroppedFile? croppedFile = await ImageCropper().cropImage(
-      sourcePath: image.path ?? "",
+      sourcePath: image.path,
       compressQuality: 50,
       aspectRatioPresets: [
         CropAspectRatioPreset.square,

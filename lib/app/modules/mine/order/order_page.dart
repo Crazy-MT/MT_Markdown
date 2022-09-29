@@ -31,21 +31,23 @@ class OrderPage extends GetView<OrderController> {
         ),
       ),
       body: Obx(
-        () => FTStatusPage(
-          type: controller.pageStatus.value,
-          errorMsg: controller.errorMsg.value,
-          builder: (BuildContext context) {
-            return Obx(() => Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    _content(context),
-                    this.controller.editStatus.value != 0
-                        ? _bottomControlWidget()
-                        : SizedBox(),
-                  ],
-                ));
-          },
-        ),
+            () =>
+            FTStatusPage(
+              type: controller.pageStatus.value,
+              errorMsg: controller.errorMsg.value,
+              builder: (BuildContext context) {
+                return Obx(() =>
+                    Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        _content(context),
+                        this.controller.editStatus.value != 0
+                            ? _bottomControlWidget()
+                            : SizedBox(),
+                      ],
+                    ));
+              },
+            ),
       ),
     );
   }
@@ -126,28 +128,40 @@ class OrderPage extends GetView<OrderController> {
 
     return SliverPadding(
       padding:
-          EdgeInsets.only(bottom: MediaQuery.of(Get.context!).padding.bottom),
-      sliver: SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (content, index) {
-            return Obx(() => OrderItemWidget(
-                  index: index,
-              item: tab.orderList[index],
-              editStatus: this.controller.editStatus.value,
-                ));
-          },
-          childCount: tab.orderList.length,
-        ),
-      ),
+      EdgeInsets.only(bottom: MediaQuery
+          .of(Get.context!)
+          .padding
+          .bottom),
+      sliver: Obx(() {
+        return SliverList(
+          delegate: SliverChildBuilderDelegate(
+                (content, index) {
+              return Obx(() =>
+                  OrderItemWidget(
+                    index: index,
+                    item: tab.orderList[index],
+                    editStatus: this.controller.editStatus.value,
+                  ));
+            },
+            childCount: tab.orderList.length,
+          ),
+        );
+      }),
     );
   }
 
   _bottomControlWidget() {
     return Container(
       padding:
-          EdgeInsets.only(bottom: MediaQuery.of(Get.context!).padding.bottom),
+      EdgeInsets.only(bottom: MediaQuery
+          .of(Get.context!)
+          .padding
+          .bottom),
       color: Colors.white,
-      height: 60.w + MediaQuery.of(Get.context!).padding.bottom,
+      height: 60.w + MediaQuery
+          .of(Get.context!)
+          .padding
+          .bottom,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,

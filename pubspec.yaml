@@ -39,6 +39,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  universal_platform: 1.0.0+1
 
 dev_dependencies:
   flutter_lints: ^1.0.0
