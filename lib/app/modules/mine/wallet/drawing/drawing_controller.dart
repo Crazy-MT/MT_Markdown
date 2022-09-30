@@ -1,6 +1,8 @@
 import 'package:code_zero/app/modules/home/submit_order/model/data_model.dart';
+import 'package:code_zero/app/modules/mine/collection/collection_apis.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/collection_settings_apis.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/model/user_bank_card_model.dart';
+import 'package:code_zero/app/modules/mine/collection_settings/model/user_wechat_model.dart';
 import 'package:code_zero/app/modules/mine/wallet/drawing/drawing_apis.dart';
 import 'package:code_zero/app/modules/mine/wallet/wallet_controller.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
@@ -43,11 +45,14 @@ class DrawingController extends GetxController {
       requestType: RequestType.GET,
       errorBack: (errorCode, errorMsg, expMsg) {
         lLog(errorMsg);
+        fetchWeChatData();
       },
       onSuccess: (rst) {
         if(rst.value != null && rst.value?.id != null) {
           method.value = "银行卡";
           chooseMethod = 0;
+        } else {
+          fetchWeChatData();
         }
       }
     );
@@ -55,6 +60,32 @@ class DrawingController extends GetxController {
       return;
     }
   }
+
+  Future<void> fetchWeChatData() async {
+    ResultData<UserWechatModel>? _result = await LRequest.instance.request<UserWechatModel>(
+      url: CollectionApis.USERWECHAT,
+      t: UserWechatModel(),
+      queryParameters: {
+        "user-id": userHelper.userInfo.value?.id,
+        // "user-id": userHelper.userInfo.value?.id,
+      },
+      requestType: RequestType.GET,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        Utils.showToastMsg("获取用户微信方式失败：${errorCode == -1 ? expMsg : errorMsg}");
+        lLog(errorMsg);
+      },
+      onSuccess: (rest) {
+        if(rest.value != null && rest.value?.id != null) {
+          method.value = "微信";
+          chooseMethod = 1;
+        }
+      }
+    );
+    if (_result?.value == null) {
+      return;
+    }
+  }
+
 
 
   @override

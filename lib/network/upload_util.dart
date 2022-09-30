@@ -51,7 +51,7 @@ void checkPayResult(int? id, VoidCallback? success, VoidCallback? timeOut, VoidC
   int count = 0;
   Timer.periodic(Duration(seconds: duration), (timer) async {
     count += 1;
-    int status = await setPayStatus(id);
+    int status = await checkPayStatus(id);
     lLog('MTMTMT checkPayResult ${status}');
 
     if (count >= (max / duration)) {
