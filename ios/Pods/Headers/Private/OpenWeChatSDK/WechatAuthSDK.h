@@ -1,0 +1,1 @@
+../../../OpenWeChatSDK/Pod/Library/include/WeChat/WechatAuthSDK.h

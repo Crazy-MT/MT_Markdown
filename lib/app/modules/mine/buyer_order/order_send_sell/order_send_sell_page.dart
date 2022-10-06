@@ -68,14 +68,16 @@ class OrderSendSellPage extends GetView<OrderSendSellController> {
 
   Widget _goodsInfoWidget() {
     return Obx(() => Container(
-          height: 152.w,
+          // height: 152.w,
           padding: EdgeInsets.symmetric(horizontal: 10.w),
-          clipBehavior: Clip.hardEdge,
+          // clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 alignment: Alignment.center,
@@ -100,58 +102,63 @@ class OrderSendSellPage extends GetView<OrderSendSellController> {
                   ],
                 ),
               ),
-              Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8.w),
-                      child: CachedNetworkImage(
-                        imageUrl: controller.item.value?.thumbnailUrl ?? "",
-                        width: 100.w,
-                        height: 100.w,
-                        fit: BoxFit.cover,
+              Row(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.w),
+                    child: CachedNetworkImage(
+                      imageUrl: controller.item.value?.thumbnailUrl ?? "",
+                      width: 100.w,
+                      height: 100.w,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      // height: 200.w,
+                      padding: EdgeInsets.only(left: 10.w),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            (controller.item.value?.name ?? "") + (controller.item.value?.name ?? "")+(controller.item.value?.name ?? "")+(controller.item.value?.name ?? ""),
+                            // maxLines: 1,
+                            // (controller.item.value?.name ?? ""),
+                            // overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Color(0xff141519),
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            '共1件',
+                            style: TextStyle(
+                                color: Color(0xffABAAB9),
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Obx(() => Text(
+                                '最高上浮价格：¥ ${controller.model.value?.maxPrice}',
+                                style: TextStyle(
+                                    color: Color(0xff434446),
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500),
+                              )),
+                          Obx(() => Text(
+                                controller.model.value?.commodityPrice ?? "",
+                                style: TextStyle(
+                                    color: Color(0xff111111),
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w700),
+                              ))
+                        ],
                       ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          controller.item.value?.name ?? "",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: Color(0xff141519),
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          '共1件',
-                          style: TextStyle(
-                              color: Color(0xffABAAB9),
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Obx(() => Text(
-                              '最高上浮价格：¥ ${controller.model.value?.maxPrice}',
-                              style: TextStyle(
-                                  color: Color(0xff434446),
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500),
-                            )),
-                        Obx(() => Text(
-                              controller.model.value?.commodityPrice ?? "",
-                              style: TextStyle(
-                                  color: Color(0xff111111),
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w700),
-                            ))
-                      ],
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               SizedBox(height: 10.w),
             ],

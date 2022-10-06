@@ -9,7 +9,6 @@
 **/.vagrant/
 **/DerivedData/
 Icon?
-**/Pods/
 **/.symlinks/
 profile
 xcuserdata
@@ -42,7 +41,6 @@ xcuserdata
 
 # CocoaPods
 *.xcworkspace
-Pods
 frameworks
 frameworks/*
 makepack/PandaStudentEnt
@@ -60,7 +58,6 @@ xcuserdata
 
 # CocoaPods
 *.xcworkspace
-Pods
 frameworks
 frameworks/*
 makepack/PandaStudentEnt
