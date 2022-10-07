@@ -160,7 +160,7 @@ class IncomeListPage extends GetView<IncomeListController> {
                           height: 32.w,
                           alignment: Alignment.bottomRight,
                           child: Text(
-                            controller.model.value?.total ?? "",
+                            controller.model.value?.today ?? "",
                             style: TextStyle(
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w500,
