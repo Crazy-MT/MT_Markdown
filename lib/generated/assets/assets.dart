@@ -29,6 +29,10 @@ class Assets {
   /// icons/dialog_success
   static const String iconsDialogSuccess = "assets/icons/dialog_success.png";
 
+  /// Assets for iconsError
+  /// icons/error
+  static const String iconsError = "assets/icons/error.png";
+
   /// Assets for iconsGoodsInfoTitleIcon
   /// icons/goods_info_title_icon
   static const String iconsGoodsInfoTitleIcon = "assets/icons/goods_info_title_icon.svg";
@@ -40,6 +44,18 @@ class Assets {
   /// Assets for iconsHomeSelect
   /// icons/home_select
   static const String iconsHomeSelect = "assets/icons/home_select.png";
+
+  /// Assets for iconsIncome1
+  /// icons/income_1
+  static const String iconsIncome1 = "assets/icons/income_1.png";
+
+  /// Assets for iconsIncome2
+  /// icons/income_2
+  static const String iconsIncome2 = "assets/icons/income_2.png";
+
+  /// Assets for iconsIncome3
+  /// icons/income_3
+  static const String iconsIncome3 = "assets/icons/income_3.png";
 
   /// Assets for iconsInvisible
   /// icons/invisible
@@ -280,6 +296,10 @@ class Assets {
   /// Assets for imagesCaptain
   /// images/captain
   static const String imagesCaptain = "assets/images/captain.png";
+
+  /// Assets for imagesClose
+  /// images/close
+  static const String imagesClose = "assets/images/close.png";
 
   /// Assets for imagesDialogBgBg1
   /// images/dialog_bg/bg_1

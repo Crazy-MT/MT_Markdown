@@ -119,7 +119,7 @@ class HomeController extends GetxController {
           "isDelete": 0,
           "filter": 2,
           "order": "asc",
-          // "orderBy":"order_no"
+          "orderBy":"c.order_no"
           // "owner-is-admin": 0
         },
         requestType: RequestType.GET,
@@ -149,7 +149,7 @@ class HomeController extends GetxController {
           "isDelete": 0,
           "filter": 3,
           "order": "asc",
-          // "orderBy":"order_no"
+          "orderBy":"c.order_no"
           // "owner-is-admin": 0
         },
         requestType: RequestType.GET,

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
+import 'package:code_zero/common/system_setting.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -56,12 +57,10 @@ class InvitePage extends GetView<InviteController> {
             fit: BoxFit.cover,
             height: 25.w,
             errorWidget: (_, __, ___) {
-              return Image.asset(Assets
-                  .iconsAvatarPlaceholder);
+              return Image.asset(Assets.iconsAvatarPlaceholder);
             },
             placeholder: (_, __) {
-              return Image.asset(Assets
-                  .iconsAvatarPlaceholder);
+              return Image.asset(Assets.iconsAvatarPlaceholder);
             },
           ),
         ),
@@ -91,11 +90,24 @@ class InvitePage extends GetView<InviteController> {
       key: controller.repaintWidgetKey,
       child: Stack(
         children: [
-          Image.asset(
-            Assets.imagesInvitePosterTemplate,
-            // width: double.infinity,
+          CachedNetworkImage(
+            imageUrl: systemSetting.model.value?.posterUrl ?? "",
             height: 480.h,
             fit: BoxFit.fitHeight,
+            placeholder: (_, __) {
+              return Image.asset(
+                Assets.imagesHolderImg,
+                // width: double.infinity,
+                height: 480.h,
+                fit: BoxFit.fitHeight,
+              );
+            },
+            errorWidget: (_, __, ___) => Image.asset(
+              Assets.imagesInvitePosterTemplate,
+              // width: double.infinity,
+              height: 480.h,
+              fit: BoxFit.fitHeight,
+            ),
           ),
           Positioned(
             right: 15.w,
@@ -120,27 +132,26 @@ class InvitePage extends GetView<InviteController> {
                   gapless: false,
                 ),
                 SizedBox(height: 8.w),
-
-            Row(
-              children: [
-                Text(
-                  '邀请码: ',
-                  style: TextStyle(
-                    color: Color(0xffffffff),
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Text(
-                  userHelper.userInfo.value?.invitationCode ?? "",
-                  style: TextStyle(
-                    color: AppColors.green,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            )
+                Row(
+                  children: [
+                    Text(
+                      '邀请码: ',
+                      style: TextStyle(
+                        color: Color(0xffffffff),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      userHelper.userInfo.value?.invitationCode ?? "",
+                      style: TextStyle(
+                        color: AppColors.green,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),

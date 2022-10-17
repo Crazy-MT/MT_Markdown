@@ -23,7 +23,7 @@ class LoginController extends GetxController {
   TextEditingController passwordController = new TextEditingController();
   final showClearPhoneInput = false.obs;
   final sendCodeCountDown = 0.obs;
-  final isPasswordLogin = false.obs;
+  final isPasswordLogin = true.obs;
   final showPassword = false.obs;
   final agreePrivacyPolicy = false.obs;
   final enableLogin = false.obs;

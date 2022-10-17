@@ -24,11 +24,13 @@ class SystemSettingModel extends ConvertInterface{
   String? updatedAt;
   String? hotline;
   String? sponsoredLinks;
+  String? posterUrl;
   int? auditSwitch; // 审核开关：0->关闭、1->开启
 
   SystemSettingModel(
       {this.id,
         this.charge,
+        this.posterUrl,
         this.openCommission,
         this.firstCommissionRate,
         this.tradeTime,
@@ -77,6 +79,7 @@ class SystemSettingModel extends ConvertInterface{
     updatedAt = json['updatedAt'];
     hotline = json['hotline'];
     auditSwitch = json['auditSwitch'];
+    posterUrl = json['posterUrl'];
   }
 
   Map<String, dynamic> toJson() {
@@ -104,6 +107,7 @@ class SystemSettingModel extends ConvertInterface{
     data['hotline'] = this.hotline;
     data['buyingAdvanceTime'] = this.buyingAdvanceTime;
     data['auditSwitch'] = this.auditSwitch;
+    data['posterUrl'] = this.posterUrl;
     return data;
   }
 

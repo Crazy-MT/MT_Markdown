@@ -124,7 +124,7 @@ class OrderSendSellPage extends GetView<OrderSendSellController> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            (controller.item.value?.name ?? "") + (controller.item.value?.name ?? "")+(controller.item.value?.name ?? "")+(controller.item.value?.name ?? ""),
+                            controller.item.value?.name ?? "",
                             // maxLines: 1,
                             // (controller.item.value?.name ?? ""),
                             // overflow: TextOverflow.ellipsis,
@@ -180,7 +180,7 @@ class OrderSendSellPage extends GetView<OrderSendSellController> {
                   '推荐价格', controller.model.value?.recommendPrice ?? ""),
               _orderInfoItemWidget(
                   '上架价格', controller.model.value?.commodityPrice ?? "", isEdit: true),
-              _orderInfoItemWidget('收续费', controller.model.value?.charge ?? ""),
+              _orderInfoItemWidget('手续费', controller.model.value?.charge ?? ""),
             ],
           )),
     );

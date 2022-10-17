@@ -19,7 +19,7 @@ class CollectionPage extends GetView<CollectionController> {
       backgroundColor: Color(0xFFF5F5F5),
       resizeToAvoidBottomInset: false,
       appBar: CommonAppBar(
-        titleText: "收款方式",
+        titleText: "收款信息",
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

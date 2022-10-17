@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/common/colors.dart';
+import 'package:code_zero/common/common.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
+import 'package:code_zero/network/net_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -30,17 +32,32 @@ class SettingPage extends GetView<SettingController> {
         ),
       ),
       body: Obx(
-        () => FTStatusPage(
-          type: controller.pageStatus.value,
-          errorMsg: controller.errorMsg.value,
-          builder: (BuildContext context) {
-            return CustomScrollView(
-              slivers: [
-                _buildUserHeader(),
-                _buildMenuList(),
-              ],
-            );
-          },
+        () => Stack(
+          alignment: Alignment.center,
+          children: [
+            FTStatusPage(
+              type: controller.pageStatus.value,
+              errorMsg: controller.errorMsg.value,
+              builder: (BuildContext context) {
+                return CustomScrollView(
+                  slivers: [
+                    _buildUserHeader(),
+                    _buildMenuList(),
+                  ],
+                );
+              },
+            ),
+            Positioned(
+                bottom: 40,
+                child: Text("版本号：" + (common.packageInfo?.version ??
+                    "" )+
+                        ((NetConstant.HOST ==
+                                "https://dev.api.chuancuibaoku.com/v1")
+                            ? "-test"
+                            : ""), style: TextStyle(
+                  fontSize: 18.sp
+                ),))
+          ],
         ),
       ),
     );

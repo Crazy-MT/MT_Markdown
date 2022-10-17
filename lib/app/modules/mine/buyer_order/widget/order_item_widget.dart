@@ -118,6 +118,18 @@ class OrderItemWidget extends StatelessWidget {
                     }),
                 visible: item.tradeState == 0,
               ),
+              Visibility(
+                child: _buttonBtnWidget(width: 60.w, title: "提货", color: Color(0xff1BDB8A), onTap: () {
+                  controller.tihuo(item.id);
+                }),
+                visible: item.tradeState == 3 && item.hasDeliver == 0,
+              ),
+              Visibility(
+                child: _buttonBtnWidget(width: 60.w, title: "申诉", color: Color(0xffFF3939), onTap: () {
+                  Get.toNamed(RoutesID.COMPLAINT_FEEDBACK_PAGE, arguments: {'appealType': 1, 'id': item.id});
+                }),
+                visible: item.tradeState == 3,
+              ),
               Expanded(
                   child: Container(
                 child: Row(
@@ -129,7 +141,7 @@ class OrderItemWidget extends StatelessWidget {
                           color: Color(0xffFF3939),
                           onTap: () {
                             Get.toNamed(RoutesID.COLLECTION_PAGE,
-                                arguments: {"fromUserId": item.fromUserId, "fromUserIsAdmin": item.fromUserIsAdmin});
+                                arguments: {"fromUserId": item.fromUserId, "fromUserIsAdmin": item.fromUserIsAdmin, 'price': item.price});
                           }),
                       visible: item.tradeState == 0 || (item.tradeState == 2),
                     ),
@@ -145,25 +157,20 @@ class OrderItemWidget extends StatelessWidget {
                     ),
                     Visibility(
                       child: _buttonBtnWidget(
-                          title: "上传支付凭证",
+                          title: ((item.tradeUrl ?? "").isEmpty) ? "上传支付凭证" : "查看支付凭证",
                           color: Color(0xff000000),
                           onTap: () {
-                            BuyerOrderController controller = Get.find<BuyerOrderController>();
-                            controller.chooseAndUploadImage(item.id ?? 0);
+                            bool hasTradeUrl = ((item.tradeUrl ?? "").isNotEmpty);
+                            if(hasTradeUrl) {
+                              Get.toNamed(RoutesID.PHOTO_VIEW_PAGE, arguments: {
+                                "url": item.tradeUrl
+                              });
+                            } else {
+                              BuyerOrderController controller = Get.find<BuyerOrderController>();
+                              controller.chooseAndUploadImage(item.id ?? 0);
+                            }
                           }),
                       visible: item.tradeState == 2,
-                    ),
-                    Visibility(
-                      child: _buttonBtnWidget(title: "申诉", color: Color(0xffFF3939), onTap: () {
-                        Get.toNamed(RoutesID.COMPLAINT_FEEDBACK_PAGE, arguments: {'appealType': 1, 'id': item.id});
-                      }),
-                      visible: item.tradeState == 3,
-                    ),
-                    Visibility(
-                      child: _buttonBtnWidget(title: "提货", color: Color(0xff1BDB8A), onTap: () {
-                        controller.tihuo(item.id);
-                      }),
-                      visible: item.tradeState == 3 && item.hasDeliver == 0,
                     ),
                     Visibility(
                       child: _buttonBtnWidget(
@@ -187,11 +194,18 @@ class OrderItemWidget extends StatelessWidget {
             children: [
               Visibility(
                 child: _buttonBtnWidget(
-                    title: "上传支付凭证",
+                    title: ((item.tradeUrl ?? "").isEmpty) ? "上传支付凭证" : "查看支付凭证",
                     color: Color(0xff000000),
                     onTap: () {
-                      BuyerOrderController controller = Get.find<BuyerOrderController>();
-                      controller.chooseAndUploadImage(item.id ?? 0);
+                      bool hasTradeUrl = ((item.tradeUrl ?? "").isNotEmpty);
+                      if(hasTradeUrl) {
+                        Get.toNamed(RoutesID.PHOTO_VIEW_PAGE, arguments: {
+                          "url": item.tradeUrl
+                        });
+                      } else {
+                        BuyerOrderController controller = Get.find<BuyerOrderController>();
+                        controller.chooseAndUploadImage(item.id ?? 0);
+                      }
                     }),
                 visible: item.tradeState == 0,
               ),
@@ -202,17 +216,17 @@ class OrderItemWidget extends StatelessWidget {
     );
   }
 
-  Widget _buttonBtnWidget({String? title, Color? color, var onTap}) {
+  Widget _buttonBtnWidget({String? title, Color? color, var onTap, double? width}) {
     return SafeTapWidget(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(left: 8.w),
+        // margin: EdgeInsets.only(left: 8.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14.w),
           color: Color(0xffF3F9FB),
         ),
         height: 27.w,
-        width: 86.w,
+        width: width ?? 86.w,
         child: Center(
           child: Text(
             title ?? "",

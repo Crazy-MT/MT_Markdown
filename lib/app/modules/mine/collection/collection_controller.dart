@@ -36,6 +36,7 @@ class CollectionController extends GetxController with GetSingleTickerProviderSt
   TextEditingController bankCardNumController = new TextEditingController();
   // 银行卡所属银行
   TextEditingController bankBelongController = new TextEditingController();
+  TextEditingController priceController = new TextEditingController();
 
   // 微信数据
   Rx<UserWechatModel?> wechatInfo = Rx<UserWechatModel?>(null);
@@ -65,6 +66,7 @@ class CollectionController extends GetxController with GetSingleTickerProviderSt
     if(Get.arguments["fromUserIsAdmin"] != 1) {
       fetchWeChatData();
     }
+    priceController.text = "￥" + Get.arguments['price'];
   }
 
   initData() {

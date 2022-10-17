@@ -28,6 +28,10 @@ class AssetImages {
   /// icons/dialog_success
   static AssetImage get iconsDialogSuccess => AssetImage(Assets.iconsDialogSuccess);
 
+  /// Assets for iconsError
+  /// icons/error
+  static AssetImage get iconsError => AssetImage(Assets.iconsError);
+
   /// Assets for iconsHome
   /// icons/home
   static AssetImage get iconsHome => AssetImage(Assets.iconsHome);
@@ -35,6 +39,18 @@ class AssetImages {
   /// Assets for iconsHomeSelect
   /// icons/home_select
   static AssetImage get iconsHomeSelect => AssetImage(Assets.iconsHomeSelect);
+
+  /// Assets for iconsIncome1
+  /// icons/income_1
+  static AssetImage get iconsIncome1 => AssetImage(Assets.iconsIncome1);
+
+  /// Assets for iconsIncome2
+  /// icons/income_2
+  static AssetImage get iconsIncome2 => AssetImage(Assets.iconsIncome2);
+
+  /// Assets for iconsIncome3
+  /// icons/income_3
+  static AssetImage get iconsIncome3 => AssetImage(Assets.iconsIncome3);
 
   /// Assets for iconsMember
   /// icons/member
@@ -255,6 +271,10 @@ class AssetImages {
   /// Assets for imagesCaptain
   /// images/captain
   static AssetImage get imagesCaptain => AssetImage(Assets.imagesCaptain);
+
+  /// Assets for imagesClose
+  /// images/close
+  static AssetImage get imagesClose => AssetImage(Assets.imagesClose);
 
   /// Assets for imagesDialogBgBg1
   /// images/dialog_bg/bg_1

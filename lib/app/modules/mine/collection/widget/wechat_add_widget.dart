@@ -4,7 +4,9 @@ import 'package:code_zero/common/components/common_input.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
+import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
@@ -41,6 +43,7 @@ class WechatAddWidget extends StatelessWidget {
           child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  _buildInputItem('商品金额', controller.priceController, null, needCopy: true),
                   _buildInputItem('微信收款账号', controller.wechatAccountController, controller.wechatInfo.value),
                   _buildInputItem('微信收款姓名', controller.wechatNameController, controller.wechatInfo.value),
                   // Expanded(child: SizedBox()),
@@ -52,7 +55,7 @@ class WechatAddWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildInputItem(String title, TextEditingController editingController, UserWechatModel? wechatModel) {
+  Widget _buildInputItem(String title, TextEditingController editingController, UserWechatModel? wechatModel, {bool needCopy = false}) {
     return buildInputWithTitle(
       Container(
         padding: EdgeInsets.only(left: 17.w, top: 15.w),
@@ -70,7 +73,21 @@ class WechatAddWidget extends StatelessWidget {
         ),
       ),
       inputController: editingController,
-      enable: false
+      enable: false,
+        suffixWidget: needCopy ? SafeTapWidget(
+          onTap: () {
+            String text = editingController.text;
+            if(editingController.text.contains("￥")) {
+              text = text.substring(1);
+            }
+            Clipboard.setData(ClipboardData(text: text));
+            Utils.showToastMsg('复制成功');
+          },
+          child: Container(
+            width: 50.w,
+            child: Text('复制', style: TextStyle(color: Colors.red),),
+          ),
+        ) : SizedBox()
     );
   }
 
