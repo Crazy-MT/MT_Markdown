@@ -55,8 +55,12 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                 _buildGoodsParams(),
                 _buildIntroPicDivider(),
                 _buildThumbnailsPicList(),
-                _buildDesc(),
-                _buildIntroParamsList(),
+                Obx(() {
+                  return _buildDesc();
+                }),
+                Obx(() {
+                  return _buildIntroParamsList();
+                }),
                 _buildParamPicList(),
                 _buildIntroPicList(),
               ],
@@ -132,80 +136,82 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
         ),
         child: Padding(
           padding: EdgeInsets.only(left: 20.w, right: 20.w),
-          child: Row(
-            children: [
-              RichText(
-                text: TextSpan(
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: "￥",
-                        style: TextStyle(
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w700,
-                        ),
+          child: Obx(() {
+            return Row(
+              children: [
+                RichText(
+                  text: TextSpan(
+                      style: TextStyle(
+                        color: Colors.white,
                       ),
-                      TextSpan(
-                        text: controller.goods.currentPrice ?? "",
-                        style: TextStyle(
-                          fontSize: 26.sp,
-                          fontWeight: FontWeight.w700,
+                      children: [
+                        TextSpan(
+                          text: "￥",
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: "  价格",
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFF007B47),
+                        TextSpan(
+                          text: controller.goods.value?.currentPrice ?? "",
+                          style: TextStyle(
+                            fontSize: 26.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: controller.goods.originalPrice ?? "",
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          decoration: TextDecoration.lineThrough,
-                          color: Color(0xFF007B47),
+                        TextSpan(
+                          text: "  价格",
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF007B47),
+                          ),
                         ),
-                      )
-                    ]),
-              ),
-              Visibility(
-                visible: Get.arguments?["from"] == RoutesID.SNAP_DETAIL_PAGE,
-                child: Expanded(
-                    child: Container(
-                        alignment: Alignment.centerRight,
-                        child: RichText(
-                          text: TextSpan(
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: " ",
-                                  style: TextStyle(
-                                    fontSize: 26.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                        TextSpan(
+                          text: controller.goods.value?.originalPrice ?? "",
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            decoration: TextDecoration.lineThrough,
+                            color: Color(0xFF007B47),
+                          ),
+                        )
+                      ]),
+                ),
+                Visibility(
+                  visible: Get.arguments?["from"] == RoutesID.SNAP_DETAIL_PAGE,
+                  child: Expanded(
+                      child: Container(
+                          alignment: Alignment.centerRight,
+                          child: RichText(
+                            text: TextSpan(
+                                style: TextStyle(
+                                  color: Colors.white,
                                 ),
-                                TextSpan(
-                                  // todo
-                                  text:
-                                      "藏品归属人：${controller.goods.ownerNickname}",
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFF007B47),
+                                children: [
+                                  TextSpan(
+                                    text: " ",
+                                    style: TextStyle(
+                                      fontSize: 26.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
-                                )
-                              ]),
-                        ))),
-              )
-            ],
-          ),
+                                  TextSpan(
+                                    // todo
+                                    text:
+                                        "藏品归属人：${controller.goods.value?.ownerNickname}",
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xFF007B47),
+                                    ),
+                                  )
+                                ]),
+                          ))),
+                )
+              ],
+            );
+          }),
         ),
       ),
     );
@@ -220,43 +226,45 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
           horizontal: 15.w,
           vertical: 10.w,
         ),
-        child: RichText(
-          text: TextSpan(
-            children: [
-              WidgetSpan(
-                child: Visibility(
-                  visible: controller.goods.commodityType == 1,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 6.w,
-                      vertical: 1.w,
-                    ),
-                    margin: EdgeInsets.only(right: 12.w, bottom: 1),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(4.w),
-                    ),
-                    child: Text(
-                      "自营",
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        color: Colors.white,
+        child: Obx(() {
+          return RichText(
+            text: TextSpan(
+              children: [
+                WidgetSpan(
+                  child: Visibility(
+                    visible: controller.goods.value?.commodityType == 1,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 6.w,
+                        vertical: 1.w,
+                      ),
+                      margin: EdgeInsets.only(right: 12.w, bottom: 1),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(4.w),
+                      ),
+                      child: Text(
+                        "自营",
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              TextSpan(
-                text: controller.goods.name ?? "",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w500,
+                TextSpan(
+                  text: controller.goods.value?.name ?? "",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }
@@ -269,29 +277,31 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
           padding: EdgeInsets.symmetric(vertical: 9.w, horizontal: 15.w),
           width: 375.w,
           color: Colors.white,
-          child: Row(
-            children: [
-              Text(
-                "库存",
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF757575),
+          child: Obx(() {
+            return Row(
+              children: [
+                Text(
+                  "库存",
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF757575),
+                  ),
                 ),
-              ),
-              Expanded(
-                child: SizedBox(),
-              ),
-              Text(
-                controller.goods.inventory.toString(),
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF141519),
+                Expanded(
+                  child: SizedBox(),
                 ),
-              ),
-            ],
-          ),
+                Text(
+                  (controller.goods.value?.inventory ?? "").toString(),
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF141519),
+                  ),
+                ),
+              ],
+            );
+          }),
         ),
       ),
     );
@@ -424,7 +434,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
               ),
               SafeTapWidget(
                 onTap: () {
-                  if((controller.goods.inventory ?? 0) == 0) {
+                  if ((controller.goods.value?.inventory ?? 0) == 0) {
                     Utils.showToastMsg('商品库存不够');
                     return;
                   }
@@ -535,7 +545,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
 
   _buildIntroParamsList() {
     var param = [];
-    param.addAll(controller.goods.showParams ?? []);
+    param.addAll(controller.goods.value?.showParams ?? []);
     // param.addAll(controller.goods.showParams ?? []);
     return SliverPadding(
       padding: EdgeInsets.all(15.w).copyWith(top: 0),
@@ -651,14 +661,14 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
 
   _buildDesc() {
     return SliverPadding(
-      padding:
-          EdgeInsets.all((controller.goods.desc ?? "").isNotEmpty ? 25.w : 0.w),
+      padding: EdgeInsets.all(
+          (controller.goods.value?.desc ?? "").isNotEmpty ? 25.w : 0.w),
       sliver: SliverToBoxAdapter(
         child: Container(
           // color: Color(0xff9dc2c4),
           child: Column(children: [
             Text(
-              controller.goods.desc ?? "",
+              controller.goods.value?.desc ?? "",
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w500,

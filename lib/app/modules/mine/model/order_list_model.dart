@@ -31,7 +31,7 @@ class OrderListModel extends ConvertInterface {
   }
 }
 
-class OrderItem {
+class OrderItem extends ConvertInterface{
   int? id;
   int? tradeState;
   String? price;
@@ -281,5 +281,10 @@ class OrderItem {
         return "已取消";
     }
     return "其它方式";
+  }
+
+  @override
+  ConvertInterface fromJson(Map<String, dynamic> json) {
+    return OrderItem.fromJson(json);
   }
 }

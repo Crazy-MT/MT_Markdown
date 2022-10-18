@@ -22,6 +22,7 @@ class MineController extends GetxController {
 
   var daishoukuanCount = 0.obs;
   var daiquerenCount = 0.obs;
+  Timer? timer;
 
   @override
   void onInit() {
@@ -31,12 +32,20 @@ class MineController extends GetxController {
 
   initData() {
     pageStatus.value = FTStatusPageType.success;
-    getBuyerOrder();
-    getSellerOrder();
-    Timer.periodic(Duration(seconds: 10), (timer) {
+    timer?.cancel();
+    daifukuanCount.value = 0;
+    daishangjiaCount.value = 0;
+    yifukuanCount.value = 0;
+    daishoukuanCount.value = 0;
+    daiquerenCount.value = 0;
+    if(userHelper.userInfo.value?.token?.isNotEmpty ?? false) {
       getBuyerOrder();
       getSellerOrder();
-    });
+      timer = Timer.periodic(Duration(seconds: 10), (timer) {
+        getBuyerOrder();
+        getSellerOrder();
+      });
+    }
   }
 
   getBuyerOrder() async {
@@ -92,11 +101,7 @@ class MineController extends GetxController {
             t: OrderListModel(),
             requestType: RequestType.GET,
             isShowLoading: false,
-            errorBack: (errorCode, errorMsg, expMsg) {
-              Utils.showToastMsg("获取失败：${errorCode == -1 ? expMsg : errorMsg}");
-              errorLog(
-                  "订单列表获取失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
-            },
+            errorBack: (errorCode, errorMsg, expMsg) {},
             onSuccess: (rest) {
               daishoukuanCount.value = 0;
               daiquerenCount.value = 0;

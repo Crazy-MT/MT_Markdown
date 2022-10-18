@@ -26,7 +26,7 @@ class CommodityModel extends ConvertInterface {
       );
 }
 
-class CommodityItem {
+class CommodityItem extends ConvertInterface{
   CommodityItem(
       {this.id,
       this.name,
@@ -187,4 +187,9 @@ class CommodityItem {
         "images":
             images != null ? List<dynamic>.from(images!.map((x) => x)) : [],
       };
+
+  @override
+  ConvertInterface fromJson(Map<String, dynamic> json) {
+    return CommodityItem.fromJson(json);
+  }
 }

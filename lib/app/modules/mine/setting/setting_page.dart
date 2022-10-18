@@ -55,7 +55,8 @@ class SettingPage extends GetView<SettingController> {
                                 "https://dev.api.chuancuibaoku.com/v1")
                             ? "-test"
                             : ""), style: TextStyle(
-                  fontSize: 18.sp
+                  fontSize: 16.sp,
+                  color: Colors.grey
                 ),))
           ],
         ),

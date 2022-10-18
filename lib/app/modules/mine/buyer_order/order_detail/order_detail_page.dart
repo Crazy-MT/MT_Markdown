@@ -58,8 +58,26 @@ class OrderDetailPage extends GetView<OrderDetailController> {
   Widget _payInfoWidget() {
     lLog(
         'MTMTMT OrderDetailPage._payInfoWidget ${controller.item.value?.toJson()} ');
+    var height = 62.w;
+    if(controller.item.value?.hasTrade == 1) {
+      height += 50.w;
+    }
+    if(controller.item.value?.hasTradeUrl == 1) {
+      height += 162.w;
+    }
+    if(Get.arguments?['from'] ==
+        RoutesID.BUYER_ORDER_PAGE &&
+        (controller.item.value?.trackingNumber ?? "").isNotEmpty) {
+      height += 30.w;
+    }
+    if(Get.arguments?['from'] ==
+        RoutesID.BUYER_ORDER_PAGE &&
+        (controller.item.value?.courierCompany ?? "").isNotEmpty) {
+      height += 30.w;
+    }
+    height = height + 60.w;
     return Container(
-      height: (222 + 62 + 50 + 60).w,
+      height: height,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -105,10 +123,10 @@ class OrderDetailPage extends GetView<OrderDetailController> {
                   visible: controller.item.value?.hasTrade == 1,
                 ),
                 Visibility(
-                  visible: controller.item.value?.hasTrade == 1,
+                  visible: controller.item.value?.hasTradeUrl == 1,
                   child: Expanded(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15.w),
+                      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.w),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -134,6 +152,9 @@ class OrderDetailPage extends GetView<OrderDetailController> {
                                     // width: 115.w,
                                     // height: 123.w,
                                     fit: BoxFit.fitWidth,
+                                placeholder: (_, __) {
+                                  return Image.asset(Assets.imagesHolderImg, fit: BoxFit.fill,);
+                                },
                                   )),
                             ),
                           )

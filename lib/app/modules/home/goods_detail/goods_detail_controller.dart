@@ -1,8 +1,12 @@
 import 'package:code_zero/app/modules/home/goods_detail/widget/buy_dialog.dart';
+import 'package:code_zero/app/modules/home/home_apis.dart';
 import 'package:code_zero/app/modules/shopping_cart/model/shopping_cart_list_model.dart';
 import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/utils.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +20,7 @@ class GoodsDetailController extends GetxController {
   RxList<String> paramsPicList = RxList<String>();
   RxList<String> introPicList = RxList<String>();
   RxList<String> detailPicList = RxList<String>();
-  CommodityItem goods = CommodityItem();
+  Rx<CommodityItem?> goods = Rx<CommodityItem?>(null);
   var timerRefresh = false.obs;
 
   final currentIndex = 0.obs;
@@ -26,7 +30,7 @@ class GoodsDetailController extends GetxController {
   void onInit() {
     super.onInit();
     isFromSnap = Get.arguments?["from"] == RoutesID.SNAP_DETAIL_PAGE;
-    goods = Get.arguments?["good"] ?? CommodityItem();
+    goods.value = Get.arguments?["good"] ?? CommodityItem();
     initData();
     pageController.addListener(() {
       currentIndex.value = pageController.page?.toInt() ?? 1;
@@ -35,42 +39,66 @@ class GoodsDetailController extends GetxController {
 
   initData() {
     pageStatus.value = FTStatusPageType.success;
-    initIntroPicList();
-    initDetailPicList();
+    initGoodDetail();
+  }
+
+  initGoodDetail() async {
+    await LRequest.instance.request<CommodityItem>(
+        url: HomeApis.GOOD_DETAIL,
+        t: CommodityItem(),
+        queryParameters: {'id': goods.value?.id},
+        requestType: RequestType.GET,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          Utils.showToastMsg("获取商品详情失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("获取商品详情失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+        isShowLoading: true,
+        onSuccess: (result) {
+          var model = result.value;
+          if (model == null) {
+            return;
+          }
+          goods.value = result.value!;
+
+          initIntroPicList();
+          initDetailPicList();
+        });
   }
 
   initIntroPicList() {
-    thumbnailsList.addAll(goods.thumbnails ?? []);
-    paramsPicList.addAll(goods.parameterImages ?? []);
-    introPicList.addAll(goods.images ?? []);
+    thumbnailsList.addAll(goods.value?.thumbnails ?? []);
+    paramsPicList.addAll(goods.value?.parameterImages ?? []);
+    introPicList.addAll(goods.value?.images ?? []);
   }
 
   initDetailPicList() {
-    detailPicList.addAll(goods.images ?? []);
+    detailPicList.addAll(goods.value?.images ?? []);
   }
 
   doBuy() async {
-    String result = await showByDialog(isAddToCart: false, goods: goods, isFromSnap: isFromSnap);
+    String result = await showByDialog(
+        isAddToCart: false, goods: goods.value!, isFromSnap: isFromSnap);
   }
 
   void goToSubmitOrderPage() {
     Get.toNamed(RoutesID.SUBMIT_ORDER_PAGE, arguments: {
       "goods": [
         ShoppingCartItem(
-            commodityId: goods.id,
-            commodityName: goods.name,
+            commodityId: goods.value?.id,
+            commodityName: goods.value?.name,
             commodityCount: 1,
-            commodityPrice: double.tryParse(goods.currentPrice ?? "0"),
-            commodityThumbnail: goods.thumbnails?.firstWhere((element) => element.isNotEmpty, orElse: () => "")
-        )
+            commodityPrice: double.tryParse(goods.value?.currentPrice ?? "0"),
+            commodityThumbnail: goods.value?.thumbnails
+                ?.firstWhere((element) => element.isNotEmpty, orElse: () => ""))
       ].obs,
       "isFromSnap": isFromSnap,
-      "totalPrice": goods.currentPrice
+      "totalPrice": goods.value?.currentPrice
     });
   }
 
   doAddToCart() async {
-    var result = await showByDialog(isAddToCart: true, goods: goods, isFromSnap: isFromSnap);
+    var result = await showByDialog(
+        isAddToCart: true, goods: goods.value!, isFromSnap: isFromSnap);
   }
 
   @override

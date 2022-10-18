@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:code_zero/app/modules/mine/mine_controller.dart';
+import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:sp_util/sp_util.dart';
 
@@ -31,6 +33,7 @@ class _UserHelper {
     userToken = userInfo.token ?? "";
     SpUtil.putString(SpConst.USER_TOKEN, userToken);
     SpUtil.putString(SpConst.USER_INFO, json.encode(userInfo.toJson()));
+    Get.find<MineController>().initData();
   }
 
   void updateSp(UserModel? userInfo) {
@@ -46,6 +49,8 @@ class _UserHelper {
     userToken = "";
     SpUtil.putString(SpConst.USER_TOKEN, "");
     SpUtil.putString(SpConst.USER_INFO, "");
+    Get.find<MineController>().initData();
+
   }
 }
 

@@ -85,7 +85,7 @@ class OrderSendSellController extends GetxController {
         url: SnapApis.CREATE_CHARGE,
         data: {
           "buyingTransactionId": item.value?.id,
-          "commodityId": item.value?.commodityId,
+          "commodityId": model.value?.commodityId,
           "userId": userHelper.userInfo.value?.id,
           "newPrice": editingController.text,
         },

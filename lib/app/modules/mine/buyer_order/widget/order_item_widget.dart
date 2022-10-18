@@ -26,13 +26,13 @@ class OrderItemWidget extends StatelessWidget {
     BuyerOrderController controller = Get.find<BuyerOrderController>();
     return SafeClickGesture(
       onTap: () {
-        if(item.tradeState == 2 || item.tradeState == 3 || item.tradeState == 6) {
+        // if(item.tradeState == 0 || item.tradeState == 2 || item.tradeState == 3 || item.tradeState == 6) {
           Get.toNamed(RoutesID.ORDER_DETAIL_PAGE, arguments: {
             "item": item,
             'from': RoutesID.BUYER_ORDER_PAGE,
             'status': controller.getTradeState(item.tradeState)
           });
-        }
+        // }
       },
       child: _contentWidget(),
     );
@@ -119,7 +119,7 @@ class OrderItemWidget extends StatelessWidget {
                 visible: item.tradeState == 0,
               ),
               Visibility(
-                child: _buttonBtnWidget(width: 60.w, title: "提货", color: Color(0xff1BDB8A), onTap: () {
+                child: _buttonBtnWidget(left: 0, width: 60.w, title: "提货", color: Color(0xff1BDB8A), onTap: () {
                   controller.tihuo(item.id);
                 }),
                 visible: item.tradeState == 3 && item.hasDeliver == 0,
@@ -157,18 +157,18 @@ class OrderItemWidget extends StatelessWidget {
                     ),
                     Visibility(
                       child: _buttonBtnWidget(
-                          title: ((item.tradeUrl ?? "").isEmpty) ? "上传支付凭证" : "查看支付凭证",
+                          title: "上传支付凭证",
                           color: Color(0xff000000),
                           onTap: () {
                             bool hasTradeUrl = ((item.tradeUrl ?? "").isNotEmpty);
-                            if(hasTradeUrl) {
-                              Get.toNamed(RoutesID.PHOTO_VIEW_PAGE, arguments: {
-                                "url": item.tradeUrl
-                              });
-                            } else {
+                            // if(hasTradeUrl) {
+                            //   Get.toNamed(RoutesID.PHOTO_VIEW_PAGE, arguments: {
+                            //     "url": item.tradeUrl
+                            //   });
+                            // } else {
                               BuyerOrderController controller = Get.find<BuyerOrderController>();
                               controller.chooseAndUploadImage(item.id ?? 0);
-                            }
+                            // }
                           }),
                       visible: item.tradeState == 2,
                     ),
@@ -194,18 +194,18 @@ class OrderItemWidget extends StatelessWidget {
             children: [
               Visibility(
                 child: _buttonBtnWidget(
-                    title: ((item.tradeUrl ?? "").isEmpty) ? "上传支付凭证" : "查看支付凭证",
+                    title: "上传支付凭证",
                     color: Color(0xff000000),
                     onTap: () {
                       bool hasTradeUrl = ((item.tradeUrl ?? "").isNotEmpty);
-                      if(hasTradeUrl) {
-                        Get.toNamed(RoutesID.PHOTO_VIEW_PAGE, arguments: {
-                          "url": item.tradeUrl
-                        });
-                      } else {
+                      // if(hasTradeUrl) {
+                      //   Get.toNamed(RoutesID.PHOTO_VIEW_PAGE, arguments: {
+                      //     "url": item.tradeUrl
+                      //   });
+                      // } else {
                         BuyerOrderController controller = Get.find<BuyerOrderController>();
                         controller.chooseAndUploadImage(item.id ?? 0);
-                      }
+                      // }
                     }),
                 visible: item.tradeState == 0,
               ),
@@ -216,11 +216,11 @@ class OrderItemWidget extends StatelessWidget {
     );
   }
 
-  Widget _buttonBtnWidget({String? title, Color? color, var onTap, double? width}) {
+  Widget _buttonBtnWidget({String? title, Color? color, var onTap, double? width, double? right, double? left}) {
     return SafeTapWidget(
       onTap: onTap,
       child: Container(
-        // margin: EdgeInsets.only(left: 8.w),
+        margin: EdgeInsets.only(left: left ?? 8.w, right: right ?? 0.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14.w),
           color: Color(0xffF3F9FB),
