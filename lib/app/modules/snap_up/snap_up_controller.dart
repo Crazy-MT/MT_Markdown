@@ -53,6 +53,7 @@ class SnapUpController extends GetxController {
         queryParameters: {
           "page": currentPage,
           "size": pageSize,
+          "userId": userHelper.userInfo.value?.id
         },
         requestType: RequestType.GET,
         errorBack: (errorCode, errorMsg, expMsg) {
