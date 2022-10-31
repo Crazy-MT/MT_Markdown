@@ -1,22 +1,26 @@
 import 'dart:async';
 
+import 'package:code_zero/utils/log_utils.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../common/S.dart';
+import '../../../../common/S.dart' as Res;
 
 class CountDown extends StatefulWidget {
-  CountDown({Key? key, this.seconds, this.changed}) : super(key: key);
+  CountDown({Key? key, this.seconds, this.start, this.changed}) : super(key: key);
   final int? seconds;
+  final int? start;
   final ValueChanged<bool>? changed;
 
   @override
   createState() => new _CountDownState();
 }
 
-class _CountDownState extends State<CountDown> {
+class _CountDownState extends State<CountDown> with WidgetsBindingObserver{
   Timer? _timer;
   int seconds = 0;
+  int start = 0;
 
   // String _content = '00:00:00';
 
@@ -28,13 +32,29 @@ class _CountDownState extends State<CountDown> {
   void initState() {
     super.initState();
     seconds = widget.seconds ?? 0;
+    start = widget.start ?? 0;
     startTimer();
+    WidgetsBinding.instance?.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+    lLog('MTMTMT _CountDownState.didChangeAppLifecycleState ${state.toString()} ');
   }
 
   @override
   Widget build(BuildContext context) {
-    constructTime(seconds);
-
+    String now = formatDate(DateTime.now(), [HH, ':', nn, ':', ss]);
+    var nowArr = now.split(":");
+    int nowHour = (int.parse(nowArr[0]));
+    int nowMinute = int.parse(nowArr[1]);
+    int nowSecond = int.parse(nowArr[2]);
+    int nowTime = nowHour * 60 * 60 + nowMinute * 60 + nowSecond; // 当前天分钟数
+    lLog('MTMTMT _CountDownState.build ${start}  ${nowTime} ');
+    // lLog('MTMTMT _CountDownState.build ${start - nowTime} ');
+    constructTime(start - nowTime);
     return Row(
       children: [
         Container(
@@ -47,7 +67,7 @@ class _CountDownState extends State<CountDown> {
           ),*/
           child: Text(
             "$hour",
-            style: S.textStyles.timer,
+            style: Res.S.textStyles.timer,
           ),
         ),
         Text(
@@ -64,7 +84,7 @@ class _CountDownState extends State<CountDown> {
           ),*/
           child: Text(
             "$minute",
-            style: S.textStyles.timer,
+            style: Res.S.textStyles.timer,
           ),
         ),
         Text(
@@ -81,7 +101,7 @@ class _CountDownState extends State<CountDown> {
           ),*/
           child: Text(
             "$second",
-            style: S.textStyles.timer,
+            style: Res.S.textStyles.timer,
           ),
         ),
       ],
@@ -121,6 +141,7 @@ class _CountDownState extends State<CountDown> {
   @override
   void dispose() {
     cancelTimer();
+    WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
   }
 }

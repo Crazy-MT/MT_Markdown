@@ -138,6 +138,7 @@ class GoodsDetailController extends GetxController {
       map['isOpen'] = true;
     }
     map['seconds'] = (start - nowTime);
+    map['start'] = start;
     return map;
   }
 }

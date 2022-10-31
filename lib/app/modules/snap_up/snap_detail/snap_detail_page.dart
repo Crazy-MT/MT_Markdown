@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
 import 'package:code_zero/app/modules/snap_up/snap_up_controller.dart';
+import 'package:code_zero/common/system_setting.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:code_zero/utils/utils.dart';
 
@@ -29,7 +30,9 @@ class SnapDetailPage extends GetView<SnapDetailController> {
           icon: Icon(Icons.arrow_back),
           color: Color(0xFF14181F),
           onPressed: () {
-            Get.find<SnapUpController>().initData();
+            systemSetting.initSystemSetting();
+
+            Get.find<SnapUpController>().getSnapUpList(isRefresh: false);
 
             Get.back();
           },

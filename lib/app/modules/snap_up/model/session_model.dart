@@ -74,7 +74,7 @@ class Item {
   statusText(int currentTimeFromNet) {
     Map map = {};
 
-    // startTime = "14:55";
+    // startTime = "14:40";
     // endTime = "23:00";
 
     if(status == 0) {

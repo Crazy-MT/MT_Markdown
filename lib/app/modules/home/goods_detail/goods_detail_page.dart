@@ -500,6 +500,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                         ),
                         CountDown(
                           seconds: controller.isCountDown()["seconds"],
+                          start: controller.isCountDown()["start"],
                           changed: (_) {
                             controller.timerRefresh.value = true;
                           },

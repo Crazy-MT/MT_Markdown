@@ -20,7 +20,8 @@ class AuthCheckPage extends GetView<AuthCheckController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(
-        child: Text('身份核验',
+        child: Text(
+          '身份核验',
           style: TextStyle(
             fontSize: 16.sp,
             color: AppColors.text_dark,
@@ -43,7 +44,7 @@ class AuthCheckPage extends GetView<AuthCheckController> {
           builder: (BuildContext context) {
             return SingleChildScrollView(
               child: Obx(
-                    () => Column(
+                () => Column(
                   children: [
                     _buildNameInput(),
                     _buildIDCodeInput(),
@@ -75,50 +76,48 @@ class AuthCheckPage extends GetView<AuthCheckController> {
       keyboardType: TextInputType.text,
       suffixWidget: controller.showClearPhoneInput.value
           ? IconButton(
-          onPressed: () {
-            controller.nameController.clear();
-          },
-          icon: Icon(
-            Icons.cancel_rounded,
-            size: 14.w,
-            color: Color(0xFFCFCFCF),
-          ))
+              onPressed: () {
+                controller.nameController.clear();
+              },
+              icon: Icon(
+                Icons.cancel_rounded,
+                size: 14.w,
+                color: Color(0xFFCFCFCF),
+              ))
           : SizedBox(),
     );
   }
 
   _buildIDCodeInput() {
     return _buildInput('身份证号',
-      inputController: controller.idCodeController,
-      hintText: '输入身份证号码',
-      padding: EdgeInsets.symmetric(horizontal: 20.w).copyWith(top: 18.w),
-      keyboardType: TextInputType.number,
-      obscureText: false,
+        inputController: controller.idCodeController,
+        hintText: '输入身份证号码',
+        padding: EdgeInsets.symmetric(horizontal: 20.w).copyWith(top: 18.w),
+        keyboardType: TextInputType.text,
+        obscureText: false,
         suffixWidget: controller.showClearIdInput.value
             ? IconButton(
-            onPressed: () {
-              controller.idCodeController.clear();
-            },
-            icon: Icon(
-              Icons.cancel_rounded,
-              size: 14.w,
-
-              color: Color(0xFFCFCFCF),
-            ))
-            : SizedBox()
-    );
+                onPressed: () {
+                  controller.idCodeController.clear();
+                },
+                icon: Icon(
+                  Icons.cancel_rounded,
+                  size: 14.w,
+                  color: Color(0xFFCFCFCF),
+                ))
+            : SizedBox());
   }
 
   _buildInput(
-      String title, {
-        EdgeInsetsGeometry? padding,
-        TextEditingController? inputController,
-        String? hintText,
-        Widget? suffixWidget,
-        bool obscureText = false,
-        TextInputType? keyboardType,
-        List<TextInputFormatter>? inputFormatters,
-      }) {
+    String title, {
+    EdgeInsetsGeometry? padding,
+    TextEditingController? inputController,
+    String? hintText,
+    Widget? suffixWidget,
+    bool obscureText = false,
+    TextInputType? keyboardType,
+    List<TextInputFormatter>? inputFormatters,
+  }) {
     return Padding(
       padding: padding ?? EdgeInsets.zero,
       child: Column(
