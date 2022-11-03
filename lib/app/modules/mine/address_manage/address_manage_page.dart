@@ -18,7 +18,8 @@ class AddressManagePage extends GetView<AddressManageController> {
     return Scaffold(
       backgroundColor: Color(0xFFffffff),
       appBar: CommonAppBar(
-        titleText: Get.arguments == null ? "地址管理" : (Get.arguments['title'] ?? '地址管理'),
+        titleText:
+            Get.arguments == null ? "地址管理" : (Get.arguments['title'] ?? '地址管理'),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -38,10 +39,15 @@ class AddressManagePage extends GetView<AddressManageController> {
                 return CustomScrollView(
                   slivers: [
                     SliverPadding(
-                      padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 10.w + 44.w + 10.w),
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).padding.bottom +
+                              10.w +
+                              44.w +
+                              10.w),
                       sliver: Obx(
                         () => SliverList(
-                          delegate: SliverChildBuilderDelegate((content, index) {
+                          delegate:
+                              SliverChildBuilderDelegate((content, index) {
                             return _buildAddressItem(index);
                           }, childCount: controller.addressList.length),
                         ),
@@ -66,7 +72,9 @@ class AddressManagePage extends GetView<AddressManageController> {
   Widget _buildAddressItem(int index) {
     return SafeTapWidget(
       onTap: () {
-        if(Get.arguments != null && (Get.arguments['title'] != null && Get.arguments['title'] == '选择地址')) {
+        if (Get.arguments != null &&
+            (Get.arguments['title'] != null &&
+                Get.arguments['title'] == '选择地址')) {
           Get.back(result: controller.addressList[index]);
         }
       },
@@ -150,6 +158,7 @@ class AddressManagePage extends GetView<AddressManageController> {
             Get.toNamed(RoutesID.ADDRESS_EDIT_PAGE, arguments: {
               'type': 1,
               'item': controller.addressList[index],
+              'size': controller.addressList.length
             })?.then((value) {
               if (value == true) {
                 controller.getAddressList();
@@ -199,7 +208,12 @@ class AddressManagePage extends GetView<AddressManageController> {
   Widget _addAddressWidget(BuildContext context) {
     return SafeTapWidget(
       onTap: () {
-        Get.toNamed(RoutesID.ADDRESS_EDIT_PAGE, arguments: {'type': 0, 'noAddress': controller.addressList.length == 0, 'from': Get.arguments?['from']})?.then((value) {
+        Get.toNamed(RoutesID.ADDRESS_EDIT_PAGE, arguments: {
+          'type': 0,
+          'noAddress': controller.addressList.length == 0,
+          'from': Get.arguments?['from'],
+          'size': controller.addressList.length
+        })?.then((value) {
           if (value == true) {
             controller.getAddressList();
           }
