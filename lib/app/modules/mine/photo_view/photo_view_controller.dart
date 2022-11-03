@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/platform_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -47,7 +48,7 @@ class PhotoViewController extends GetxController {
         return;
       }
       Permission filePermission =
-      Platform.isIOS ? Permission.photos : Permission.storage;
+      PlatformUtils.isIOS ? Permission.photos : Permission.storage;
       lLog('MTMTMT InviteController.savaImage ${filePermission} ');
       var status = await filePermission.status;
       if (!status.isGranted) {

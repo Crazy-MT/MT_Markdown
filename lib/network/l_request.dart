@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/common.dart';
+import 'package:code_zero/utils/platform_utils.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -49,18 +50,20 @@ class LRequest {
     dio.options.headers[NetConstant.VERSION] = common.packageInfo?.version;
     dio.options.headers[NetConstant.APP] = "1";
     dio.options.headers[NetConstant.PLATFORM] =
-        Platform.isAndroid ? "android" : "ios";
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (client) {
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) {
-        return true;
-      };
-      /*client.findProxy = (uri) {
+        PlatformUtils.isAndroid ? "android" : (PlatformUtils.isIOS ? "iOS" : (PlatformUtils.isWeb ? "web" : "unknown"));
+    if(!PlatformUtils.isWeb) {
+      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+          (client) {
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) {
+          return true;
+        };
+        /*client.findProxy = (uri) {
         return "PROXY 172.16.24.136:8888";
       };*/
-      return client;
-    };
+        return client;
+      };
+    }
     // setProxy(SpUtil.getString(Constant.SP_KEY_SAVE_PROXY));
   }
 
@@ -91,7 +94,7 @@ class LRequest {
     bool isShowLoading = true,
   }) async {
     Response response;
-    dio.options.headers[NetConstant.UNIQUE_ID] = deviceUtil.getUniqueID();
+    // dio.options.headers[NetConstant.UNIQUE_ID] = deviceUtil.getUniqueID();
     dio.options.headers[NetConstant.AUTHORIZATION] =
         "Bearer " + userHelper.userToken;
     try {

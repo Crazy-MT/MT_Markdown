@@ -5,7 +5,7 @@ ${BUILT_PRODUCTS_DIR}/device_info/device_info.framework
 ${BUILT_PRODUCTS_DIR}/image_cropper/image_cropper.framework
 ${BUILT_PRODUCTS_DIR}/image_gallery_saver/image_gallery_saver.framework
 ${BUILT_PRODUCTS_DIR}/image_picker_ios/image_picker_ios.framework
-${BUILT_PRODUCTS_DIR}/package_info/package_info.framework
+${BUILT_PRODUCTS_DIR}/package_info_plus/package_info_plus.framework
 ${BUILT_PRODUCTS_DIR}/path_provider_ios/path_provider_ios.framework
 ${BUILT_PRODUCTS_DIR}/share/share.framework
 ${BUILT_PRODUCTS_DIR}/shared_preferences_ios/shared_preferences_ios.framework

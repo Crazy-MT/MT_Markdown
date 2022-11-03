@@ -8,6 +8,7 @@ import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:code_zero/main.dart';
 import 'package:code_zero/utils/input_format_utils.dart';
+import 'package:code_zero/utils/platform_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -317,7 +318,7 @@ class LoginPage extends GetView<LoginController> {
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         Get.toNamed(
-                          RoutesID.LOCAL_WEBVIEW_PAGE,
+                          PlatformUtils.isWeb ? RoutesID.LOCAL_HTML_PAGE :RoutesID.LOCAL_WEBVIEW_PAGE,
                           arguments: {
                             "page_title": "用户隐私政策",
                             "html_file": "assets/html/privacy_policy_1.html",

@@ -5,6 +5,7 @@ import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/utils/platform_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -83,7 +84,7 @@ class SettingController extends GetxController {
         title: "用户隐私政策",
         onClick: () {
           Get.toNamed(
-            RoutesID.LOCAL_WEBVIEW_PAGE,
+            PlatformUtils.isWeb ? RoutesID.LOCAL_HTML_PAGE :RoutesID.LOCAL_WEBVIEW_PAGE,
             arguments: {
               "page_title": "用户隐私政策",
               "html_file": "assets/html/privacy_policy_1.html",
