@@ -1,3 +1,4 @@
+import 'package:code_zero/app/modules/mine/collection_settings/widget/alipay_info_widget.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/widget/bank_card_info_widget.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/widget/wechat_info_widget.dart';
 import 'package:code_zero/common/colors.dart';
@@ -89,6 +90,7 @@ class CollectionSettingsPage extends GetView<CollectionSettingsController> {
         children: [
           WechatInfoWidget(),
           BankCardInfoWidget(),
+          AlipayInfoWidget(),
         ],
       ),
     );

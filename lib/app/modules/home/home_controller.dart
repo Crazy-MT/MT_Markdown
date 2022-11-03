@@ -10,7 +10,9 @@ import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:r_upgrade/r_upgrade.dart';
 
 class HomeController extends GetxController {
   final pageName = 'Home'.obs;
@@ -38,6 +40,8 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     initData();
+    upgrade("https://cos.pgyer.com/f6a1b7dc0c3952616a160feab1d64872.apk?sign=b275047c68cae0c90bbadf1521185111&t=1667469520&response-content-disposition=attachment%3Bfilename%3D%E4%BA%BF%E7%BF%A0%E7%8F%A0%E5%AE%9D%E5%95%86%E5%9F%8E_1.0.5.apk");
+    // upgradeFromAppStore();
   }
 
   initData() async {
@@ -179,6 +183,18 @@ class HomeController extends GetxController {
   scrollerToTop() {
     scrollController.animateTo(0,
         duration: Duration(seconds: 1), curve: Curves.ease);
+  }
+
+  upgrade(String apkUrl) async{
+    int? id = await RUpgrade.upgrade(apkUrl, isAutoRequestInstall: true, );
+    showToast("id MTMTMT");
+  }
+
+  void upgradeFromAppStore() async {
+    bool? isSuccess = await RUpgrade.upgradeFromAppStore(
+      '1644461159',
+    );
+    print(isSuccess);
   }
 
   @override

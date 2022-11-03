@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:code_zero/app/modules/mine/collection/collection_apis.dart';
+import 'package:code_zero/app/modules/mine/collection/model/user_alipay_model.dart';
 import 'package:code_zero/app/modules/mine/collection/model/user_bank_card_model.dart';
 import 'package:code_zero/app/modules/mine/collection/model/user_wechat_model.dart';
 import 'package:code_zero/app/modules/others/user_apis.dart';
@@ -23,7 +24,7 @@ class CollectionController extends GetxController with GetSingleTickerProviderSt
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
 
-  List<String> tabList = ['银行卡', '微信'];
+  List<String> tabList = ['银行卡', '微信', '支付宝'];
   TabController? tabController;
 
   // 银行卡数据
@@ -47,14 +48,26 @@ class CollectionController extends GetxController with GetSingleTickerProviderSt
   // 微信收款二维码
   RxString wechatQrImg = "".obs;
 
+  // 支付宝数据
+  Rx<UserAlipayModel?> alipayInfo = Rx<UserAlipayModel?>(null);
+  // 支付宝账号
+  TextEditingController alipayAccountController = new TextEditingController();
+  // 支付宝收款姓名
+  TextEditingController alipayNameController = new TextEditingController();
+  // 支付宝收款二维码
+  RxString alipayQrImg = "".obs;
+
   var hasNoBankCard = true;
   var hasNoWeiXin = true;
+  var hasNoAlipay = true;
 
   final sendBankCodeCountDown = 0.obs;
   final sendWechatCodeCountDown = 0.obs;
+  final sendAlipayCodeCountDown = 0.obs;
 
   Timer? bankTimer;
   Timer? wechatTimer;
+  Timer? alipayTimer;
 
   @override
   void onInit() {
@@ -65,6 +78,7 @@ class CollectionController extends GetxController with GetSingleTickerProviderSt
     /// 收款方不是管理员，才请求微信收款数据
     if(Get.arguments["fromUserIsAdmin"] != 1) {
       fetchWeChatData();
+      fetchAlipayData();
     }
     priceController.text = "￥" + Get.arguments['price'];
   }
@@ -139,6 +153,31 @@ class CollectionController extends GetxController with GetSingleTickerProviderSt
     wechatNameController.text = wechatInfo.value?.name??"";
 
     hasNoWeiXin = false;
+  }
+
+  // 获取用户支付宝
+  Future<void> fetchAlipayData() async {
+    ResultData<UserAlipayModel>? _result = await LRequest.instance.request<UserAlipayModel>(
+      url: CollectionApis.USERWECHAT,
+      t: UserAlipayModel(),
+      queryParameters: {
+        "user-id": Get.arguments["fromUserId"],
+        // "user-id": userHelper.userInfo.value?.id,
+      },
+      requestType: RequestType.GET,
+      errorBack: (errorCode, errorMsg, expMsg) {
+        Utils.showToastMsg("获取用户支付宝方式失败：${errorCode == -1 ? expMsg : errorMsg}");
+        lLog(errorMsg);
+      },
+    );
+    if (_result?.value == null) {
+      return;
+    }
+    alipayInfo.value = _result?.value;
+    alipayAccountController.text = alipayInfo.value?.wechatAccount??"";
+    alipayNameController.text = alipayInfo.value?.name??"";
+
+    hasNoAlipay = false;
   }
 
   @override

@@ -1,0 +1,6 @@
+framework module r_upgrade {
+  umbrella header "r_upgrade-umbrella.h"
+
+  export *
+  module * { export * }
+}

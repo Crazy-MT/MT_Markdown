@@ -29,6 +29,20 @@ class _SystemSetting {
         });
   }
 
+  Future<void> checkVersion() async {
+    ResultData<SystemSettingModel>? _result = await LRequest.instance.request<SystemSettingModel>(
+        url: UserApis.SYSTEM_SETTING,
+        t: SystemSettingModel(),
+        requestType: RequestType.GET,
+        isShowLoading: false,
+        errorBack: (errorCode, errorMsg, expMsg) {
+        },
+        onSuccess: (rest) {
+          model.value = rest.value as SystemSettingModel;
+          // systemSetting.model.value?.auditSwitch = 1;
+        });
+  }
+
 }
 
 _SystemSetting systemSetting = _SystemSetting();
