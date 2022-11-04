@@ -15,6 +15,11 @@ class Utils {
         padding: const EdgeInsets.all(15),
         child: Text(
           msg,
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.normal,
+            color: Colors.white,
+          ),
           strutStyle: const StrutStyle(
             forceStrutHeight: true,
             leading: 0.4,

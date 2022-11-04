@@ -10,7 +10,9 @@ dependencies:
   get: 4.6.5
   pull_to_refresh: 2.0.0
   flutter_screenutil:
-    path: /Users/mt/flutter_project/flutter_screenutil
+    git:
+      url: git@github.com:Crazy-MT/flutter_screenutil.git
+      ref: f1a58a6610e421c12663caa9441f2356331100de
   flutter_easyloading: 3.0.5
   cached_network_image: 3.2.0
   dio: 4.0.6

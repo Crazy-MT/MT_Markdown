@@ -718,8 +718,8 @@ class MinePage extends GetView<MineController> {
         children: [
           (showBadge != null && showBadge)
               ? Obx(() {
-                  // lLog(
-                  //     'MTMTMT MinePage.buildItem ${userHelper.isShowBadge.value} ');
+                  lLog(
+                      'MTMTMT MinePage.buildItem ${userHelper.isShowBadge.value} ');
                   return Badge(
                     elevation: 0,
                     badgeContent: Text(
