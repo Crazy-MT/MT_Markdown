@@ -38,11 +38,11 @@ class SignatureInArgeeController extends GetxController {
               Utils.showToastMsg("设置签名失败：${errorCode == -1 ? expMsg : errorMsg}");
               errorLog("设置签名失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
             },
-            onSuccess: (_) {
+            onSuccess: (_) async {
               Utils.showToastMsg("设置签名成功");
               userHelper.userInfo.value?.hasSignature = 1;
               userHelper.userInfo.value?.signatureUrl = signUrl;
-              userHelper.whenLogin(userHelper.userInfo.value!);
+              await userHelper.whenLogin(userHelper.userInfo.value!);
               Get.back();
             }
         );

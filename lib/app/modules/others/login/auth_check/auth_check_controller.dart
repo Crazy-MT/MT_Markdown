@@ -68,9 +68,9 @@ class AuthCheckController extends GetxController {
       errorBack: (errorCode, errorMsg, expMsg) {
         Utils.showToastMsg("核验失败：${errorCode == -1 ? expMsg : errorMsg}");
       },
-      onSuccess: (ret) {
+      onSuccess: (ret) async {
         userHelper.userInfo.value?.checkRes = 1;
-        userHelper.whenLogin(userHelper.userInfo.value!);
+        await userHelper.whenLogin(userHelper.userInfo.value!);
         Get.back(result: true);
       }
     );

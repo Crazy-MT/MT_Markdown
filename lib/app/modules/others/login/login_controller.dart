@@ -85,7 +85,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> loginSuccess(ResultData<UserModel>? _result) async {
-    userHelper.whenLogin(_result!.value!);
+    await userHelper.whenLogin(_result!.value!);
 
     if ((userHelper.userInfo.value?.checkRes ?? 0) != 1) {
       bool result = await Get.toNamed(RoutesID.AUTH_CHECK_PAGE);
