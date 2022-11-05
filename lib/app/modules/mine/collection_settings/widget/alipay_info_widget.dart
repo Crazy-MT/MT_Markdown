@@ -45,12 +45,12 @@ class AlipayInfoWidget extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 12.w),
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(Assets.imagesWalletWechatBg),
+                    image: AssetImage("assets/images/wallet_alipay_bg.png"),
                   ),
                 ),
                 child: Row(
                   children: [
-                    Image.asset(Assets.imagesWalletWechatIcon, width: 40.w, height: 40.w),
+                    Image.asset("assets/images/wallet_alipay_icon.png", width: 40.w, height: 40.w),
                     SizedBox(width: 15.w),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -65,7 +65,7 @@ class AlipayInfoWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          controller.aliPayInfo.value?.wechatAccount ?? "",
+                          controller.aliPayInfo.value?.alipayAccount ?? "",
                           style: TextStyle(
                             color: Color(0xffffffff),
                             fontSize: 16.sp,

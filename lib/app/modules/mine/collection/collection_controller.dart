@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:code_zero/app/modules/mine/collection/collection_apis.dart';
-import 'package:code_zero/app/modules/mine/collection/model/user_alipay_model.dart';
 import 'package:code_zero/app/modules/mine/collection/model/user_bank_card_model.dart';
 import 'package:code_zero/app/modules/mine/collection/model/user_wechat_model.dart';
-import 'package:code_zero/app/modules/others/user_apis.dart';
+import 'package:code_zero/app/modules/mine/collection_settings/model/user_alipay_model.dart';
+import 'package:code_zero/common/user_apis.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/model/user_model.dart';
@@ -158,7 +158,7 @@ class CollectionController extends GetxController with GetSingleTickerProviderSt
   // 获取用户支付宝
   Future<void> fetchAlipayData() async {
     ResultData<UserAlipayModel>? _result = await LRequest.instance.request<UserAlipayModel>(
-      url: CollectionApis.USERWECHAT,
+      url: CollectionApis.USER_ALIPAY,
       t: UserAlipayModel(),
       queryParameters: {
         "user-id": Get.arguments["fromUserId"],
@@ -174,7 +174,7 @@ class CollectionController extends GetxController with GetSingleTickerProviderSt
       return;
     }
     alipayInfo.value = _result?.value;
-    alipayAccountController.text = alipayInfo.value?.wechatAccount??"";
+    alipayAccountController.text = alipayInfo.value?.alipayAccount??"";
     alipayNameController.text = alipayInfo.value?.name??"";
 
     hasNoAlipay = false;

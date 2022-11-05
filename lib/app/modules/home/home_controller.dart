@@ -1,11 +1,18 @@
+import 'dart:io';
+
 import 'package:code_zero/app/modules/home/home_apis.dart';
+import 'package:code_zero/app/modules/home/model/app_versions.dart';
+import 'package:code_zero/common/components/confirm_dialog.dart';
+import 'package:code_zero/common/user_apis.dart';
 import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
 import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/extend.dart';
 import 'package:code_zero/common/system_setting.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
+import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/utils/device_util.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -40,8 +47,6 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     initData();
-    upgrade("https://cos.pgyer.com/f6a1b7dc0c3952616a160feab1d64872.apk?sign=b275047c68cae0c90bbadf1521185111&t=1667469520&response-content-disposition=attachment%3Bfilename%3D%E4%BA%BF%E7%BF%A0%E7%8F%A0%E5%AE%9D%E5%95%86%E5%9F%8E_1.0.5.apk");
-    // upgradeFromAppStore();
   }
 
   initData() async {
@@ -58,6 +63,39 @@ class HomeController extends GetxController {
         showScrollToTop.value = false;
       }
     });
+    checkVersion();
+  }
+
+  Future<void> checkVersion() async {
+    ResultData<AppVersions>? _result = await LRequest.instance.request<AppVersions>(
+        url: Apis.APP_VERSION,
+        t: AppVersions(),
+        requestType: RequestType.GET,
+        isShowLoading: false,
+        errorBack: (errorCode, errorMsg, expMsg) {
+        },
+        onSuccess: (rest) async {
+          AppVersions model = rest.value as AppVersions;
+          List<int> curV = (deviceUtil.version ?? "1.0.0").split(":").map((e) => int.parse(e)).toList();
+          List<int> v = (model.items?[0].versionNum ?? "1.0.0").split(":").map((e) => int.parse(e)).toList();
+          bool isUpdate = false;
+          for(int i = 0; i < curV.length; i++) {
+            if(v[i] > curV[i]) {
+              isUpdate = true;
+              break;
+            }
+          }
+          if(isUpdate) {
+            await showConfirmDialog(barrierDismissible: false, title: "版本更新", content: model.items?[0].updateDesc ?? "", onSingle: () {
+              if(Platform.isAndroid) {
+                upgrade(model.items?[0].androidDownloadUrl ?? "");
+              }
+              if(Platform.isIOS) {
+                upgradeFromAppStore();
+              }
+            });
+          }
+        });
   }
 
   getRecommendList({bool isRefresh = true}) async {
@@ -194,7 +232,6 @@ class HomeController extends GetxController {
     bool? isSuccess = await RUpgrade.upgradeFromAppStore(
       '1644461159',
     );
-    print(isSuccess);
   }
 
   @override

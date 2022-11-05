@@ -1,19 +1,39 @@
 import 'dart:io';
 
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:device_info/device_info.dart';
+import 'package:package_info/package_info.dart';
 
 class DeviceUtil {
   final DeviceInfoPlugin _deviceInfo = DeviceInfoPlugin();
   IosDeviceInfo? _iosDeviceInfo;
   AndroidDeviceInfo? _androidDeviceInfo;
+
+  PackageInfo? packageInfo;
+  String? appName;
+  String? packageName;
+  String? version;
+  String? buildNumber;
+
   DeviceUtil._();
 
   init() async {
+    packageInfo = await PackageInfo.fromPlatform();
+    appName = packageInfo?.appName;
+    packageName = packageInfo?.packageName;
+    version = packageInfo?.version;
+    buildNumber = packageInfo?.buildNumber;
     if (Platform.isAndroid) {
       _androidDeviceInfo = await _deviceInfo.androidInfo;
     } else if (Platform.isIOS) {
       _iosDeviceInfo = await _deviceInfo.iosInfo;
     }
+
+    /*List<int> curV = (deviceUtil.version ?? "1.0.0").split(".").map((e) {
+      lLog('MTMTMT HomeController.onInit ${e} ');
+      return int.parse(e);
+    }).toList();
+    lLog('MTMTMT HomeController.onInit ${curV[1]} ');*/
   }
 
   String getUniqueID() {

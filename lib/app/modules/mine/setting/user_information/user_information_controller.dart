@@ -16,7 +16,7 @@ import '../../../../../network/base_model.dart';
 import '../../../../../network/upload_util.dart';
 import '../../../../../utils/log_utils.dart';
 import '../../../../../utils/utils.dart';
-import '../../../others/user_apis.dart';
+import '../../../../../common/user_apis.dart';
 import 'model/update_info.dart';
 
 class UserInformationController extends GetxController {
@@ -93,7 +93,7 @@ class UserInformationController extends GetxController {
 
   Future<void> updateInfo() async {
     ResultData<UpdateInfoModel>? _result = await LRequest.instance.request<UpdateInfoModel>(
-      url: UserApis.UPDATE_INFO,
+      url: Apis.UPDATE_INFO,
       t: UpdateInfoModel(),
       data: {
         "id": userHelper.userInfo.value?.id,

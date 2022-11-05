@@ -4,7 +4,7 @@ import 'package:code_zero/app/modules/mine/collection_settings/collection_settin
 import 'package:code_zero/app/modules/mine/collection_settings/model/user_alipay_model.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/model/user_bank_card_model.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/model/user_wechat_model.dart';
-import 'package:code_zero/app/modules/others/user_apis.dart';
+import 'package:code_zero/common/user_apis.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -218,14 +218,14 @@ class CollectionSettingsController extends GetxController
   Future<void> fetchAliPayData() async {
     ResultData<UserAlipayModel>? _result =
         await LRequest.instance.request<UserAlipayModel>(
-      url: CollectionSettingsApis.USERWECHAT,
+      url: CollectionSettingsApis.USER_ALIPAY,
       t: UserAlipayModel(),
       queryParameters: {
         "user-id": userHelper.userInfo.value?.id,
       },
       requestType: RequestType.GET,
       errorBack: (errorCode, errorMsg, expMsg) {
-        Utils.showToastMsg("获取用户微信方式失败：${errorCode == -1 ? expMsg : errorMsg}");
+        Utils.showToastMsg("获取用户支付宝方式失败：${errorCode == -1 ? expMsg : errorMsg}");
         lLog(errorMsg);
       },
     );
@@ -236,9 +236,9 @@ class CollectionSettingsController extends GetxController
     aliPayInfo.value = _result?.value;
     hasNoAliPay = false;
     isAliPayEdit.value = false;
-    aliPayAccountController.text = aliPayInfo.value?.wechatAccount ?? "";
+    aliPayAccountController.text = aliPayInfo.value?.alipayAccount ?? "";
     aliPayNameController.text = aliPayInfo.value?.name ?? "";
-    aliPayQrImg.value = aliPayInfo.value?.wechatPaymentCodeUrl ?? "";
+    aliPayQrImg.value = aliPayInfo.value?.alipayPaymentCodeUrl ?? "";
 
     userHelper.userInfo.value?.hasPaymentMethod = 1;
     userHelper.updateSp(userHelper.userInfo.value);
@@ -383,16 +383,16 @@ class CollectionSettingsController extends GetxController
 
   // 添加支付宝
   Future<void> addUserAlipay() async {
-    String url = CollectionSettingsApis.USEADDWECHAT;
+    String url = CollectionSettingsApis.USE_ADD_ALIPAY;
     ResultData<UserAlipayModel>? _result =
     await LRequest.instance.request<UserAlipayModel>(
       url: url,
       t: UserAlipayModel(),
       data: {
-        "wechatAccount": aliPayAccountController.text,
+        "alipayAccount": aliPayAccountController.text,
         "authCode": aliPayCodeController.text,
         "name": aliPayNameController.text,
-        "wechatPaymentCodeUrl": aliPayQrImg.value,
+        "alipayPaymentCodeUrl": aliPayQrImg.value,
         "phone": userHelper.userInfo.value?.phone,
         "userId": userHelper.userInfo.value?.id,
       },
@@ -426,12 +426,12 @@ class CollectionSettingsController extends GetxController
         t: UserBankCardModel(),
         data: {
           "paymentMethodId": id,
-          "method": 1,
-          "wechatAccount": aliPayAccountController.text,
+          "method": 2,
+          "alipayAccount": aliPayAccountController.text,
           "name": aliPayNameController.text,
           "phone": userHelper.userInfo.value?.phone,
           "authCode": aliPayCodeController.text,
-          "wechatPaymentCodeUrl": aliPayQrImg.value,
+          "alipayPaymentCodeUrl": aliPayQrImg.value,
           "userId": userHelper.userInfo.value?.id,
           // "isAdmin": 0,
         },
@@ -503,7 +503,7 @@ class CollectionSettingsController extends GetxController
       };
     }
     ResultData<UserModel>? _result = await LRequest.instance.request<UserModel>(
-      url: UserApis.SMS,
+      url: Apis.SMS,
       t: UserModel(),
       queryParameters: params,
       requestType: RequestType.GET,

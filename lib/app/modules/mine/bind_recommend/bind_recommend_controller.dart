@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:code_zero/app/modules/home/submit_order/model/data_model.dart';
-import 'package:code_zero/app/modules/others/user_apis.dart';
+import 'package:code_zero/common/user_apis.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/model/user_model.dart';
 import 'package:code_zero/common/user_helper.dart';
@@ -56,7 +56,7 @@ class BindRecommendController extends GetxController {
 
   getSMS() async {
     ResultData<UserModel>? _result = await LRequest.instance.request<UserModel>(
-      url: UserApis.SMS,
+      url: Apis.SMS,
       t: UserModel(),
       queryParameters: {
         "phone": userHelper.userInfo.value?.phone,
@@ -80,7 +80,7 @@ class BindRecommendController extends GetxController {
 
   bind() async {
     ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
-      url: UserApis.BIND,
+      url: Apis.BIND,
       t: DataModel(),
       data: {
         "phone": userHelper.userInfo.value?.phone,

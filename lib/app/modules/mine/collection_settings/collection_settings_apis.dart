@@ -9,11 +9,17 @@ class CollectionSettingsApis {
   // 用户微信
   static const String USERWECHAT = NetConstant.HOST + PREFIX + "/get-user-wechat";
 
+  // 用户支付宝
+  static const String USER_ALIPAY = NetConstant.HOST + PREFIX + "/get-user-alipay";
+
   // 用户添加银行卡
   static const String USEADDBANK = NetConstant.HOST + PREFIX + "/create-bank";
 
   // 用户添加微信
   static const String USEADDWECHAT = NetConstant.HOST + PREFIX + "/create-wechat";
+
+  // 用户添加支付宝
+  static const String USE_ADD_ALIPAY = NetConstant.HOST + PREFIX + "/create-alipay";
 
   // 用户编辑
   static const String USEPAYMENTUPDATE = NetConstant.HOST + '/update-payment/create';

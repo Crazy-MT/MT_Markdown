@@ -14,7 +14,7 @@ import '../../../../../common/user_helper.dart';
 import '../../../../../network/l_request.dart';
 import '../../../../../utils/log_utils.dart';
 import '../../../../../utils/utils.dart';
-import '../../user_apis.dart';
+import '../../../../../common/user_apis.dart';
 class SignatureInArgeeController extends GetxController {
   final signImgUrl = "".obs;
 
@@ -27,7 +27,7 @@ class SignatureInArgeeController extends GetxController {
       if(toPath.isNotEmpty) {
         var signUrl = await uploadFile(toPath);
         await LRequest.instance.request<UserModel>(
-            url: UserApis.UPDATE_SIGNATURE,
+            url: Apis.UPDATE_SIGNATURE,
             t: UserModel(),
             data: {
               "id": userHelper.userInfo.value?.id,

@@ -2,7 +2,7 @@
 
 import 'package:code_zero/network/net_constant.dart';
 
-class UserApis {
+class Apis {
   static const String PREFIX = "/user";
 
   // static const String GET_INFO = NetConstant.HOST + PREFIX + "/get_info";
@@ -25,6 +25,5 @@ class UserApis {
 
   static const String SYSTEM_SETTING = NetConstant.HOST + "/system-setting/get";
 
-// static const String GUEST_LOGIN = NetConstant.HOST + PREFIX + "/guest_login";
-  // static const String REGISTER = NetConstant.HOST + PREFIX + "/register";
+  static const String APP_VERSION = NetConstant.HOST + "/app-version/list";
 }

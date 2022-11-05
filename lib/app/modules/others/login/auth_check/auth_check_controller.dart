@@ -8,7 +8,7 @@ import 'package:code_zero/common/components/status_page/status_page.dart';
 import '../../../../../network/base_model.dart';
 import '../../../../../network/l_request.dart';
 import '../../../../../utils/utils.dart';
-import '../../user_apis.dart';
+import '../../../../../common/user_apis.dart';
 
 class AuthCheckController extends GetxController {
   final pageName = 'AuthCheck'.obs;
@@ -62,7 +62,7 @@ class AuthCheckController extends GetxController {
     };
 
     ResultData? _result = await LRequest.instance.request(
-      url: UserApis.IDENTITIY_CHECK,
+      url: Apis.IDENTITIY_CHECK,
       data: params,
       requestType: RequestType.POST,
       errorBack: (errorCode, errorMsg, expMsg) {

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/mine/collection/collection_controller.dart';
-import 'package:code_zero/app/modules/mine/collection/model/user_alipay_model.dart';
+import 'package:code_zero/app/modules/mine/collection_settings/model/user_alipay_model.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_input.dart';
@@ -104,7 +104,7 @@ class AlipayAddWidget extends StatelessWidget {
             : SizedBox());
   }
 
-  Widget _addQrcodeWidget(UserAlipayModel? wechatModel) {
+  Widget _addQrcodeWidget(UserAlipayModel? alipayModel) {
     return Container(
       padding: EdgeInsets.only(top: 15.w),
       child: Column(
@@ -119,15 +119,15 @@ class AlipayAddWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: 7.w),
-          (wechatModel?.wechatPaymentCodeUrl?.isNotEmpty ?? false)
+          (alipayModel?.alipayPaymentCodeUrl?.isNotEmpty ?? false)
               ? SafeTapWidget(
             onTap: () {
               Get.toNamed(RoutesID.PHOTO_VIEW_PAGE, arguments: {
-                "url": wechatModel?.wechatPaymentCodeUrl ?? ""
+                "url": alipayModel?.alipayPaymentCodeUrl ?? ""
               });
             },
             child: CachedNetworkImage(
-              imageUrl: wechatModel?.wechatPaymentCodeUrl ?? "",
+              imageUrl: alipayModel?.alipayPaymentCodeUrl ?? "",
               width: 135.w,
               height: 200.w,
             ),

@@ -39,9 +39,9 @@ class AlipayAddWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildInputItem('请输入微信收款账号', controller.aliPayAccountController),
+                  _buildInputItem('请输入支付宝收款账号', controller.aliPayAccountController),
                   _buildInputItem('短信验证码', controller.aliPayCodeController),
-                  _buildInputItem('请输入微信收款姓名', controller.aliPayNameController),
+                  _buildInputItem('请输入支付宝收款姓名', controller.aliPayNameController),
                   _addQrcodeWidget(),
                   SizedBox(height: 80.w),
                   _addButtonWidget(),
