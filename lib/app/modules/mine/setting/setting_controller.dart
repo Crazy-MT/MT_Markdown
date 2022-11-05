@@ -1,4 +1,4 @@
-import 'package:code_zero/app/modules/others/user_apis.dart';
+import 'package:code_zero/common/user_apis.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/confirm_dialog.dart';
@@ -106,7 +106,7 @@ class SettingController extends GetxController {
               var userId = userHelper.userInfo.value?.id;
               var params = {"id": userId};
               LRequest.instance.request(
-                  url: UserApis.LOG_OUT,
+                  url: Apis.LOG_OUT,
                   queryParameters: params,
                   requestType: RequestType.GET,
                   errorBack: (errorCode, errorMsg, expMsg) {

@@ -16,7 +16,7 @@ import '../../../../../network/base_model.dart';
 import '../../../../../network/upload_util.dart';
 import '../../../../../utils/log_utils.dart';
 import '../../../../../utils/utils.dart';
-import '../../../others/user_apis.dart';
+import '../../../../../common/user_apis.dart';
 import 'model/update_info.dart';
 
 class UserInformationController extends GetxController {
@@ -93,7 +93,7 @@ class UserInformationController extends GetxController {
 
   Future<void> updateInfo() async {
     ResultData<UpdateInfoModel>? _result = await LRequest.instance.request<UpdateInfoModel>(
-      url: UserApis.UPDATE_INFO,
+      url: Apis.UPDATE_INFO,
       t: UpdateInfoModel(),
       data: {
         "id": userHelper.userInfo.value?.id,
@@ -108,14 +108,14 @@ class UserInformationController extends GetxController {
         Utils.showToastMsg("修改失败：${errorCode == -1 ? expMsg : errorMsg}");
         errorLog("修改失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
       },
-      onSuccess: (_) {
+      onSuccess: (_) async {
         userHelper.userInfo.value?.birthday = birthday.value;
         userHelper.userInfo.value?.hasBirthday = birthday.value.isEmpty ? 0 : 1;
         userHelper.userInfo.value?.gender = gender.value;
         userHelper.userInfo.value?.nickname = nameController?.text;
         userHelper.userInfo.value?.avatarUrl = avatarImg.value;
         userHelper.userInfo.update((val) {});
-        userHelper.whenLogin(userHelper.userInfo.value!);
+        await userHelper.whenLogin(userHelper.userInfo.value!);
         Utils.showToastMsg("修改成功");
         Get.back();
       }

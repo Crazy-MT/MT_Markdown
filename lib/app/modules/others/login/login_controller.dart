@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:code_zero/app/modules/others/user_apis.dart';
+import 'package:code_zero/common/user_apis.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/model/user_model.dart';
 import 'package:code_zero/common/user_helper.dart';
@@ -66,7 +66,7 @@ class LoginController extends GetxController {
 
   _passwordLogin() async {
     ResultData<UserModel>? _result = await LRequest.instance.request<UserModel>(
-      url: UserApis.LOGIN,
+      url: Apis.LOGIN,
       t: UserModel(),
       data: {
         "phone": phoneController.text,
@@ -85,7 +85,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> loginSuccess(ResultData<UserModel>? _result) async {
-    userHelper.whenLogin(_result!.value!);
+    await userHelper.whenLogin(_result!.value!);
 
     if ((userHelper.userInfo.value?.checkRes ?? 0) != 1) {
       bool result = await Get.toNamed(RoutesID.AUTH_CHECK_PAGE);
@@ -118,7 +118,7 @@ class LoginController extends GetxController {
 
   _smsCodeLogin() async {
     ResultData<UserModel>? _result = await LRequest.instance.request<UserModel>(
-      url: UserApis.PHONE_LOGIN,
+      url: Apis.PHONE_LOGIN,
       t: UserModel(),
       data: {
         "phone": phoneController.text,
@@ -152,7 +152,7 @@ class LoginController extends GetxController {
 
   getSMS() async {
     ResultData<UserModel>? _result = await LRequest.instance.request<UserModel>(
-        url: UserApis.SMS,
+        url: Apis.SMS,
         t: UserModel(),
         queryParameters: {
           "phone": phoneController.text,

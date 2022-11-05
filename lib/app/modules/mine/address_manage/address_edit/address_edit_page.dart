@@ -181,6 +181,9 @@ class AddressEditPage extends GetView<AddressEditController> {
                   activeColor: AppColors.green,
                   value: controller.isDefault.value,
                   onChanged: (isChecked) {
+                    if(controller.addressItem?.isDefault == 1) {
+                      return;
+                    }
                     controller.isDefault.value = isChecked;
                   },
                 ),

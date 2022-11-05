@@ -1,7 +1,7 @@
 import 'package:code_zero/app/modules/home/home_controller.dart';
 import 'package:code_zero/app/modules/home/home_page.dart';
 import 'package:code_zero/app/modules/mine/mine_controller.dart';
-import 'package:code_zero/app/modules/others/user_apis.dart';
+import 'package:code_zero/common/user_apis.dart';
 import 'package:code_zero/app/modules/shopping_cart/shopping_cart_controller.dart';
 import 'package:code_zero/app/modules/snap_up/snap_up_controller.dart';
 import 'package:code_zero/app/modules/snap_up/snap_up_page.dart';

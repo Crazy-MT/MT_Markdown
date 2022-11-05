@@ -10,7 +10,7 @@ import '../../../../../network/base_model.dart';
 import '../../../../../network/l_request.dart';
 import '../../../../../utils/log_utils.dart';
 import '../../../../../utils/utils.dart';
-import '../../user_apis.dart';
+import '../../../../../common/user_apis.dart';
 
 class ResetPasswordController extends GetxController {
   final pageName = 'ResetPassword'.obs;
@@ -62,7 +62,7 @@ class ResetPasswordController extends GetxController {
 
   getSMS() async {
     ResultData<UserModel>? _result = await LRequest.instance.request<UserModel>(
-      url: UserApis.SMS,
+      url: Apis.SMS,
       t: UserModel(),
       queryParameters: {
         "phone": phoneNumber.value,
@@ -86,7 +86,7 @@ class ResetPasswordController extends GetxController {
 
   resetPwd() async {
     ResultData<UserModel>? _result = await LRequest.instance.request<UserModel>(
-      url: UserApis.UPDATE_PASSWORD,
+      url: Apis.UPDATE_PASSWORD,
       t: UserModel(),
       data: {
         "phone": phoneNumber.value,

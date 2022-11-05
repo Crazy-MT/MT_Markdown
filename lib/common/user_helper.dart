@@ -26,13 +26,13 @@ class _UserHelper {
     }
   }
 
-  void whenLogin(UserModel userInfo) {
+  Future<void> whenLogin(UserModel userInfo) async {
     this.userInfo.value = userInfo;
     isLogin.value = true;
     // guestLogin.value = userInfo.isGuest ?? true;
     userToken = userInfo.token ?? "";
-    SpUtil.putString(SpConst.USER_TOKEN, userToken);
-    SpUtil.putString(SpConst.USER_INFO, json.encode(userInfo.toJson()));
+    await SpUtil.putString(SpConst.USER_TOKEN, userToken);
+    await SpUtil.putString(SpConst.USER_INFO, json.encode(userInfo.toJson()));
     Get.find<MineController>().initData();
   }
 

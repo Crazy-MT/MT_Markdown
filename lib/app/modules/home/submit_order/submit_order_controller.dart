@@ -62,10 +62,14 @@ class SubmitOrderController extends GetxController {
     );
     if (_result?.value != null) {
       lLog(_result!.value!.toJson().toString());
+      if(_result.value!.items?.length == 1) {
+        addressList.value = _result.value!.items!;
+      } else {
       addressList.value = _result.value!.items
               ?.where((element) => element.isDefault == 1)
               .toList() ??
           [];
+      }
 
       return;
     }

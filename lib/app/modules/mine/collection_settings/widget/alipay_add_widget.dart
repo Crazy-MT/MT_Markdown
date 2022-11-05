@@ -12,8 +12,8 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
-class WechatAddWidget extends StatelessWidget {
-  const WechatAddWidget({Key? key}) : super(key: key);
+class AlipayAddWidget extends StatelessWidget {
+  const AlipayAddWidget({Key? key}) : super(key: key);
 
   //------ pragma mark - properties ------//
 
@@ -39,9 +39,9 @@ class WechatAddWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildInputItem('请输入微信收款账号', controller.wechatAccountController),
-                  _buildInputItem('短信验证码', controller.wechatCodeController),
-                  _buildInputItem('请输入微信收款姓名', controller.wechatNameController),
+                  _buildInputItem('请输入支付宝收款账号', controller.aliPayAccountController),
+                  _buildInputItem('短信验证码', controller.aliPayCodeController),
+                  _buildInputItem('请输入支付宝收款姓名', controller.aliPayNameController),
                   _addQrcodeWidget(),
                   SizedBox(height: 80.w),
                   _addButtonWidget(),
@@ -97,10 +97,10 @@ class WechatAddWidget extends StatelessWidget {
               width: 87.w,
               height: 30.w,
               child: ElevatedButton(
-                onPressed: controller.sendWechatCodeCountDown.value <= 0
+                onPressed: controller.sendAliPayCodeCountDown.value <= 0
                     ? () {
-                        controller.startWechatCountDown();
-                        controller.getSMS(false);
+                        controller.startAlipayCountDown();
+                        controller.getSMS(false, isAlipay: true);
                       }
                     : null,
                 style: ElevatedButton.styleFrom(
@@ -109,13 +109,13 @@ class WechatAddWidget extends StatelessWidget {
                   padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
                   elevation: MaterialStateProperty.all(0),
                   backgroundColor: MaterialStateProperty.all(
-                    AppColors.green.withOpacity(controller.sendWechatCodeCountDown.value <= 0 ? 1 : 0.5),
+                    AppColors.green.withOpacity(controller.sendAliPayCodeCountDown.value <= 0 ? 1 : 0.5),
                   ),
                 ),
                 child: Text(
-                  controller.sendWechatCodeCountDown.value <= 0 ? "获取验证码" : "${controller.sendWechatCodeCountDown.value}s",
+                  controller.sendAliPayCodeCountDown.value <= 0 ? "获取验证码" : "${controller.sendAliPayCodeCountDown.value}s",
                   style: TextStyle(
-                    color: Colors.white.withOpacity(controller.sendWechatCodeCountDown.value <= 0 ? 1 : 0.5),
+                    color: Colors.white.withOpacity(controller.sendAliPayCodeCountDown.value <= 0 ? 1 : 0.5),
                     fontSize: 12.sp,
                   ),
                 ),
@@ -132,7 +132,7 @@ class WechatAddWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            '点击编辑微信收款二维码',
+            '点击编辑支付宝收款二维码',
             style: TextStyle(
               color: Color(0xff121212),
               fontSize: 14.sp,
@@ -142,12 +142,12 @@ class WechatAddWidget extends StatelessWidget {
           SizedBox(height: 7.w),
           SafeTapWidget(
             onTap: () {
-              Get.find<CollectionSettingsController>().chooseAndUploadImage(true);
+              Get.find<CollectionSettingsController>().chooseAndUploadImage(false);
             },
             child: Obx(
-              (() => controller.wechatQrImg.value.isNotEmpty
+              (() => controller.aliPayQrImg.value.isNotEmpty
                   ? CachedNetworkImage(
-                      imageUrl: controller.wechatQrImg.value,
+                      imageUrl: controller.aliPayQrImg.value,
                       width: 135.w,
                       height: 200.w,
                     )
@@ -171,7 +171,7 @@ class WechatAddWidget extends StatelessWidget {
                             ),
                             SizedBox(height: 14.w),
                             Text(
-                              '上传微信收款码',
+                              '上传支付宝收款码',
                               style: TextStyle(
                                 color: AppColors.text_dark.withOpacity(0.3),
                                 fontSize: 14.sp,
@@ -191,16 +191,16 @@ class WechatAddWidget extends StatelessWidget {
 
   Widget _addButtonWidget() {
     CollectionSettingsController controller = Get.find<CollectionSettingsController>();
-    bool enable = controller.wechatAccountController.text.isNotEmpty &&
-        controller.wechatCodeController.text.isNotEmpty &&
-        controller.wechatNameController.text.isNotEmpty &&
-        controller.wechatQrImg.value.isNotEmpty;
+    bool enable = controller.aliPayAccountController.text.isNotEmpty &&
+        controller.aliPayCodeController.text.isNotEmpty &&
+        controller.aliPayNameController.text.isNotEmpty &&
+        controller.aliPayQrImg.value.isNotEmpty;
     return SafeTapWidget(
       onTap: () {
-        if (controller.hasNoWeiXin) {
-          controller.addUserWechat();
+        if (controller.hasNoAliPay) {
+          controller.addUserAlipay();
         } else {
-          controller.editWeiXinCard(controller.wechatInfo.value?.id);
+          controller.editAlipayCard(controller.aliPayInfo.value?.id);
         }
       },
       child: Container(
@@ -212,7 +212,7 @@ class WechatAddWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(22.w),
         ),
         child: Text(
-          controller.hasNoWeiXin ? "确认添加" : "确认修改",
+          controller.hasNoAliPay ? "确认添加" : "确认修改",
           style: TextStyle(
             color: Colors.white,
             fontSize: 16.sp,

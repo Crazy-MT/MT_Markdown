@@ -12,7 +12,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../../../../network/base_model.dart';
 import '../../../../../utils/log_utils.dart';
 import '../../../../../utils/utils.dart';
-import '../app/modules/others/user_apis.dart';
+import '../common/user_apis.dart';
 
 uploadFile(path, {isShowLoading = true}) async {
   dio.FormData formData = dio.FormData.fromMap({
@@ -23,7 +23,7 @@ uploadFile(path, {isShowLoading = true}) async {
   });
   print('MTMTMT uploadFile ${path} ');
   ResultData<UploadModel>? _result = await LRequest.instance.request<UploadModel>(
-    url: UserApis.UPLOAD,
+    url: Apis.UPLOAD,
     t: UploadModel(),
     formData: formData,
     isShowLoading: isShowLoading,
