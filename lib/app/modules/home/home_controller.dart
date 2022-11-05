@@ -75,26 +75,28 @@ class HomeController extends GetxController {
         errorBack: (errorCode, errorMsg, expMsg) {
         },
         onSuccess: (rest) async {
-          AppVersions model = rest.value as AppVersions;
-          List<int> curV = (deviceUtil.version ?? "1.0.0").split(":").map((e) => int.parse(e)).toList();
-          List<int> v = (model.items?[0].versionNum ?? "1.0.0").split(":").map((e) => int.parse(e)).toList();
-          bool isUpdate = false;
-          for(int i = 0; i < curV.length; i++) {
-            if(v[i] > curV[i]) {
-              isUpdate = true;
-              break;
+          try {
+            AppVersions model = rest.value as AppVersions;
+            List<int> curV = (deviceUtil.version ?? "1.0.0").split(":").map((e) => int.parse(e)).toList();
+            List<int> v = (model.versionNum ?? "1.0.0").split(":").map((e) => int.parse(e)).toList();
+            bool isUpdate = false;
+            for(int i = 0; i < curV.length; i++) {
+              if(v[i] > curV[i]) {
+                isUpdate = true;
+                break;
+              }
             }
-          }
-          if(isUpdate) {
-            await showConfirmDialog(barrierDismissible: false, title: "版本更新", content: model.items?[0].updateDesc ?? "", onSingle: () {
-              if(Platform.isAndroid) {
-                upgrade(model.items?[0].androidDownloadUrl ?? "");
-              }
-              if(Platform.isIOS) {
-                upgradeFromAppStore();
-              }
-            });
-          }
+            if(isUpdate) {
+              await showConfirmDialog(barrierDismissible: false, title: "版本更新", content: model.updateDesc ?? "", onSingle: () {
+                if(Platform.isAndroid) {
+                  upgrade(model.androidDownloadUrl ?? "");
+                }
+                if(Platform.isIOS) {
+                  upgradeFromAppStore();
+                }
+              });
+            }
+          } catch (e) {}
         });
   }
 

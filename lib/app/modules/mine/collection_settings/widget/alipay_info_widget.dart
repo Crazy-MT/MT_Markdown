@@ -32,7 +32,7 @@ class AlipayInfoWidget extends StatelessWidget {
     return SafeTapWidget(
       onTap: () {
         if(Get.arguments != null && (Get.arguments['title'] != null)) {
-          Get.back(result: 1);
+          Get.back(result: 2);
         }
       },
       child: Column(

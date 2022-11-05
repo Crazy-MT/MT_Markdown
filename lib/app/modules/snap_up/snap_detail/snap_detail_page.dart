@@ -3,6 +3,7 @@ import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
 import 'package:code_zero/app/modules/snap_up/snap_up_controller.dart';
 import 'package:code_zero/common/system_setting.dart';
 import 'package:code_zero/generated/assets/assets.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 
 import '../../../../common/components/safe_tap_widget.dart';
@@ -87,13 +88,14 @@ class SnapDetailPage extends GetView<SnapDetailController> {
           Utils.showToastMsg('已被售罄');
           return;
         }
+        controller.currentIndex = index;
         await Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
           "from": RoutesID.SNAP_DETAIL_PAGE,
           "good": item,
           "startTime": Get.arguments['startTime'],
           "endTime": Get.arguments['endTime'],
-        })?.then((value) => {
-          controller.initData()
+        })?.then((value)  {
+          controller.getIndexList();
         });
       },
       child: Container(

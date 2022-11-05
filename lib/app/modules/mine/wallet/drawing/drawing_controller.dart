@@ -96,7 +96,17 @@ class DrawingController extends GetxController {
 
   Future<void> choose() async {
     chooseMethod = await Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE, arguments: {'title': '选择收款方式'});
-    method.value = chooseMethod == 1 ? "微信" : "银行卡";
+    if(chooseMethod == 0) {
+      method.value = "银行卡";
+    }
+
+    if(chooseMethod == 1) {
+      method.value = "微信";
+    }
+
+    if(chooseMethod == 2) {
+      method.value = "支付宝";
+    }
   }
 
   Future<void> createBalance() async {

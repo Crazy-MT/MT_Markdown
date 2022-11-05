@@ -19,6 +19,7 @@ class SnapDetailController extends GetxController {
   final pageStatus = FTStatusPageType.loading.obs;
   RxList<c.CommodityItem> commodityList = RxList<c.CommodityItem>();
 
+  int currentIndex = 0;
   int currentPage = 1;
   int pageSize = 10;
   final RefreshController refreshController = new RefreshController();
@@ -33,6 +34,61 @@ class SnapDetailController extends GetxController {
     pageStatus.value = FTStatusPageType.success;
     getRecommendList();
   }
+
+  getIndexList({bool isRefresh = true}) async {
+    lLog('MTMTMT SnapDetailController.getIndexList ${currentIndex} ${((currentIndex + 1) ~/ 10 + 1) * 10}');
+
+    currentPage = 1;
+    pageSize = ((currentIndex + 1) ~/ 10 + 1) * 10;
+    await LRequest.instance.request<
+        c.CommodityModel>(
+        url: SnapApis.COMMODITY,
+        isShowLoading: false,
+        t: c.CommodityModel(),
+        queryParameters: {
+          "session-id": Get.arguments["id"],
+          "page": currentPage,
+          "size": pageSize,
+          // "status" : 1,
+          "status-list" : "1",
+          "is-delete" : 0,
+          "has-inventory":1,
+          "exclude-owner-id" : userHelper.userInfo.value?.id,
+          "start-time": formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', '00', ':', '00', ':', '00']),
+          "end-time": formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]),
+          // "owner-is-admin": 0
+        },
+        requestType: RequestType.GET,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          refreshController.refreshFailed();
+          Utils.showToastMsg("获取列表失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("获取列表失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+        onSuccess: (result) {
+          var model = result.value;
+          if(model == null || model.items == null) {
+            refreshController.refreshCompleted();
+            refreshController.loadComplete();
+            return;
+          }
+          if(isRefresh) {
+            commodityList.clear();
+            currentPage++;
+          } else {
+            currentPage++;
+          }
+
+          commodityList.addAll(model.items!);
+          lLog('MTMTMT SnapDetailController.getIndexList ${currentPage} ${commodityList.length}');
+          refreshController.refreshCompleted();
+          refreshController.loadComplete();
+
+          if(model.totalCount <= commodityList.length) {
+            refreshController.loadNoData();
+          }
+        });
+  }
+
 
   getRecommendList({bool isRefresh = true}) async {
     lLog('MTMTMT SnapDetailController.getRecommendList 1: ${currentPage} ');
