@@ -36,7 +36,7 @@ class HomeController extends GetxController {
   RxList<CommodityItem> advList = RxList<CommodityItem>();
   ScrollController scrollController = ScrollController();
   final showScrollToTop = false.obs;
-
+  int? id;
   int currentPage = 0;
   int pageSize = 20;
   final RefreshController refreshController = new RefreshController();
@@ -77,26 +77,39 @@ class HomeController extends GetxController {
         onSuccess: (rest) async {
           try {
             AppVersions model = rest.value as AppVersions;
-            List<int> curV = (deviceUtil.version ?? "1.0.0").split(":").map((e) => int.parse(e)).toList();
-            List<int> v = (model.versionNum ?? "1.0.0").split(":").map((e) => int.parse(e)).toList();
+            List<int> curV = (deviceUtil.version ?? "1.0.0").split(".").map((e) => int.parse(e)).toList();
+            List<int> v = (model.versionNum ?? "1.0.0").split(".").map((e) => int.parse(e)).toList();
             bool isUpdate = false;
             for(int i = 0; i < curV.length; i++) {
+              lLog('MTMTMT HomeController.checkVersion ${v[i]} ${curV[i]}');
               if(v[i] > curV[i]) {
                 isUpdate = true;
                 break;
               }
             }
             if(isUpdate) {
-              await showConfirmDialog(barrierDismissible: false, title: "版本更新", content: model.updateDesc ?? "", onSingle: () {
+              await showConfirmDialog(canNotDismiss: true, barrierDismissible: false, title: "版本更新", content: model.updateDesc ?? "", singleText: "确定", onSingle: () async {
                 if(Platform.isAndroid) {
-                  upgrade(model.androidDownloadUrl ?? "");
+                  if(id == null) {
+                    id = await RUpgrade.upgrade(model.androidDownloadUrl ?? "", useDownloadManager: true,  isAutoRequestInstall: true, );
+                    showToast("更新包正在下载，可以在通知栏查看");
+                  } else {
+                    DownloadStatus? status = await RUpgrade.getDownloadStatus(id ?? 0);
+                    if(status == DownloadStatus.STATUS_CANCEL || status == DownloadStatus.STATUS_FAILED) {
+                      id = await RUpgrade.upgrade(model.androidDownloadUrl ?? "", useDownloadManager: true,  isAutoRequestInstall: true, );
+                      showToast("更新包正在下载，可以在通知栏查看");
+                    }
+                  }
+
                 }
                 if(Platform.isIOS) {
                   upgradeFromAppStore();
                 }
               });
             }
-          } catch (e) {}
+          } catch (e) {
+            lLog('MTMTMT HomeController.checkVersion ${e} ');
+          }
         });
   }
 
@@ -223,11 +236,6 @@ class HomeController extends GetxController {
   scrollerToTop() {
     scrollController.animateTo(0,
         duration: Duration(seconds: 1), curve: Curves.ease);
-  }
-
-  upgrade(String apkUrl) async{
-    int? id = await RUpgrade.upgrade(apkUrl, isAutoRequestInstall: true, );
-    showToast("id MTMTMT");
   }
 
   void upgradeFromAppStore() async {
