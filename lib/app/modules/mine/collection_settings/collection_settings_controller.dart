@@ -477,12 +477,15 @@ class CollectionSettingsController extends GetxController
         IOSUiSettings(
           title: '裁剪图片',
         ),
+        WebUiSettings(
+          context: Get.context!,
+        ),
       ],
     );
     if (isFromWechat) {
-      wechatQrImg.value = await uploadFile(croppedFile?.path);
+      wechatQrImg.value = await uploadFile(croppedFile?.path, value: await croppedFile?.readAsBytes());
     } else {
-      aliPayQrImg.value = await uploadFile(croppedFile?.path);
+      aliPayQrImg.value = await uploadFile(croppedFile?.path, value: await croppedFile?.readAsBytes());
     }
   }
 

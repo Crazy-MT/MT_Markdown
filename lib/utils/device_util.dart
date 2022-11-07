@@ -2,19 +2,29 @@ import 'dart:io';
 
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:device_info/device_info.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class DeviceUtil {
   DeviceUtil._();
-/*  final DeviceInfoPlugin _deviceInfo = DeviceInfoPlugin();
-  IosDeviceInfo? _iosDeviceInfo;
-  AndroidDeviceInfo? _androidDeviceInfo;
-
   PackageInfo? packageInfo;
   String? appName;
   String? packageName;
   String? version;
   String? buildNumber;
+
+  init() async {
+    packageInfo = await PackageInfo.fromPlatform();
+    appName = packageInfo?.appName;
+    packageName = packageInfo?.packageName;
+    version = packageInfo?.version;
+    buildNumber = packageInfo?.buildNumber;
+  }
+
+/*  final DeviceInfoPlugin _deviceInfo = DeviceInfoPlugin();
+  IosDeviceInfo? _iosDeviceInfo;
+  AndroidDeviceInfo? _androidDeviceInfo;
+
+
 
   DeviceUtil._();
 

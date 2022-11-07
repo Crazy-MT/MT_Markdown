@@ -25,7 +25,7 @@ class SignatureInArgeeController extends GetxController {
       File file = await _saveImageToFile();
       String toPath = await _capturePng(file);
       if(toPath.isNotEmpty) {
-        var signUrl = await uploadFile(toPath);
+        var signUrl = await uploadFile(toPath, value: await file.readAsBytes());
         await LRequest.instance.request<UserModel>(
             url: Apis.UPDATE_SIGNATURE,
             t: UserModel(),

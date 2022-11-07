@@ -38,14 +38,14 @@ class MineController extends GetxController {
     yifukuanCount.value = 0;
     daishoukuanCount.value = 0;
     daiquerenCount.value = 0;
-    /*if(userHelper.userInfo.value?.token?.isNotEmpty ?? false) {
+    if(userHelper.userInfo.value?.token?.isNotEmpty ?? false) {
       getBuyerOrder();
       getSellerOrder();
       timer = Timer.periodic(Duration(seconds: 10), (timer) {
         getBuyerOrder();
         getSellerOrder();
       });
-    }*/
+    }
   }
 
   getBuyerOrder() async {

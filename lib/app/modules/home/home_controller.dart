@@ -14,6 +14,7 @@ import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/device_util.dart';
 import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/platform_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -72,7 +73,9 @@ class HomeController extends GetxController {
         showScrollToTop.value = false;
       }
     });
-    checkVersion();
+    if(!PlatformUtils.isWeb) {
+      checkVersion();
+    }
   }
 
   Future<void> checkVersion() async {

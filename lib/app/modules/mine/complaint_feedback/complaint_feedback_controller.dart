@@ -5,6 +5,7 @@ import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/network/upload_util.dart';
 import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/platform_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -20,6 +21,7 @@ class ComplaintFeedbackController extends GetxController {
   final pageStatus = FTStatusPageType.loading.obs;
   final textCount = 0.obs;
   final photoItems = ["add"].obs;
+  List<XFile?> photoXFile = [];
   final TextEditingController textEditingController = TextEditingController();
 
   @override
@@ -42,11 +44,19 @@ class ComplaintFeedbackController extends GetxController {
   createAppeal() async {
     var imageUrlList = [];
     EasyLoading.show();
-    for(var photo in photoItems) {
-      lLog('MTMTMT ComplaintFeedbackController.createAppeal ${photo} ');
-      if(photo == 'add') continue;
-      String imageUrl = await uploadFile(photo, isShowLoading: false);
-      imageUrlList.add(imageUrl);
+    if(PlatformUtils.isWeb) {
+      for(var photo in photoXFile) {
+        lLog('MTMTMT ComplaintFeedbackController.createAppeal ${photo} ');
+        String imageUrl = await uploadFile(photo?.path, isShowLoading: false, value: await photo?.readAsBytes());
+        imageUrlList.add(imageUrl);
+      }
+    } else {
+      for(var photo in photoItems) {
+        lLog('MTMTMT ComplaintFeedbackController.createAppeal ${photo} ');
+        if(photo == 'add') continue;
+        String imageUrl = await uploadFile(photo, isShowLoading: false);
+        imageUrlList.add(imageUrl);
+      }
     }
 
     ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
@@ -79,12 +89,14 @@ class ComplaintFeedbackController extends GetxController {
 
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image?.path != null) {
+      photoXFile.insert(0, image);
       photoItems.insert(0, image!.path);
     }
   }
 
   removeImage(int index) {
     if (photoItems.length > index && photoItems[index] != "add") {
+      photoXFile.removeAt(index);
       photoItems.removeAt(index);
     }
   }
