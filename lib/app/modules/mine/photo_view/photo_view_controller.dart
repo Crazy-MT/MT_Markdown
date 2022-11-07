@@ -5,6 +5,7 @@ import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/platform_utils.dart';
 import 'package:code_zero/utils/utils.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -47,6 +48,19 @@ class PhotoViewController extends GetxController {
       if (sourceBytes == null) {
         return;
       }
+
+      if(PlatformUtils.isWeb) {
+        final String? path = await getSavePath();
+        if (path == null) {
+          return;
+        }
+
+        final XFile imageFile = XFile.fromData(sourceBytes, mimeType: "file/image",);
+        await imageFile.saveTo(path);
+        Utils.showToastMsg('保存成功');
+        return;
+      }
+
       Permission filePermission =
       PlatformUtils.isIOS ? Permission.photos : Permission.storage;
       lLog('MTMTMT InviteController.savaImage ${filePermission} ');

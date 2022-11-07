@@ -10,6 +10,7 @@ import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/platform_utils.dart';
 import 'package:code_zero/utils/utils.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -35,6 +36,12 @@ class InviteController extends GetxController {
   void onInit() {
     super.onInit();
     initData();
+    if(PlatformUtils.isWeb) {
+      iconList = [
+        {'复制链接': Assets.imagesInviteCopyLink},
+        {'生成海报': Assets.imagesInviteDownload},
+      ];
+    }
   }
 
   initData() {
@@ -99,6 +106,19 @@ class InviteController extends GetxController {
       if (sourceBytes == null) {
         return;
       }
+      if(PlatformUtils.isWeb) {
+        const String fileName = 'invite.png';
+        final String? path = await getSavePath(suggestedName: fileName);
+        if (path == null) {
+          return;
+        }
+
+        final XFile imageFile = XFile.fromData(sourceBytes, mimeType: "file/image", name: fileName);
+        await imageFile.saveTo(path);
+        Utils.showToastMsg('保存海报成功');
+        return;
+      }
+
       Permission filePermission =
           PlatformUtils.isIOS ? Permission.photos : Permission.storage;
       lLog('MTMTMT InviteController.savaImage ${filePermission} ');
