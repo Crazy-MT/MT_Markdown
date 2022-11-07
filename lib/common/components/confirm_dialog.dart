@@ -20,6 +20,7 @@ class _ConfirmDialog extends StatelessWidget {
   final String cancelText;
   final String confirmText;
   final String? singleText;
+  final bool? canNotDismiss;
 
   const _ConfirmDialog({
     Key? key,
@@ -35,6 +36,7 @@ class _ConfirmDialog extends StatelessWidget {
     this.confirmTextColor,
     this.singleText,
     this.onSingle,
+    this.canNotDismiss
   }) : super(key: key);
 
   @override
@@ -88,9 +90,11 @@ class _ConfirmDialog extends StatelessWidget {
                 height: 36.w,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.back(
-                      result: true,
-                    );
+                    if(!(canNotDismiss ?? false)) {
+                      Get.back(
+                        result: true,
+                      );
+                    }
                     onSingle?.call();
                   },
                   child: Text(
@@ -198,7 +202,8 @@ Future<bool> showConfirmDialog({
   String confirmText = "确定",
   String? singleText,
   Color? confirmTextColor,
-  bool barrierDismissible = true
+  bool barrierDismissible = true,
+  bool canNotDismiss = false
 }) async {
   var result = await Get.dialog(_ConfirmDialog(
       title: title,
@@ -212,6 +217,7 @@ Future<bool> showConfirmDialog({
       confirmText: confirmText,
       confirmTextColor: confirmTextColor,
       onSingle: onSingle,
+      canNotDismiss: canNotDismiss,
       singleText: singleText), barrierDismissible: barrierDismissible);
   if (result == true) return true;
   return false;

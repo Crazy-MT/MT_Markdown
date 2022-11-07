@@ -42,12 +42,14 @@ class BalanceItems {
   int? method;
   String? name;
   String? wechatAccount;
+  String? alipayAccount;
   String? phone;
   String? bankCardNum;
   String? bankAddress;
   String? bankName;
   String? bank;
   String? wechatPaymentCodeUrl;
+  String? alipayPaymentCodeUrl;
   int? status;
   int? judgeStatus;
   int? paymentStatus;
@@ -65,12 +67,14 @@ class BalanceItems {
       this.method,
       this.name,
       this.wechatAccount,
+      this.alipayAccount,
       this.phone,
       this.bankCardNum,
       this.bankAddress,
       this.bankName,
       this.bank,
       this.wechatPaymentCodeUrl,
+      this.alipayPaymentCodeUrl,
       this.status,
       this.judgeStatus,
       this.paymentStatus,
@@ -88,12 +92,14 @@ class BalanceItems {
     method = json['method'];
     name = json['name'];
     wechatAccount = json['wechatAccount'];
+    alipayAccount = json['alipayAccount'];
     phone = json['phone'];
     bankCardNum = json['bankCardNum'];
     bankAddress = json['bankAddress'];
     bankName = json['bankName'];
     bank = json['bank'];
     wechatPaymentCodeUrl = json['wechatPaymentCodeUrl'];
+    alipayPaymentCodeUrl = json['alipayPaymentCodeUrl'];
     status = json['status'];
     judgeStatus = json['judgeStatus'];
     paymentStatus = json['paymentStatus'];
@@ -113,12 +119,14 @@ class BalanceItems {
     data['method'] = this.method;
     data['name'] = this.name;
     data['wechatAccount'] = this.wechatAccount;
+    data['alipayAccount'] = this.alipayAccount;
     data['phone'] = this.phone;
     data['bankCardNum'] = this.bankCardNum;
     data['bankAddress'] = this.bankAddress;
     data['bankName'] = this.bankName;
     data['bank'] = this.bank;
     data['wechatPaymentCodeUrl'] = this.wechatPaymentCodeUrl;
+    data['alipayPaymentCodeUrl'] = this.alipayPaymentCodeUrl;
     data['status'] = this.status;
     data['judgeStatus'] = this.judgeStatus;
     data['paymentStatus'] = this.paymentStatus;
@@ -130,7 +138,6 @@ class BalanceItems {
   }
 
   getStatus() {
-    lLog('MTMTMT BalanceItems.getStatus ${status} ');
     Map s = {};
     switch(status) {
       case 0:
