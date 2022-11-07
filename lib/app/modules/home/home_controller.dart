@@ -26,12 +26,16 @@ class HomeController extends GetxController {
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
   RxList<_FenquItem> fenquList = RxList<_FenquItem>();
+
   /// 总商品
   RxList<CommodityItem> commodityList = RxList<CommodityItem>();
+
   // 下面商品列表
   RxList<CommodityItem> homeList = RxList<CommodityItem>();
+
   // 顶部 banner
   RxList<CommodityItem> bannerList = RxList<CommodityItem>();
+
   // 广告
   RxList<CommodityItem> advList = RxList<CommodityItem>();
   ScrollController scrollController = ScrollController();
@@ -41,7 +45,12 @@ class HomeController extends GetxController {
   int pageSize = 20;
   final RefreshController refreshController = new RefreshController();
 
-  var images = [Assets.imagesHomeBanner, Assets.imagesHomeBanner1, Assets.imagesHomeBanner2, Assets.imagesHomeBanner3];
+  var images = [
+    Assets.imagesHomeBanner,
+    Assets.imagesHomeBanner1,
+    Assets.imagesHomeBanner2,
+    Assets.imagesHomeBanner3
+  ];
 
   @override
   void onInit() {
@@ -67,69 +76,88 @@ class HomeController extends GetxController {
   }
 
   Future<void> checkVersion() async {
-    ResultData<AppVersions>? _result = await LRequest.instance.request<AppVersions>(
-        url: Apis.APP_VERSION,
-        t: AppVersions(),
-        requestType: RequestType.GET,
-        isShowLoading: false,
-        errorBack: (errorCode, errorMsg, expMsg) {
-        },
-        onSuccess: (rest) async {
-          try {
-            AppVersions model = rest.value as AppVersions;
-            List<int> curV = (deviceUtil.version ?? "1.0.0").split(".").map((e) => int.parse(e)).toList();
-            List<int> v = (model.versionNum ?? "1.0.0").split(".").map((e) => int.parse(e)).toList();
-            bool isUpdate = false;
-            for(int i = 0; i < curV.length; i++) {
-              lLog('MTMTMT HomeController.checkVersion ${v[i]} ${curV[i]}');
-              if(v[i] > curV[i]) {
-                isUpdate = true;
-                break;
-              }
-            }
-            if(isUpdate) {
-              await showConfirmDialog(canNotDismiss: true, barrierDismissible: false, title: "版本更新", content: model.updateDesc ?? "", singleText: "确定", onSingle: () async {
-                if(Platform.isAndroid) {
-                  if(id == null) {
-                    id = await RUpgrade.upgrade(model.androidDownloadUrl ?? "", useDownloadManager: true,  isAutoRequestInstall: true, );
-                    showToast("更新包正在下载，可以在通知栏查看");
-                  } else {
-                    DownloadStatus? status = await RUpgrade.getDownloadStatus(id ?? 0);
-                    if(status == DownloadStatus.STATUS_CANCEL || status == DownloadStatus.STATUS_FAILED) {
-                      id = await RUpgrade.upgrade(model.androidDownloadUrl ?? "", useDownloadManager: true,  isAutoRequestInstall: true, );
-                      showToast("更新包正在下载，可以在通知栏查看");
-                    }
+    ResultData<AppVersions>? _result =
+        await LRequest.instance.request<AppVersions>(
+            url: Apis.APP_VERSION,
+            t: AppVersions(),
+            requestType: RequestType.GET,
+            isShowLoading: false,
+            errorBack: (errorCode, errorMsg, expMsg) {},
+            onSuccess: (rest) async {
+              try {
+                AppVersions model = rest.value as AppVersions;
+                List<int> curV = (deviceUtil.version ?? "1.0.0")
+                    .split(".")
+                    .map((e) => int.parse(e))
+                    .toList();
+                List<int> v = (model.versionNum ?? "1.0.0")
+                    .split(".")
+                    .map((e) => int.parse(e))
+                    .toList();
+                bool isUpdate = false;
+                for (int i = 0; i < curV.length; i++) {
+                  lLog('MTMTMT HomeController.checkVersion ${v[i]} ${curV[i]}');
+                  if (v[i] > curV[i]) {
+                    isUpdate = true;
+                    break;
                   }
-
                 }
-                if(Platform.isIOS) {
-                  upgradeFromAppStore();
+                if (isUpdate) {
+                  await showConfirmDialog(
+                      canNotDismiss: true,
+                      barrierDismissible: false,
+                      title: "版本更新",
+                      content: model.updateDesc ?? "",
+                      singleText: "确定",
+                      onSingle: () async {
+                        if (Platform.isAndroid) {
+                          if (id == null) {
+                            id = await RUpgrade.upgrade(
+                                model.androidDownloadUrl ?? "",
+                                useDownloadManager: false);
+                            showToast("更新包正在下载，可以在通知栏查看");
+                          } else {
+                            DownloadStatus? status =
+                                await RUpgrade.getDownloadStatus(id ?? 0);
+                            if (status == DownloadStatus.STATUS_CANCEL ||
+                                status == DownloadStatus.STATUS_FAILED ||
+                                status == DownloadStatus.STATUS_SUCCESSFUL) {
+                              id = await RUpgrade.upgrade(
+                                  model.androidDownloadUrl ?? "",
+                                  useDownloadManager: false);
+                              showToast("更新包正在下载，可以在通知栏查看");
+                            } else {
+                              showToast("更新包正在下载，可以在通知栏查看");
+                            }
+                          }
+                        }
+                        if (Platform.isIOS) {
+                          upgradeFromAppStore();
+                        }
+                      });
                 }
-              });
-            }
-          } catch (e) {
-            lLog('MTMTMT HomeController.checkVersion ${e} ');
-          }
-        });
+              } catch (e) {
+                lLog('MTMTMT HomeController.checkVersion ${e} ');
+              }
+            });
   }
 
   getRecommendList({bool isRefresh = true}) async {
     systemSetting.initSystemSetting();
-    if(isRefresh) {
+    if (isRefresh) {
       currentPage = 1;
     }
-    await LRequest.instance.request<
-        CommodityModel>(
+    await LRequest.instance.request<CommodityModel>(
         url: HomeApis.COMMODITY,
         t: CommodityModel(),
         queryParameters: {
           // "session-id": Get.arguments["id"],
           "page": currentPage,
           "size": pageSize,
-          "status" : 1,
+          "status": 1,
           "isDelete": 0,
           "order": "asc",
-          "orderBy":"order_no"
+          "orderBy": "order_no"
           // "owner-is-admin": 0
         },
         requestType: RequestType.GET,
@@ -141,50 +169,50 @@ class HomeController extends GetxController {
         isShowLoading: false,
         onSuccess: (result) {
           var model = result.value;
-          if(model == null || model.items == null) {
+          if (model == null || model.items == null) {
             refreshController.refreshCompleted();
             refreshController.loadComplete();
             return;
           }
-          if(isRefresh) {
+          if (isRefresh) {
             commodityList.clear();
             currentPage++;
           } else {
             currentPage++;
           }
           commodityList.addAll(model.items!);
-          homeList.value = commodityList.where((p0) => (p0.isNew == 0 && p0.isHot == 0)).toList();
+          homeList.value = commodityList
+              .where((p0) => (p0.isNew == 0 && p0.isHot == 0))
+              .toList();
           refreshController.refreshCompleted();
           refreshController.loadComplete();
 
-          if(model.totalCount <= commodityList.length) {
+          if (model.totalCount <= commodityList.length) {
             refreshController.loadNoData();
           }
         });
   }
 
   getBannerList() async {
-    await LRequest.instance.request<
-        CommodityModel>(
+    await LRequest.instance.request<CommodityModel>(
         url: HomeApis.COMMODITY,
         t: CommodityModel(),
         queryParameters: {
           // "session-id": Get.arguments["id"],
           "page": 1,
           "size": pageSize,
-          "status" : 1,
+          "status": 1,
           "isDelete": 0,
           "filter": 2,
           "order": "asc",
-          "orderBy":"c.order_no"
+          "orderBy": "c.order_no"
           // "owner-is-admin": 0
         },
         requestType: RequestType.GET,
-        errorBack: (errorCode, errorMsg, expMsg) {
-        },
+        errorBack: (errorCode, errorMsg, expMsg) {},
         onSuccess: (result) {
           var model = result.value;
-          if(model == null || model.items == null) {
+          if (model == null || model.items == null) {
             return;
           }
           bannerList.clear();
@@ -194,27 +222,25 @@ class HomeController extends GetxController {
   }
 
   getAdvList() async {
-    await LRequest.instance.request<
-        CommodityModel>(
+    await LRequest.instance.request<CommodityModel>(
         url: HomeApis.COMMODITY,
         t: CommodityModel(),
         queryParameters: {
           // "session-id": Get.arguments["id"],
           "page": 1,
           "size": pageSize,
-          "status" : 1,
+          "status": 1,
           "isDelete": 0,
           "filter": 3,
           "order": "asc",
-          "orderBy":"c.order_no"
+          "orderBy": "c.order_no"
           // "owner-is-admin": 0
         },
         requestType: RequestType.GET,
-        errorBack: (errorCode, errorMsg, expMsg) {
-        },
+        errorBack: (errorCode, errorMsg, expMsg) {},
         onSuccess: (result) {
           var model = result.value;
-          if(model == null || model.items == null) {
+          if (model == null || model.items == null) {
             return;
           }
           advList.clear();
@@ -246,6 +272,7 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {}
+
   void setPageName(String newName) {
     pageName.value = newName;
   }
