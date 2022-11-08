@@ -3,6 +3,8 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/network/upload_util.dart';
+import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -43,9 +45,10 @@ class SignatureController extends GetxController {
 
   saveSignature() async {
     if (touchList.isNotEmpty) {
-      File file = await _saveImageToFile();
-      String toPath = await _capturePng(file);
-      Get.back(result: toPath);
+      String? signUrl = await uploadFile(value: await Utils().capturePng(globalKey));
+      if(signUrl?.isNotEmpty ?? false) {
+        Get.back(result: signUrl);
+      }
     }
   }
 
@@ -60,21 +63,6 @@ class SignatureController extends GetxController {
       await file.create(recursive: true);
     }
     return file;
-  }
-
-  Future<String> _capturePng(File file) async {
-    RenderObject? obj = globalKey.currentContext?.findRenderObject();
-    if (obj is RenderRepaintBoundary) {
-      double dpr = ui.window.devicePixelRatio; // 获取当前设备的像素比
-      var image = await obj.toImage(pixelRatio: dpr);
-      ByteData? _byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-      Uint8List? sourceBytes = _byteData?.buffer.asUint8List();
-      if (sourceBytes != null) {
-        await file.writeAsBytes(sourceBytes);
-        return file.path;
-      }
-    }
-    return "";
   }
 
   initData() {

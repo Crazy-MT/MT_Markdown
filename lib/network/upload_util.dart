@@ -18,25 +18,17 @@ import '../../../../../utils/log_utils.dart';
 import '../../../../../utils/utils.dart';
 import '../common/user_apis.dart';
 
-uploadFile(path, {isShowLoading = true, List<int>? value}) async {
-  Map<String, dynamic> map = {};
-  if(PlatformUtils.isWeb) {
-    map = {
-      "file": dio.MultipartFile.fromBytes(
-        value!,
-        filename: "a.png",
-      )
-    };
-  } else {
-    map = {
-      "file":  await dio.MultipartFile.fromFile(
-          path,
-          filename: "a.png"
-      )
-    };
+uploadFile({isShowLoading = true, List<int>? value}) async {
+  if(value == null) {
+    return;
   }
+  Map<String, dynamic> map = {
+    "file": dio.MultipartFile.fromBytes(
+      value,
+      filename: "a.png",
+    )
+  };
   dio.FormData formData = dio.FormData.fromMap(map);
-  print('MTMTMT uploadFile ${path} ');
   ResultData<UploadModel>? _result = await LRequest.instance.request<UploadModel>(
     url: Apis.UPLOAD,
     t: UploadModel(),
@@ -53,7 +45,7 @@ uploadFile(path, {isShowLoading = true, List<int>? value}) async {
     return;
   }
 
-  lLog('MTMTMT UserInformationController.uploadImage ${_result?.value?.fileUrl}');
+  lLog('MTMTMT uploadFile ${_result?.value?.fileUrl}');
   return _result?.value?.fileUrl ?? "";
 }
 

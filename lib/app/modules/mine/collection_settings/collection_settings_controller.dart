@@ -483,9 +483,9 @@ class CollectionSettingsController extends GetxController
       ],
     );
     if (isFromWechat) {
-      wechatQrImg.value = await uploadFile(croppedFile?.path, value: await croppedFile?.readAsBytes());
+      wechatQrImg.value = await uploadFile(value: await croppedFile?.readAsBytes());
     } else {
-      aliPayQrImg.value = await uploadFile(croppedFile?.path, value: await croppedFile?.readAsBytes());
+      aliPayQrImg.value = await uploadFile(value: await croppedFile?.readAsBytes());
     }
   }
 

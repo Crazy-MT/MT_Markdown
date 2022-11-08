@@ -234,7 +234,7 @@ class BuyerOrderController extends GetxController
         ),
       ],
     );
-    String tradeUrl = await uploadFile(croppedFile?.path, value: await croppedFile?.readAsBytes());
+    String tradeUrl = await uploadFile(value: await croppedFile?.readAsBytes());
 
     ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
         url: SnapApis.UPDATE_TRADE_URL_ORDER,

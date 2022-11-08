@@ -91,7 +91,7 @@ class UserInformationController extends GetxController {
         ),
       ],
     );
-    avatarImg.value = await uploadFile(croppedFile?.path, value: await croppedFile?.readAsBytes());
+    avatarImg.value = await uploadFile(value: await croppedFile?.readAsBytes());
   }
 
   Future<void> updateInfo() async {

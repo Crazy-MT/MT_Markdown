@@ -44,30 +44,20 @@ class ComplaintFeedbackController extends GetxController {
   createAppeal() async {
     var imageUrlList = [];
     EasyLoading.show();
-    if(PlatformUtils.isWeb) {
-      for(var photo in photoXFile) {
-        lLog('MTMTMT ComplaintFeedbackController.createAppeal ${photo} ');
-        String imageUrl = await uploadFile(photo?.path, isShowLoading: false, value: await photo?.readAsBytes());
-        imageUrlList.add(imageUrl);
-      }
-    } else {
-      for(var photo in photoItems) {
-        lLog('MTMTMT ComplaintFeedbackController.createAppeal ${photo} ');
-        if(photo == 'add') continue;
-        String imageUrl = await uploadFile(photo, isShowLoading: false);
-        imageUrlList.add(imageUrl);
-      }
+    for (var photo in photoXFile) {
+      String imageUrl = await uploadFile(isShowLoading: false, value: await photo?.readAsBytes());
+      imageUrlList.add(imageUrl);
     }
 
     ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
         url: SnapApis.CREATE_APPEAL,
         isShowLoading: false,
         data: {
-          "content" :textEditingController.text,
+          "content": textEditingController.text,
           "appealType": Get.arguments?['appealType'],
           "userId": userHelper.userInfo.value?.id,
           "buyingTranId": Get.arguments?['id'],
-          "imageUrlList":imageUrlList
+          "imageUrlList": imageUrlList
         },
         t: DataModel(),
         requestType: RequestType.POST,

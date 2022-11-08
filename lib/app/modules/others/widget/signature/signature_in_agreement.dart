@@ -50,26 +50,17 @@ class SignatureInAgreement extends StatelessWidget {
                         ),
                       ),
                     )
-                  : (controller.signImgUrl.value.startsWith("http")
-                      ? RotatedBox(
-                          quarterTurns: 3,
-                          child: CachedNetworkImage(
-                            imageUrl: controller.signImgUrl.value,
-                            height: 335.w,
-                            width: 178.w,
-                          ),
-                        )
-                      : RepaintBoundary(
-                          key: controller.globalKey,
-                          child: RotatedBox(
-                            quarterTurns: 3,
-                            child: Image.file(
-                              File(controller.signImgUrl.value),
-                              height: 335.w,
-                              width: 178.w,
-                            ),
-                          ),
-                        )),
+                  : (RepaintBoundary(
+                      key: controller.globalKey,
+                      child: RotatedBox(
+                        quarterTurns: 3,
+                        child: CachedNetworkImage(
+                          imageUrl: controller.signImgUrl.value,
+                          height: 335.w,
+                          width: 178.w,
+                        ),
+                      ),
+                    )),
             ),
           ),
           Padding(
