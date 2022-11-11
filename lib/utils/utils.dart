@@ -113,19 +113,19 @@ class Utils {
     }
   }
 
-  Future<void> checkUserInfo() async {
+  Future<void> checkUserInfo(String page) async {
     if(userHelper.userInfo.value == null) {
       return;
     }
     if ((userHelper.userInfo.value?.checkRes ?? 0) != 1) {
-      bool result = await Get.toNamed(RoutesID.AUTH_CHECK_PAGE);
+      bool result = await Get.toNamed(RoutesID.AUTH_CHECK_PAGE, arguments: {'from': page});
       if (!result) {
         return;
       }
     }
 
     if ((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0) {
-      await Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE, arguments: {'from': RoutesID.LOGIN_PAGE});
+      await Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE, arguments: {'from': page});
 
       if ((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0) {
         return;
@@ -133,7 +133,7 @@ class Utils {
     }
 
     if ((userHelper.userInfo.value?.hasAddress ?? 0) == 0) {
-      await Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE, arguments: {'from': RoutesID.LOGIN_PAGE});
+      await Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE, arguments: {'from': page});
       if ((userHelper.userInfo.value?.hasAddress ?? 0) == 0) {
         return;
       }

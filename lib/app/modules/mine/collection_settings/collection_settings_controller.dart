@@ -27,7 +27,7 @@ class CollectionSettingsController extends GetxController
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
 
-  List<String> tabList = [ '微信','银行卡', '支付宝'];
+  List<String> tabList = ['微信', '银行卡', '支付宝'];
   TabController? tabController;
 
   // 银行卡数据
@@ -119,15 +119,21 @@ class CollectionSettingsController extends GetxController
   }
 
   void goBack() {
-    if(hasNoWeiXin && hasNoBankCard && hasNoAliPay) {
+    if (hasNoWeiXin && hasNoBankCard && hasNoAliPay) {
       Get.back();
       return;
     }
-    if (tabController?.index == 0 && isBankEdit.value == true && !hasNoBankCard) {
+    if (tabController?.index == 0 &&
+        isBankEdit.value == true &&
+        !hasNoBankCard) {
       isBankEdit.value = false;
-    } else if (tabController?.index == 1 && isWechatEdit.value == true && !hasNoWeiXin) {
+    } else if (tabController?.index == 1 &&
+        isWechatEdit.value == true &&
+        !hasNoWeiXin) {
       isWechatEdit.value = false;
-    } else if (tabController?.index == 2 && isAliPayEdit.value == true && !hasNoAliPay) {
+    } else if (tabController?.index == 2 &&
+        isAliPayEdit.value == true &&
+        !hasNoAliPay) {
       isAliPayEdit.value = false;
     } else {
       Get.back();
@@ -225,7 +231,8 @@ class CollectionSettingsController extends GetxController
       },
       requestType: RequestType.GET,
       errorBack: (errorCode, errorMsg, expMsg) {
-        Utils.showToastMsg("获取用户支付宝方式失败：${errorCode == -1 ? expMsg : errorMsg}");
+        Utils.showToastMsg(
+            "获取用户支付宝方式失败：${errorCode == -1 ? expMsg : errorMsg}");
         lLog(errorMsg);
       },
     );
@@ -243,7 +250,6 @@ class CollectionSettingsController extends GetxController
     userHelper.userInfo.value?.hasPaymentMethod = 1;
     userHelper.updateSp(userHelper.userInfo.value);
   }
-
 
   // 添加银行卡
   Future<void> addUserBankCard() async {
@@ -272,12 +278,13 @@ class CollectionSettingsController extends GetxController
     bankcardInfo.value = _result?.value;
     userHelper.userInfo.value?.hasPaymentMethod = 1;
     userHelper.updateSp(userHelper.userInfo.value);
-    if(Get.arguments?["from"] == RoutesID.LOGIN_PAGE) {
+    if (Get.arguments?["from"] == RoutesID.LOGIN_PAGE ||
+        Get.arguments?['from'] == RoutesID.HOME_PAGE) {
       Get.back();
     } else {
       fetchBankCardData();
     }
-}
+  }
 
   /// 编辑银行卡信息
   Future<void> editBankCard(id) async {
@@ -341,7 +348,8 @@ class CollectionSettingsController extends GetxController
     userHelper.userInfo.value?.hasPaymentMethod = 1;
     userHelper.updateSp(userHelper.userInfo.value);
 
-    if(Get.arguments?["from"] == RoutesID.LOGIN_PAGE) {
+    if (Get.arguments?["from"] == RoutesID.LOGIN_PAGE ||
+        Get.arguments?['from'] == RoutesID.HOME_PAGE) {
       Get.back();
     } else {
       fetchWeChatData();
@@ -353,28 +361,28 @@ class CollectionSettingsController extends GetxController
     String url = CollectionSettingsApis.USEPAYMENTUPDATE;
     ResultData<UserBankCardModel>? _result =
         await LRequest.instance.request<UserBankCardModel>(
-      url: url,
-      t: UserBankCardModel(),
-      data: {
-        "paymentMethodId": id,
-        "method": 1,
-        "wechatAccount": wechatAccountController.text,
-        "name": wechatNameController.text,
-        "phone": userHelper.userInfo.value?.phone,
-        "authCode": wechatCodeController.text,
-        "wechatPaymentCodeUrl": wechatQrImg.value,
-        "userId": userHelper.userInfo.value?.id,
-        // "isAdmin": 0,
-      },
-      requestType: RequestType.POST,
-      errorBack: (errorCode, errorMsg, expMsg) {
-        lLog(errorMsg);
-        Utils.showToastMsg("编辑微信失败：${errorCode == -1 ? expMsg : errorMsg}");
-      },
+            url: url,
+            t: UserBankCardModel(),
+            data: {
+              "paymentMethodId": id,
+              "method": 1,
+              "wechatAccount": wechatAccountController.text,
+              "name": wechatNameController.text,
+              "phone": userHelper.userInfo.value?.phone,
+              "authCode": wechatCodeController.text,
+              "wechatPaymentCodeUrl": wechatQrImg.value,
+              "userId": userHelper.userInfo.value?.id,
+              // "isAdmin": 0,
+            },
+            requestType: RequestType.POST,
+            errorBack: (errorCode, errorMsg, expMsg) {
+              lLog(errorMsg);
+              Utils.showToastMsg(
+                  "编辑微信失败：${errorCode == -1 ? expMsg : errorMsg}");
+            },
             onSuccess: (_) {
               fetchWeChatData();
-            }
-    );
+            });
     if (_result?.value == null) {
       return;
     }
@@ -385,7 +393,7 @@ class CollectionSettingsController extends GetxController
   Future<void> addUserAlipay() async {
     String url = CollectionSettingsApis.USE_ADD_ALIPAY;
     ResultData<UserAlipayModel>? _result =
-    await LRequest.instance.request<UserAlipayModel>(
+        await LRequest.instance.request<UserAlipayModel>(
       url: url,
       t: UserAlipayModel(),
       data: {
@@ -409,8 +417,9 @@ class CollectionSettingsController extends GetxController
 
     userHelper.userInfo.value?.hasPaymentMethod = 1;
     userHelper.updateSp(userHelper.userInfo.value);
-
-    if(Get.arguments?["from"] == RoutesID.LOGIN_PAGE) {
+    lLog('MTMTMT CollectionSettingsController.addUserAlipay ${Get.arguments?['from']} ');
+    if (Get.arguments?["from"] == RoutesID.LOGIN_PAGE ||
+        Get.arguments?['from'] == RoutesID.HOME_PAGE) {
       Get.back();
     } else {
       fetchAliPayData();
@@ -421,29 +430,29 @@ class CollectionSettingsController extends GetxController
   Future<void> editAlipayCard(id) async {
     String url = CollectionSettingsApis.USEPAYMENTUPDATE;
     ResultData<UserBankCardModel>? _result =
-    await LRequest.instance.request<UserBankCardModel>(
-        url: url,
-        t: UserBankCardModel(),
-        data: {
-          "paymentMethodId": id,
-          "method": 2,
-          "alipayAccount": aliPayAccountController.text,
-          "name": aliPayNameController.text,
-          "phone": userHelper.userInfo.value?.phone,
-          "authCode": aliPayCodeController.text,
-          "alipayPaymentCodeUrl": aliPayQrImg.value,
-          "userId": userHelper.userInfo.value?.id,
-          // "isAdmin": 0,
-        },
-        requestType: RequestType.POST,
-        errorBack: (errorCode, errorMsg, expMsg) {
-          lLog(errorMsg);
-          Utils.showToastMsg("编辑支付宝失败：${errorCode == -1 ? expMsg : errorMsg}");
-        },
-        onSuccess: (_) {
-          fetchAliPayData();
-        }
-    );
+        await LRequest.instance.request<UserBankCardModel>(
+            url: url,
+            t: UserBankCardModel(),
+            data: {
+              "paymentMethodId": id,
+              "method": 2,
+              "alipayAccount": aliPayAccountController.text,
+              "name": aliPayNameController.text,
+              "phone": userHelper.userInfo.value?.phone,
+              "authCode": aliPayCodeController.text,
+              "alipayPaymentCodeUrl": aliPayQrImg.value,
+              "userId": userHelper.userInfo.value?.id,
+              // "isAdmin": 0,
+            },
+            requestType: RequestType.POST,
+            errorBack: (errorCode, errorMsg, expMsg) {
+              lLog(errorMsg);
+              Utils.showToastMsg(
+                  "编辑支付宝失败：${errorCode == -1 ? expMsg : errorMsg}");
+            },
+            onSuccess: (_) {
+              fetchAliPayData();
+            });
     if (_result?.value == null) {
       return;
     }
@@ -455,7 +464,7 @@ class CollectionSettingsController extends GetxController
     final ImagePicker _picker = ImagePicker();
     // Pick an image
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if(image == null) {
+    if (image == null) {
       return;
     }
     CroppedFile? croppedFile = await ImageCropper().cropImage(
@@ -483,9 +492,11 @@ class CollectionSettingsController extends GetxController
       ],
     );
     if (isFromWechat) {
-      wechatQrImg.value = await uploadFile(value: await croppedFile?.readAsBytes());
+      wechatQrImg.value =
+          await uploadFile(value: await croppedFile?.readAsBytes());
     } else {
-      aliPayQrImg.value = await uploadFile(value: await croppedFile?.readAsBytes());
+      aliPayQrImg.value =
+          await uploadFile(value: await croppedFile?.readAsBytes());
     }
   }
 
@@ -515,7 +526,7 @@ class CollectionSettingsController extends GetxController
           sendBankCodeCountDown.value = 0;
           bankTimer?.cancel();
         } else {
-          if(isAlipay) {
+          if (isAlipay) {
             sendAliPayCodeCountDown.value = 0;
             aliPayTimer?.cancel();
           } else {

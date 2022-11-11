@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:code_zero/app/modules/home/home_apis.dart';
 import 'package:code_zero/app/modules/home/model/app_versions.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/user_apis.dart';
 import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
@@ -76,7 +77,7 @@ class HomeController extends GetxController {
     if(!PlatformUtils.isWeb) {
       checkVersion();
     }
-    Future.delayed(Duration(seconds: 1)).then((value) => Utils().checkUserInfo());
+    Future.delayed(Duration(seconds: 1)).then((value) => Utils().checkUserInfo(RoutesID.HOME_PAGE));
   }
 
   Future<void> checkVersion() async {

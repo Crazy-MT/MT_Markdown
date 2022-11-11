@@ -23,7 +23,7 @@ class CategoryPage extends GetView<CategoryController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            Get.arguments['from'] == 'search'
+            (Get.arguments?['from'] ?? "") == 'search'
                 ? Get.arguments['title']
                 : '${Get.arguments['title']}专区',
             style: S.textStyles.black),
@@ -109,9 +109,9 @@ class CategoryPage extends GetView<CategoryController> {
               child: buildInputWithTitle(SizedBox.shrink(),
                   // padding: EdgeInsets.all(20.w).copyWith(top: 0, bottom: 15.w),
                   inputController: controller.keyWordController,
-                  hintText: Get.arguments['from'] == 'search'
+                  hintText: Get.arguments?['from'] == 'search'
                       ? '搜索更多'
-                      : Get.arguments['title'],
+                      : Get.arguments?['title'],
                   // obscureText: !controller.showNewPassword.value,
                   prefixWidget: IconButton(
                     onPressed: () {},

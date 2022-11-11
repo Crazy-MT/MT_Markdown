@@ -25,45 +25,53 @@ class AddressManagePage extends GetView<AddressManageController> {
           icon: Icon(Icons.arrow_back),
           color: Color(0xFF14181F),
           onPressed: () {
+            if(RoutesID.HOME_PAGE == Get.arguments?['from']) {
+              return;
+            }
             Get.back();
           },
         ),
       ),
-      body: Obx(
-        () => Stack(
-          children: [
-            FTStatusPage(
-              type: controller.pageStatus.value,
-              errorMsg: controller.errorMsg.value,
-              builder: (BuildContext context) {
-                return CustomScrollView(
-                  slivers: [
-                    SliverPadding(
-                      padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).padding.bottom +
-                              10.w +
-                              44.w +
-                              10.w),
-                      sliver: Obx(
-                        () => SliverList(
-                          delegate:
-                              SliverChildBuilderDelegate((content, index) {
-                            return _buildAddressItem(index);
-                          }, childCount: controller.addressList.length),
+      body: WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: Obx(
+          () => Stack(
+            children: [
+              FTStatusPage(
+                type: controller.pageStatus.value,
+                errorMsg: controller.errorMsg.value,
+                builder: (BuildContext context) {
+                  return CustomScrollView(
+                    slivers: [
+                      SliverPadding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).padding.bottom +
+                                10.w +
+                                44.w +
+                                10.w),
+                        sliver: Obx(
+                          () => SliverList(
+                            delegate:
+                                SliverChildBuilderDelegate((content, index) {
+                              return _buildAddressItem(index);
+                            }, childCount: controller.addressList.length),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              },
-            ),
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: MediaQuery.of(context).padding.bottom + 10.w,
-              child: _addAddressWidget(context),
-            ),
-          ],
+                    ],
+                  );
+                },
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: MediaQuery.of(context).padding.bottom + 10.w,
+                child: _addAddressWidget(context),
+              ),
+            ],
+          ),
         ),
       ),
     );

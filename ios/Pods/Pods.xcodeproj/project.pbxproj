@@ -15,6 +15,7 @@
 			dependencies = (
 			);
 			name = Flutter;
+			productName = Flutter;
 		};
 		96D118EAF1F77FE2219E1D25F74B14FC /* OpenWeChatSDK */ = {
 			isa = PBXAggregateTarget;
@@ -24,6 +25,7 @@
 			dependencies = (
 			);
 			name = OpenWeChatSDK;
+			productName = OpenWeChatSDK;
 		};
 /* End PBXAggregateTarget section */
 
@@ -252,7 +254,7 @@
 		CE9D1C2B7CEC702BA6A75D2F7E58102D /* NSStringWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC15C3C906A9C3053FC5A1E7A093EE /* NSStringWrapper.m */; };
 		CEAD8433E2E14F533962FCAD352DAA60 /* FLTSharedPreferencesPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 942909226EB3B8503B5B00796CD44A1A /* FLTSharedPreferencesPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0A2C75A31060879DE791CBF037EBE7B /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 21F08B1C5224C1EFAFCE146C8FD01BFF /* FMDatabaseAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D1C41F308A5B6A499A33811BA1B242C5 /* TOCropViewController-TOCropViewControllerBundle in Resources */ = {isa = PBXBuildFile; fileRef = FE1E812071397E31AE21DFF368B781B1 /* TOCropViewController-TOCropViewControllerBundle */; };
+		D1C41F308A5B6A499A33811BA1B242C5 /* TOCropViewControllerBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FE1E812071397E31AE21DFF368B781B1 /* TOCropViewControllerBundle.bundle */; };
 		D55168CC68FA2B138578FD0593C09085 /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C06E5CF36D52928969E2F137232D6D5A /* ja.lproj */; };
 		D7AB821F7618E2B53173957CE51967F4 /* FluwxResponseHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 67FF65C04A4E9A171465E57F9BD32BD4 /* FluwxResponseHandler.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D989C2BF247F7EDBD687AC553357E9DE /* FLTPackageInfoPlusPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCEB056DB84BB9CCBA8E28238020BAF /* FLTPackageInfoPlusPlugin.m */; };
@@ -569,13 +571,13 @@
 		028413DF3F7451A6EBEC6A1C6EBA0F25 /* path_provider_ios-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "path_provider_ios-Info.plist"; sourceTree = "<group>"; };
 		036F248CDBB826EE7E016EAF8761844C /* FLTImagePickerImageUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLTImagePickerImageUtil.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/ios/Classes/FLTImagePickerImageUtil.m"; sourceTree = "<group>"; };
 		03C749124EB947ECA8EA71FA82E3DA51 /* sqflite-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "sqflite-dummy.m"; sourceTree = "<group>"; };
-		057B4F9150DECB767AB62F42C3E13DDC /* da-DK.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "da-DK.lproj"; path = "Objective-C/TOCropViewController/Resources/da-DK.lproj"; sourceTree = "<group>"; };
+		057B4F9150DECB767AB62F42C3E13DDC /* da-DK.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "da-DK.lproj"; path = "Objective-C/TOCropViewController/Resources/da-DK.lproj"; sourceTree = "<group>"; };
 		057C7F25CCA3868334991D6ACABDB661 /* FWFPreferencesHostApi.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FWFPreferencesHostApi.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFPreferencesHostApi.m"; sourceTree = "<group>"; };
 		063F681B19DA47E3BA3B7E3D0E3C190E /* webview_flutter_wkwebview-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "webview_flutter_wkwebview-Info.plist"; sourceTree = "<group>"; };
 		06AF5CB944B96D6358145C33D5F9D3EF /* image_picker_ios-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "image_picker_ios-Info.plist"; sourceTree = "<group>"; };
 		085B98CE884C2101567FDA700F850F55 /* TOCropViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TOCropViewController.h; path = "Objective-C/TOCropViewController/TOCropViewController.h"; sourceTree = "<group>"; };
 		096F3B55BA14FCEFBE82822FB4368A90 /* FLTImagePickerPlugin_Test.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLTImagePickerPlugin_Test.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/ios/Classes/FLTImagePickerPlugin_Test.h"; sourceTree = "<group>"; };
-		0AC6E5C0C0A00578F6883181A57449E8 /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = es.lproj; path = "Objective-C/TOCropViewController/Resources/es.lproj"; sourceTree = "<group>"; };
+		0AC6E5C0C0A00578F6883181A57449E8 /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = es.lproj; path = "Objective-C/TOCropViewController/Resources/es.lproj"; sourceTree = "<group>"; };
 		0B433CA0501CBBCC1659E99E5D284CA0 /* device_info-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "device_info-umbrella.h"; sourceTree = "<group>"; };
 		0C86D0DE739EC47D5C95FD8E92681EB9 /* path_provider_ios-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "path_provider_ios-dummy.m"; sourceTree = "<group>"; };
 		0CCFAAC03F59DB1E8FA607104613D4C5 /* JavaScriptChannelHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JavaScriptChannelHandler.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/JavaScriptChannelHandler.h"; sourceTree = "<group>"; };
@@ -589,26 +591,26 @@
 		0FB8A6E1A1072FE21937B2FCFC7A5C82 /* Flutter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Flutter.debug.xcconfig; sourceTree = "<group>"; };
 		0FF14D89DBE18ECEA0049E37FC95E694 /* PermissionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PermissionManager.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/PermissionManager.m"; sourceTree = "<group>"; };
 		10F8D6D7718D52369BCEF872DEE7D353 /* image_cropper-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "image_cropper-umbrella.h"; sourceTree = "<group>"; };
-		11649F143443760DB6CC9E3070C9DBBA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/url_launcher_ios-6.0.17/LICENSE"; sourceTree = "<group>"; };
-		12AA282813590B729A03094B5CDD91FC /* Base.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = Base.lproj; path = "Objective-C/TOCropViewController/Resources/Base.lproj"; sourceTree = "<group>"; };
+		11649F143443760DB6CC9E3070C9DBBA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/url_launcher_ios-6.0.17/LICENSE"; sourceTree = "<group>"; };
+		12AA282813590B729A03094B5CDD91FC /* Base.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Base.lproj; path = "Objective-C/TOCropViewController/Resources/Base.lproj"; sourceTree = "<group>"; };
 		138FC7356928965DEFF710C164604D6F /* fluwx.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = fluwx.release.xcconfig; sourceTree = "<group>"; };
-		1491C97679409F60036FB0BFCB7487B8 /* ko.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ko.lproj; path = "Objective-C/TOCropViewController/Resources/ko.lproj"; sourceTree = "<group>"; };
+		1491C97679409F60036FB0BFCB7487B8 /* ko.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ko.lproj; path = "Objective-C/TOCropViewController/Resources/ko.lproj"; sourceTree = "<group>"; };
 		14BA99108AACB014BE14DE4066791B54 /* shared_preferences_ios-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "shared_preferences_ios-dummy.m"; sourceTree = "<group>"; };
 		15107C242A649F28C9FB0C00E13B9531 /* FMDB-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-umbrella.h"; sourceTree = "<group>"; };
 		15716B896BD6E442A740284058696E0F /* ResourceBundle-TOCropViewControllerBundle-TOCropViewController-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-TOCropViewControllerBundle-TOCropViewController-Info.plist"; sourceTree = "<group>"; };
 		185B792F15CDBA002D10FB22110C7D09 /* FWFUIDelegateHostApi.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FWFUIDelegateHostApi.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFUIDelegateHostApi.m"; sourceTree = "<group>"; };
-		1944F9D661890B7B1B3A8A4627052A5A /* device_info.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = device_info.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/device_info-2.0.3/ios/device_info.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		1BD1C94DA3A09BBCECBF55DBA0DF92D6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = "../../../../../../../../.pub-cache/git/r_upgrade-6811d6109dece7ac0227c68e87b500cd0aa766b6/LICENSE"; sourceTree = "<group>"; };
+		1944F9D661890B7B1B3A8A4627052A5A /* device_info.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = device_info.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/device_info-2.0.3/ios/device_info.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		1BD1C94DA3A09BBCECBF55DBA0DF92D6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = "../../../../../../../../.pub-cache/git/r_upgrade-6811d6109dece7ac0227c68e87b500cd0aa766b6/LICENSE"; sourceTree = "<group>"; };
 		1C48C87A9E3DF3854C7C082EF33541D9 /* image_gallery_saver-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "image_gallery_saver-prefix.pch"; sourceTree = "<group>"; };
 		1C544860EFD560F7624064FBC20A2C58 /* FLTImagePickerMetaDataUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLTImagePickerMetaDataUtil.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/ios/Classes/FLTImagePickerMetaDataUtil.h"; sourceTree = "<group>"; };
 		1E5B78F387E74047512DDDA0273A43A7 /* image_gallery_saver.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = image_gallery_saver.modulemap; sourceTree = "<group>"; };
 		1F2231D8FD279B78BBCA223E8D05061B /* SpeechPermissionStrategy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SpeechPermissionStrategy.m; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/strategies/SpeechPermissionStrategy.m"; sourceTree = "<group>"; };
 		1FB16DCA89E436A377638932326D47EE /* FWFInstanceManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FWFInstanceManager.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFInstanceManager.m"; sourceTree = "<group>"; };
 		2093DB88557C7679B4ED3F4CDF4E8F11 /* FWFUIViewHostApi.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FWFUIViewHostApi.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFUIViewHostApi.m"; sourceTree = "<group>"; };
-		2162BFB0461D2713D894C5E5125BB8DA /* file_selector_ios.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = file_selector_ios.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/file_selector_ios-0.5.0+2/ios/file_selector_ios.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		2162BFB0461D2713D894C5E5125BB8DA /* file_selector_ios.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = file_selector_ios.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/file_selector_ios-0.5.0+2/ios/file_selector_ios.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		21F08B1C5224C1EFAFCE146C8FD01BFF /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
 		235736BE4F75864B8EFC9371802C44AC /* SendMessageToWXReq+requestWithTextOrMediaMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SendMessageToWXReq+requestWithTextOrMediaMessage.m"; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/SendMessageToWXReq+requestWithTextOrMediaMessage.m"; sourceTree = "<group>"; };
-		235BD20A51FC16481515284ADC2F97B5 /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ru.lproj; path = "Objective-C/TOCropViewController/Resources/ru.lproj"; sourceTree = "<group>"; };
+		235BD20A51FC16481515284ADC2F97B5 /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ru.lproj; path = "Objective-C/TOCropViewController/Resources/ru.lproj"; sourceTree = "<group>"; };
 		23ECDC8625AE14714B2B47C88A73D6E5 /* webview_flutter_wkwebview-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "webview_flutter_wkwebview-dummy.m"; sourceTree = "<group>"; };
 		24921D3B128270B4337A394B4C892C89 /* FWFInstanceManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FWFInstanceManager.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFInstanceManager.h"; sourceTree = "<group>"; };
 		24A8F94EC750A6FC706BF2ACD073B780 /* FluwxResponseHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FluwxResponseHandler.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/FluwxResponseHandler.m"; sourceTree = "<group>"; };
@@ -616,42 +618,42 @@
 		2516C889C126DAA8CE1926D319C19EA8 /* messages.g.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = messages.g.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/ios/Classes/messages.g.h"; sourceTree = "<group>"; };
 		25391027333828303428D7CFB2F750DE /* fluwx-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "fluwx-prefix.pch"; sourceTree = "<group>"; };
 		25CD44AA1FB87577BC75ABC4461EE10C /* sqflite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = sqflite.release.xcconfig; sourceTree = "<group>"; };
-		2693A8B523A3F6F520A2A29F20754967 /* zh-Hant.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hant.lproj"; path = "Objective-C/TOCropViewController/Resources/zh-Hant.lproj"; sourceTree = "<group>"; };
+		2693A8B523A3F6F520A2A29F20754967 /* zh-Hant.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "zh-Hant.lproj"; path = "Objective-C/TOCropViewController/Resources/zh-Hant.lproj"; sourceTree = "<group>"; };
 		272FD0BD5F53E2AFC130D5AA84EFAD25 /* permission_handler_apple-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "permission_handler_apple-umbrella.h"; sourceTree = "<group>"; };
 		27C893392E231FD8F0494F7BF5462F04 /* FLTImagePickerPlugin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLTImagePickerPlugin.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/ios/Classes/FLTImagePickerPlugin.h"; sourceTree = "<group>"; };
 		27FF8E6BDE12BE055E3F68C633EDD93F /* fluwx-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "fluwx-dummy.m"; sourceTree = "<group>"; };
 		290E4F38C57F5035D07DCDFE1FC8DA03 /* FWFHTTPCookieStoreHostApi.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FWFHTTPCookieStoreHostApi.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFHTTPCookieStoreHostApi.m"; sourceTree = "<group>"; };
 		291F167D0063CF222AAE1B981CE743AB /* FLTPathProviderPlugin.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLTPathProviderPlugin.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/path_provider_ios-2.0.11/ios/Classes/FLTPathProviderPlugin.m"; sourceTree = "<group>"; };
-		29505A480E9C41684B79B9ADBC88E4AF /* pl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = pl.lproj; path = "Objective-C/TOCropViewController/Resources/pl.lproj"; sourceTree = "<group>"; };
+		29505A480E9C41684B79B9ADBC88E4AF /* pl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = pl.lproj; path = "Objective-C/TOCropViewController/Resources/pl.lproj"; sourceTree = "<group>"; };
 		29C61DE95C537D45B6A4D9DE82CFC551 /* FWFWebViewConfigurationHostApi.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FWFWebViewConfigurationHostApi.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFWebViewConfigurationHostApi.m"; sourceTree = "<group>"; };
-		29C7A2E5D0298C2BD0825E4F31947F12 /* ca.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ca.lproj; path = "Objective-C/TOCropViewController/Resources/ca.lproj"; sourceTree = "<group>"; };
+		29C7A2E5D0298C2BD0825E4F31947F12 /* ca.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ca.lproj; path = "Objective-C/TOCropViewController/Resources/ca.lproj"; sourceTree = "<group>"; };
 		2B0DCA6DF4A2164F8FE89ABE55330462 /* PhotoPermissionStrategy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PhotoPermissionStrategy.m; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/strategies/PhotoPermissionStrategy.m"; sourceTree = "<group>"; };
 		2BCA90DB2D3B7BB7B65E4FC0C267D17A /* package_info_plus-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "package_info_plus-umbrella.h"; sourceTree = "<group>"; };
 		2BCEB056DB84BB9CCBA8E28238020BAF /* FLTPackageInfoPlusPlugin.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLTPackageInfoPlusPlugin.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/package_info_plus-1.4.0/ios/Classes/FLTPackageInfoPlusPlugin.m"; sourceTree = "<group>"; };
 		2CB3AB23EBEE9E850338C57BAC6340B7 /* device_info.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = device_info.modulemap; sourceTree = "<group>"; };
 		2D30D540EAE0822F35B5FC8A888C96BB /* file_selector_ios.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = file_selector_ios.modulemap; sourceTree = "<group>"; };
 		2E21C0E97EDCC24AC9533367952F5FC8 /* OpenWeChatSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OpenWeChatSDK.release.xcconfig; sourceTree = "<group>"; };
-		2E4EC940CD8BC637C0D9D368C0ADB453 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/share-2.0.4/LICENSE"; sourceTree = "<group>"; };
+		2E4EC940CD8BC637C0D9D368C0ADB453 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/share-2.0.4/LICENSE"; sourceTree = "<group>"; };
 		2FC9A3CE6CBC2ECC71FB6AD89A929056 /* image_cropper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = image_cropper.debug.xcconfig; sourceTree = "<group>"; };
 		2FCD95D673E5FF3B0A1370C06AE671AD /* FFSFileSelectorPlugin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FFSFileSelectorPlugin.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/file_selector_ios-0.5.0+2/ios/Classes/FFSFileSelectorPlugin.h"; sourceTree = "<group>"; };
 		3017A3414422FB9D774FB42FD2DF0917 /* path_provider_ios-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "path_provider_ios-prefix.pch"; sourceTree = "<group>"; };
 		304B562C720F295481C4EC2CA6F3B81D /* file_selector_ios-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "file_selector_ios-umbrella.h"; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/file_selector_ios-0.5.0+2/ios/Classes/file_selector_ios-umbrella.h"; sourceTree = "<group>"; };
 		3085A9BC4916A52DBC54CDA6262AFB83 /* ContactPermissionStrategy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ContactPermissionStrategy.h; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/strategies/ContactPermissionStrategy.h"; sourceTree = "<group>"; };
-		30929BF2451B6391A6E9A47C0D517F4C /* sk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = sk.lproj; path = "Objective-C/TOCropViewController/Resources/sk.lproj"; sourceTree = "<group>"; };
+		30929BF2451B6391A6E9A47C0D517F4C /* sk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = sk.lproj; path = "Objective-C/TOCropViewController/Resources/sk.lproj"; sourceTree = "<group>"; };
 		30CE21DDD9B911A93CD798F30DA244E6 /* FMResultSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
-		310359045DEE262A8CCDFEAB574588B4 /* image_gallery_saver.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = image_gallery_saver.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_gallery_saver-1.7.1/ios/image_gallery_saver.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		310359045DEE262A8CCDFEAB574588B4 /* image_gallery_saver.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = image_gallery_saver.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_gallery_saver-1.7.1/ios/image_gallery_saver.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3104C4BAAE315EA56CB2CDE5007E6C5D /* image_picker_ios.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = image_picker_ios.modulemap; sourceTree = "<group>"; };
 		317C26B9A7CEDD34ADE8F37FAAB7AC20 /* Pods-Runner-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Runner-frameworks.sh"; sourceTree = "<group>"; };
 		31C410E66940E112BD6B7BCB2D56CC9A /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = src/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
 		323922EFC630850B47E1BA218697B4D3 /* SqflitePlugin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SqflitePlugin.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/sqflite-2.0.2+1/ios/Classes/SqflitePlugin.h"; sourceTree = "<group>"; };
 		327084104D4D7E314C2F3071314F910E /* FluwxPlugin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FluwxPlugin.h; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/public/FluwxPlugin.h"; sourceTree = "<group>"; };
-		335D7EC9E4041BDAA93B679D8F7DEF6F /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = nl.lproj; path = "Objective-C/TOCropViewController/Resources/nl.lproj"; sourceTree = "<group>"; };
+		335D7EC9E4041BDAA93B679D8F7DEF6F /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = nl.lproj; path = "Objective-C/TOCropViewController/Resources/nl.lproj"; sourceTree = "<group>"; };
 		34556F6C08DD9223086BA36B21F1740E /* device_info-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "device_info-dummy.m"; sourceTree = "<group>"; };
 		34A6433EB815F0937AB5D485F5DBFB50 /* FWFScriptMessageHandlerHostApi.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FWFScriptMessageHandlerHostApi.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFScriptMessageHandlerHostApi.m"; sourceTree = "<group>"; };
 		35477FAAA380FBE4FC83D31B0BF45B7A /* share.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = share.release.xcconfig; sourceTree = "<group>"; };
 		3637B436B92CDBD1E28C07ED22553D84 /* FMDB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FMDB.release.xcconfig; sourceTree = "<group>"; };
 		37CC70E22FC6B78E19982AC4B5816ED2 /* FMDatabasePool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
-		385D5376CD11CB82FB0791E6701D661C /* pt-BR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "pt-BR.lproj"; path = "Objective-C/TOCropViewController/Resources/pt-BR.lproj"; sourceTree = "<group>"; };
+		385D5376CD11CB82FB0791E6701D661C /* pt-BR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "pt-BR.lproj"; path = "Objective-C/TOCropViewController/Resources/pt-BR.lproj"; sourceTree = "<group>"; };
 		38777BAB00D51AB3F1ABA7A997CF65F0 /* TOCroppedImageAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TOCroppedImageAttributes.h; path = "Objective-C/TOCropViewController/Models/TOCroppedImageAttributes.h"; sourceTree = "<group>"; };
 		389BDB490634C40B6169139E08905A3D /* share-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "share-dummy.m"; sourceTree = "<group>"; };
 		392624B723BB21C675AF750889CB8916 /* TOCropViewController-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TOCropViewController-umbrella.h"; sourceTree = "<group>"; };
@@ -663,7 +665,7 @@
 		3CCDB50F9E80361E5B15CA594D5FD1D5 /* package_info_plus-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "package_info_plus-dummy.m"; sourceTree = "<group>"; };
 		3ECEE0F096356AC962E402EB597408B7 /* FluwxStringUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FluwxStringUtil.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/FluwxStringUtil.h"; sourceTree = "<group>"; };
 		3FF9125188278A6598AE8D7D33CDC88D /* r_upgrade-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "r_upgrade-prefix.pch"; sourceTree = "<group>"; };
-		40D787DA44F1617C6AB802747CBA49E9 /* tr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = tr.lproj; path = "Objective-C/TOCropViewController/Resources/tr.lproj"; sourceTree = "<group>"; };
+		40D787DA44F1617C6AB802747CBA49E9 /* tr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = tr.lproj; path = "Objective-C/TOCropViewController/Resources/tr.lproj"; sourceTree = "<group>"; };
 		41797BB89AB00A3A15CE0C76C244668E /* FLTWKNavigationDelegate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLTWKNavigationDelegate.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FLTWKNavigationDelegate.m"; sourceTree = "<group>"; };
 		41BFC747811AB5ED8A88F9CECCF38AB0 /* image_gallery_saver-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "image_gallery_saver-dummy.m"; sourceTree = "<group>"; };
 		41D49DE4AA1413835F3C0CDA3656743C /* image_gallery_saver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = image_gallery_saver.debug.xcconfig; sourceTree = "<group>"; };
@@ -674,29 +676,29 @@
 		46EEFF6144652DEE85133C4286788D8C /* FWFObjectHostApi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FWFObjectHostApi.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFObjectHostApi.h"; sourceTree = "<group>"; };
 		4727FF638E3EEEF5BD8C01E2CBD23503 /* image_gallery_saver */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = image_gallery_saver; path = image_gallery_saver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47E826200B51A6B3B377AFAFB7EEBB28 /* FMDB.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = src/fmdb/FMDB.h; sourceTree = "<group>"; };
-		47FC437E1AE4F929EBDE963BB06735AF /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/file_selector_ios-0.5.0+2/LICENSE"; sourceTree = "<group>"; };
-		48878BAFE6436D7CD370BFF1B349E3A2 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/device_info-2.0.3/LICENSE"; sourceTree = "<group>"; };
+		47FC437E1AE4F929EBDE963BB06735AF /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/file_selector_ios-0.5.0+2/LICENSE"; sourceTree = "<group>"; };
+		48878BAFE6436D7CD370BFF1B349E3A2 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/device_info-2.0.3/LICENSE"; sourceTree = "<group>"; };
 		49B4356063B564F7634256435ACF759F /* path_provider_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = path_provider_ios.debug.xcconfig; sourceTree = "<group>"; };
 		4A740CBCE036BDE07A37C5A11173A2B5 /* FWFWebViewConfigurationHostApi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FWFWebViewConfigurationHostApi.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFWebViewConfigurationHostApi.h"; sourceTree = "<group>"; };
 		4B1A5985A2ECF2A6F63CD82ECA3DF65E /* RUpgradePlugin.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RUpgradePlugin.m; path = "../../../../../../../../../.pub-cache/git/r_upgrade-6811d6109dece7ac0227c68e87b500cd0aa766b6/ios/Classes/RUpgradePlugin.m"; sourceTree = "<group>"; };
 		4B3C5723E4ECF3A2B7CD6EB81D4FE21D /* FWFPreferencesHostApi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FWFPreferencesHostApi.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFPreferencesHostApi.h"; sourceTree = "<group>"; };
-		4CBC4C80E8BA7DC467403473F75E2798 /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = pt.lproj; path = "Objective-C/TOCropViewController/Resources/pt.lproj"; sourceTree = "<group>"; };
+		4CBC4C80E8BA7DC467403473F75E2798 /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = pt.lproj; path = "Objective-C/TOCropViewController/Resources/pt.lproj"; sourceTree = "<group>"; };
 		4CCEB174D952819F77EA343E9FF5BA01 /* image_cropper-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "image_cropper-prefix.pch"; sourceTree = "<group>"; };
 		4CF5FC363F509A7A796DAC89B6E9ED81 /* PermissionHandlerEnums.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PermissionHandlerEnums.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/PermissionHandlerEnums.h"; sourceTree = "<group>"; };
 		4E4EEFDC4DE7D34F59A45B994064795A /* package_info_plus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = package_info_plus.release.xcconfig; sourceTree = "<group>"; };
 		4F77690F68CCA596093AB87370F4365D /* FMDatabaseQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
-		4FAF1EE385CB4F2AAF1168B231BE5220 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/sqflite-2.0.2+1/LICENSE"; sourceTree = "<group>"; };
+		4FAF1EE385CB4F2AAF1168B231BE5220 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/sqflite-2.0.2+1/LICENSE"; sourceTree = "<group>"; };
 		4FBDE457ECAEE53951110B17C0E2F7DA /* OpenWeChatSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OpenWeChatSDK.debug.xcconfig; sourceTree = "<group>"; };
-		50C2DC349A9A1EE7390F6BF91FCBE48A /* permission_handler_apple.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = permission_handler_apple.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/permission_handler_apple.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		50C2DC349A9A1EE7390F6BF91FCBE48A /* permission_handler_apple.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = permission_handler_apple.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/permission_handler_apple.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		50D2E4ADAF44CEEEBF8F091CC38F09E9 /* shared_preferences_ios-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "shared_preferences_ios-prefix.pch"; sourceTree = "<group>"; };
-		51542003C3210181A5C4D5BD13366B96 /* package_info_plus.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = package_info_plus.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/package_info_plus-1.4.0/ios/package_info_plus.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		51542003C3210181A5C4D5BD13366B96 /* package_info_plus.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = package_info_plus.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/package_info_plus-1.4.0/ios/package_info_plus.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		51825CD8F0558EFA53D9510F0E5BFA16 /* Pods-Runner-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Runner-Info.plist"; sourceTree = "<group>"; };
 		51B54D2A178730342E4D864D4CD76571 /* TOCropToolbar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TOCropToolbar.h; path = "Objective-C/TOCropViewController/Views/TOCropToolbar.h"; sourceTree = "<group>"; };
 		5202E033CC6FBB210C3A16094C8E0492 /* TOCropScrollView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TOCropScrollView.m; path = "Objective-C/TOCropViewController/Views/TOCropScrollView.m"; sourceTree = "<group>"; };
 		52139D70AAE346458258725BF585B165 /* sqflite-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "sqflite-umbrella.h"; sourceTree = "<group>"; };
 		52525208E9685B72C5EEA848F13D22EC /* FWFScrollViewHostApi.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FWFScrollViewHostApi.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFScrollViewHostApi.m"; sourceTree = "<group>"; };
 		52F4D1CF5E06DC4A7B515B6D0639594D /* r_upgrade-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "r_upgrade-Info.plist"; sourceTree = "<group>"; };
-		551F950C3F8AC7AC7DB685311F4164A6 /* vi.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = vi.lproj; path = "Objective-C/TOCropViewController/Resources/vi.lproj"; sourceTree = "<group>"; };
+		551F950C3F8AC7AC7DB685311F4164A6 /* vi.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = vi.lproj; path = "Objective-C/TOCropViewController/Resources/vi.lproj"; sourceTree = "<group>"; };
 		558BB533E9F2E8187C2C815A57716D16 /* shared_preferences_ios.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = shared_preferences_ios.modulemap; sourceTree = "<group>"; };
 		560DB4CE8D96C7F4E73F04BB15A2D2AE /* FlutterWebView_Test.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FlutterWebView_Test.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FlutterWebView_Test.h"; sourceTree = "<group>"; };
 		56470DC3E4AB72400F218DC64E833CE5 /* FLTWKProgressionDelegate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLTWKProgressionDelegate.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FLTWKProgressionDelegate.m"; sourceTree = "<group>"; };
@@ -716,27 +718,27 @@
 		5CF4B5F63BD3265913CF8E7274781EB3 /* FLTPHPickerSaveImageToPathOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLTPHPickerSaveImageToPathOperation.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/ios/Classes/FLTPHPickerSaveImageToPathOperation.h"; sourceTree = "<group>"; };
 		5D4BF96D294944C1F0CAB609D78723FA /* SwiftImageGallerySaverPlugin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftImageGallerySaverPlugin.swift; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_gallery_saver-1.7.1/ios/Classes/SwiftImageGallerySaverPlugin.swift"; sourceTree = "<group>"; };
 		5D8800B6DC17D7A6B7411AE8E5BE5551 /* UnknownPermissionStrategy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UnknownPermissionStrategy.h; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/strategies/UnknownPermissionStrategy.h"; sourceTree = "<group>"; };
-		5DE6929CCFFCA352A333A2DCC166C2B6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/LICENSE"; sourceTree = "<group>"; };
+		5DE6929CCFFCA352A333A2DCC166C2B6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/LICENSE"; sourceTree = "<group>"; };
 		5E1E3385B7F90BDDBB491E43F9D027A5 /* Flutter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Flutter.release.xcconfig; sourceTree = "<group>"; };
 		5EBF2939EF02CEAD1FF8EB8D466D5259 /* WXApiRequestHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WXApiRequestHandler.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/WXApiRequestHandler.m"; sourceTree = "<group>"; };
 		5F1C8564D167BD33CD00084D239DF372 /* FLTSharePlugin.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLTSharePlugin.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/share-2.0.4/ios/Classes/FLTSharePlugin.m"; sourceTree = "<group>"; };
 		61BB367A71B1D3492CE53D28F7DF68CD /* fluwx.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = fluwx.modulemap; sourceTree = "<group>"; };
 		633A526101E785F7CEFF83F78BC29837 /* SqfliteOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SqfliteOperation.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/sqflite-2.0.2+1/ios/Classes/SqfliteOperation.m"; sourceTree = "<group>"; };
-		633F325A0E58853537ECCD3B49C97692 /* ms.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ms.lproj; path = "Objective-C/TOCropViewController/Resources/ms.lproj"; sourceTree = "<group>"; };
+		633F325A0E58853537ECCD3B49C97692 /* ms.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ms.lproj; path = "Objective-C/TOCropViewController/Resources/ms.lproj"; sourceTree = "<group>"; };
 		6351EAF5BF8E8061573835FAF2EECBB6 /* NotificationPermissionStrategy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NotificationPermissionStrategy.h; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/strategies/NotificationPermissionStrategy.h"; sourceTree = "<group>"; };
 		637772866F7AEEFDEECFA23A1D65411A /* WXMediaMessage+messageConstruct.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WXMediaMessage+messageConstruct.h"; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/WXMediaMessage+messageConstruct.h"; sourceTree = "<group>"; };
-		63CB5A0E7012DAD6E2B111B6A18DCC89 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_cropper-3.0.0/LICENSE"; sourceTree = "<group>"; };
+		63CB5A0E7012DAD6E2B111B6A18DCC89 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_cropper-3.0.0/LICENSE"; sourceTree = "<group>"; };
 		63F8CB811EE3D7EDE7B8615D7B6D786B /* r_upgrade-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "r_upgrade-dummy.m"; sourceTree = "<group>"; };
 		6429154E428C3ED281EAE0D1A0FCA195 /* FLTDeviceInfoPlugin.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLTDeviceInfoPlugin.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/device_info-2.0.3/ios/Classes/FLTDeviceInfoPlugin.m"; sourceTree = "<group>"; };
 		64A402E9DF0C15188E3DF168F4173C78 /* FluwxStringUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FluwxStringUtil.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/FluwxStringUtil.m"; sourceTree = "<group>"; };
 		6511B6AAB01F85D60028E3EC25A69F55 /* FluwxPlugin.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FluwxPlugin.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/FluwxPlugin.m"; sourceTree = "<group>"; };
-		654E6F9808FF9DCF82CCFE5BE1E771B7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/path_provider_ios-2.0.11/LICENSE"; sourceTree = "<group>"; };
+		654E6F9808FF9DCF82CCFE5BE1E771B7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/path_provider_ios-2.0.11/LICENSE"; sourceTree = "<group>"; };
 		665C6A5C52D020BF32551274241D78EC /* EventPermissionStrategy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EventPermissionStrategy.h; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/strategies/EventPermissionStrategy.h"; sourceTree = "<group>"; };
 		669E8F25E1897672BDB80B7EB784DA24 /* Pods-Runner */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-Runner"; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		66FAF28A0657C7A0AF595542F97BF4F1 /* image_gallery_saver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = image_gallery_saver.release.xcconfig; sourceTree = "<group>"; };
 		67FF65C04A4E9A171465E57F9BD32BD4 /* FluwxResponseHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FluwxResponseHandler.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/FluwxResponseHandler.h"; sourceTree = "<group>"; };
 		69FA1FA295E8B26E0F22909D81FDA636 /* r_upgrade.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = r_upgrade.debug.xcconfig; sourceTree = "<group>"; };
-		6CCCCB85C3A11DCD244E914DB337D998 /* sqflite.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = sqflite.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/sqflite-2.0.2+1/ios/sqflite.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		6CCCCB85C3A11DCD244E914DB337D998 /* sqflite.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = sqflite.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/sqflite-2.0.2+1/ios/sqflite.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6CF1B6174C04B1259B69E60D668E5A09 /* Codec.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Codec.h; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/util/Codec.h"; sourceTree = "<group>"; };
 		6D42792DF7DE471DCFCF11225BEA6553 /* FWFWebViewHostApi.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FWFWebViewHostApi.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFWebViewHostApi.m"; sourceTree = "<group>"; };
 		6D70B589DD77A3575F2E1B5B6EABD221 /* FMDatabasePool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = src/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
@@ -750,15 +752,15 @@
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		734FFB265D8CDFC2B838D870582FC65E /* FluwxDelegate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FluwxDelegate.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/FluwxDelegate.m"; sourceTree = "<group>"; };
 		736C8269BFA60395DF5747CB68F6ED0E /* ThumbnailHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ThumbnailHelper.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/ThumbnailHelper.m"; sourceTree = "<group>"; };
-		7378813F84770C9CFD6EF469C93E3E39 /* cs.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = cs.lproj; path = "Objective-C/TOCropViewController/Resources/cs.lproj"; sourceTree = "<group>"; };
+		7378813F84770C9CFD6EF469C93E3E39 /* cs.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = cs.lproj; path = "Objective-C/TOCropViewController/Resources/cs.lproj"; sourceTree = "<group>"; };
 		7409A9316D1EEFAC7B383BE8CEC1BE03 /* webview_flutter_wkwebview */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = webview_flutter_wkwebview; path = webview_flutter_wkwebview.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		741248AF145E86174E2B45A7AEE0EBB0 /* PermissionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PermissionManager.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/PermissionManager.h"; sourceTree = "<group>"; };
-		741CED9A6FE68A3C86520E9179CD2643 /* r_upgrade.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = r_upgrade.podspec; path = "../../../../../../../../.pub-cache/git/r_upgrade-6811d6109dece7ac0227c68e87b500cd0aa766b6/ios/r_upgrade.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		741CED9A6FE68A3C86520E9179CD2643 /* r_upgrade.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = r_upgrade.podspec; path = "../../../../../../../../.pub-cache/git/r_upgrade-6811d6109dece7ac0227c68e87b500cd0aa766b6/ios/r_upgrade.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7488EB5EAD588EB9C6727AC6357D5A4C /* TOCropViewControllerTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TOCropViewControllerTransitioning.m; path = "Objective-C/TOCropViewController/Models/TOCropViewControllerTransitioning.m"; sourceTree = "<group>"; };
 		74F6B0F850AF60FC4AFA833641B7E17D /* TOCropScrollView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TOCropScrollView.h; path = "Objective-C/TOCropViewController/Views/TOCropScrollView.h"; sourceTree = "<group>"; };
 		75429ED5368B68B07C1090D566981115 /* FLTPackageInfoPlusPlugin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLTPackageInfoPlusPlugin.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/package_info_plus-1.4.0/ios/Classes/FLTPackageInfoPlusPlugin.h"; sourceTree = "<group>"; };
 		75601E2FEEE17534B7EA9B758066EE5B /* url_launcher_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = url_launcher_ios.debug.xcconfig; sourceTree = "<group>"; };
-		7578ECBC6D249F05648D23FAF722EAE3 /* ro.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ro.lproj; path = "Objective-C/TOCropViewController/Resources/ro.lproj"; sourceTree = "<group>"; };
+		7578ECBC6D249F05648D23FAF722EAE3 /* ro.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ro.lproj; path = "Objective-C/TOCropViewController/Resources/ro.lproj"; sourceTree = "<group>"; };
 		75FBB402D9CAE77C3D806FE345F68D01 /* package_info_plus.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = package_info_plus.modulemap; sourceTree = "<group>"; };
 		765B7E677C8A4F8388DC1123E94ACEE3 /* SensorPermissionStrategy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SensorPermissionStrategy.m; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/strategies/SensorPermissionStrategy.m"; sourceTree = "<group>"; };
 		768975E636D1D2FB85622FB67DB04E5A /* image_picker_ios */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = image_picker_ios; path = image_picker_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -768,7 +770,7 @@
 		78004F3410FA602A545C42595DA59546 /* RUpgradePlugin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RUpgradePlugin.h; path = "../../../../../../../../../.pub-cache/git/r_upgrade-6811d6109dece7ac0227c68e87b500cd0aa766b6/ios/Classes/RUpgradePlugin.h"; sourceTree = "<group>"; };
 		7862C607B7BE0510C2D65193F9B4B4F9 /* TOCropViewController */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TOCropViewController; path = TOCropViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78DF8F2A1B9F9F7BA7239698DABACBDA /* FLTCookieManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLTCookieManager.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FLTCookieManager.h"; sourceTree = "<group>"; };
-		79654C77BF5C760B1E3DABCECA6565B2 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = en.lproj; path = "Objective-C/TOCropViewController/Resources/en.lproj"; sourceTree = "<group>"; };
+		79654C77BF5C760B1E3DABCECA6565B2 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = en.lproj; path = "Objective-C/TOCropViewController/Resources/en.lproj"; sourceTree = "<group>"; };
 		79D7A332A8CB5CC4301D7F12D65FD704 /* PermissionHandlerPlugin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PermissionHandlerPlugin.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/PermissionHandlerPlugin.h"; sourceTree = "<group>"; };
 		7A7EADF46BA3259496EB770E1F1FE737 /* FLTWebViewFlutterPlugin.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLTWebViewFlutterPlugin.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FLTWebViewFlutterPlugin.m"; sourceTree = "<group>"; };
 		7AED62BE5EA24F1F4726A2ADEDC46DD9 /* FWFHTTPCookieStoreHostApi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FWFHTTPCookieStoreHostApi.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFHTTPCookieStoreHostApi.h"; sourceTree = "<group>"; };
@@ -801,15 +803,15 @@
 		90E1294BA06B47C5DE7BBCCC4D4AC77C /* webview_flutter_wkwebview.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = webview_flutter_wkwebview.release.xcconfig; sourceTree = "<group>"; };
 		9136DA429BCF64C54E6AD924EAF208E3 /* image_picker_ios-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "image_picker_ios-umbrella.h"; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/ios/Classes/image_picker_ios-umbrella.h"; sourceTree = "<group>"; };
 		91622FABBABEC57B0A57610E8A1D3A94 /* FWFScriptMessageHandlerHostApi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FWFScriptMessageHandlerHostApi.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFScriptMessageHandlerHostApi.h"; sourceTree = "<group>"; };
-		921204BF44C806DC19A484139DA64B56 /* path_provider_ios.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = path_provider_ios.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/path_provider_ios-2.0.11/ios/path_provider_ios.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		925CAEDE40621B5DA13FBC58238FCA7B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/LICENSE"; sourceTree = "<group>"; };
-		92F9D0009E793B68AFFD8A804C146527 /* image_picker_ios.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = image_picker_ios.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/ios/image_picker_ios.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		921204BF44C806DC19A484139DA64B56 /* path_provider_ios.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = path_provider_ios.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/path_provider_ios-2.0.11/ios/path_provider_ios.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		925CAEDE40621B5DA13FBC58238FCA7B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/LICENSE"; sourceTree = "<group>"; };
+		92F9D0009E793B68AFFD8A804C146527 /* image_picker_ios.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = image_picker_ios.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/ios/image_picker_ios.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		935E46D6836ACF0D7E8F4AC660A40DC3 /* share.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = share.modulemap; sourceTree = "<group>"; };
 		935E4CC9E83317814E0D88DCA774B79F /* PermissionHandlerPlugin.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PermissionHandlerPlugin.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/PermissionHandlerPlugin.m"; sourceTree = "<group>"; };
 		93E079A411989214028350A3B61EE33D /* webview_flutter_wkwebview.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = webview_flutter_wkwebview.modulemap; sourceTree = "<group>"; };
 		94075BFBF5C57BDCBF683263F14E3BE1 /* r_upgrade.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = r_upgrade.modulemap; sourceTree = "<group>"; };
 		942909226EB3B8503B5B00796CD44A1A /* FLTSharedPreferencesPlugin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLTSharedPreferencesPlugin.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/shared_preferences_ios-2.1.1/ios/Classes/FLTSharedPreferencesPlugin.h"; sourceTree = "<group>"; };
-		94363598B9B311A6E31AF857B12FE95F /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = de.lproj; path = "Objective-C/TOCropViewController/Resources/de.lproj"; sourceTree = "<group>"; };
+		94363598B9B311A6E31AF857B12FE95F /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = de.lproj; path = "Objective-C/TOCropViewController/Resources/de.lproj"; sourceTree = "<group>"; };
 		94987D991B5FFACDA7A2CB934C6BA92A /* FLTImagePickerPhotoAssetUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLTImagePickerPhotoAssetUtil.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/ios/Classes/FLTImagePickerPhotoAssetUtil.m"; sourceTree = "<group>"; };
 		94AA752BA987B9E4819CB4CF3E311830 /* messages.g.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = messages.g.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/path_provider_ios-2.0.11/ios/Classes/messages.g.h"; sourceTree = "<group>"; };
 		9589494CEF7BD1BFA760911FEC64522A /* AudioVideoPermissionStrategy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AudioVideoPermissionStrategy.m; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/strategies/AudioVideoPermissionStrategy.m"; sourceTree = "<group>"; };
@@ -818,25 +820,25 @@
 		97291569784BA3791D4948FE3101D825 /* NotificationPermissionStrategy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NotificationPermissionStrategy.m; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/strategies/NotificationPermissionStrategy.m"; sourceTree = "<group>"; };
 		99855E120520275891A9CA5317CAA5F4 /* url_launcher_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = url_launcher_ios.release.xcconfig; sourceTree = "<group>"; };
 		9A1EDE7EC9550B8B617BDB39BF898F6B /* SpeechPermissionStrategy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SpeechPermissionStrategy.h; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/strategies/SpeechPermissionStrategy.h"; sourceTree = "<group>"; };
-		9A22E19161CBE9A65902699A71113DF0 /* fi.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = fi.lproj; path = "Objective-C/TOCropViewController/Resources/fi.lproj"; sourceTree = "<group>"; };
+		9A22E19161CBE9A65902699A71113DF0 /* fi.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = fi.lproj; path = "Objective-C/TOCropViewController/Resources/fi.lproj"; sourceTree = "<group>"; };
 		9A23D06F865196207161C847735DA858 /* FLTURLLauncherPlugin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLTURLLauncherPlugin.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/url_launcher_ios-6.0.17/ios/Classes/FLTURLLauncherPlugin.h"; sourceTree = "<group>"; };
-		9A6A5F5B7E352C0CF9DC29C89E7B319F /* fa.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = fa.lproj; path = "Objective-C/TOCropViewController/Resources/fa.lproj"; sourceTree = "<group>"; };
-		9A89B53027F2E5967B3449850A387201 /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = fr.lproj; path = "Objective-C/TOCropViewController/Resources/fr.lproj"; sourceTree = "<group>"; };
+		9A6A5F5B7E352C0CF9DC29C89E7B319F /* fa.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = fa.lproj; path = "Objective-C/TOCropViewController/Resources/fa.lproj"; sourceTree = "<group>"; };
+		9A89B53027F2E5967B3449850A387201 /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = fr.lproj; path = "Objective-C/TOCropViewController/Resources/fr.lproj"; sourceTree = "<group>"; };
 		9B249BD6696487EA29AE69D8F7BFEE23 /* fluwx */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = fluwx; path = fluwx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BCAC5840F7707D2E9E59193303AB566 /* FFSFileSelectorPlugin_Test.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FFSFileSelectorPlugin_Test.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/file_selector_ios-0.5.0+2/ios/Classes/FFSFileSelectorPlugin_Test.h"; sourceTree = "<group>"; };
 		9BF650B45D93598F4D30E98FCF60697F /* FluwxShareHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FluwxShareHandler.h; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/public/FluwxShareHandler.h"; sourceTree = "<group>"; };
 		9BFC15C3C906A9C3053FC5A1E7A093EE /* NSStringWrapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NSStringWrapper.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/NSStringWrapper.m"; sourceTree = "<group>"; };
 		9C01783B3E70377221175E3BC1DD23E1 /* FLTImagePickerPlugin.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLTImagePickerPlugin.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/ios/Classes/FLTImagePickerPlugin.m"; sourceTree = "<group>"; };
-		9D0D5AF5F5D1171AF68CBFF11A07221F /* id.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = id.lproj; path = "Objective-C/TOCropViewController/Resources/id.lproj"; sourceTree = "<group>"; };
+		9D0D5AF5F5D1171AF68CBFF11A07221F /* id.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = id.lproj; path = "Objective-C/TOCropViewController/Resources/id.lproj"; sourceTree = "<group>"; };
 		9D15929A7A99272D9539565E53819C0E /* libWeChatSDK.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = Pod/Library/lib/libWeChatSDK.a; sourceTree = "<group>"; };
 		9D4FE3725D7AFE546F24C614922A57C4 /* webview-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "webview-umbrella.h"; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/webview-umbrella.h"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DE2C5FB92889028E9DAEBC81231108D /* shared_preferences_ios */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = shared_preferences_ios; path = shared_preferences_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E1AD3B2C5E6817E47982909A0AB2664 /* sqflite-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "sqflite-prefix.pch"; sourceTree = "<group>"; };
 		9E805E0E34B63BB9E696579E24F1D1A7 /* PermissionStrategy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PermissionStrategy.h; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/strategies/PermissionStrategy.h"; sourceTree = "<group>"; };
 		9F5DD00F7AD1844A02AC481239790F32 /* FMDB-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "FMDB-Info.plist"; sourceTree = "<group>"; };
 		9F79F8269DC34AC56BB3D1D9652C0D86 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
-		A0B3F7A72D1C21D77DD178DFADABFB44 /* hu.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = hu.lproj; path = "Objective-C/TOCropViewController/Resources/hu.lproj"; sourceTree = "<group>"; };
+		A0B3F7A72D1C21D77DD178DFADABFB44 /* hu.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = hu.lproj; path = "Objective-C/TOCropViewController/Resources/hu.lproj"; sourceTree = "<group>"; };
 		A0C35929F4EAC56B69C40F3C338BB737 /* FLTDeviceInfoPlugin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLTDeviceInfoPlugin.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/device_info-2.0.3/ios/Classes/FLTDeviceInfoPlugin.h"; sourceTree = "<group>"; };
 		A1FAE194602965C35DF6F7EDAACC44FE /* share */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = share; path = share.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A260F7D26AF459008B967AB64ABB09AA /* image_picker_ios-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "image_picker_ios-prefix.pch"; sourceTree = "<group>"; };
@@ -881,15 +883,15 @@
 		BCD2FB6BDA3F25313FA36D3978EC5CA3 /* SqflitePlugin.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SqflitePlugin.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/sqflite-2.0.2+1/ios/Classes/SqflitePlugin.m"; sourceTree = "<group>"; };
 		BD7D288635A50D4C1C448283AEFADD25 /* shared_preferences_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared_preferences_ios.release.xcconfig; sourceTree = "<group>"; };
 		BDA6E968DEB1F8C70905192E5894B05C /* file_selector_ios-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "file_selector_ios-prefix.pch"; sourceTree = "<group>"; };
-		BDD76C18E864B2980A39CEEC301965F2 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/LICENSE"; sourceTree = "<group>"; };
+		BDD76C18E864B2980A39CEEC301965F2 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/LICENSE"; sourceTree = "<group>"; };
 		BE4FF6CD8709BC20B5E7D2CA84B3ADBB /* PhonePermissionStrategy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PhonePermissionStrategy.h; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/strategies/PhonePermissionStrategy.h"; sourceTree = "<group>"; };
 		BEDB77D7DFDD5C9008E7D3FC4206FEC9 /* path_provider_ios */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = path_provider_ios; path = path_provider_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BFDAB553212C30410EB3478F28AF88C1 /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = it.lproj; path = "Objective-C/TOCropViewController/Resources/it.lproj"; sourceTree = "<group>"; };
+		BFDAB553212C30410EB3478F28AF88C1 /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = it.lproj; path = "Objective-C/TOCropViewController/Resources/it.lproj"; sourceTree = "<group>"; };
 		C05D7D73BE22449E8A79CB5CB97F831E /* image_gallery_saver-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "image_gallery_saver-umbrella.h"; sourceTree = "<group>"; };
-		C06E5CF36D52928969E2F137232D6D5A /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ja.lproj; path = "Objective-C/TOCropViewController/Resources/ja.lproj"; sourceTree = "<group>"; };
+		C06E5CF36D52928969E2F137232D6D5A /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ja.lproj; path = "Objective-C/TOCropViewController/Resources/ja.lproj"; sourceTree = "<group>"; };
 		C11482F15D79DEE696A2054AB721C229 /* SqfliteOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SqfliteOperation.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/sqflite-2.0.2+1/ios/Classes/SqfliteOperation.h"; sourceTree = "<group>"; };
 		C20871A99E26F27F03F4AB30F396AD9E /* FlutterWebView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FlutterWebView.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FlutterWebView.m"; sourceTree = "<group>"; };
-		C211FEBE47740C28269581AFF2BB4782 /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hans.lproj"; path = "Objective-C/TOCropViewController/Resources/zh-Hans.lproj"; sourceTree = "<group>"; };
+		C211FEBE47740C28269581AFF2BB4782 /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "zh-Hans.lproj"; path = "Objective-C/TOCropViewController/Resources/zh-Hans.lproj"; sourceTree = "<group>"; };
 		C2787E9ABDCD9823FA14AC7A08C24207 /* permission_handler_apple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = permission_handler_apple.debug.xcconfig; sourceTree = "<group>"; };
 		C28EFA6973BD268C57B1AD133DC675E9 /* ContactPermissionStrategy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ContactPermissionStrategy.m; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/strategies/ContactPermissionStrategy.m"; sourceTree = "<group>"; };
 		C2F8FFF1F37E23E55DE83E14BD5C0A7F /* TOCropViewController-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "TOCropViewController-Info.plist"; sourceTree = "<group>"; };
@@ -900,44 +902,44 @@
 		C6D78B3A8054B4D7C99FC80701ADA3A3 /* file_selector_ios */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = file_selector_ios; path = file_selector_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6EA98402A94995D022D330B64B5203D /* Pods-Runner-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Runner-acknowledgements.markdown"; sourceTree = "<group>"; };
 		C7AD28D5FB25A8DEDF61F78996932FA6 /* permission_handler_apple */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = permission_handler_apple; path = permission_handler_apple.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CA4DE752CDA6A9546C90C948D94BC910 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/LICENSE"; sourceTree = "<group>"; };
+		CA4DE752CDA6A9546C90C948D94BC910 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/LICENSE"; sourceTree = "<group>"; };
 		CDAECCF4B5E08124ED410F09FD5A5DF9 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		CF377E07F447E978C585B665EC3D0519 /* share-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "share-Info.plist"; sourceTree = "<group>"; };
 		CFF1279B4B77749989CF3CAFA52A0EAB /* url_launcher_ios.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = url_launcher_ios.modulemap; sourceTree = "<group>"; };
 		D1ABFCF7F4759EFECFE0DD18182FC046 /* FLTSharePlugin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLTSharePlugin.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/share-2.0.4/ios/Classes/FLTSharePlugin.h"; sourceTree = "<group>"; };
 		D1C6E068AF35652100E465D4DD6CB363 /* image_gallery_saver-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "image_gallery_saver-Info.plist"; sourceTree = "<group>"; };
-		D1F9896AB098FCBCFD21907F9E839D7E /* fa-IR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "fa-IR.lproj"; path = "Objective-C/TOCropViewController/Resources/fa-IR.lproj"; sourceTree = "<group>"; };
+		D1F9896AB098FCBCFD21907F9E839D7E /* fa-IR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "fa-IR.lproj"; path = "Objective-C/TOCropViewController/Resources/fa-IR.lproj"; sourceTree = "<group>"; };
 		D2FA70CA298C392CB8332ADEEDD1CE85 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		D40AD108A75676C718E5742179DE3D44 /* path_provider_ios-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "path_provider_ios-umbrella.h"; sourceTree = "<group>"; };
 		D4ED05D0B153234230CFBD30BE013064 /* ImageGallerySaverPlugin.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ImageGallerySaverPlugin.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_gallery_saver-1.7.1/ios/Classes/ImageGallerySaverPlugin.m"; sourceTree = "<group>"; };
 		D5745055E5F27F3C0B50844668CFA29A /* FWFUserContentControllerHostApi.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FWFUserContentControllerHostApi.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFUserContentControllerHostApi.m"; sourceTree = "<group>"; };
 		D59587446B560611CBD791B44E2D4FCF /* TOCropView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TOCropView.m; path = "Objective-C/TOCropViewController/Views/TOCropView.m"; sourceTree = "<group>"; };
-		D5EFEFFE1885466F79ACED3DEFB7A119 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/package_info_plus-1.4.0/LICENSE"; sourceTree = "<group>"; };
+		D5EFEFFE1885466F79ACED3DEFB7A119 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/package_info_plus-1.4.0/LICENSE"; sourceTree = "<group>"; };
 		D6D84A4A4BB3406135BA1A4BBC8B8861 /* WXMediaMessage+messageConstruct.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "WXMediaMessage+messageConstruct.m"; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/WXMediaMessage+messageConstruct.m"; sourceTree = "<group>"; };
-		D784A30946F08E60C41677ED456FF90B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/shared_preferences_ios-2.1.1/LICENSE"; sourceTree = "<group>"; };
+		D784A30946F08E60C41677ED456FF90B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/shared_preferences_ios-2.1.1/LICENSE"; sourceTree = "<group>"; };
 		D83C9D149E6F6AF8A7FD24058E99CC04 /* package_info_plus-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "package_info_plus-prefix.pch"; sourceTree = "<group>"; };
 		D8890DFDA3AA6D4E2AD8D5CA36E5042D /* SendMessageToWXReq+requestWithTextOrMediaMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SendMessageToWXReq+requestWithTextOrMediaMessage.h"; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/SendMessageToWXReq+requestWithTextOrMediaMessage.h"; sourceTree = "<group>"; };
-		D8C743265092824EC4C9BFE3C5394FAC /* shared_preferences_ios.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = shared_preferences_ios.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/shared_preferences_ios-2.1.1/ios/shared_preferences_ios.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D8C743265092824EC4C9BFE3C5394FAC /* shared_preferences_ios.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = shared_preferences_ios.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/shared_preferences_ios-2.1.1/ios/shared_preferences_ios.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D934A9B955FCAE60ED15C88AB794CDE8 /* image_cropper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = image_cropper.release.xcconfig; sourceTree = "<group>"; };
 		D9B2EDF4551091237CAEBEA279D8A59E /* image_picker_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = image_picker_ios.debug.xcconfig; sourceTree = "<group>"; };
-		D9F0EFEFBCBA48631CA3D84B28D66971 /* webview_flutter_wkwebview.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = webview_flutter_wkwebview.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/webview_flutter_wkwebview.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D9F0EFEFBCBA48631CA3D84B28D66971 /* webview_flutter_wkwebview.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = webview_flutter_wkwebview.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/webview_flutter_wkwebview.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D9F2B4CB813B4BDC4D164C6E0868930A /* Pods-Runner-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Runner-acknowledgements.plist"; sourceTree = "<group>"; };
 		DA19BA22BF8D0E2D4C473CE695B23A76 /* url_launcher_ios-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "url_launcher_ios-Info.plist"; sourceTree = "<group>"; };
-		DB2BFCBA436A67A09B8ED42F9B4DB73C /* share.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = share.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/share-2.0.4/ios/share.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		DB2BFCBA436A67A09B8ED42F9B4DB73C /* share.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = share.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/share-2.0.4/ios/share.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		DB3ECD7A4851DDB51A1CBA347F3AADDB /* FWFGeneratedWebKitApis.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FWFGeneratedWebKitApis.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFGeneratedWebKitApis.m"; sourceTree = "<group>"; };
 		DC4CD87B9956CF6CBFD6A44DFB1101B0 /* UIImage+CropRotate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+CropRotate.m"; path = "Objective-C/TOCropViewController/Categories/UIImage+CropRotate.m"; sourceTree = "<group>"; };
-		DCDC32049138B8626150D626EC4E4B5D /* fluwx.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = fluwx.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/fluwx.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		DCDC32049138B8626150D626EC4E4B5D /* fluwx.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = fluwx.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/fluwx.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		DEAE37A815AAE739C62A565FA2654313 /* FLTImagePickerMetaDataUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FLTImagePickerMetaDataUtil.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/ios/Classes/FLTImagePickerMetaDataUtil.m"; sourceTree = "<group>"; };
-		DF0903F239DDBBFC9FC13E08589350A9 /* ar.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ar.lproj; path = "Objective-C/TOCropViewController/Resources/ar.lproj"; sourceTree = "<group>"; };
+		DF0903F239DDBBFC9FC13E08589350A9 /* ar.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ar.lproj; path = "Objective-C/TOCropViewController/Resources/ar.lproj"; sourceTree = "<group>"; };
 		DFA2448EAD89B1C32840A51FEFF52867 /* TOCropOverlayView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TOCropOverlayView.m; path = "Objective-C/TOCropViewController/Views/TOCropOverlayView.m"; sourceTree = "<group>"; };
 		E024BB1F5445D27E19CDFC6C80BBA547 /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
-		E0FFB12337108E1AA20465FB5E51F449 /* image_cropper.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = image_cropper.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_cropper-3.0.0/ios/image_cropper.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		E0FFB12337108E1AA20465FB5E51F449 /* image_cropper.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = image_cropper.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_cropper-3.0.0/ios/image_cropper.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		E2A300B31212D329DE9FF389421DE5CC /* FMDB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FMDB.debug.xcconfig; sourceTree = "<group>"; };
 		E3B84C1138166AADE92D1EEE0B2065C8 /* FLTImagePickerPhotoAssetUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLTImagePickerPhotoAssetUtil.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/ios/Classes/FLTImagePickerPhotoAssetUtil.h"; sourceTree = "<group>"; };
 		E42112B30444DF445E84EA788F35BEEC /* JavaScriptChannelHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JavaScriptChannelHandler.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/JavaScriptChannelHandler.m"; sourceTree = "<group>"; };
 		E43971FEFA62582D8FC451E4371C467F /* shared_preferences_ios-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "shared_preferences_ios-umbrella.h"; sourceTree = "<group>"; };
 		E480DB5EB6BEA6E71598965F155F6CF7 /* FWFNavigationDelegateHostApi.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FWFNavigationDelegateHostApi.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFNavigationDelegateHostApi.m"; sourceTree = "<group>"; };
-		E4DA05869069012B16016C4D9039A631 /* url_launcher_ios.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = url_launcher_ios.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/url_launcher_ios-6.0.17/ios/url_launcher_ios.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		E4DA05869069012B16016C4D9039A631 /* url_launcher_ios.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = url_launcher_ios.podspec; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/url_launcher_ios-6.0.17/ios/url_launcher_ios.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		E5408A63CF38AEE78F4705CBAFC91DC4 /* FLTWebViewFlutterPlugin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FLTWebViewFlutterPlugin.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FLTWebViewFlutterPlugin.h"; sourceTree = "<group>"; };
 		E6B2C18E45E506452F9351263E9C65DB /* FWFScrollViewHostApi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FWFScrollViewHostApi.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFScrollViewHostApi.h"; sourceTree = "<group>"; };
 		E70B6F8AC3D1A512C7DAD75733B647AD /* StoragePermissionStrategy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StoragePermissionStrategy.m; path = "../../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.4/ios/Classes/strategies/StoragePermissionStrategy.m"; sourceTree = "<group>"; };
@@ -948,7 +950,7 @@
 		E92522511E2FF0553009C8604590AD5E /* ImagePickerPlugin.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = ImagePickerPlugin.modulemap; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_picker_ios-0.8.6+1/ios/Classes/ImagePickerPlugin.modulemap"; sourceTree = "<group>"; };
 		EA5742351914065BCBEB9026AA0ADA61 /* image_cropper */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = image_cropper; path = image_cropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB6B391F8577E966787B602AE811D589 /* image_cropper-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "image_cropper-dummy.m"; sourceTree = "<group>"; };
-		ED636C7F4BE3C7E63778E32460A4492C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_gallery_saver-1.7.1/LICENSE"; sourceTree = "<group>"; };
+		ED636C7F4BE3C7E63778E32460A4492C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = "../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/image_gallery_saver-1.7.1/LICENSE"; sourceTree = "<group>"; };
 		ED712BCBE4B6E37AEA7C32CF38D1CEA9 /* package_info_plus-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "package_info_plus-Info.plist"; sourceTree = "<group>"; };
 		EFA902CEC00219F42020F94C0510F24D /* device_info.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = device_info.debug.xcconfig; sourceTree = "<group>"; };
 		EFD0BFD2AC8982EBAA856445CCB0D282 /* FWFGeneratedWebKitApis.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FWFGeneratedWebKitApis.h; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/webview_flutter_wkwebview-2.7.5/ios/Classes/FWFGeneratedWebKitApis.h"; sourceTree = "<group>"; };
@@ -956,7 +958,7 @@
 		F450C06130E0E25F684C228D4E31CAAF /* UIImage+CropRotate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+CropRotate.h"; path = "Objective-C/TOCropViewController/Categories/UIImage+CropRotate.h"; sourceTree = "<group>"; };
 		F49C32B3B8CF59AB437BFD7314674868 /* Pods-Runner.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Runner.modulemap"; sourceTree = "<group>"; };
 		F50B0093E0BD73E568CAC3108A4AD353 /* FluwxShareHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FluwxShareHandler.m; path = "../../../../../../../../../.pub-cache/hosted/pub.flutter-io.cn/fluwx-3.9.2/ios/Classes/FluwxShareHandler.m"; sourceTree = "<group>"; };
-		F536DBA33E04E3E9FDD58C96FCA5E05A /* Flutter.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = Flutter.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		F536DBA33E04E3E9FDD58C96FCA5E05A /* Flutter.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = Flutter.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F603D4770DA21D4E3A2DF4889E7C9334 /* file_selector_ios-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "file_selector_ios-Info.plist"; sourceTree = "<group>"; };
 		F7D8E47B789FF8F1490C834BFD3F61BA /* FMDatabase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
 		F81B5B9A7DC358CB175B5E25FC1638E6 /* FMDatabase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = src/fmdb/FMDatabase.m; sourceTree = "<group>"; };
@@ -965,7 +967,7 @@
 		F94F7095ACDE1188F352A9F607C6E9F9 /* TOCropView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TOCropView.h; path = "Objective-C/TOCropViewController/Views/TOCropView.h"; sourceTree = "<group>"; };
 		FA374A726727CFB9529DA9FAB40DB70D /* permission_handler_apple.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = permission_handler_apple.modulemap; sourceTree = "<group>"; };
 		FDCF042391FF15B946CDE5C0C231741A /* TOCropViewController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TOCropViewController-prefix.pch"; sourceTree = "<group>"; };
-		FE1E812071397E31AE21DFF368B781B1 /* TOCropViewController-TOCropViewControllerBundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "TOCropViewController-TOCropViewControllerBundle"; path = TOCropViewControllerBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE1E812071397E31AE21DFF368B781B1 /* TOCropViewControllerBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TOCropViewControllerBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1128,7 +1130,6 @@
 			children = (
 				516948E8EB4DD45A552280E9AADF6B25 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1137,7 +1138,6 @@
 			children = (
 				066E384EF2C307CD13EDABCA254E5D67 /* ios */,
 			);
-			name = code_zero;
 			path = code_zero;
 			sourceTree = "<group>";
 		};
@@ -1146,7 +1146,6 @@
 			children = (
 				81E23E74D1C59DAD23FD54CB5B6B6987 /* .symlinks */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -1155,7 +1154,6 @@
 			children = (
 				76D584AD18925E75CED5A1A7E98AFED0 /* Classes */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -1190,7 +1188,6 @@
 			children = (
 				F2DA7480A602FEAB85E8E4C15B5BEAD4 /* .symlinks */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -1199,7 +1196,6 @@
 			children = (
 				1606792201342CBD593B2BA3CAD596BC /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1231,7 +1227,6 @@
 			children = (
 				0F7928FB2CD95DB11100321BFC7C4BC5 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1240,7 +1235,6 @@
 			children = (
 				698D271C7578BE1FF3DB4F85525A33E0 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1249,7 +1243,6 @@
 			children = (
 				9245C6AB49F58B7A3EA2CA95E8EBDFCE /* plugins */,
 			);
-			name = .symlinks;
 			path = .symlinks;
 			sourceTree = "<group>";
 		};
@@ -1258,7 +1251,6 @@
 			children = (
 				41E847C3143D12927E0C67E7855795BE /* .symlinks */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -1267,7 +1259,6 @@
 			children = (
 				68595DAC5E97FE7F4DCF04482D68629A /* plugins */,
 			);
-			name = .symlinks;
 			path = .symlinks;
 			sourceTree = "<group>";
 		};
@@ -1276,7 +1267,6 @@
 			children = (
 				ACDDB4A0A24992ADF5F97758BDB0DA00 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1301,7 +1291,6 @@
 				6CF1B6174C04B1259B69E60D668E5A09 /* Codec.h */,
 				A592DB937D18AA42C88E709C9B9E72DA /* Codec.m */,
 			);
-			name = util;
 			path = util;
 			sourceTree = "<group>";
 		};
@@ -1310,7 +1299,6 @@
 			children = (
 				334D20C73544A5F6F2C4C217E463FACB /* chuancui */,
 			);
-			name = Desktop;
 			path = Desktop;
 			sourceTree = "<group>";
 		};
@@ -1319,7 +1307,6 @@
 			children = (
 				9B7B80667F43756B415B7F95347F826E /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1328,7 +1315,6 @@
 			children = (
 				08C2FF35045C2DB50B27713EF187ACCE /* ios */,
 			);
-			name = code_zero;
 			path = code_zero;
 			sourceTree = "<group>";
 		};
@@ -1348,7 +1334,6 @@
 			children = (
 				BA968F8E69306E0F6677CFA7BA128FED /* chuancui */,
 			);
-			name = Desktop;
 			path = Desktop;
 			sourceTree = "<group>";
 		};
@@ -1357,7 +1342,6 @@
 			children = (
 				69F1DA1270F20C275EF9504AB18472B0 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1366,7 +1350,6 @@
 			children = (
 				AECBB74C706EF53BD8BEA38B54ED511E /* permission_handler_apple */,
 			);
-			name = plugins;
 			path = plugins;
 			sourceTree = "<group>";
 		};
@@ -1375,7 +1358,6 @@
 			children = (
 				96D795C9DF3AE363C96F7CC687C6E92C /* plugins */,
 			);
-			name = .symlinks;
 			path = .symlinks;
 			sourceTree = "<group>";
 		};
@@ -1384,7 +1366,6 @@
 			children = (
 				9B89B595A921816D08F01FC50DB37069 /* Desktop */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1393,7 +1374,6 @@
 			children = (
 				52319C7BF1136A93FC8C44501594DADA /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1402,7 +1382,6 @@
 			children = (
 				7BE1A1C63C76408B0C4CC2DB9F0307F3 /* plugins */,
 			);
-			name = .symlinks;
 			path = .symlinks;
 			sourceTree = "<group>";
 		};
@@ -1411,7 +1390,6 @@
 			children = (
 				AC6111B7E31DBFFE22F2D8ACBA20A729 /* chuancui */,
 			);
-			name = Desktop;
 			path = Desktop;
 			sourceTree = "<group>";
 		};
@@ -1436,7 +1414,6 @@
 			children = (
 				34A87C7383E158DE09875C505FFCCE54 /* chuancui */,
 			);
-			name = Desktop;
 			path = Desktop;
 			sourceTree = "<group>";
 		};
@@ -1455,7 +1432,6 @@
 			children = (
 				7B7CAFC6876AD3D90E61B5D9A5D3855A /* code_zero */,
 			);
-			name = chuancui;
 			path = chuancui;
 			sourceTree = "<group>";
 		};
@@ -1473,7 +1449,6 @@
 			children = (
 				A6D5A97CE2A5B16082482380C65ED4FB /* url_launcher_ios */,
 			);
-			name = plugins;
 			path = plugins;
 			sourceTree = "<group>";
 		};
@@ -1482,7 +1457,6 @@
 			children = (
 				FDADA827C387EB9A480A6EED43EE8D77 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1502,7 +1476,6 @@
 			children = (
 				D73AB808134EFE9E44AA01D07717CC7A /* Classes */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -1529,7 +1502,6 @@
 				94AA752BA987B9E4819CB4CF3E311830 /* messages.g.h */,
 				7D50578624C285421159C157A23A572F /* messages.g.m */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -1538,7 +1510,6 @@
 			children = (
 				A44BDC6EBE77E33768B9F1BFD5DF2CC9 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1547,7 +1518,6 @@
 			children = (
 				8C3917B88E7E97B6F8A5EEF04CAB88E2 /* chuancui */,
 			);
-			name = Desktop;
 			path = Desktop;
 			sourceTree = "<group>";
 		};
@@ -1566,7 +1536,6 @@
 			children = (
 				F2DAA44BF3D305EC7D1224C0D5AD6AF5 /* Desktop */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1575,7 +1544,6 @@
 			children = (
 				BCA81EBC201456D16C27F225C4B8047E /* chuancui */,
 			);
-			name = Desktop;
 			path = Desktop;
 			sourceTree = "<group>";
 		};
@@ -1594,7 +1562,6 @@
 			children = (
 				C92B95B8C733C5DCDA6BC043598618DC /* Desktop */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1618,7 +1585,6 @@
 			children = (
 				DB923B4AF84355C9D9FFAA6E82F50D4B /* Desktop */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1637,7 +1603,6 @@
 			children = (
 				58E22207E94F0FAA1B6248B9A7E9F6CE /* ios */,
 			);
-			name = code_zero;
 			path = code_zero;
 			sourceTree = "<group>";
 		};
@@ -1646,7 +1611,6 @@
 			children = (
 				D8FC2528448846122CD501BBAF365E41 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1655,7 +1619,6 @@
 			children = (
 				690BC8C5A7B09E20A07206D60F07E345 /* image_picker_ios */,
 			);
-			name = plugins;
 			path = plugins;
 			sourceTree = "<group>";
 		};
@@ -1664,7 +1627,6 @@
 			children = (
 				01DB1903CF2A73D71CAC029DDE18D8B2 /* code_zero */,
 			);
-			name = chuancui;
 			path = chuancui;
 			sourceTree = "<group>";
 		};
@@ -1673,7 +1635,6 @@
 			children = (
 				322B674B559F546169A8A215294595E5 /* code_zero */,
 			);
-			name = chuancui;
 			path = chuancui;
 			sourceTree = "<group>";
 		};
@@ -1682,7 +1643,6 @@
 			children = (
 				DD167E0E9975E0D76B2E4775276E1A91 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1700,7 +1660,6 @@
 			children = (
 				32D0B7F52BA7EA89C5C507B239BDDFAA /* plugins */,
 			);
-			name = .symlinks;
 			path = .symlinks;
 			sourceTree = "<group>";
 		};
@@ -1709,7 +1668,6 @@
 			children = (
 				3077D93A3104025D4147ABEB98BA17CA /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1741,7 +1699,6 @@
 			children = (
 				9441FC29B517AF3FF7BEBCF3C12B53EE /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1750,7 +1707,6 @@
 			children = (
 				A91D8A7D0FB515BA7C24CDE0FBA15254 /* ios */,
 			);
-			name = path_provider_ios;
 			path = path_provider_ios;
 			sourceTree = "<group>";
 		};
@@ -1759,7 +1715,6 @@
 			children = (
 				6DFFA36E65E9C2FE1DCBB8BF215CAB4C /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1777,7 +1732,6 @@
 			children = (
 				9A07B42F199ADB2BB5A5F0E193AC6FFE /* ios */,
 			);
-			name = r_upgrade;
 			path = r_upgrade;
 			sourceTree = "<group>";
 		};
@@ -1786,7 +1740,6 @@
 			children = (
 				ACCA7631C674D59CE5697B746920C8D1 /* Classes */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -1795,7 +1748,6 @@
 			children = (
 				7EE1FCF2956BEE6255D17296EFD7702F /* webview_flutter_wkwebview */,
 			);
-			name = plugins;
 			path = plugins;
 			sourceTree = "<group>";
 		};
@@ -1804,7 +1756,6 @@
 			children = (
 				6E3CCF02FB711C4913B9AAB0CE6E43F9 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1872,7 +1823,6 @@
 				E42112B30444DF445E84EA788F35BEEC /* JavaScriptChannelHandler.m */,
 				9D4FE3725D7AFE546F24C614922A57C4 /* webview-umbrella.h */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -1881,7 +1831,6 @@
 			children = (
 				3C9ADD85DF28E7E56714B572C4B0ED9A /* r_upgrade */,
 			);
-			name = plugins;
 			path = plugins;
 			sourceTree = "<group>";
 		};
@@ -1900,7 +1849,6 @@
 			children = (
 				21BC6228AC453C4CEB57A55735ECB7A1 /* plugins */,
 			);
-			name = .symlinks;
 			path = .symlinks;
 			sourceTree = "<group>";
 		};
@@ -1909,7 +1857,6 @@
 			children = (
 				7EE94E17179D2C6440144B8B4020C754 /* Desktop */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1924,7 +1871,6 @@
 				7C6E344FB4B30C07A26845A9D8E2F16F /* strategies */,
 				100AA48C4178F453776D45E494EF7BFA /* util */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -1933,7 +1879,6 @@
 			children = (
 				E8F74E26AFE8559FD87A3DFC5C46C19F /* .symlinks */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -1957,7 +1902,6 @@
 			children = (
 				6BFF21641ECB6DBE279903FEC2D45F68 /* Desktop */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -1966,7 +1910,6 @@
 			children = (
 				9BD8118AEB7672AD7949184A4FD9A9A1 /* chuancui */,
 			);
-			name = Desktop;
 			path = Desktop;
 			sourceTree = "<group>";
 		};
@@ -1986,7 +1929,6 @@
 			children = (
 				487B5FBAC0799727B6C6E812C6102965 /* Desktop */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2010,7 +1952,6 @@
 			children = (
 				6A96F0D43EAA59F6C7D625083EF121A6 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2037,7 +1978,6 @@
 			children = (
 				4CCB26A9F6F10F4681E058E256338C1E /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2046,7 +1986,6 @@
 			children = (
 				432A5A742CCFF5256DD8692056ADA1B6 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2064,7 +2003,6 @@
 			children = (
 				C3BDD7E9AB3A29BE9E552E772B2ACA81 /* .symlinks */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -2073,7 +2011,6 @@
 			children = (
 				DCA7708DD62204C67BF2770251056123 /* Classes */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -2082,7 +2019,6 @@
 			children = (
 				1AFF18D06E58E3E40E66FA8F34A5FE81 /* Desktop */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2093,7 +2029,6 @@
 				4B1A5985A2ECF2A6F63CD82ECA3DF65E /* RUpgradePlugin.m */,
 				0F3BAD4226C7367639F76FB665A5531B /* SwiftRUpgradePlugin.swift */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -2111,7 +2046,6 @@
 			children = (
 				F6BDE4D143B2A012D6BAB802FA57BDD7 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2120,7 +2054,6 @@
 			children = (
 				F1E3100CC8E82B420E6F78F954036A1C /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2146,7 +2079,6 @@
 			children = (
 				18970405FE36FC8F32496B32D977FA85 /* .symlinks */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -2155,7 +2087,6 @@
 			children = (
 				D5781F9DBFF8C8AB2FCE047D6CDB964B /* ios */,
 			);
-			name = code_zero;
 			path = code_zero;
 			sourceTree = "<group>";
 		};
@@ -2201,7 +2132,6 @@
 				D1ABFCF7F4759EFECFE0DD18182FC046 /* FLTSharePlugin.h */,
 				5F1C8564D167BD33CD00084D239DF372 /* FLTSharePlugin.m */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -2210,7 +2140,6 @@
 			children = (
 				0EE95BF9A30918CC65C0466F40EAA6CC /* .symlinks */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -2219,7 +2148,6 @@
 			children = (
 				5E08D1A6FBF9D69F59483F462E1E2F42 /* ios */,
 			);
-			name = code_zero;
 			path = code_zero;
 			sourceTree = "<group>";
 		};
@@ -2237,7 +2165,6 @@
 			children = (
 				159FFF2C990F0E4981C2F4B574DD53E2 /* .symlinks */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -2255,7 +2182,6 @@
 			children = (
 				D905A7BD85E9EF163D2EAEBD6B8DB614 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2264,7 +2190,6 @@
 			children = (
 				6D51E001BDDE784BC9BDE7AC4A342C98 /* ios */,
 			);
-			name = code_zero;
 			path = code_zero;
 			sourceTree = "<group>";
 		};
@@ -2273,7 +2198,6 @@
 			children = (
 				C67DCA441182632B70C956321913E3CF /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2297,7 +2221,6 @@
 			children = (
 				9FFCA401A1B2E23A76BC553C3CC32C27 /* fluwx */,
 			);
-			name = plugins;
 			path = plugins;
 			sourceTree = "<group>";
 		};
@@ -2315,7 +2238,6 @@
 			children = (
 				5044B21A56FCA5338A53603196332DE2 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2333,7 +2255,6 @@
 			children = (
 				10D85CC61825E6096E47175F72F0A810 /* Desktop */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2353,7 +2274,6 @@
 			children = (
 				0EE85DFB5B02C1E7F5D247D96466C949 /* ios */,
 			);
-			name = code_zero;
 			path = code_zero;
 			sourceTree = "<group>";
 		};
@@ -2362,7 +2282,6 @@
 			children = (
 				3855D6F7C076EC3449EBB41384D816F0 /* path_provider_ios */,
 			);
-			name = plugins;
 			path = plugins;
 			sourceTree = "<group>";
 		};
@@ -2371,7 +2290,6 @@
 			children = (
 				53505472E7ACBE15D84572CF84E1DE07 /* ios */,
 			);
-			name = image_picker_ios;
 			path = image_picker_ios;
 			sourceTree = "<group>";
 		};
@@ -2380,7 +2298,6 @@
 			children = (
 				61C9E06B3A38F28CE88425371EACAA35 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2389,7 +2306,6 @@
 			children = (
 				6D34A3D19BD3490398DC28B330DF929D /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2398,7 +2314,6 @@
 			children = (
 				66CCCEEE3DA51269A38C2162A6FDDBCD /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2407,7 +2322,6 @@
 			children = (
 				20FDE5541EDE88D0B3FFEADFF0B3075B /* chuancui */,
 			);
-			name = Desktop;
 			path = Desktop;
 			sourceTree = "<group>";
 		};
@@ -2429,7 +2343,6 @@
 				327084104D4D7E314C2F3071314F910E /* FluwxPlugin.h */,
 				9BF650B45D93598F4D30E98FCF60697F /* FluwxShareHandler.h */,
 			);
-			name = public;
 			path = public;
 			sourceTree = "<group>";
 		};
@@ -2438,7 +2351,6 @@
 			children = (
 				5CB740F86DAB6E92B27EC421FC37C79A /* Classes */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -2447,7 +2359,6 @@
 			children = (
 				3B0BE945A0C6D4D1E4BFA81EEEAA7561 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2456,7 +2367,6 @@
 			children = (
 				97757360117C1BD0D27ECD2EEDC4436A /* .symlinks */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -2465,7 +2375,6 @@
 			children = (
 				129953908401E422D4CBC67D8D17433F /* Desktop */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2474,7 +2383,6 @@
 			children = (
 				F0028D0DC444FAB7B5B83941D35E0046 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2483,7 +2391,6 @@
 			children = (
 				631A25C5A3795D31B19BEDCF582BE6B9 /* plugins */,
 			);
-			name = .symlinks;
 			path = .symlinks;
 			sourceTree = "<group>";
 		};
@@ -2492,7 +2399,6 @@
 			children = (
 				FA4B4CCB1C126F326858AAAD320511CB /* ios */,
 			);
-			name = shared_preferences_ios;
 			path = shared_preferences_ios;
 			sourceTree = "<group>";
 		};
@@ -2513,7 +2419,6 @@
 				75429ED5368B68B07C1090D566981115 /* FLTPackageInfoPlusPlugin.h */,
 				2BCEB056DB84BB9CCBA8E28238020BAF /* FLTPackageInfoPlusPlugin.m */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -2548,7 +2453,6 @@
 			children = (
 				5DEE752654F997EC304809E452863DBA /* code_zero */,
 			);
-			name = chuancui;
 			path = chuancui;
 			sourceTree = "<group>";
 		};
@@ -2575,7 +2479,6 @@
 			children = (
 				5D65F2F6E30729A4F143B1E0D416183D /* ios */,
 			);
-			name = code_zero;
 			path = code_zero;
 			sourceTree = "<group>";
 		};
@@ -2584,7 +2487,6 @@
 			children = (
 				C27583C1E8C511C600104680937FCABA /* image_cropper */,
 			);
-			name = plugins;
 			path = plugins;
 			sourceTree = "<group>";
 		};
@@ -2660,7 +2562,6 @@
 				5D8800B6DC17D7A6B7411AE8E5BE5551 /* UnknownPermissionStrategy.h */,
 				88F8C2C2523C5EE39D322D6A0FC6F52D /* UnknownPermissionStrategy.m */,
 			);
-			name = strategies;
 			path = strategies;
 			sourceTree = "<group>";
 		};
@@ -2669,7 +2570,6 @@
 			children = (
 				BFD8E33B00AA6D8DB6BDD43A213075A4 /* device_info */,
 			);
-			name = plugins;
 			path = plugins;
 			sourceTree = "<group>";
 		};
@@ -2678,7 +2578,6 @@
 			children = (
 				2E8DC8DB5D44F81F132DF519114B320F /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2690,7 +2589,6 @@
 				E74EAFE60DCB5BF69F2BABD749C0D12A /* messages.g.h */,
 				A41F44FA15E08B5AD6509C0A52A8B8AF /* messages.g.m */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -2714,7 +2612,6 @@
 			children = (
 				B207DD75283CC0FC6E0F1DD649E0A38B /* ios */,
 			);
-			name = webview_flutter_wkwebview;
 			path = webview_flutter_wkwebview;
 			sourceTree = "<group>";
 		};
@@ -2723,7 +2620,6 @@
 			children = (
 				EC761298C61236ECB269C1B420D40AEB /* chuancui */,
 			);
-			name = Desktop;
 			path = Desktop;
 			sourceTree = "<group>";
 		};
@@ -2732,7 +2628,6 @@
 			children = (
 				40A6106295EAC67466A08E4E3F077711 /* plugins */,
 			);
-			name = .symlinks;
 			path = .symlinks;
 			sourceTree = "<group>";
 		};
@@ -2741,7 +2636,6 @@
 			children = (
 				4742AD4CBA9183094087C91F5C412811 /* ios */,
 			);
-			name = code_zero;
 			path = code_zero;
 			sourceTree = "<group>";
 		};
@@ -2750,7 +2644,6 @@
 			children = (
 				8C648EED48D5BE594BB76D3500D73ECE /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2774,7 +2667,6 @@
 			children = (
 				0197677D199A9668D9D9A29B41F789C9 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2783,7 +2675,6 @@
 			children = (
 				C8DED313113F8879D0F2697100EBB5FC /* chuancui */,
 			);
-			name = Desktop;
 			path = Desktop;
 			sourceTree = "<group>";
 		};
@@ -2793,7 +2684,6 @@
 				7C3E0794F484E0304EA46A935A48F1C9 /* standard */,
 				4F1CB6A8F809FB4DA7EC64AB4E9F9496 /* Support Files */,
 			);
-			name = FMDB;
 			path = FMDB;
 			sourceTree = "<group>";
 		};
@@ -2802,7 +2692,6 @@
 			children = (
 				2A6B97838735CEB382B2738FC8989908 /* Desktop */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2811,7 +2700,6 @@
 			children = (
 				A5EA2113CB8D5E8D757B53F0DC64A94A /* code_zero */,
 			);
-			name = chuancui;
 			path = chuancui;
 			sourceTree = "<group>";
 		};
@@ -2820,7 +2708,6 @@
 			children = (
 				6255100FF934961C51B9A22DC1D9CE33 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2829,7 +2716,6 @@
 			children = (
 				59AAAA4A6A05155D6FA94604C8E25420 /* code_zero */,
 			);
-			name = chuancui;
 			path = chuancui;
 			sourceTree = "<group>";
 		};
@@ -2838,7 +2724,6 @@
 			children = (
 				2AB5F23B6F4B7635507914FD1F9B72B8 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2847,7 +2732,6 @@
 			children = (
 				C651D19365054817752F100AF125549B /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2856,7 +2740,6 @@
 			children = (
 				DBE19BE968A16CD31CD98A3EFD832683 /* share */,
 			);
-			name = plugins;
 			path = plugins;
 			sourceTree = "<group>";
 		};
@@ -2865,7 +2748,6 @@
 			children = (
 				A9C92C1519BB10B9F957CD1B5AD1755A /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2874,7 +2756,6 @@
 			children = (
 				75180D4150C6D7C36432C61E8167098C /* shared_preferences_ios */,
 			);
-			name = plugins;
 			path = plugins;
 			sourceTree = "<group>";
 		};
@@ -2883,7 +2764,6 @@
 			children = (
 				0E3806EDB85C40D34CB9AFEE24F987B2 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2892,7 +2772,6 @@
 			children = (
 				DBF318E4BB1400BFBBD8C8159B3F2D0E /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2901,7 +2780,6 @@
 			children = (
 				D39DBD4FD5F9CFBA228B48DC4D0E5FE6 /* image_gallery_saver */,
 			);
-			name = plugins;
 			path = plugins;
 			sourceTree = "<group>";
 		};
@@ -2910,7 +2788,6 @@
 			children = (
 				A67A2D3716CC3C1BEB3031396FC5F515 /* file_selector_ios */,
 			);
-			name = plugins;
 			path = plugins;
 			sourceTree = "<group>";
 		};
@@ -2919,7 +2796,6 @@
 			children = (
 				A084746CDA6452A5AC44408029A4C69E /* plugins */,
 			);
-			name = .symlinks;
 			path = .symlinks;
 			sourceTree = "<group>";
 		};
@@ -2928,7 +2804,6 @@
 			children = (
 				908FF0CABDF75CC9E7FC65F8DB69730F /* plugins */,
 			);
-			name = .symlinks;
 			path = .symlinks;
 			sourceTree = "<group>";
 		};
@@ -2937,7 +2812,6 @@
 			children = (
 				55009B08499A931629AE248B796CB47E /* Classes */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -2955,7 +2829,6 @@
 			children = (
 				9F5C73DB0D4E84A150FDB5587B8AB32A /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -2964,7 +2837,6 @@
 			children = (
 				F25F8B3E8BA4AE7167A74C48AE60394B /* chuancui */,
 			);
-			name = Desktop;
 			path = Desktop;
 			sourceTree = "<group>";
 		};
@@ -2973,7 +2845,6 @@
 			children = (
 				C3A5857FF606A50DC2348E01EA44EB37 /* code_zero */,
 			);
-			name = chuancui;
 			path = chuancui;
 			sourceTree = "<group>";
 		};
@@ -2982,7 +2853,6 @@
 			children = (
 				C6E443DF8B074378E64DFD9CEAA62831 /* Classes */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -3004,7 +2874,6 @@
 				D4ED05D0B153234230CFBD30BE013064 /* ImageGallerySaverPlugin.m */,
 				5D4BF96D294944C1F0CAB609D78723FA /* SwiftImageGallerySaverPlugin.swift */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -3013,7 +2882,6 @@
 			children = (
 				C412DCF35210D60CF52B3C0F87691061 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3022,7 +2890,6 @@
 			children = (
 				47F76D93EEA7FB8FC99B5F34D84B2AEE /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3031,7 +2898,6 @@
 			children = (
 				EE7864144DE447AB9713E02E291AE993 /* ios */,
 			);
-			name = fluwx;
 			path = fluwx;
 			sourceTree = "<group>";
 		};
@@ -3040,7 +2906,6 @@
 			children = (
 				6E84411B251A22F977AC3B1E9A6696BE /* .symlinks */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -3049,7 +2914,6 @@
 			children = (
 				B743E1AB5660A4A7A0BE57436E558883 /* package_info_plus */,
 			);
-			name = plugins;
 			path = plugins;
 			sourceTree = "<group>";
 		};
@@ -3058,7 +2922,6 @@
 			children = (
 				18075FF326F53716FD3EB9E86CC55BBA /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3071,7 +2934,6 @@
 				C51FB8663947D9C5FD07896B3BC98F76 /* Frameworks */,
 				2A9194232AC4BC8907FCB6F1EE70A8D9 /* Support Files */,
 			);
-			name = OpenWeChatSDK;
 			path = OpenWeChatSDK;
 			sourceTree = "<group>";
 		};
@@ -3080,7 +2942,6 @@
 			children = (
 				A02E64B75198C3D5DD031C79453E3A13 /* ios */,
 			);
-			name = code_zero;
 			path = code_zero;
 			sourceTree = "<group>";
 		};
@@ -3089,7 +2950,6 @@
 			children = (
 				F0A4FE6C39EA214FCD6B03980513A084 /* .symlinks */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -3098,7 +2958,6 @@
 			children = (
 				231A46BAD439E82A91732092D4CE1D78 /* ios */,
 			);
-			name = file_selector_ios;
 			path = file_selector_ios;
 			sourceTree = "<group>";
 		};
@@ -3107,7 +2966,6 @@
 			children = (
 				3D098D639248BB553F25CE2C5CBE53DB /* ios */,
 			);
-			name = url_launcher_ios;
 			path = url_launcher_ios;
 			sourceTree = "<group>";
 		};
@@ -3116,7 +2974,6 @@
 			children = (
 				A66EEC73D8A913BB0B360EF7D354BA17 /* ios */,
 			);
-			name = code_zero;
 			path = code_zero;
 			sourceTree = "<group>";
 		};
@@ -3157,7 +3014,6 @@
 			children = (
 				24C56C8AA102C06055C45A7BF5BA7170 /* Classes */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -3166,7 +3022,6 @@
 			children = (
 				7DB816BD0B434F8F1107B82952645F1F /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3175,7 +3030,6 @@
 			children = (
 				860C2971D5D11E5DFD3F17B40650D335 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3184,7 +3038,6 @@
 			children = (
 				11F6BE786A70037CD3F57254AB732C4F /* code_zero */,
 			);
-			name = chuancui;
 			path = chuancui;
 			sourceTree = "<group>";
 		};
@@ -3193,7 +3046,6 @@
 			children = (
 				457E716B6BAC5724E35448ECA70E2558 /* Classes */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -3203,7 +3055,6 @@
 				9A23D06F865196207161C847735DA858 /* FLTURLLauncherPlugin.h */,
 				9000CEDFA074BC1D4630F88E12E2CD82 /* FLTURLLauncherPlugin.m */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -3212,7 +3063,6 @@
 			children = (
 				21DAD5DB6AEEC74DB14BCA8EB4AAB006 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3221,7 +3071,6 @@
 			children = (
 				1ED1DD57A624C44D9A57C143D0B496FB /* Desktop */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3239,7 +3088,6 @@
 			children = (
 				C77A9CA9297560B42C568CB3688231E2 /* Classes */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -3248,7 +3096,6 @@
 			children = (
 				AC6582B3ADDB697ED3F0AE6B096FABCA /* ios */,
 			);
-			name = permission_handler_apple;
 			path = permission_handler_apple;
 			sourceTree = "<group>";
 		};
@@ -3257,7 +3104,6 @@
 			children = (
 				409E71C1039E9C0E421A98BFA59D1D1E /* Classes */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -3266,7 +3112,6 @@
 			children = (
 				82FA34E91F44922225320296CB1159D3 /* code_zero */,
 			);
-			name = chuancui;
 			path = chuancui;
 			sourceTree = "<group>";
 		};
@@ -3275,7 +3120,6 @@
 			children = (
 				07753910AF3DD3B68E7CD53E6A03E5D5 /* ios */,
 			);
-			name = package_info_plus;
 			path = package_info_plus;
 			sourceTree = "<group>";
 		};
@@ -3295,7 +3139,6 @@
 			children = (
 				F95CDB1F10FB6AE1D18B67E264BFE19B /* code_zero */,
 			);
-			name = chuancui;
 			path = chuancui;
 			sourceTree = "<group>";
 		};
@@ -3304,7 +3147,6 @@
 			children = (
 				D0BA59CF7A5DE76EA43012E99CBEE10F /* code_zero */,
 			);
-			name = chuancui;
 			path = chuancui;
 			sourceTree = "<group>";
 		};
@@ -3324,7 +3166,6 @@
 			children = (
 				B5192269FF10EB23A35CDF7165DBF5E4 /* chuancui */,
 			);
-			name = Desktop;
 			path = Desktop;
 			sourceTree = "<group>";
 		};
@@ -3342,7 +3183,6 @@
 			children = (
 				9CC8135907F4C366183A27B139470EB6 /* ios */,
 			);
-			name = sqflite;
 			path = sqflite;
 			sourceTree = "<group>";
 		};
@@ -3351,7 +3191,6 @@
 			children = (
 				BE2B9B9A2346F0632FEF18E11A2A5030 /* sqflite */,
 			);
-			name = plugins;
 			path = plugins;
 			sourceTree = "<group>";
 		};
@@ -3374,7 +3213,6 @@
 			children = (
 				ADFEB62B84D139A0B0E7FE967ED9A8AE /* ios */,
 			);
-			name = device_info;
 			path = device_info;
 			sourceTree = "<group>";
 		};
@@ -3383,7 +3221,6 @@
 			children = (
 				E76FD8170AFAF216903D3E2419372105 /* ios */,
 			);
-			name = image_cropper;
 			path = image_cropper;
 			sourceTree = "<group>";
 		};
@@ -3392,7 +3229,6 @@
 			children = (
 				EE241682129C0F71A306DBE3A6AF70A7 /* .symlinks */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -3401,7 +3237,6 @@
 			children = (
 				55F592670E81742EA88A38820ABB7CD5 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3419,7 +3254,6 @@
 			children = (
 				F8A823D099FCDF77244747894FFBF3D5 /* ios */,
 			);
-			name = code_zero;
 			path = code_zero;
 			sourceTree = "<group>";
 		};
@@ -3428,7 +3262,6 @@
 			children = (
 				94F4E007D5EB0ED8F1C4E1B51382CFD1 /* plugins */,
 			);
-			name = .symlinks;
 			path = .symlinks;
 			sourceTree = "<group>";
 		};
@@ -3437,7 +3270,6 @@
 			children = (
 				8E17A64C8E749F8E9C34CC5675D6C608 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3454,7 +3286,6 @@
 			children = (
 				86467E961953278C8087CD033EED3B77 /* Desktop */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3463,7 +3294,6 @@
 			children = (
 				8B6E217283545D2190A5C41DD7817FB3 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3475,7 +3305,6 @@
 				323922EFC630850B47E1BA218697B4D3 /* SqflitePlugin.h */,
 				BCD2FB6BDA3F25313FA36D3978EC5CA3 /* SqflitePlugin.m */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -3485,7 +3314,6 @@
 				A0C35929F4EAC56B69C40F3C338BB737 /* FLTDeviceInfoPlugin.h */,
 				6429154E428C3ED281EAE0D1A0FCA195 /* FLTDeviceInfoPlugin.m */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -3494,7 +3322,6 @@
 			children = (
 				A715FAF4F1C036A5426490F139A2A898 /* code_zero */,
 			);
-			name = chuancui;
 			path = chuancui;
 			sourceTree = "<group>";
 		};
@@ -3503,7 +3330,6 @@
 			children = (
 				DD8ED7C9AAA51761D81B48CCC74F8247 /* chuancui */,
 			);
-			name = Desktop;
 			path = Desktop;
 			sourceTree = "<group>";
 		};
@@ -3524,7 +3350,6 @@
 			children = (
 				E02CDC4C6C405DB62D8047C37292EEC8 /* ios */,
 			);
-			name = code_zero;
 			path = code_zero;
 			sourceTree = "<group>";
 		};
@@ -3541,7 +3366,6 @@
 			children = (
 				F19DAA4FD41EBA436B59501BF40B8FCB /* ios */,
 			);
-			name = image_gallery_saver;
 			path = image_gallery_saver;
 			sourceTree = "<group>";
 		};
@@ -3550,7 +3374,6 @@
 			children = (
 				36247CAB18EE0128076B05F56D1D7093 /* .symlinks */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -3564,7 +3387,6 @@
 				B6EE1328FC10B94D0573F338F42C19F5 /* messages.g.h */,
 				39789234CA3FA85AC64B3B097A9A084E /* messages.g.m */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -3573,7 +3395,6 @@
 			children = (
 				D947D326A227C995156BD65EF00BF806 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3582,7 +3403,6 @@
 			children = (
 				2B3574D024A558CEFE52D9C641C91D4A /* Desktop */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3591,7 +3411,6 @@
 			children = (
 				FC34A3C321EF6CF84CEBA2AAB882331F /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3600,7 +3419,6 @@
 			children = (
 				79BB8B4B99ECE52E370E6C497A66B233 /* chuancui */,
 			);
-			name = Desktop;
 			path = Desktop;
 			sourceTree = "<group>";
 		};
@@ -3619,7 +3437,6 @@
 				870F8F77CAAC500357A6077E9E22ABAC /* FLTImageCropperPlugin.h */,
 				6FB4B5E8C411F1FE4DF7B7234EC8D1F2 /* FLTImageCropperPlugin.m */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -3628,7 +3445,6 @@
 			children = (
 				6C5CE0FCEC95A428528B047E5F79E7D6 /* ios */,
 			);
-			name = share;
 			path = share;
 			sourceTree = "<group>";
 		};
@@ -3637,7 +3453,6 @@
 			children = (
 				365C4E415486CF028C9BD8637036961C /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3659,7 +3474,6 @@
 				2516C889C126DAA8CE1926D319C19EA8 /* messages.g.h */,
 				854D62273F11239E66C06D5FE5937EC2 /* messages.g.m */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -3668,7 +3482,6 @@
 			children = (
 				ADE8D5DFDA11DD0FC78A3C323310B087 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3707,7 +3520,6 @@
 				D6D84A4A4BB3406135BA1A4BBC8B8861 /* WXMediaMessage+messageConstruct.m */,
 				6C557B51A850E15617985AE303193BE2 /* public */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -3716,7 +3528,6 @@
 			children = (
 				61D154A651F584ACBA71B118DCE867B6 /* code_zero */,
 			);
-			name = chuancui;
 			path = chuancui;
 			sourceTree = "<group>";
 		};
@@ -3740,7 +3551,6 @@
 			children = (
 				99CF21695026AAC7AEEC9B323471186D /* .symlinks */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -3780,7 +3590,6 @@
 				5B2EC33FA303EDC983EBE9B64D158128 /* Resources */,
 				1E7E79D52F0F7C9C4EDECFF769765DFD /* Support Files */,
 			);
-			name = TOCropViewController;
 			path = TOCropViewController;
 			sourceTree = "<group>";
 		};
@@ -3789,7 +3598,6 @@
 			children = (
 				922D34E9069E28A1D149EE1D951A764B /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3809,7 +3617,6 @@
 			children = (
 				9E718103EF043FD2111ADA7637B26FE2 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3818,7 +3625,6 @@
 			children = (
 				5343A6587569D8BC7FED21F71CD2FBC3 /* ios */,
 			);
-			name = code_zero;
 			path = code_zero;
 			sourceTree = "<group>";
 		};
@@ -3827,7 +3633,6 @@
 			children = (
 				DBB6793A64FF1C07F0D80664515BA23C /* Classes */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -3851,7 +3656,6 @@
 			children = (
 				3D7B4F6F6D25D3670A300C62B9705553 /* plugins */,
 			);
-			name = .symlinks;
 			path = .symlinks;
 			sourceTree = "<group>";
 		};
@@ -3883,7 +3687,6 @@
 			children = (
 				E405B2A4CDB1165D135361EFBD214557 /* code_zero */,
 			);
-			name = chuancui;
 			path = chuancui;
 			sourceTree = "<group>";
 		};
@@ -3892,7 +3695,6 @@
 			children = (
 				BEB91E8795364FAC62EC7F43BF585BC8 /* plugins */,
 			);
-			name = .symlinks;
 			path = .symlinks;
 			sourceTree = "<group>";
 		};
@@ -3921,7 +3723,6 @@
 			children = (
 				DD3F088949D5246D4521490CB525AFCB /* Classes */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -3944,7 +3745,7 @@
 				9DE2C5FB92889028E9DAEBC81231108D /* shared_preferences_ios */,
 				B799BFFEC5B11F90F501202080A57F37 /* sqflite */,
 				7862C607B7BE0510C2D65193F9B4B4F9 /* TOCropViewController */,
-				FE1E812071397E31AE21DFF368B781B1 /* TOCropViewController-TOCropViewControllerBundle */,
+				FE1E812071397E31AE21DFF368B781B1 /* TOCropViewControllerBundle.bundle */,
 				7B7C06D35B3BC2BD649AAA1A489E49DA /* url_launcher_ios */,
 				7409A9316D1EEFAC7B383BE8CEC1BE03 /* webview_flutter_wkwebview */,
 			);
@@ -3956,7 +3757,6 @@
 			children = (
 				8CC3457D29B16E5C1CC28CC4C96CCA98 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -3975,7 +3775,6 @@
 			children = (
 				7D90D3ABE657E7C23ED82BD673DD3C97 /* plugins */,
 			);
-			name = .symlinks;
 			path = .symlinks;
 			sourceTree = "<group>";
 		};
@@ -3984,7 +3783,6 @@
 			children = (
 				9DF7DBF31B17B514015D3467D5059725 /* Classes */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -3993,7 +3791,6 @@
 			children = (
 				0ABAEEC484906845FA1CF3320386725A /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -4002,7 +3799,6 @@
 			children = (
 				67B63A0335DF48334B8087E4D8A04C17 /* code_zero */,
 			);
-			name = chuancui;
 			path = chuancui;
 			sourceTree = "<group>";
 		};
@@ -4011,7 +3807,6 @@
 			children = (
 				15910EF37ECED9780907E22AC4794146 /* plugins */,
 			);
-			name = .symlinks;
 			path = .symlinks;
 			sourceTree = "<group>";
 		};
@@ -4020,7 +3815,6 @@
 			children = (
 				8CB2EFD3E324AF77B85CA412F46A441F /* chuancui */,
 			);
-			name = Desktop;
 			path = Desktop;
 			sourceTree = "<group>";
 		};
@@ -4067,7 +3861,6 @@
 			children = (
 				34FE3BEACF0FF82FB37227EE61739FBD /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -4076,7 +3869,6 @@
 			children = (
 				0EDE0C059C202C436099B88F4749ABD0 /* .symlinks */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -4085,7 +3877,6 @@
 			children = (
 				C278FAF39FF8636B7CA421CF4CAFED24 /* ios */,
 			);
-			name = code_zero;
 			path = code_zero;
 			sourceTree = "<group>";
 		};
@@ -4094,7 +3885,6 @@
 			children = (
 				7ED9E233EA9557065D22E0F43B108E8F /* Classes */,
 			);
-			name = ios;
 			path = ios;
 			sourceTree = "<group>";
 		};
@@ -4103,7 +3893,6 @@
 			children = (
 				536FADC9411379ED39B8DDDB822371B1 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -4112,7 +3901,6 @@
 			children = (
 				BDD599D54864D6D47B9D227EFAB77A3A /* Desktop */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -4121,7 +3909,6 @@
 			children = (
 				11CC072683CCDA6EFF4A0155B299C904 /* .. */,
 			);
-			name = ..;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -4440,7 +4227,7 @@
 			);
 			name = "TOCropViewController-TOCropViewControllerBundle";
 			productName = TOCropViewControllerBundle;
-			productReference = FE1E812071397E31AE21DFF368B781B1 /* TOCropViewController-TOCropViewControllerBundle */;
+			productReference = FE1E812071397E31AE21DFF368B781B1 /* TOCropViewControllerBundle.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 		37C246C968D3D905C8DE91562C70C1A2 /* image_gallery_saver */ = {
@@ -4960,7 +4747,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1C41F308A5B6A499A33811BA1B242C5 /* TOCropViewController-TOCropViewControllerBundle in Resources */,
+				D1C41F308A5B6A499A33811BA1B242C5 /* TOCropViewControllerBundle.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7588,6 +7375,7 @@
 			baseConfigurationReference = AAEECF79D6132815969DD79EE6B5A867 /* TOCropViewController.release.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/TOCropViewController";
+				DEVELOPMENT_TEAM = 3MU3SFGTSA;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -8191,6 +7979,7 @@
 			baseConfigurationReference = 3AA6D36144F5FA82ED9DB2EEB5DA2E0B /* TOCropViewController.debug.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/TOCropViewController";
+				DEVELOPMENT_TEAM = 3MU3SFGTSA;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -8654,6 +8443,7 @@
 			baseConfigurationReference = AAEECF79D6132815969DD79EE6B5A867 /* TOCropViewController.release.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/TOCropViewController";
+				DEVELOPMENT_TEAM = 3MU3SFGTSA;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",

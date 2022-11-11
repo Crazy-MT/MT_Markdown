@@ -117,6 +117,10 @@ class AddressEditController extends GetxController {
   }
 
   deleteAddress() {
+    if(Get.arguments?['size'] == 1) {
+       Utils.showToastMsg('用户您好，您目前只有一个收货地址，不能删除！');
+       return;
+    }
     showConfirmDialog(
       onConfirm: () async {
         ResultData<ConvertInterface>? _result = await LRequest.instance.request<CreateAddressModel>(

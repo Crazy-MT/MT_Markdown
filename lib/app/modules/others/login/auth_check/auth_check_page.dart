@@ -1,9 +1,11 @@
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/common_input.dart';
 import 'package:code_zero/generated/assets/assets.dart';
 import 'package:code_zero/main.dart';
 import 'package:code_zero/utils/input_format_utils.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,6 +35,10 @@ class AuthCheckPage extends GetView<AuthCheckController> {
           icon: Icon(Icons.arrow_back),
           color: Color(0xFF14181F),
           onPressed: () {
+            lLog('MTMTMT AuthCheckPage.build ${Get.arguments['from']} ');
+            if(Get.arguments?['from'] == RoutesID.HOME_PAGE) {
+              return;
+            }
             Get.back(result: false);
           },
         ),

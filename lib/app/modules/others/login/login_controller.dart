@@ -82,7 +82,7 @@ class LoginController extends GetxController {
       return;
     }
     await userHelper.whenLogin(_result!.value!);
-    Utils().checkUserInfo();
+    Utils().checkUserInfo(Get.currentRoute);
   }
 
 
@@ -105,7 +105,7 @@ class LoginController extends GetxController {
       return;
     }
     await userHelper.whenLogin(_result!.value!);
-    Utils().checkUserInfo();
+    Utils().checkUserInfo(Get.currentRoute);
   }
 
   startCountDown() {
