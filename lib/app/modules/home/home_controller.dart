@@ -76,6 +76,7 @@ class HomeController extends GetxController {
     if(!PlatformUtils.isWeb) {
       checkVersion();
     }
+    Future.delayed(Duration(seconds: 1)).then((value) => Utils().checkUserInfo());
   }
 
   Future<void> checkVersion() async {

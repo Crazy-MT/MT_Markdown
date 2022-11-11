@@ -81,40 +81,10 @@ class LoginController extends GetxController {
     if (_result?.value == null) {
       return;
     }
-    loginSuccess(_result);
-  }
-
-  Future<void> loginSuccess(ResultData<UserModel>? _result) async {
     await userHelper.whenLogin(_result!.value!);
-
-    if ((userHelper.userInfo.value?.checkRes ?? 0) != 1) {
-      bool result = await Get.toNamed(RoutesID.AUTH_CHECK_PAGE);
-      if (!result) {
-        return;
-      }
-    }
-
-    if ((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0) {
-      await Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE, arguments: {'from': RoutesID.LOGIN_PAGE});
-
-      if ((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0) {
-        return;
-      }
-    }
-
-    if ((userHelper.userInfo.value?.hasAddress ?? 0) == 0) {
-      await Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE, arguments: {'from': RoutesID.LOGIN_PAGE});
-      if ((userHelper.userInfo.value?.hasAddress ?? 0) == 0) {
-        return;
-      }
-    }
-
-    if (Get.arguments == null || Get.arguments["from"] == null) {
-      Get.back();
-    } else {
-      Get.offAllNamed(RoutesID.MAIN_TAB_PAGE);
-    }
+    Utils().checkUserInfo();
   }
+
 
   _smsCodeLogin() async {
     ResultData<UserModel>? _result = await LRequest.instance.request<UserModel>(
@@ -134,7 +104,8 @@ class LoginController extends GetxController {
     if (_result?.value == null) {
       return;
     }
-    loginSuccess(_result);
+    await userHelper.whenLogin(_result!.value!);
+    Utils().checkUserInfo();
   }
 
   startCountDown() {

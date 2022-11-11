@@ -23,7 +23,7 @@ class _Common {
     packageInfo = await PackageInfo.fromPlatform();
     _initEasyLoading();
     userHelper.initToken();
-    // await deviceUtil.init();
+    await deviceUtil.init();
     if(!PlatformUtils.isWeb) {
       registerWxApi(appId: "wxe02b86dc09511f64",
           universalLink: "https://test.chuancuibaoku.com").then((value) {

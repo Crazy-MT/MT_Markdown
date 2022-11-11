@@ -48,16 +48,32 @@ class SettingPage extends GetView<SettingController> {
               },
             ),
             Positioned(
+                bottom: 100,
+                child: SafeTapWidget(
+                  onTap: () {
+                    controller.logout();
+                  },
+                  child: Text(
+                    '退出登录',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                )),
+            Positioned(
                 bottom: 40,
-                child: Text("版本号：" + (common.packageInfo?.version ??
-                    "" )+
-                        ((NetConstant.HOST ==
-                                "https://dev.api.chuancuibaoku.com/v1")
-                            ? "-test"
-                            : ""), style: TextStyle(
-                  fontSize: 16.sp,
-                  color: Colors.grey
-                ),))
+                child: Text(
+                  "版本号：" +
+                      (common.packageInfo?.version ?? "") +
+                      ((NetConstant.HOST ==
+                              "https://dev.api.chuancuibaoku.com/v1")
+                          ? "-test"
+                          : ""),
+                  style: TextStyle(fontSize: 16.sp, color: Colors.grey),
+                ))
           ],
         ),
       ),
