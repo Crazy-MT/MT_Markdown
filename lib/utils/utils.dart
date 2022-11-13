@@ -139,6 +139,10 @@ class Utils {
       }
     }
 
+    if(page == RoutesID.HOME_PAGE) {
+      return;
+    }
+
     if (Get.arguments == null || Get.arguments["from"] == null) {
       Get.back();
     } else {

@@ -41,7 +41,7 @@ class MineController extends GetxController {
     if(userHelper.userInfo.value?.token?.isNotEmpty ?? false) {
       getBuyerOrder();
       getSellerOrder();
-      timer = Timer.periodic(Duration(seconds: 10), (timer) {
+      timer = Timer.periodic(Duration(seconds: 30), (timer) {
         getBuyerOrder();
         getSellerOrder();
       });

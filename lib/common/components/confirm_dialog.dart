@@ -41,148 +41,153 @@ class _ConfirmDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UnconstrainedBox(
-      child: Container(
-        width: 300.w,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10.w),
-        ),
-        padding: EdgeInsets.all(20.w),
-        child: Column(
-          children: [
-            if (title.isNotEmpty)
-              SizedBox(
-                width: double.infinity,
-                child: Text(
-                  title,
-                  textAlign: titleAlign ?? TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.text_dark,
-                  ),
-                ),
-              ),
-            SizedBox(
-              height: 20.w,
-            ),
-            if (contentWidget != null) contentWidget!,
-            if (content.isNotEmpty)
-              SizedBox(
-                width: double.infinity,
-                child: Text(
-                  content,
-                  textAlign: contentAlign ?? TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.text_dark,
-                  ),
-                ),
-              ),
-            SizedBox(
-              height: 40.w,
-            ),
-            if(singleText != null && (singleText?.isNotEmpty ?? false))
-              SizedBox(
-                width: 126.w,
-                height: 36.w,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if(!(canNotDismiss ?? false)) {
-                      Get.back(
-                        result: true,
-                      );
-                    }
-                    onSingle?.call();
-                  },
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: UnconstrainedBox(
+        child: Container(
+          width: 300.w,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10.w),
+          ),
+          padding: EdgeInsets.all(20.w),
+          child: Column(
+            children: [
+              if (title.isNotEmpty)
+                SizedBox(
+                  width: double.infinity,
                   child: Text(
-                    singleText ?? "",
+                    title,
+                    textAlign: titleAlign ?? TextAlign.center,
                     style: TextStyle(
-                      color: confirmTextColor ?? AppColors.text_white,
-                      fontSize: 14.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
+                      color: AppColors.text_dark,
                     ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    shape: StadiumBorder(),
-                  ).copyWith(
-                    padding:
-                    MaterialStateProperty.all(const EdgeInsets.all(0)),
-                    backgroundColor:
-                    MaterialStateProperty.all(AppColors.green),
-                    elevation: MaterialStateProperty.all(0),
                   ),
                 ),
+              SizedBox(
+                height: 20.w,
               ),
-            if (singleText == null && (singleText?.isEmpty ?? true))
-              Row(
-                children: [
-                  SizedBox(
-                    width: 126.w,
-                    height: 36.w,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.back(
-                          result: false,
-                        );
-                        onCancel?.call();
-                      },
-                      child: Text(
-                        cancelText,
-                        style: TextStyle(
-                          color: AppColors.text_dark,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        shape: StadiumBorder(),
-                      ).copyWith(
-                        padding:
-                            MaterialStateProperty.all(const EdgeInsets.all(0)),
-                        backgroundColor:
-                            MaterialStateProperty.all(Color(0xFFF3F9FB)),
-                        elevation: MaterialStateProperty.all(0),
-                      ),
+              if (contentWidget != null) contentWidget!,
+              if (content.isNotEmpty)
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    content,
+                    textAlign: contentAlign ?? TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.text_dark,
                     ),
                   ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  SizedBox(
-                    width: 126.w,
-                    height: 36.w,
-                    child: ElevatedButton(
-                      onPressed: () {
+                ),
+              SizedBox(
+                height: 40.w,
+              ),
+              if(singleText != null && (singleText?.isNotEmpty ?? false))
+                SizedBox(
+                  width: 126.w,
+                  height: 36.w,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if(!(canNotDismiss ?? false)) {
                         Get.back(
                           result: true,
                         );
-                        onConfirm?.call();
-                      },
-                      child: Text(
-                        confirmText,
-                        style: TextStyle(
-                          color: confirmTextColor ?? AppColors.text_white,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        shape: StadiumBorder(),
-                      ).copyWith(
-                        padding:
-                            MaterialStateProperty.all(const EdgeInsets.all(0)),
-                        backgroundColor:
-                            MaterialStateProperty.all(AppColors.green),
-                        elevation: MaterialStateProperty.all(0),
+                      }
+                      onSingle?.call();
+                    },
+                    child: Text(
+                      singleText ?? "",
+                      style: TextStyle(
+                        color: confirmTextColor ?? AppColors.text_white,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
+                    style: ElevatedButton.styleFrom(
+                      shape: StadiumBorder(),
+                    ).copyWith(
+                      padding:
+                      MaterialStateProperty.all(const EdgeInsets.all(0)),
+                      backgroundColor:
+                      MaterialStateProperty.all(AppColors.green),
+                      elevation: MaterialStateProperty.all(0),
+                    ),
                   ),
-                ],
-              ),
-          ],
+                ),
+              if (singleText == null && (singleText?.isEmpty ?? true))
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 126.w,
+                      height: 36.w,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.back(
+                            result: false,
+                          );
+                          onCancel?.call();
+                        },
+                        child: Text(
+                          cancelText,
+                          style: TextStyle(
+                            color: AppColors.text_dark,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          shape: StadiumBorder(),
+                        ).copyWith(
+                          padding:
+                              MaterialStateProperty.all(const EdgeInsets.all(0)),
+                          backgroundColor:
+                              MaterialStateProperty.all(Color(0xFFF3F9FB)),
+                          elevation: MaterialStateProperty.all(0),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 8.w,
+                    ),
+                    SizedBox(
+                      width: 126.w,
+                      height: 36.w,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.back(
+                            result: true,
+                          );
+                          onConfirm?.call();
+                        },
+                        child: Text(
+                          confirmText,
+                          style: TextStyle(
+                            color: confirmTextColor ?? AppColors.text_white,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          shape: StadiumBorder(),
+                        ).copyWith(
+                          padding:
+                              MaterialStateProperty.all(const EdgeInsets.all(0)),
+                          backgroundColor:
+                              MaterialStateProperty.all(AppColors.green),
+                          elevation: MaterialStateProperty.all(0),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
         ),
       ),
     );

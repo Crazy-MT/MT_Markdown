@@ -108,6 +108,8 @@ class AddressEditController extends GetxController {
       userHelper.updateSp(userHelper.userInfo.value);
       if(Get.arguments?["from"] == RoutesID.LOGIN_PAGE) {
         Get.offAllNamed(RoutesID.MAIN_TAB_PAGE, arguments: {'tabIndex': 3});
+      } if(Get.arguments?["from"] == RoutesID.HOME_PAGE) {
+        Get.offAllNamed(RoutesID.MAIN_TAB_PAGE, arguments: {'tabIndex': 0});
       } else {
         Get.back(result: true);
       }

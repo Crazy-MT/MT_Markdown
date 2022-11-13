@@ -101,7 +101,6 @@ class HomeController extends GetxController {
                     .toList();
                 bool isUpdate = false;
                 for (int i = 0; i < curV.length; i++) {
-                  lLog('MTMTMT HomeController.checkVersion ${v[i]} ${curV[i]}');
                   if (v[i] > curV[i]) {
                     isUpdate = true;
                     break;
