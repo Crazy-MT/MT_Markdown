@@ -43,31 +43,36 @@ class AuthCheckPage extends GetView<AuthCheckController> {
           },
         ),
       ),
-      body: Obx(
-        () => FTStatusPage(
-          type: controller.pageStatus.value,
-          errorMsg: controller.errorMsg.value,
-          builder: (BuildContext context) {
-            return SingleChildScrollView(
-              child: Obx(
-                () => Column(
-                  children: [
-                    _buildNameInput(),
-                    _buildIDCodeInput(),
-                    _buildLoginBtn(),
-                    Text(
-                      "未注册的手机号验证后可自动登录",
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        color: Color(0xFFABAAB9),
-                        fontWeight: FontWeight.w400,
+      body: WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: Obx(
+          () => FTStatusPage(
+            type: controller.pageStatus.value,
+            errorMsg: controller.errorMsg.value,
+            builder: (BuildContext context) {
+              return SingleChildScrollView(
+                child: Obx(
+                  () => Column(
+                    children: [
+                      _buildNameInput(),
+                      _buildIDCodeInput(),
+                      _buildLoginBtn(),
+                      Text(
+                        "未注册的手机号验证后可自动登录",
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: Color(0xFFABAAB9),
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

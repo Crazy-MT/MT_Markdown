@@ -9,6 +9,6 @@ fvm flutter build ipa --release --export-options-plist=./package/ExportOptions.p
 #fvm flutter build apk --debug
 #curl -F "file=@./build/app/outputs/flutter-apk/app-debug.apk" -F "uKey=0b7c03ecc4729dd91d670f561f4fc46b" -F "_api_key=98e445172e8942aece1d0eac22f0270e" https://www.pgyer.com/apiv1/app/upload
 
-./package/pgyer_upload.sh -k 98e445172e8942aece1d0eac22f0270e ./build/ios/ipa/code_zero.ipa
-fvm flutter build apk --debug
-./package/pgyer_upload.sh -k 98e445172e8942aece1d0eac22f0270e ./build/app/outputs/flutter-apk/app-debug.apk
+./package/pgyer_upload.sh -k 734bf760ea0a87489d7d413032d792d8 ./build/ios/ipa/code_zero.ipa
+fvm flutter build apk
+./package/pgyer_upload.sh -k 734bf760ea0a87489d7d413032d792d8 ./build/app/outputs/flutter-apk/app-release.apk
