@@ -7,6 +7,7 @@ import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/sp_const.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/platform_utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -91,7 +92,7 @@ class SplashController extends GetxController {
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   Get.toNamed(
-                    RoutesID.LOCAL_WEBVIEW_PAGE,
+                    PlatformUtils.isWeb ? RoutesID.LOCAL_HTML_PAGE :RoutesID.LOCAL_WEBVIEW_PAGE,
                     arguments: {
                       "page_title": "用户隐私政策",
                       "html_file": "assets/html/privacy_policy_1.html",

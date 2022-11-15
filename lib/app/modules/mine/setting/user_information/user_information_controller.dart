@@ -86,9 +86,12 @@ class UserInformationController extends GetxController {
           // rectX: 500,
           // rectY: 500
         ),
+        WebUiSettings(
+          context: Get.context!,
+        ),
       ],
     );
-    avatarImg.value = await uploadFile(croppedFile?.path);
+    avatarImg.value = await uploadFile(value: await croppedFile?.readAsBytes());
   }
 
   Future<void> updateInfo() async {

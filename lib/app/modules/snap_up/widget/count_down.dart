@@ -39,9 +39,7 @@ class _CountDownState extends State<CountDown> with WidgetsBindingObserver{
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    // TODO: implement didChangeAppLifecycleState
     super.didChangeAppLifecycleState(state);
-    lLog('MTMTMT _CountDownState.didChangeAppLifecycleState ${state.toString()} ');
   }
 
   @override
@@ -53,8 +51,13 @@ class _CountDownState extends State<CountDown> with WidgetsBindingObserver{
     int nowSecond = int.parse(nowArr[2]);
     int nowTime = nowHour * 60 * 60 + nowMinute * 60 + nowSecond; // 当前天分钟数
     lLog('MTMTMT _CountDownState.build ${start}  ${nowTime} ');
-    // lLog('MTMTMT _CountDownState.build ${start - nowTime} ');
-    constructTime(start - nowTime);
+
+    seconds = start - nowTime;
+    if(seconds <= 0) {
+      cancelTimer();
+    } else {
+      constructTime(seconds);
+    }
     return Row(
       children: [
         Container(
@@ -119,12 +122,11 @@ class _CountDownState extends State<CountDown> with WidgetsBindingObserver{
   }
 
   void startTimer() {
-    const period = const Duration(seconds: 1);
-    _timer = Timer.periodic(period, (timer) {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         seconds--;
       });
-      if (seconds == 0) {
+      if (seconds <= 0) {
         cancelTimer();
       }
     });

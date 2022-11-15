@@ -5,6 +5,7 @@ import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/utils/platform_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -83,7 +84,7 @@ class SettingController extends GetxController {
         title: "用户隐私政策",
         onClick: () {
           Get.toNamed(
-            RoutesID.LOCAL_WEBVIEW_PAGE,
+            PlatformUtils.isWeb ? RoutesID.LOCAL_HTML_PAGE :RoutesID.LOCAL_WEBVIEW_PAGE,
             arguments: {
               "page_title": "用户隐私政策",
               "html_file": "assets/html/privacy_policy_1.html",
@@ -101,36 +102,31 @@ class SettingController extends GetxController {
             content: "确认注销账号吗?",
             confirmTextColor: Colors.white,
             onConfirm: () async {
-              /// 注销账号
-              var userId = userHelper.userInfo.value?.id;
-              var params = {"id": userId};
-              LRequest.instance.request(
-                  url: Apis.LOG_OUT,
-                  queryParameters: params,
-                  requestType: RequestType.GET,
-                  errorBack: (errorCode, errorMsg, expMsg) {
-                    Utils.showToastMsg(
-                        "注销失败：${errorCode == -1 ? expMsg : errorMsg}");
-                  },
-                  onSuccess: (ret) {
-                    userHelper.whenLogout();
-                    Get.back();
-                  });
+
+              showConfirmDialog(
+                content: "注销账号后，您的所有的订单和个人信息将被系统清除，不可逆转，你确定吗？",
+                confirmTextColor: Colors.white,
+                onConfirm: () async {
+                  /// 注销账号
+                  var userId = userHelper.userInfo.value?.id;
+                  var params = {"id": userId};
+                  LRequest.instance.request(
+                      url: Apis.LOG_OUT,
+                      queryParameters: params,
+                      requestType: RequestType.GET,
+                      errorBack: (errorCode, errorMsg, expMsg) {
+                        Utils.showToastMsg(
+                            "注销失败：${errorCode == -1 ? expMsg : errorMsg}");
+                      },
+                      onSuccess: (ret) {
+                        userHelper.whenLogout();
+                        Get.back();
+                      });
+                },
+              );
             },
           );
         }));
-
-    menuList.add(
-      _MenuItem(
-        title: "退出登录",
-        showTopDivider: true,
-        showDivider: false,
-        isCenter: true,
-        titleColor: Color(0xFFFF3939),
-        showArrow: false,
-        onClick: _logout,
-      ),
-    );
   }
 
   _toResetPasswordPage() {
@@ -140,7 +136,7 @@ class SettingController extends GetxController {
     });
   }
 
-  _logout() async {
+  logout() async {
     // Get.offAllNamed(RoutesID.MAIN_TAB_PAGE, arguments: {'tabIndex': 3});
 
     // return;

@@ -115,7 +115,7 @@ class GoodsDetailController extends GetxController {
     var nowArr = now.split(":");
     var startTime = Get.arguments['startTime'];
     var endTime = Get.arguments['endTime'];
-
+    // startTime = "11:48";
     var startArr = startTime?.split(":");
     var endArr = endTime?.split(":");
     int nowHour = (int.parse(nowArr[0]));

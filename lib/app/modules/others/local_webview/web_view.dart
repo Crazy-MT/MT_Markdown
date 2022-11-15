@@ -94,7 +94,7 @@ class _WebViewExampleState extends State<WebViewExample> {
       // backgroundColor: Colors.green,
       appBar: CommonAppBar(
         child: Text(
-          Get.arguments['page_title'],
+          Get.arguments?['page_title'],
           style: TextStyle(
             fontSize: 16.sp,
             color: AppColors.text_dark,

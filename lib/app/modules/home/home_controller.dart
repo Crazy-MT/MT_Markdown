@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:code_zero/app/modules/home/home_apis.dart';
 import 'package:code_zero/app/modules/home/model/app_versions.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/user_apis.dart';
 import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
@@ -14,6 +15,7 @@ import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/device_util.dart';
 import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/platform_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -72,7 +74,10 @@ class HomeController extends GetxController {
         showScrollToTop.value = false;
       }
     });
-    checkVersion();
+    if(!PlatformUtils.isWeb) {
+      checkVersion();
+    }
+    Future.delayed(Duration(seconds: 1)).then((value) => Utils().checkUserInfo(RoutesID.HOME_PAGE));
   }
 
   Future<void> checkVersion() async {
@@ -96,7 +101,6 @@ class HomeController extends GetxController {
                     .toList();
                 bool isUpdate = false;
                 for (int i = 0; i < curV.length; i++) {
-                  lLog('MTMTMT HomeController.checkVersion ${v[i]} ${curV[i]}');
                   if (v[i] > curV[i]) {
                     isUpdate = true;
                     break;

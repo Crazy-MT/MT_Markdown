@@ -90,7 +90,7 @@ class Item {
     }
 
     String now = formatDate(DateTime.fromMillisecondsSinceEpoch(currentTimeFromNet), [HH, ':', nn]);
-    lLog('MTMTMT Item.statusText ${now} ');
+    // lLog('MTMTMT Item.statusText ${now} ');
     var nowArr = now.split(":");
     var startArr = startTime?.split(":");
     var endArr = endTime?.split(":");

@@ -17,15 +17,15 @@ import '../../../../../utils/utils.dart';
 import '../../../../../common/user_apis.dart';
 class SignatureInArgeeController extends GetxController {
   final signImgUrl = "".obs;
+  Uint8List? imageData;
 
   GlobalKey globalKey = GlobalKey();
 
   saveSignature() async {
     if (signImgUrl.value.isNotEmpty) {
-      File file = await _saveImageToFile();
-      String toPath = await _capturePng(file);
-      if(toPath.isNotEmpty) {
-        var signUrl = await uploadFile(toPath);
+      Uint8List? sourceBytes = await Utils().capturePng(globalKey);
+      if(sourceBytes != null) {
+        var signUrl = await uploadFile(value: sourceBytes);
         await LRequest.instance.request<UserModel>(
             url: Apis.UPDATE_SIGNATURE,
             t: UserModel(),
@@ -48,32 +48,5 @@ class SignatureInArgeeController extends GetxController {
         );
       }
     }
-  }
-
-  Future<File> _saveImageToFile() async {
-    Directory tempDir = await getTemporaryDirectory();
-    int curT = DateTime.now().millisecondsSinceEpoch;
-    String toFilePath = "${tempDir.path}/$curT.png";
-    File file = File(toFilePath);
-    bool exists = await file.exists();
-    if (!exists) {
-      await file.create(recursive: true);
-    }
-    return file;
-  }
-
-  Future<String> _capturePng(File file) async {
-    RenderObject? obj = globalKey.currentContext?.findRenderObject();
-    if (obj is RenderRepaintBoundary) {
-      double dpr = ui.window.devicePixelRatio; // 获取当前设备的像素比
-      var image = await obj.toImage(pixelRatio: dpr);
-      ByteData? _byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-      Uint8List? sourceBytes = _byteData?.buffer.asUint8List();
-      if (sourceBytes != null) {
-        await file.writeAsBytes(sourceBytes);
-        return file.path;
-      }
-    }
-    return "";
   }
 }

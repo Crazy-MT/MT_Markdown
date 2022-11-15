@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:code_zero/app/modules/mine/buyer_order/order_send_sell/model/charge_model.dart';
@@ -6,22 +7,28 @@ import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
 import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/model/upload_model.dart';
 import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/utils/platform_utils.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../../network/base_model.dart';
 import '../../../../../utils/log_utils.dart';
 import '../../../../../utils/utils.dart';
 import '../common/user_apis.dart';
 
-uploadFile(path, {isShowLoading = true}) async {
-  dio.FormData formData = dio.FormData.fromMap({
-    "file": await dio.MultipartFile.fromFile(
-        path,
-        filename: "a.png"
+uploadFile({isShowLoading = true, List<int>? value}) async {
+  if(value == null) {
+    return;
+  }
+  Map<String, dynamic> map = {
+    "file": dio.MultipartFile.fromBytes(
+      value,
+      filename: "a.png",
     )
-  });
-  print('MTMTMT uploadFile ${path} ');
+  };
+  dio.FormData formData = dio.FormData.fromMap(map);
   ResultData<UploadModel>? _result = await LRequest.instance.request<UploadModel>(
     url: Apis.UPLOAD,
     t: UploadModel(),
@@ -38,7 +45,7 @@ uploadFile(path, {isShowLoading = true}) async {
     return;
   }
 
-  lLog('MTMTMT UserInformationController.uploadImage ${_result?.value?.fileUrl}');
+  lLog('MTMTMT uploadFile ${_result?.value?.fileUrl}');
   return _result?.value?.fileUrl ?? "";
 }
 

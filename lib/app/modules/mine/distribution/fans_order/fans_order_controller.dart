@@ -141,6 +141,8 @@ class FansOrderController extends GetxController {
         return "已收货";
       case 8:
         return "已取消";
+      case 9:
+        return "已转拍";
     }
     return "其它方式";
   }

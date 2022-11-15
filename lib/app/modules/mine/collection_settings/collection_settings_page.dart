@@ -1,9 +1,11 @@
 import 'package:code_zero/app/modules/mine/collection_settings/widget/alipay_info_widget.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/widget/bank_card_info_widget.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/widget/wechat_info_widget.dart';
+import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/custom_indicator.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'collection_settings_controller.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -25,22 +27,31 @@ class CollectionSettingsPage extends GetView<CollectionSettingsController> {
           icon: Icon(Icons.arrow_back),
           color: Color(0xFF14181F),
           onPressed: () {
+            lLog('MTMTMT CollectionSettingsPage.build ${Get.arguments?['from']} ');
+            if(Get.arguments?['from'] == RoutesID.HOME_PAGE) {
+              return;
+            }
             controller.goBack();
           },
         ),
       ),
-      body: Obx(
-        () => FTStatusPage(
-          type: controller.pageStatus.value,
-          errorMsg: controller.errorMsg.value,
-          builder: (BuildContext context) {
-            return Column(
-              children: [
-                _tabTitleWidget(),
-                _tabContentWidget(),
-              ],
-            );
-          },
+      body: WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: Obx(
+          () => FTStatusPage(
+            type: controller.pageStatus.value,
+            errorMsg: controller.errorMsg.value,
+            builder: (BuildContext context) {
+              return Column(
+                children: [
+                  _tabTitleWidget(),
+                  _tabContentWidget(),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

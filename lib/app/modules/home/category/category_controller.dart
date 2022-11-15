@@ -78,12 +78,12 @@ class CategoryController extends GetxController {
   initData() async {
     pageStatus.value = FTStatusPageType.success;
 
-    if (Get.arguments['from'] == 'search') {
+    if (Get.arguments?['from'] == 'search') {
       await getRecommendList();
       getRecommendList(isRefresh: false);
       // goodsList.clear();
     } else {
-      categoryId = Get.arguments['categoryId'];
+      categoryId = Get.arguments?['categoryId'];
       await getRecommendList();
       getRecommendList(isRefresh: false);
     }

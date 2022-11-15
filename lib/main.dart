@@ -1,6 +1,6 @@
-import 'dart:async';
-import 'dart:io';
 
+
+import 'package:code_zero/utils/platform_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,7 +25,7 @@ import 'package:flutter_ume_kit_dio/flutter_ume_kit_dio.dart'; // Dio 网络请�
 
 void main() {
   // runZonedGuarded(() {
-    if (Platform.isAndroid) {
+    if (PlatformUtils.isAndroid) {
       SystemUiOverlayStyle style = const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
 
@@ -66,6 +66,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
+      scaleByHeight: PlatformUtils.isWeb,
       designSize: const Size(375, 812),
       builder: (context, widget) {
         return OKToast(
