@@ -43,6 +43,7 @@ dependencies:
   fluwx: 3.9.2
   r_upgrade: #0.4.0 #https://github.com/rhymelph/r_upgrade/blob/master/README_CN.md
     git: git@github.com:Crazy-MT/r_upgrade.git
+  platform_device_id: 1.0.1
   flutter:
     sdk: flutter
   flutter_localizations:
