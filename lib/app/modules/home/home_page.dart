@@ -79,25 +79,10 @@ class HomePage extends GetView<HomeController> {
                   ),
                   bottom: 15.w,
                   right: 15.w,
-                )
+                ),
+
             ],
           )),
-    );
-  }
-
-  _buildSliverAppBar() {
-    return SliverAppBar(
-      pinned: true,
-      expandedHeight: 48.w,
-      backgroundColor: Colors.transparent,
-      flexibleSpace: FlexibleSpaceBar(
-        centerTitle: true,
-        title: Text('首页'),
-        background: Image.asset(
-          Assets.imagesAppBarBg,
-          fit: BoxFit.cover,
-        ),
-      ),
     );
   }
 
