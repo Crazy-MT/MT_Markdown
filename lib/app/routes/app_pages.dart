@@ -88,6 +88,8 @@ import '../modules/others/login/auth_check/auth_check_binding.dart';
 import '../modules/others/login/auth_check/auth_check_page.dart';
 import '../modules/mine/order/self_order_detail/self_order_detail_binding.dart';
 import '../modules/mine/order/self_order_detail/self_order_detail_page.dart';
+import '../modules/home/recommended_courteously/recommended_courteously_binding.dart';
+import '../modules/home/recommended_courteously/recommended_courteously_page.dart';
 
 class AppPages {
   AppPages._();
@@ -95,6 +97,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // recommended_courteously
+    GetPage(
+      name: RoutesID.RECOMMENDED_COURTEOUSLY_PAGE,
+      page: () => const RecommendedCourteouslyPage(),
+      binding: RecommendedCourteouslyBinding(),
+    ),
+
     // self_order_detail
     GetPage(
       name: RoutesID.SELF_ORDER_DETAIL_PAGE,

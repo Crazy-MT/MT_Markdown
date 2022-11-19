@@ -68,7 +68,7 @@ class HomePage extends GetView<HomeController> {
               Positioned(
                 child: SafeTapWidget(
                   onTap: () {
-
+                    Get.toNamed(RoutesID.RECOMMENDED_COURTEOUSLY_PAGE);
                   },
                   child: Container(
                     width: 50.w,
