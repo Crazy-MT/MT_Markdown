@@ -27,7 +27,6 @@ class CollectionSettingsPage extends GetView<CollectionSettingsController> {
           icon: Icon(Icons.arrow_back),
           color: Color(0xFF14181F),
           onPressed: () {
-            lLog('MTMTMT CollectionSettingsPage.build ${Get.arguments?['from']} ');
             if(Get.arguments?['from'] == RoutesID.HOME_PAGE) {
               return;
             }

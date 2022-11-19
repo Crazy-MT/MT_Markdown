@@ -4,6 +4,7 @@ import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:code_zero/common/components/common_input.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
+import 'package:code_zero/common/custom_indicator.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -37,7 +38,11 @@ class DrawingPage extends GetView<DrawingController> {
           builder: (BuildContext context) {
             return Column(
               children: [
-                _titleWidget(),
+                Obx(() {
+                  return Visibility(
+                      visible: controller.currentIndex.value == 0,
+                      child: _titleWidget());
+                }),
                 _contentWrapperWidget(),
               ],
             );
@@ -101,71 +106,205 @@ class DrawingPage extends GetView<DrawingController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: EdgeInsets.fromLTRB(25.w, 20.w, 25.w, 37.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            _tabTitleWidget(),
+            _tabContentWidget(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _tabContentWidget() {
+    return Expanded(
+      child: TabBarView(
+        physics: NeverScrollableScrollPhysics(),
+        controller: controller.tabController,
+        children: [_money(), _redEnvelopes()],
+      ),
+    );
+  }
+
+  _tabTitleWidget() {
+    return Container(
+      width: 220.w,
+      height: 43.w,
+      color: Colors.transparent,
+      child: TabBar(
+        controller: controller.tabController,
+        isScrollable: false,
+        // padding: EdgeInsets.symmetric(horizontal: 60.w),
+        indicator: CustomIndicator(
+          width: 15.w,
+          height: 3.5.w,
+          color: AppColors.green,
+        ),
+        tabs: _tabItemWidget(controller.tabList),
+        indicatorPadding: EdgeInsets.only(bottom: 5.w),
+        labelColor: Color(0xff111111),
+        unselectedLabelColor: Color(0xff757575),
+        labelStyle: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500),
+        unselectedLabelStyle:
+            TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w400),
+      ),
+    );
+  }
+
+  List<Widget> _tabItemWidget(List<String> data) {
+    return data.map((String item) {
+      return Text(item);
+    }).toList();
+  }
+
+  _redEnvelopes() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.fromLTRB(25.w, 20.w, 25.w, 37.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
                   Text(
-                    '提取金额',
+                    '￥',
                     style: TextStyle(
                       color: Color(0xff111111),
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 26.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(height: 14.w),
-                  Row(
-                    children: [
-                      Text(
-                        '￥',
-                        style: TextStyle(
-                          color: Color(0xff111111),
-                          fontSize: 26.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
+                  Expanded(
+                    child: CommonInput(
+                      controller: controller.balanceRedController,
+                      keyboardType:
+                          TextInputType.numberWithOptions(decimal: true),
+                      style: TextStyle(
+                        color: Color(0xff111111),
+                        fontSize: 26.sp,
+                        fontWeight: FontWeight.w500,
                       ),
-                      Expanded(
-                        child: CommonInput(
-                          controller: controller.balanceController,
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          style: TextStyle(
-                            color: Color(0xff111111),
-                            fontSize: 26.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10.w),
-                  Divider(height: 1.w, color: Color(0xffF5F4F9)),
-                  SizedBox(height: 10.w),
-                  Row(
-                    children: [
-                      Text(
-                        '可提现金额：',
-                        style: TextStyle(
-                          color: Color(0xff434446),
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      Text(
-                        Get.arguments["balance"],
-                        style: TextStyle(
-                          color: Color(0xff434446),
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
-            ),
-            Obx(() => Visibility(
+              SizedBox(height: 10.w),
+              Divider(height: 1.w, color: Color(0xffF5F4F9)),
+              SizedBox(height: 10.w),
+              Row(
+                children: [
+                  Text(
+                    '可提现金额：',
+                    style: TextStyle(
+                      color: Color(0xff434446),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  Text(
+                    Get.arguments["redEnvelopeAmount"] ?? "0.00",
+                    style: TextStyle(
+                      color: Color(0xff434446),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Obx(() => Visibility(
+              visible: controller.method.value.isNotEmpty,
+              child: GestureDetector(
+                child: SafeTapWidget(
+                  onTap: () {
+                    controller.createRedBalance();
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 44.w,
+                    margin: EdgeInsets.symmetric(horizontal: 20.w),
+                    decoration: BoxDecoration(
+                      color: AppColors.green,
+                      borderRadius: BorderRadius.circular(22.w),
+                    ),
+                    child: Text(
+                      '提现',
+                      style: TextStyle(
+                        color: Color(0xffffffff),
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )),
+      ],
+    );
+  }
+
+  _money() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.fromLTRB(25.w, 20.w, 25.w, 37.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    '￥',
+                    style: TextStyle(
+                      color: Color(0xff111111),
+                      fontSize: 26.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Expanded(
+                    child: CommonInput(
+                      controller: controller.balanceController,
+                      keyboardType:
+                          TextInputType.numberWithOptions(decimal: true),
+                      style: TextStyle(
+                        color: Color(0xff111111),
+                        fontSize: 26.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.w),
+              Divider(height: 1.w, color: Color(0xffF5F4F9)),
+              SizedBox(height: 10.w),
+              Row(
+                children: [
+                  Text(
+                    '可提现金额：',
+                    style: TextStyle(
+                      color: Color(0xff434446),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  Text(
+                    Get.arguments["balance"],
+                    style: TextStyle(
+                      color: Color(0xff434446),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Obx(() => Visibility(
               visible: controller.method.value.isNotEmpty,
               child: GestureDetector(
                 child: SafeTapWidget(
@@ -181,20 +320,18 @@ class DrawingPage extends GetView<DrawingController> {
                       borderRadius: BorderRadius.circular(22.w),
                     ),
                     child: Obx(() => Text(
-                      '提现至${controller.method.value}',
-                      style: TextStyle(
-                        color: Color(0xffffffff),
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    )),
+                          '提现至${controller.method.value}',
+                          style: TextStyle(
+                            color: Color(0xffffffff),
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )),
                   ),
                 ),
               ),
             )),
-          ],
-        ),
-      ),
+      ],
     );
   }
 }

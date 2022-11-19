@@ -86,7 +86,7 @@ class WalletPage extends GetView<WalletController> {
       onTap: () {
         if (index == 0) {
           // 余额提现
-          Get.toNamed(RoutesID.DRAWING_PAGE, arguments: {"balance": controller.model.value?.balance});
+          Get.toNamed(RoutesID.DRAWING_PAGE, arguments: {"balance": controller.model.value?.balance, "redEnvelopeAmount": controller.model.value?.redEnvelopeAmount});
         } else {
           // 提现记录
           Get.toNamed(RoutesID.TRANSACTIONS_PAGE);

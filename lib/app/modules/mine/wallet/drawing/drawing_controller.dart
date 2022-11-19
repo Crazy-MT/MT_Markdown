@@ -11,17 +11,22 @@ import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 
-class DrawingController extends GetxController {
+class DrawingController extends GetxController with GetSingleTickerProviderStateMixin{
   final pageName = 'Drawing'.obs;
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
   final method = "".obs;
   int chooseMethod = 0;
   TextEditingController balanceController = new TextEditingController();
+  TextEditingController balanceRedController = new TextEditingController();
+  TabController? tabController;
+  List<String> tabList = ['提取余额', '提取红包奖励'];
+  RxInt currentIndex = 0.obs;
 
   @override
   void onInit() {
@@ -31,6 +36,17 @@ class DrawingController extends GetxController {
 
   initData() {
     pageStatus.value = FTStatusPageType.success;
+    tabController = TabController(
+      length: tabList.length,
+      vsync: this,
+      initialIndex: 0,
+    );
+    tabController?.addListener(() {
+      ///避免addListener调用2次
+      if (tabController?.index == tabController?.animation?.value) {
+        currentIndex.value = tabController?.index ?? 0;
+      }
+    });
     fetchBankCardData();
   }
 
@@ -128,7 +144,8 @@ class DrawingController extends GetxController {
         data: {
           'balance' : balanceController.text,
           'method' : chooseMethod,
-          'userId' : userHelper.userInfo.value?.id
+          'userId' : userHelper.userInfo.value?.id,
+          'balanceFrom':0
         },
         t: DataModel(),
         requestType: RequestType.POST,
@@ -143,4 +160,37 @@ class DrawingController extends GetxController {
         }
     );
   }
+
+  Future<void> createRedBalance() async {
+
+    if(Get.arguments["redEnvelopeAmount"] == 0) {
+      Utils.showToastMsg('可提现金额为 0');
+      return;
+    }
+    if(balanceRedController.text.isEmpty) {
+      Utils.showToastMsg('请输入提现金额');
+      return;
+    }
+    ResultData<DataModel>? _result = await LRequest.instance.request<
+        DataModel>(
+        url: DrawingApis.CREATE,
+        data: {
+          'balance' : balanceRedController.text,
+          'userId' : userHelper.userInfo.value?.id,
+          'balanceFrom':1
+        },
+        t: DataModel(),
+        requestType: RequestType.POST,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          Utils.showToastMsg("提现失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("提现失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+        onSuccess: (rest) {
+          Utils.showToastMsg("提现成功");
+          Get.find<WalletController>().getStatistics();
+          Get.back();
+        }
+    );
+  }
+
 }
