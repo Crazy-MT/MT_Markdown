@@ -65,6 +65,35 @@ class HomePage extends GetView<HomeController> {
                   );
                 },
               ),
+              Positioned(
+                child: SafeTapWidget(
+                  onTap: () {
+
+                  },
+                  child: Container(
+                    width: 50.w,
+                    height: 50.w,
+                    child: ScaleTransition(scale: controller.scaleAnimation!,
+                    child: Image.asset("assets/icons/recommend_courteously.png")),
+                  ),
+                ),
+                bottom: 110.w,
+                right: 15.w,
+              ),
+              Positioned(
+                child: SafeTapWidget(
+                  onTap: () {
+
+                  },
+                  child: SizeTransition(
+                      sizeFactor: controller.slideAnimation!,
+                      axis: Axis.vertical,
+                      axisAlignment: -1,  /// -1 代表 从头（此处即顶部）开始
+                      child: Image.asset("assets/icons/red_bag.png", width: 32.w,))                  ,
+                ),
+                bottom: 50.w,
+                right: 25.w,
+              ),
               if (controller.showScrollToTop.value)
                 Positioned(
                   child: SafeTapWidget(

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:code_zero/app/modules/home/home_apis.dart';
 import 'package:code_zero/app/modules/home/model/app_versions.dart';
+import 'package:code_zero/app/modules/home/red_bag_dialog.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/user_apis.dart';
@@ -23,7 +24,7 @@ import 'package:oktoast/oktoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:r_upgrade/r_upgrade.dart';
 
-class HomeController extends GetxController {
+class HomeController extends GetxController with GetTickerProviderStateMixin {
   final pageName = 'Home'.obs;
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
@@ -47,6 +48,11 @@ class HomeController extends GetxController {
   int pageSize = 20;
   final RefreshController refreshController = new RefreshController();
 
+  AnimationController? scaleAnimationController;
+  AnimationController? slideAnimationController;
+  Animation<double>? scaleAnimation;
+  Animation<double>? slideAnimation;
+
   var images = [
     Assets.imagesHomeBanner,
     Assets.imagesHomeBanner1,
@@ -55,8 +61,42 @@ class HomeController extends GetxController {
   ];
 
   @override
+  void onReady() {
+    super.onReady();
+    showRedBagDialog();
+  }
+
+  @override
   void onInit() {
     super.onInit();
+    scaleAnimationController =
+        AnimationController(duration: Duration(milliseconds: 600), vsync: this)
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              scaleAnimationController?.reverse();
+            } else if (status == AnimationStatus.dismissed) {
+              scaleAnimationController?.forward();
+            }
+          });
+    scaleAnimation =
+        Tween(begin: .9, end: 1.0).animate(scaleAnimationController!);
+    scaleAnimationController?.forward();
+
+    slideAnimationController =
+        AnimationController(duration: Duration(milliseconds: 500), reverseDuration: Duration(milliseconds: 250), vsync: this)
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              Future.delayed(Duration(milliseconds: 400), () {
+                slideAnimationController?.reverse();
+              });
+            } else if (status == AnimationStatus.dismissed) {
+              slideAnimationController?.forward();
+            }
+          });
+    slideAnimation =
+        Tween(begin: 0.0, end: 1.0).animate(slideAnimationController!);
+    slideAnimationController?.forward();
+
     initData();
   }
 
@@ -74,10 +114,11 @@ class HomeController extends GetxController {
         showScrollToTop.value = false;
       }
     });
-    if(!PlatformUtils.isWeb) {
+    if (!PlatformUtils.isWeb) {
       checkVersion();
     }
-    Future.delayed(Duration(seconds: 1)).then((value) => Utils().checkUserInfo(RoutesID.HOME_PAGE));
+    Future.delayed(Duration(seconds: 1))
+        .then((value) => Utils().checkUserInfo(RoutesID.HOME_PAGE));
   }
 
   Future<void> checkVersion() async {
