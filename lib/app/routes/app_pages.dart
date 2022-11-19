@@ -90,6 +90,8 @@ import '../modules/mine/order/self_order_detail/self_order_detail_binding.dart';
 import '../modules/mine/order/self_order_detail/self_order_detail_page.dart';
 import '../modules/home/recommended_courteously/recommended_courteously_binding.dart';
 import '../modules/home/recommended_courteously/recommended_courteously_page.dart';
+import '../modules/mine/red_envelope_withdrawal/red_envelope_withdrawal_binding.dart';
+import '../modules/mine/red_envelope_withdrawal/red_envelope_withdrawal_page.dart';
 
 class AppPages {
   AppPages._();
@@ -97,6 +99,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // red_envelope_withdrawal
+    GetPage(
+      name: RoutesID.RED_ENVELOPE_WITHDRAWAL_PAGE,
+      page: () => const RedEnvelopeWithdrawalPage(),
+      binding: RedEnvelopeWithdrawalBinding(),
+    ),
+
     // recommended_courteously
     GetPage(
       name: RoutesID.RECOMMENDED_COURTEOUSLY_PAGE,
