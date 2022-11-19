@@ -26,4 +26,6 @@ class Apis {
   static const String SYSTEM_SETTING = NetConstant.HOST + "/system-setting/get";
 
   static const String APP_VERSION = NetConstant.HOST + "/app-version/get-latest-version";
+  static const String RED_ENVELOPE = NetConstant.HOST + "/red-envelope/info";
+
 }

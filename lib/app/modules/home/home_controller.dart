@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:code_zero/app/modules/home/home_apis.dart';
 import 'package:code_zero/app/modules/home/model/app_versions.dart';
+import 'package:code_zero/app/modules/home/model/red_envelope.dart';
 import 'package:code_zero/app/modules/home/red_bag_dialog.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/confirm_dialog.dart';
@@ -11,6 +12,7 @@ import 'package:code_zero/app/modules/snap_up/snap_detail/model/commodity.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/extend.dart';
 import 'package:code_zero/common/system_setting.dart';
+import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
@@ -63,7 +65,6 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   @override
   void onReady() {
     super.onReady();
-    showRedBagDialog();
   }
 
   @override
@@ -82,17 +83,19 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
         Tween(begin: .9, end: 1.0).animate(scaleAnimationController!);
     scaleAnimationController?.forward();
 
-    slideAnimationController =
-        AnimationController(duration: Duration(milliseconds: 500), reverseDuration: Duration(milliseconds: 250), vsync: this)
-          ..addStatusListener((status) {
-            if (status == AnimationStatus.completed) {
-              Future.delayed(Duration(milliseconds: 400), () {
-                slideAnimationController?.reverse();
-              });
-            } else if (status == AnimationStatus.dismissed) {
-              slideAnimationController?.forward();
-            }
+    slideAnimationController = AnimationController(
+        duration: Duration(milliseconds: 500),
+        reverseDuration: Duration(milliseconds: 250),
+        vsync: this)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          Future.delayed(Duration(milliseconds: 400), () {
+            slideAnimationController?.reverse();
           });
+        } else if (status == AnimationStatus.dismissed) {
+          slideAnimationController?.forward();
+        }
+      });
     slideAnimation =
         Tween(begin: 0.0, end: 1.0).animate(slideAnimationController!);
     slideAnimationController?.forward();
@@ -114,11 +117,40 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
         showScrollToTop.value = false;
       }
     });
-    if (!PlatformUtils.isWeb) {
-      checkVersion();
-    }
-    Future.delayed(Duration(seconds: 1))
-        .then((value) => Utils().checkUserInfo(RoutesID.HOME_PAGE));
+
+    Future.delayed(Duration(seconds: 1)).then((value) async {
+      if (!PlatformUtils.isWeb) {
+        // 检查升级
+        await checkVersion();
+      }
+      // 信息不足去引导
+      await Utils().checkUserInfo(RoutesID.HOME_PAGE);
+      await checkRedEnvelope();
+    });
+  }
+
+  Future<void> checkRedEnvelope() async {
+    ResultData<RedEnvelope>? _result =
+        await LRequest.instance.request<RedEnvelope>(
+            url: Apis.RED_ENVELOPE,
+            t: RedEnvelope(),
+            requestType: RequestType.GET,
+            queryParameters: {
+              'userId': userHelper.userInfo.value?.id
+            },
+            isShowLoading: true,
+            errorBack: (errorCode, errorMsg, expMsg) {
+              lLog('MTMTMT HomeController.checkRedEnvelope ${errorMsg} ');
+            },
+            onSuccess: (rest) async {
+              lLog('MTMTMT HomeController.checkRedEnvelope ${rest} ');
+              RedEnvelope envelope = rest.value as RedEnvelope;
+              if (envelope.hasNewRedEnvelope == 1) {
+                showRedBagDialog(
+                    newRedEnvelopeAmount: envelope.newRedEnvelopeAmount,
+                    onConfirm: () {});
+              }
+            });
   }
 
   Future<void> checkVersion() async {

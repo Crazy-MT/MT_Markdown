@@ -7,8 +7,9 @@ import 'package:get/get.dart';
 
 class _RedBagDialog extends StatefulWidget {
   final VoidCallback? onConfirm;
+  final String? newRedEnvelopeAmount;
 
-  const _RedBagDialog({Key? key, this.onConfirm}) : super(key: key);
+  const _RedBagDialog({Key? key, this.onConfirm, this.newRedEnvelopeAmount}) : super(key: key);
 
   @override
   State<_RedBagDialog> createState() => _RedBagDialogState();
@@ -21,7 +22,6 @@ class _RedBagDialogState extends State<_RedBagDialog>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     slideAnimationController = AnimationController(
@@ -95,10 +95,12 @@ class _RedBagDialogState extends State<_RedBagDialog>
 }
 
 showRedBagDialog({
+  String? newRedEnvelopeAmount,
   VoidCallback? onConfirm,
 }) {
   Get.dialog(
     _RedBagDialog(
+      newRedEnvelopeAmount: newRedEnvelopeAmount,
       onConfirm: onConfirm,
     ),
   );
