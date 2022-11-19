@@ -3,6 +3,7 @@
 // ignore_for_file: constant_identifier_names
 
 class RoutesID {
+  static const RED_ENVELOPE_REWARD_PAGE = "/red_envelope_reward_page";
   static const RED_ENVELOPE_WITHDRAWAL_PAGE = "/red_envelope_withdrawal_page";
   static const RECOMMENDED_COURTEOUSLY_PAGE = "/recommended_courteously_page";
   static const SELF_ORDER_DETAIL_PAGE = "/self_order_detail_page";

@@ -78,6 +78,12 @@ class DistributionController extends GetxController {
         onClick: () {
           Get.toNamed(RoutesID.FANS_ORDER_PAGE, arguments: {"wallet": model.value});
         }));
+    menuList.add(_MenuItem(
+        title: "红包奖励",
+        showDivider: false,
+        onClick: () {
+          Get.toNamed(RoutesID.RED_ENVELOPE_REWARD_PAGE, arguments: {"wallet": model.value});
+        }));
   }
 
   @override
