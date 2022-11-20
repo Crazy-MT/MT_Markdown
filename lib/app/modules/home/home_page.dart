@@ -83,7 +83,8 @@ class HomePage extends GetView<HomeController> {
               Positioned(
                 child: SafeTapWidget(
                   onTap: () {
-                    Get.toNamed(RoutesID.RED_ENVELOPE_WITHDRAWAL_PAGE);
+                    // Get.toNamed(RoutesID.RED_ENVELOPE_WITHDRAWAL_PAGE);
+                    Get.toNamed(RoutesID.RED_ENVELOPE_REWARD_PAGE);
                   },
                   child: SizeTransition(
                       sizeFactor: controller.slideAnimation!,
