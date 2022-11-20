@@ -15,8 +15,11 @@ class _Colors {
   final black87 = Colors.black87;
   final white = Colors.white;
   final customColor = const Color(0xff000000);
+  final black11 = const Color(0xff111111);
 
   final red = Colors.redAccent;
+
+  final text_dark = Color(0xff757575);
 }
 
 class _TextStyles {
