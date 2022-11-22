@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/network/upload_util.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -43,14 +44,26 @@ class SignatureController extends GetxController {
     test.update((val) {});
   }
 
-  saveSignature() async {
+  // saveSignature() async {
+  //   if (touchList.isNotEmpty) {
+  //     String? signUrl = await uploadFile(value: await Utils().capturePng(globalKey));
+  //     if(signUrl?.isNotEmpty ?? false) {
+  //       Get.back(result: signUrl);
+  //     }
+  //   }
+  // }
+
+
+  saveSignature(List<int>? value) async {
     if (touchList.isNotEmpty) {
-      String? signUrl = await uploadFile(value: await Utils().capturePng(globalKey));
+      String? signUrl = await uploadFile(value: value);
+      lLog('MTMTMT SignatureController.saveSignature ${signUrl} ');
       if(signUrl?.isNotEmpty ?? false) {
         Get.back(result: signUrl);
       }
     }
   }
+
 
   Future<File> _saveImageToFile() async {
     Directory tempDir = await getTemporaryDirectory();

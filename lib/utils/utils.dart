@@ -51,7 +51,8 @@ class Utils {
     if (obj is RenderRepaintBoundary) {
       double dpr = ui.window.devicePixelRatio; // 获取当前设备的像素比
       var image = await obj.toImage(pixelRatio: dpr);
-      ByteData? _byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      ByteData? _byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
       Uint8List? sourceBytes = _byteData?.buffer.asUint8List();
       if (sourceBytes != null) {
         return sourceBytes;
@@ -72,19 +73,19 @@ class Utils {
         }
 
         final XFile imageFile =
-        XFile.fromData(sourceBytes, mimeType: "file/image", name: fileName);
+            XFile.fromData(sourceBytes, mimeType: "file/image", name: fileName);
         await imageFile.saveTo(path);
         Utils.showToastMsg('保存海报成功');
         return;
       }
 
       Permission filePermission =
-      PlatformUtils.isIOS ? Permission.photos : Permission.storage;
+          PlatformUtils.isIOS ? Permission.photos : Permission.storage;
       lLog('MTMTMT Utils.saveImageToFile ${filePermission} ');
       var status = await filePermission.status;
       if (!status.isGranted) {
         Map<Permission, PermissionStatus> statuses =
-        await [filePermission].request();
+            await [filePermission].request();
         lLog(
             'MTMTMT Utils.saveImageToFile ${statuses} ${statuses['Permission.photos']}');
         if (statuses[Permission.photos] == PermissionStatus.limited ||
@@ -100,7 +101,7 @@ class Utils {
       }
       if (status.isGranted) {
         final result =
-        await ImageGallerySaver.saveImage(sourceBytes, quality: 80);
+            await ImageGallerySaver.saveImage(sourceBytes, quality: 80);
         if (result["isSuccess"]) {
           Utils.showToastMsg('保存成功');
         } else {
@@ -114,18 +115,20 @@ class Utils {
   }
 
   Future<void> checkUserInfo(String page) async {
-    if(userHelper.userInfo.value == null) {
+    if (userHelper.userInfo.value == null) {
       return;
     }
     if ((userHelper.userInfo.value?.checkRes ?? 0) != 1) {
-      bool result = await Get.toNamed(RoutesID.AUTH_CHECK_PAGE, arguments: {'from': page});
+      bool result = await Get.toNamed(RoutesID.AUTH_CHECK_PAGE,
+          arguments: {'from': page});
       if (!result) {
         return;
       }
     }
 
     if ((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0) {
-      await Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE, arguments: {'from': page});
+      await Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE,
+          arguments: {'from': page});
 
       if ((userHelper.userInfo.value?.hasPaymentMethod ?? 0) == 0) {
         return;
@@ -133,13 +136,14 @@ class Utils {
     }
 
     if ((userHelper.userInfo.value?.hasAddress ?? 0) == 0) {
-      await Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE, arguments: {'from': page});
+      await Get.toNamed(RoutesID.ADDRESS_MANAGE_PAGE,
+          arguments: {'from': page});
       if ((userHelper.userInfo.value?.hasAddress ?? 0) == 0) {
         return;
       }
     }
 
-    if(page == RoutesID.HOME_PAGE) {
+    if (page == RoutesID.HOME_PAGE) {
       return;
     }
 

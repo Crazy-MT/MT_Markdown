@@ -419,12 +419,17 @@ class HomePage extends GetView<HomeController> {
     CommodityItem item = controller.homeList[index];
     return SafeTapWidget(
       onTap: () {
-        Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
+        Get.toNamed(RoutesID.PHOTO_VIEW_PAGE, arguments: {
+          "url": item.thumbnails?.firstWhere(
+                  (element) => element.isNotEmpty,
+              orElse: () => "") ?? ""
+        });
+/*        Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
           "from": RoutesID.HOME_PAGE,
           "good": item,
           // "startTime": Get.arguments['startTime'],
           // "endTime": Get.arguments['endTime'],
-        });
+        });*/
       },
       child: Container(
         child: Column(

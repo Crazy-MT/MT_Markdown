@@ -174,7 +174,7 @@ class AppPages {
 
     // signature 签名页
     GetPage(
-      middlewares: [EnsureAuthMiddleware()],
+      // middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.SIGNATURE_PAGE,
       page: () => const SignaturePage(),
       binding: SignatureBinding(),

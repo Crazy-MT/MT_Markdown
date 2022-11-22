@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:code_zero/app/modules/others/signature/signature_widget.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,23 @@ class SignaturePage extends GetView<SignatureController> {
                     child: UnconstrainedBox(
                       child: _buildCanvas(),
                     ),
+                  ),
+                  Positioned(
+                    right: 5.w,
+                    top: 40.w,
+                    child: RotatedBox(
+                        quarterTurns: 1,
+                        child: Padding(
+                          padding: EdgeInsets.all(15.w),
+                          child: Text(
+                            "请签字",
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF111111),
+                            ),
+                          ),
+                        )),
                   ),
                   Positioned(
                     bottom: 39.w,
@@ -103,7 +121,7 @@ class SignaturePage extends GetView<SignatureController> {
                             height: 40.w,
                             child: ElevatedButton(
                               onPressed: () {
-                                controller.saveSignature();
+                                // controller.saveSignature();
                               },
                               style: ElevatedButton.styleFrom(
                                 shape: StadiumBorder(),
@@ -172,25 +190,7 @@ class SignaturePage extends GetView<SignatureController> {
             borderRadius: BorderRadius.circular(10.w),
             color: Color(0xFFF5F5F5),
           ),
-          child: Obx(
-            () => controller.touchList.isEmpty
-                ? RotatedBox(
-                    quarterTurns: 1,
-                    child: Padding(
-                      padding: EdgeInsets.all(15.w),
-                      child: Text(
-                        "请签字",
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF111111),
-                        ),
-                      ),
-                    ))
-                : CustomPaint(
-                    painter: SignatuePainter(controller.touchList, controller.test.value / 2),
-                  ),
-          ),
+          child: SignatureWidget(),
         ),
       ),
     );

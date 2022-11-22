@@ -4,6 +4,7 @@ import 'package:code_zero/app/modules/home/home_apis.dart';
 import 'package:code_zero/app/modules/home/model/app_versions.dart';
 import 'package:code_zero/app/modules/home/model/red_envelope.dart';
 import 'package:code_zero/app/modules/home/red_bag_dialog.dart';
+import 'package:code_zero/app/modules/others/widget/signature/signature_in_agreement.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/confirm_dialog.dart';
 import 'package:code_zero/common/user_apis.dart';
@@ -25,6 +26,7 @@ import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:r_upgrade/r_upgrade.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {
   final pageName = 'Home'.obs;
@@ -135,9 +137,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
             url: Apis.RED_ENVELOPE,
             t: RedEnvelope(),
             requestType: RequestType.GET,
-            queryParameters: {
-              'userId': userHelper.userInfo.value?.id
-            },
+            queryParameters: {'userId': userHelper.userInfo.value?.id},
             isShowLoading: true,
             errorBack: (errorCode, errorMsg, expMsg) {
               lLog('MTMTMT HomeController.checkRedEnvelope ${errorMsg} ');

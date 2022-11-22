@@ -1,0 +1,30 @@
+{
+  "name": "image_editor_common",
+  "version": "1.0.0",
+  "summary": "Edit your image data and output to file/memory.",
+  "description": "Edit your image data and output to file/memory.",
+  "homepage": "https://fluttercandies.com",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "Flutter Candies": "admin@fluttercandies.com"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "public_header_files": "Classes/**/*.h",
+  "dependencies": {
+    "Flutter": [
+
+    ]
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "pod_target_xcconfig": {
+    "DEFINES_MODULE": "YES",
+    "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
+  }
+}

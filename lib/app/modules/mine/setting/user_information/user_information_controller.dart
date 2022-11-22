@@ -2,6 +2,7 @@ import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/model/upload_model.dart';
 import 'package:code_zero/network/l_request.dart';
+import 'package:code_zero/utils/platform_utils.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +61,10 @@ class UserInformationController extends GetxController {
     final XFile? image = await _picker.pickImage(
         source: ImageSource.gallery);
     if(image == null) {
+      return;
+    }
+    if(PlatformUtils.isWeb) {
+      avatarImg.value = await uploadFile(value: await image.readAsBytes());
       return;
     }
     CroppedFile? croppedFile = await ImageCropper().cropImage(

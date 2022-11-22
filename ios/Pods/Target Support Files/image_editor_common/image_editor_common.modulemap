@@ -1,0 +1,6 @@
+framework module image_editor_common {
+  umbrella header "image_editor_common-umbrella.h"
+
+  export *
+  module * { export * }
+}

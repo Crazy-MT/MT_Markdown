@@ -44,6 +44,11 @@ dependencies:
   r_upgrade: #0.4.0 #https://github.com/rhymelph/r_upgrade/blob/master/README_CN.md
     git: git@github.com:Crazy-MT/r_upgrade.git
   platform_device_id: 1.0.1
+  image_downloader_web: 1.0.2
+  image_crop_widget: ^0.0.6
+#  flutter_image_editor: ^1.2.0
+  image_editor: any
+  image: any
   flutter:
     sdk: flutter
   flutter_localizations:
