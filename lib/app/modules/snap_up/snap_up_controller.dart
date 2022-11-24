@@ -112,7 +112,7 @@ class SnapUpController extends GetxController {
       // snapUpList[index].startTime = "15:19";
       // snapUpList[index].endTime = "15:45";
 
-      // if ((userHelper.userInfo.value?.hasSignature ?? 0) == 0) {
+      if ((userHelper.userInfo.value?.hasSignature ?? 0) == 0) {
         Get.toNamed(
           RoutesID.LOCAL_HTML_PAGE,
           arguments: {
@@ -124,7 +124,7 @@ class SnapUpController extends GetxController {
           },
         );
         return;
-      // }
+      }
 
       Get.toNamed(RoutesID.SNAP_DETAIL_PAGE, arguments: {
         "title": snapUpList[index].name,

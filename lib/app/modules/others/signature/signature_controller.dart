@@ -44,19 +44,9 @@ class SignatureController extends GetxController {
     test.update((val) {});
   }
 
-  // saveSignature() async {
-  //   if (touchList.isNotEmpty) {
-  //     String? signUrl = await uploadFile(value: await Utils().capturePng(globalKey));
-  //     if(signUrl?.isNotEmpty ?? false) {
-  //       Get.back(result: signUrl);
-  //     }
-  //   }
-  // }
-
-
-  saveSignature(List<int>? value) async {
+  saveSignature({List<int>? value}) async {
     if (touchList.isNotEmpty) {
-      String? signUrl = await uploadFile(value: value);
+      String? signUrl = await uploadFile(value: value ?? await Utils().capturePng(globalKey));
       lLog('MTMTMT SignatureController.saveSignature ${signUrl} ');
       if(signUrl?.isNotEmpty ?? false) {
         Get.back(result: signUrl);

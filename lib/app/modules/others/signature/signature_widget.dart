@@ -68,7 +68,7 @@ class _SignatureWidgetState extends State<SignatureWidget> {
                         // final encoded = base64.encode(data.buffer.asUint8List() );
                         setState(() {
                           _img = data;
-                          Get.find<SignatureController>().saveSignature(dataList);
+                          Get.find<SignatureController>().saveSignature(value: dataList);
                         });
                       }
 
