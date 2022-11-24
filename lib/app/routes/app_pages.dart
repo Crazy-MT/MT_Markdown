@@ -103,6 +103,7 @@ class AppPages {
   static final List<GetPage> _routes = [
     // red_envelope_reward
     GetPage(
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.RED_ENVELOPE_REWARD_PAGE,
       page: () => const RedEnvelopeRewardPage(),
       binding: RedEnvelopeRewardBinding(),
@@ -110,6 +111,7 @@ class AppPages {
 
     // red_envelope_withdrawal
     GetPage(
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.RED_ENVELOPE_WITHDRAWAL_PAGE,
       page: () => const RedEnvelopeWithdrawalPage(),
       binding: RedEnvelopeWithdrawalBinding(),
@@ -117,6 +119,7 @@ class AppPages {
 
     // recommended_courteously
     GetPage(
+      middlewares: [EnsureAuthMiddleware()],
       name: RoutesID.RECOMMENDED_COURTEOUSLY_PAGE,
       page: () => const RecommendedCourteouslyPage(),
       binding: RecommendedCourteouslyBinding(),

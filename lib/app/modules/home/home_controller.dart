@@ -47,6 +47,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   RxList<CommodityItem> advList = RxList<CommodityItem>();
   ScrollController scrollController = ScrollController();
   final showScrollToTop = false.obs;
+  final isNewUser = false.obs;
   int? id;
   int currentPage = 0;
   int pageSize = 20;
@@ -145,6 +146,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
             onSuccess: (rest) async {
               lLog('MTMTMT HomeController.checkRedEnvelope ${rest} ');
               RedEnvelope envelope = rest.value as RedEnvelope;
+              isNewUser.value = envelope.isNewUser == 1;
               if (envelope.hasNewRedEnvelope == 1) {
                 showRedBagDialog(
                     newRedEnvelopeAmount: envelope.newRedEnvelopeAmount,

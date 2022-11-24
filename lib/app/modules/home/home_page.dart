@@ -22,9 +22,9 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: true,
             title: Text('首页'),
@@ -32,8 +32,7 @@ class HomePage extends GetView<HomeController> {
               Assets.imagesAppBarBg,
               fit: BoxFit.cover,
             ),
-          )
-      ),
+          )),
       backgroundColor: AppColors.page_bg,
       body: Obx(() => Stack(
             children: [
@@ -65,6 +64,7 @@ class HomePage extends GetView<HomeController> {
                   );
                 },
               ),
+              // 推荐有礼
               Positioned(
                 child: SafeTapWidget(
                   onTap: () {
@@ -73,24 +73,34 @@ class HomePage extends GetView<HomeController> {
                   child: Container(
                     width: 50.w,
                     height: 50.w,
-                    child: ScaleTransition(scale: controller.scaleAnimation!,
-                    child: Image.asset("assets/icons/recommend_courteously.png")),
+                    child: ScaleTransition(
+                        scale: controller.scaleAnimation!,
+                        child: Image.asset(
+                            "assets/icons/recommend_courteously.png")),
                   ),
                 ),
                 bottom: 110.w,
                 right: 15.w,
               ),
+              // 红包提取
               Positioned(
                 child: SafeTapWidget(
                   onTap: () {
-                    // Get.toNamed(RoutesID.RED_ENVELOPE_WITHDRAWAL_PAGE);
-                    Get.toNamed(RoutesID.RED_ENVELOPE_REWARD_PAGE);
+                    if(controller.isNewUser.value) {
+                      Get.toNamed(RoutesID.RED_ENVELOPE_WITHDRAWAL_PAGE);
+                    } else {
+                      Get.toNamed(RoutesID.RED_ENVELOPE_REWARD_PAGE);
+                    }
                   },
                   child: SizeTransition(
                       sizeFactor: controller.slideAnimation!,
                       axis: Axis.vertical,
-                      axisAlignment: -1,  /// -1 代表 从头（此处即顶部）开始
-                      child: Image.asset("assets/icons/red_bag.png", width: 32.w,))                  ,
+                      axisAlignment: -1,
+                      /// -1 代表 从头（此处即顶部）开始
+                      child: Image.asset(
+                        "assets/icons/red_bag.png",
+                        width: 32.w,
+                      )),
                 ),
                 bottom: 50.w,
                 right: 25.w,
@@ -110,7 +120,6 @@ class HomePage extends GetView<HomeController> {
                   bottom: 15.w,
                   right: 15.w,
                 ),
-
             ],
           )),
     );
