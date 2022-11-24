@@ -1,9 +1,5 @@
-import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
-import 'package:code_zero/app/modules/snap_up/snap_apis.dart';
-import 'package:code_zero/common/user_helper.dart';
+import 'package:code_zero/app/modules/home/model/red_envelope_reward.dart';
 import 'package:code_zero/network/base_model.dart';
-import 'package:code_zero/network/l_request.dart';
-import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -13,7 +9,7 @@ class RedEnvelopeRewardController extends GetxController {
   final pageName = 'RedEnvelopeReward'.obs;
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
-  RxList<OrderItem?> orderList = RxList<OrderItem?>();
+  RxList<Items?> rewardList = RxList<Items?>();
   int currentPage = 1;
   final RefreshController refreshController = new RefreshController();
 
@@ -21,10 +17,10 @@ class RedEnvelopeRewardController extends GetxController {
   void onInit() {
     super.onInit();
     initData();
-    getOrder(true);
+    getRewards(true);
   }
 
-  getOrder(bool isRefresh) async {
+  getRewards(bool isRefresh) async {
     int prePageIndex = currentPage;
     if (isRefresh) {
       currentPage = 1;
@@ -32,19 +28,17 @@ class RedEnvelopeRewardController extends GetxController {
       currentPage++;
     }
 
-    Map<String, dynamic>? queryParameters = {};
-    queryParameters = {
+    Map<String, dynamic>? queryParameters = {
       "page": currentPage,
       "size": 10,
-      "trade-state-list": '0,1,2,3,4,5,6,7,8,9',
-      "to-user-from-user-id": userHelper.userInfo.value?.id
+      "userId": userHelper.userInfo.value?.id
     };
 
-    ResultData<OrderListModel>? _result = await LRequest.instance.request<
-        OrderListModel>(
-      url: SnapApis.ORDER_LIST,
+    ResultData<RedEnvelopeReward>? _result = await LRequest.instance.request<
+        RedEnvelopeReward>(
+      url: Apis.RED_ENVELOPE_REWARD,
       queryParameters: queryParameters,
-      t: OrderListModel(),
+      t: RedEnvelopeReward(),
       isShowLoading: false,
       requestType: RequestType.GET,
       errorBack: (errorCode, errorMsg, expMsg) {
@@ -54,14 +48,13 @@ class RedEnvelopeRewardController extends GetxController {
       },
     );
     if (_result?.value != null) {
-      lLog('MTMTMT BuyerOrderController.getOrder ${orderList.value.length} ');
       if(isRefresh) {
-        orderList.clear();
+        rewardList.clear();
       }
       isRefresh
-          ? orderList.value = _result?.value?.items ?? []
-          : orderList.addAll(_result?.value?.items ?? []);
-      orderList.refresh();
+          ? rewardList.value = _result?.value?.items ?? []
+          : rewardList.addAll(_result?.value?.items ?? []);
+      rewardList.refresh();
     }
 
     if (isRefresh) {

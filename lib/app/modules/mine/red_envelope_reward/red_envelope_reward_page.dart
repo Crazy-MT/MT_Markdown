@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_zero/app/modules/home/model/red_envelope_reward.dart';
 import 'package:code_zero/app/modules/mine/model/order_list_model.dart';
 import 'package:code_zero/common/S.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/common_app_bar.dart';
+import 'package:date_format/date_format.dart' as time;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'red_envelope_reward_controller.dart';
@@ -47,7 +49,7 @@ class RedEnvelopeRewardPage extends GetView<RedEnvelopeRewardController> {
   }
 
   _buildCommissionList() {
-    if (controller.orderList.isEmpty) {
+    if (controller.rewardList.isEmpty) {
       return SliverToBoxAdapter(
         child: Container(
             width: 345,
@@ -70,13 +72,13 @@ class RedEnvelopeRewardPage extends GetView<RedEnvelopeRewardController> {
             (content, index) {
           return _buildCommissionItem(index);
         },
-        childCount: controller.orderList.length,
+        childCount: controller.rewardList.length,
       ),
     );
   }
 
   _buildCommissionItem(index) {
-    OrderItem? item = controller.orderList[index];
+    Items? item = controller.rewardList[index];
     return Container(
       width: 345,
       height: 69.w,
@@ -94,7 +96,7 @@ class RedEnvelopeRewardPage extends GetView<RedEnvelopeRewardController> {
         children: [
           ClipOval(
             child: CachedNetworkImage(
-              imageUrl: item?.thumbnailUrl ?? "",
+              imageUrl: item?.avatarUrl ?? "",
               width: 36.w,
               height: 36.w,
               fit: BoxFit.cover,
@@ -108,7 +110,7 @@ class RedEnvelopeRewardPage extends GetView<RedEnvelopeRewardController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "用户名：${item?.toUserNickname}",
+                "用户名：${item?.nickname}",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 14.sp,
@@ -132,7 +134,7 @@ class RedEnvelopeRewardPage extends GetView<RedEnvelopeRewardController> {
           ),
           Expanded(child: SizedBox()),
           Text(
-            item?.commission ?? "",
+            item?.amount ?? "",
             style: TextStyle(
               color: Colors.black,
               fontSize: 16.sp,
@@ -151,7 +153,7 @@ class RedEnvelopeRewardPage extends GetView<RedEnvelopeRewardController> {
           TextSpan(
               text: '尊敬的用户，截止',
               style: TextStyle(color: S.colors.white, fontSize: 12.sp)),
-          TextSpan(text: '2022-11-01 14:28:04'),
+          TextSpan(text: time.formatDate(DateTime.now(), [time.yyyy, '-', time.mm, '-', time.dd,' ',  time.HH, ':', time.nn, ':', time.ss])),
           TextSpan(text: '您参与任务情况如下：')
         ]));
   }
