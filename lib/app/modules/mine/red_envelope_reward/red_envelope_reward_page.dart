@@ -134,7 +134,7 @@ class RedEnvelopeRewardPage extends GetView<RedEnvelopeRewardController> {
           ),
           Expanded(child: SizedBox()),
           Text(
-            item?.amount ?? "",
+            item?.isCompleted == 1 ? '+${item?.amount}' : "已完成${item?.completedOrderNum}单",
             style: TextStyle(
               color: Colors.black,
               fontSize: 16.sp,
