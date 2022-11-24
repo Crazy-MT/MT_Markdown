@@ -9,7 +9,8 @@ class _RedBagDialog extends StatefulWidget {
   final VoidCallback? onConfirm;
   final String? newRedEnvelopeAmount;
 
-  const _RedBagDialog({Key? key, this.onConfirm, this.newRedEnvelopeAmount}) : super(key: key);
+  const _RedBagDialog({Key? key, this.onConfirm, this.newRedEnvelopeAmount})
+      : super(key: key);
 
   @override
   State<_RedBagDialog> createState() => _RedBagDialogState();
@@ -25,11 +26,11 @@ class _RedBagDialogState extends State<_RedBagDialog>
     super.initState();
 
     slideAnimationController = AnimationController(
-        duration: Duration(milliseconds: 1000),
-        vsync: this);
+        duration: Duration(milliseconds: 1000), vsync: this);
     // slideAnimation =
     //     Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: Curves.ease).animate(slideAnimationController!);
-        slideAnimation = CurvedAnimation(parent: slideAnimationController!,curve: Curves.easeOutBack);
+    slideAnimation = CurvedAnimation(
+        parent: slideAnimationController!, curve: Curves.easeOutBack);
     slideAnimationController?.forward();
   }
 
@@ -37,43 +38,95 @@ class _RedBagDialogState extends State<_RedBagDialog>
   Widget build(BuildContext context) {
     return UnconstrainedBox(
       child: Container(
-        width: 300.w,
+        height: 410.w,
         // color: Colors.red,
         child: Column(
           children: [
-            Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 40.w),
-                  child: Image.asset(
-                    "assets/icons/dialog_red_bag_1.png",
-                    width: 260.w,
-                    // height: 577.w,
-                  ),
-                ),
-                Positioned(
-                  bottom: 100.w,
-                  child: SizeTransition(
-                    sizeFactor: slideAnimation!,
-                    axis: Axis.vertical,
-                    axisAlignment: -1,
-                    child: Image.asset(
-                      'assets/icons/dialog_red_bag_2.png',
-                      width: (427 / 2).w,
-                      // height: 433.w,
+            // Expanded(child: SizedBox()),
+            Container(
+              height: (410 - 76).w,
+              // color: Colors.black,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  Positioned(
+                    bottom: 0,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 0.w),
+                      child: Image.asset(
+                        "assets/icons/dialog_red_bag_1.png",
+                        width: 260.w,
+                        height: 288.w,
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 180.w),
-                  child: Image.asset(
-                    'assets/icons/dialog_red_bag_3.png',
-                    width: 260.w,
-                    // height: 433.w,
+                  Positioned(
+                    bottom: 95.w,
+                    child: SizeTransition(
+                      sizeFactor: slideAnimation!,
+                      axis: Axis.vertical,
+                      axisAlignment: -1,
+                      child: Container(
+                        child: Stack(
+                          alignment: Alignment.topCenter,
+                          children: [
+                            Image.asset(
+                              'assets/icons/dialog_red_bag_2.png',
+                              width: (427 / 2).w,
+                              // height: 433.w,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 17.w,
+                                ),
+                                Image.asset(
+                                  'assets/icons/dialog_red_bag_4.png',
+                                  width: (122).w,
+                                  // height: 433.w,
+                                ),
+                                SizedBox(
+                                  height: 14.w,
+                                ),
+                                Image.asset(
+                                  'assets/icons/dialog_red_bag_5.png',
+                                  width: (122).w,
+                                  // height: 433.w,
+                                ),
+                                SizedBox(
+                                  height: 14.w,
+                                ),
+                                RichText(
+                                    text: TextSpan(
+                                        text: widget.newRedEnvelopeAmount,
+                                        style: TextStyle(
+                                            color: Color(0xffEA2C0D),
+                                            fontSize: 60.sp),
+                                        children: [
+                                      TextSpan(
+                                          text: '元',
+                                          style: TextStyle(
+                                              color: Color(0xffEA2C0D),
+                                              fontSize: 18.sp))
+                                    ]))
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                )
-              ],
+                  Padding(
+                    padding: EdgeInsets.only(top: 100.w),
+                    child: Image.asset(
+                      'assets/icons/dialog_red_bag_3.png',
+                      width: 260.w,
+                      // height: 433.w,
+                    ),
+                  )
+                ],
+              ),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 20.w),

@@ -8,7 +8,7 @@ class RedEnvelope extends ConvertInterface{
   RedEnvelope({this.hasNewRedEnvelope, this.newRedEnvelopeAmount, this.isNewUser});
 
   RedEnvelope.fromJson(Map<String, dynamic> json) {
-    hasNewRedEnvelope = json['id'];
+    hasNewRedEnvelope = json['hasNewRedEnvelope'];
     newRedEnvelopeAmount = json['newRedEnvelopeAmount'];
     isNewUser = json['isNewUser'];
   }

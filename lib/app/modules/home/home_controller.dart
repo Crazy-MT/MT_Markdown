@@ -129,6 +129,9 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
       // 信息不足去引导
       await Utils().checkUserInfo(RoutesID.HOME_PAGE);
       await checkRedEnvelope();
+      // showRedBagDialog(
+      //     newRedEnvelopeAmount: "100",
+      //     onConfirm: () {});
     });
   }
 
@@ -144,7 +147,6 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
               lLog('MTMTMT HomeController.checkRedEnvelope ${errorMsg} ');
             },
             onSuccess: (rest) async {
-              lLog('MTMTMT HomeController.checkRedEnvelope ${rest} ');
               RedEnvelope envelope = rest.value as RedEnvelope;
               isNewUser.value = envelope.isNewUser == 1;
               if (envelope.hasNewRedEnvelope == 1) {
