@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/modules/snap_up/widget/count_down.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/colors.dart';
+import 'package:code_zero/common/components/keep_alive_wrapper.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/generated/assets/assets.dart';
@@ -498,12 +499,14 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        CountDown(
-                          seconds: controller.isCountDown()["seconds"],
-                          start: controller.isCountDown()["start"],
-                          changed: (_) {
-                            controller.timerRefresh.value = true;
-                          },
+                        KeepAliveWrapper(
+                          child: CountDown(
+                            seconds: controller.isCountDown()["seconds"],
+                            start: controller.isCountDown()["start"],
+                            changed: (_) {
+                              controller.timerRefresh.value = true;
+                            },
+                          ),
                         )
                       ],
                     ),

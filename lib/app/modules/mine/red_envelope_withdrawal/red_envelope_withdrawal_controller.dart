@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:code_zero/app/modules/home/model/red_envelope.dart';
 import 'package:code_zero/app/modules/home/model/red_envelope_task.dart';
 import 'package:code_zero/network/base_model.dart';
@@ -29,7 +31,7 @@ class RedEnvelopeWithdrawalController extends GetxController {
             errorBack: (errorCode, errorMsg, expMsg) {
               lLog(
                   'MTMTMT RedEnvelopeWithdrawalController.checkRedEnvelope ${errorCode} ');
-              showToast('获取失败');
+              showToast('获取失败: $errorMsg $expMsg');
             },
             onSuccess: (rest) async {
               lLog(

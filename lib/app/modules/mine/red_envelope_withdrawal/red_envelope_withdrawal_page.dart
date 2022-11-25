@@ -272,24 +272,32 @@ class RedEnvelopeWithdrawalPage
                 e.completedAt ?? '',
                 style: TextStyle(fontSize: 11.sp, color: Color(0xffABAAB9)),
               ),
-              action: Container(
-                padding: EdgeInsets.only(
-                    top: 5.w, bottom: 5.w, left: 15.w, right: 15.w),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Color((0xFFFF746D)),
-                  borderRadius: BorderRadius.circular(22.w),
-                ),
-                child: Text(
-                  e.isCompleted == 1 ? '已完成' : '去完成',
-                  style: e.isCompleted == 1 ? TextStyle(
-                    color: S.colors.text_dark,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                  ) : TextStyle(
-                    color: Colors.white,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
+              action: SafeTapWidget(
+                onTap: () {
+                  if(e.isCompleted == 0) {
+                    Get.offAllNamed(RoutesID.MAIN_TAB_PAGE,
+                        arguments: {'tabIndex': 2});
+                  }
+                },
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: 5.w, bottom: 5.w, left: 15.w, right: 15.w),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Color((0xFFFF746D)),
+                    borderRadius: BorderRadius.circular(22.w),
+                  ),
+                  child: Text(
+                    e.isCompleted == 1 ? '已完成' : '去完成',
+                    style: e.isCompleted == 1 ? TextStyle(
+                      color: S.colors.text_dark,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ) : TextStyle(
+                      color: Colors.white,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),

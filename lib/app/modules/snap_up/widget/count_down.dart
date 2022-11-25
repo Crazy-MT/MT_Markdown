@@ -112,6 +112,10 @@ class _CountDownState extends State<CountDown> with WidgetsBindingObserver{
   }
 
   constructTime(int seconds) {
+    // seconds = -1;
+    if (seconds <= 0) {
+      return;
+    }
     hour = formatTime(seconds ~/ 3600);
     minute = formatTime(seconds % 3600 ~/ 60);
     second = formatTime(seconds % 60);
