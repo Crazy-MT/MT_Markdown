@@ -26,9 +26,13 @@ class SystemSettingModel extends ConvertInterface{
   String? sponsoredLinks;
   String? posterUrl;
   int? auditSwitch; // 审核开关：0->关闭、1->开启
+  String? fromUserReward;
+  String? toUserReward;
 
   SystemSettingModel(
       {this.id,
+        this.fromUserReward,
+        this.toUserReward,
         this.charge,
         this.posterUrl,
         this.openCommission,
@@ -56,6 +60,8 @@ class SystemSettingModel extends ConvertInterface{
 
   SystemSettingModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    toUserReward = json['toUserReward'];
+    fromUserReward = json['fromUserReward'];
     charge = json['charge'];
     openCommission = json['openCommission'];
     firstCommissionRate = json['firstCommissionRate'];
@@ -108,6 +114,8 @@ class SystemSettingModel extends ConvertInterface{
     data['buyingAdvanceTime'] = this.buyingAdvanceTime;
     data['auditSwitch'] = this.auditSwitch;
     data['posterUrl'] = this.posterUrl;
+    data['fromUserReward'] = this.fromUserReward;
+    data['toUserReward'] = this.toUserReward;
     return data;
   }
 
