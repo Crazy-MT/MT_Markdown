@@ -208,7 +208,7 @@ class BuyerOrderController extends GetxController
     }
     String tradeUrl = "";
     if (PlatformUtils.isWeb) {
-      tradeUrl = await uploadFile(value: await image?.readAsBytes());
+      tradeUrl = await uploadFile(value: await image.readAsBytes());
     } else {
       CroppedFile? croppedFile = await ImageCropper().cropImage(
         sourcePath: image.path,

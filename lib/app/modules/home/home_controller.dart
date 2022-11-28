@@ -136,6 +136,9 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   }
 
   Future<void> checkRedEnvelope() async {
+    if (userHelper.userInfo.value == null) {
+      return;
+    }
     ResultData<RedEnvelope>? _result =
         await LRequest.instance.request<RedEnvelope>(
             url: Apis.RED_ENVELOPE,

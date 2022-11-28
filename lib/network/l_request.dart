@@ -142,7 +142,7 @@ class LRequest {
 
       if (baseModel.code != 0) {
         errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg",
-            "baseModel.code is not 0,this value is ${baseModel.code}");
+            "ErrorCode:${baseModel.code}");
         if (isShowLoading) {
           EasyLoading.dismiss();
         }
