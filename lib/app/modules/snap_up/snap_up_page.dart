@@ -32,7 +32,7 @@ class SnapUpPage extends GetView<SnapUpController> {
           elevation: 0,
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: true,
-            title: Text('寄买寄卖'),
+            title: Text('二手寄卖'),
             background: Image.asset(
               Assets.imagesAppBarBg,
               fit: BoxFit.cover,
@@ -96,7 +96,7 @@ class SnapUpPage extends GetView<SnapUpController> {
       ],
       backgroundColor: Colors.transparent,
       flexibleSpace: FlexibleSpaceBar(
-        title: Text('寄买寄卖'),
+        title: Text('二手寄卖'),
         centerTitle: true,
         background: Image.asset(
           Assets.imagesAppBarBg,
@@ -166,8 +166,9 @@ class SnapUpPage extends GetView<SnapUpController> {
                     ),
                     Obx(() {
                       return Text(
-                        "可提前${systemSetting.model.value?.buyingAdvanceTime ??
-                            20}分钟进入浏览",
+                        // "可提前${systemSetting.model.value?.buyingAdvanceTime ??
+                        //     20}分钟进入浏览",
+                        '平台免费提供珠宝鉴定、质保服务',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14.sp,

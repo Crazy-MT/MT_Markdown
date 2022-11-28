@@ -38,11 +38,11 @@ class DrawingPage extends GetView<DrawingController> {
           builder: (BuildContext context) {
             return Column(
               children: [
-                Obx(() {
-                  return Visibility(
-                      visible: controller.currentIndex.value == 0,
-                      child: _titleWidget());
-                }),
+                // Obx(() {
+                //   return Visibility(
+                //       visible: controller.currentIndex.value == 0,
+                //       child: _titleWidget());
+                // }),
                 _contentWrapperWidget(),
               ],
             );
@@ -52,6 +52,7 @@ class DrawingPage extends GetView<DrawingController> {
     );
   }
 
+/*
   Widget _titleWidget() {
     return Container(
       height: 48.w,
@@ -94,6 +95,7 @@ class DrawingPage extends GetView<DrawingController> {
       ),
     );
   }
+*/
 
   Widget _contentWrapperWidget() {
     return Expanded(
@@ -214,33 +216,30 @@ class DrawingPage extends GetView<DrawingController> {
             ],
           ),
         ),
-        Obx(() => Visibility(
-              visible: controller.method.value.isNotEmpty,
-              child: GestureDetector(
-                child: SafeTapWidget(
-                  onTap: () {
-                    controller.createRedBalance();
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 44.w,
-                    margin: EdgeInsets.symmetric(horizontal: 20.w),
-                    decoration: BoxDecoration(
-                      color: AppColors.green,
-                      borderRadius: BorderRadius.circular(22.w),
-                    ),
-                    child: Text(
-                      '提现',
-                      style: TextStyle(
-                        color: Color(0xffffffff),
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
+        GestureDetector(
+          child: SafeTapWidget(
+            onTap: () {
+              controller.createRedBalance();
+            },
+            child: Container(
+              alignment: Alignment.center,
+              height: 44.w,
+              margin: EdgeInsets.symmetric(horizontal: 20.w),
+              decoration: BoxDecoration(
+                color: AppColors.green,
+                borderRadius: BorderRadius.circular(22.w),
+              ),
+              child: Text(
+                '提现',
+                style: TextStyle(
+                  color: Color(0xffffffff),
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-            )),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -304,33 +303,30 @@ class DrawingPage extends GetView<DrawingController> {
             ],
           ),
         ),
-        Obx(() => Visibility(
-              visible: controller.method.value.isNotEmpty,
-              child: GestureDetector(
-                child: SafeTapWidget(
-                  onTap: () {
-                    controller.createBalance();
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 44.w,
-                    margin: EdgeInsets.symmetric(horizontal: 20.w),
-                    decoration: BoxDecoration(
-                      color: AppColors.green,
-                      borderRadius: BorderRadius.circular(22.w),
-                    ),
-                    child: Obx(() => Text(
-                          '提现至${controller.method.value}',
-                          style: TextStyle(
-                            color: Color(0xffffffff),
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        )),
-                  ),
+        GestureDetector(
+          child: SafeTapWidget(
+            onTap: () {
+              controller.createBalance();
+            },
+            child: Container(
+              alignment: Alignment.center,
+              height: 44.w,
+              margin: EdgeInsets.symmetric(horizontal: 20.w),
+              decoration: BoxDecoration(
+                color: AppColors.green,
+                borderRadius: BorderRadius.circular(22.w),
+              ),
+              child: Text(
+                '提现',
+                style: TextStyle(
+                  color: Color(0xffffffff),
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-            )),
+            ),
+          ),
+        ),
       ],
     );
   }

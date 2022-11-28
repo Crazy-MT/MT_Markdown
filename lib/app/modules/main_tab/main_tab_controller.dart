@@ -54,7 +54,7 @@ class MainTabController extends GetxController {
     tabs.add(
       _HomeTabInfo(
         index: 1,
-        title: '寄买寄卖',
+        title: '二手寄卖',
         icon: Assets.iconsSnapUp,
         selectIcon: Assets.iconsSnapUpSelect,
         tabPage: const SnapUpPage(),

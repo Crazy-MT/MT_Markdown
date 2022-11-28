@@ -63,8 +63,8 @@ class RedEnvelopeWithdrawalPage
           TextSpan(
               text: '尊敬的用户，截止',
               style: TextStyle(color: S.colors.white, fontSize: 12.sp)),
-          TextSpan(text: controller.task.value?.expiredAt ?? ""),
-          TextSpan(text: '您参与任务情况如下：')
+          TextSpan(text: controller.task.value?.expiredAt ?? "", style: TextStyle(color: S.colors.white, fontSize: 12.sp)),
+          TextSpan(text: '您参与任务情况如下：', style: TextStyle(color: S.colors.white, fontSize: 12.sp))
         ]));
   }
 
@@ -273,10 +273,11 @@ class RedEnvelopeWithdrawalPage
                 style: TextStyle(fontSize: 11.sp, color: Color(0xffABAAB9)),
               ),
               action: SafeTapWidget(
-                onTap: () {
+                onTap: () async {
                   if(e.isCompleted == 0) {
-                    Get.offAllNamed(RoutesID.MAIN_TAB_PAGE,
+                    await Get.offAllNamed(RoutesID.MAIN_TAB_PAGE,
                         arguments: {'tabIndex': 2});
+                    controller.redEnvelopeTask();
                   }
                 },
                 child: Container(

@@ -160,27 +160,27 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        TextSpan(
-                          text: "  价格",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFF007B47),
-                          ),
-                        ),
-                        TextSpan(
-                          text: controller.goods.value?.originalPrice ?? "",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            decoration: TextDecoration.lineThrough,
-                            color: Color(0xFF007B47),
-                          ),
-                        )
+                        // TextSpan(
+                        //   text: "  价格",
+                        //   style: TextStyle(
+                        //     fontSize: 14.sp,
+                        //     fontWeight: FontWeight.w500,
+                        //     color: Color(0xFF007B47),
+                        //   ),
+                        // ),
+                        // TextSpan(
+                        //   text: controller.goods.value?.originalPrice ?? "",
+                        //   style: TextStyle(
+                        //     fontSize: 14.sp,
+                        //     fontWeight: FontWeight.w500,
+                        //     decoration: TextDecoration.lineThrough,
+                        //     color: Color(0xFF007B47),
+                        //   ),
+                        // )
                       ]),
                 ),
                 Visibility(
-                  visible: Get.arguments?["from"] == RoutesID.SNAP_DETAIL_PAGE,
+                  visible: false,
                   child: Expanded(
                       child: Container(
                           alignment: Alignment.centerRight,
@@ -492,7 +492,7 @@ class GoodsDetailPage extends GetView<GoodsDetailController> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "抢购倒计时",
+                          "倒计时",
                           style: TextStyle(
                             fontSize: 16.sp,
                             color: Colors.white,

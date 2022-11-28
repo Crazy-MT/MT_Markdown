@@ -28,6 +28,7 @@ class SnapUpController extends GetxController {
   final RefreshController refreshController = new RefreshController();
 
   var images = [
+    'assets/images/snup_banner_4.png',
     Assets.imagesSnupBanner,
     Assets.imagesSnupBanner1,
     Assets.imagesSnupBanner2,

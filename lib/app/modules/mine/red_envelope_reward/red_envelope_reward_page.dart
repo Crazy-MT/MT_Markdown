@@ -153,8 +153,8 @@ class RedEnvelopeRewardPage extends GetView<RedEnvelopeRewardController> {
           TextSpan(
               text: '尊敬的用户，截止',
               style: TextStyle(color: S.colors.white, fontSize: 12.sp)),
-          TextSpan(text: time.formatDate(DateTime.now(), [time.yyyy, '-', time.mm, '-', time.dd,' ',  time.HH, ':', time.nn, ':', time.ss])),
-          TextSpan(text: '您参与任务情况如下：')
+          TextSpan(text: time.formatDate(DateTime.now(), [time.yyyy, '-', time.mm, '-', time.dd,' ',  time.HH, ':', time.nn, ':', time.ss]), style: TextStyle(color: S.colors.white, fontSize: 12.sp)),
+          TextSpan(text: '您参与任务情况如下：', style: TextStyle(color: S.colors.white, fontSize: 12.sp))
         ]));
   }
 

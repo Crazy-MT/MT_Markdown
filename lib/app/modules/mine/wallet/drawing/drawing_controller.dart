@@ -21,7 +21,7 @@ class DrawingController extends GetxController with GetSingleTickerProviderState
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
   final method = "".obs;
-  int chooseMethod = 0;
+  // int chooseMethod = 0;
   TextEditingController balanceController = new TextEditingController();
   TextEditingController balanceRedController = new TextEditingController();
   TabController? tabController;
@@ -47,9 +47,10 @@ class DrawingController extends GetxController with GetSingleTickerProviderState
         currentIndex.value = tabController?.index ?? 0;
       }
     });
-    fetchBankCardData();
+    // fetchBankCardData();
   }
 
+/*
   Future<void> fetchBankCardData() async {
     ResultData<UserBankCardModel>? _result =
     await LRequest.instance.request<UserBankCardModel>(
@@ -76,7 +77,9 @@ class DrawingController extends GetxController with GetSingleTickerProviderState
       return;
     }
   }
+*/
 
+/*
   Future<void> fetchWeChatData() async {
     ResultData<UserWechatModel>? _result = await LRequest.instance.request<UserWechatModel>(
       url: CollectionApis.USERWECHAT,
@@ -101,6 +104,7 @@ class DrawingController extends GetxController with GetSingleTickerProviderState
       return;
     }
   }
+*/
 
 
 
@@ -110,6 +114,7 @@ class DrawingController extends GetxController with GetSingleTickerProviderState
     pageName.value = newName;
   }
 
+/*
   Future<void> choose() async {
     chooseMethod = await Get.toNamed(RoutesID.COLLECTION_SETTINGS_PAGE, arguments: {'title': '选择收款方式'});
     if(chooseMethod == 0) {
@@ -124,6 +129,7 @@ class DrawingController extends GetxController with GetSingleTickerProviderState
       method.value = "支付宝";
     }
   }
+*/
 
   Future<void> createBalance() async {
     if(method.value.isEmpty) {
@@ -143,7 +149,7 @@ class DrawingController extends GetxController with GetSingleTickerProviderState
         url: DrawingApis.CREATE,
         data: {
           'balance' : balanceController.text,
-          'method' : chooseMethod,
+          // 'method' : chooseMethod,
           'userId' : userHelper.userInfo.value?.id,
           'balanceFrom':0
         },
