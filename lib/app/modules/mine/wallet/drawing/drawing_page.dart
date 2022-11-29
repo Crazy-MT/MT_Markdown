@@ -32,22 +32,23 @@ class DrawingPage extends GetView<DrawingController> {
         ),
       ),
       body: Obx(
-        () => FTStatusPage(
-          type: controller.pageStatus.value,
-          errorMsg: controller.errorMsg.value,
-          builder: (BuildContext context) {
-            return Column(
-              children: [
-                // Obx(() {
-                //   return Visibility(
-                //       visible: controller.currentIndex.value == 0,
-                //       child: _titleWidget());
-                // }),
-                _contentWrapperWidget(),
-              ],
-            );
-          },
-        ),
+            () =>
+            FTStatusPage(
+              type: controller.pageStatus.value,
+              errorMsg: controller.errorMsg.value,
+              builder: (BuildContext context) {
+                return Column(
+                  children: [
+                    // Obx(() {
+                    //   return Visibility(
+                    //       visible: controller.currentIndex.value == 0,
+                    //       child: _titleWidget());
+                    // }),
+                    _contentWrapperWidget(),
+                  ],
+                );
+              },
+            ),
       ),
     );
   }
@@ -146,7 +147,7 @@ class DrawingPage extends GetView<DrawingController> {
         unselectedLabelColor: Color(0xff757575),
         labelStyle: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500),
         unselectedLabelStyle:
-            TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w400),
+        TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w400),
       ),
     );
   }
@@ -180,7 +181,7 @@ class DrawingPage extends GetView<DrawingController> {
                     child: CommonInput(
                       controller: controller.balanceRedController,
                       keyboardType:
-                          TextInputType.numberWithOptions(decimal: true),
+                      TextInputType.numberWithOptions(decimal: true),
                       style: TextStyle(
                         color: Color(0xff111111),
                         fontSize: 26.sp,
@@ -203,14 +204,16 @@ class DrawingPage extends GetView<DrawingController> {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  Text(
-                    Get.arguments["redEnvelopeAmount"] ?? "0.00",
-                    style: TextStyle(
-                      color: Color(0xff434446),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  Obx(() {
+                    return Text(
+                      controller.model.value?.redEnvelopeAmount ?? "0.00",
+                      style: TextStyle(
+                        color: Color(0xff434446),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    );
+                  }),
                 ],
               ),
             ],
@@ -267,7 +270,7 @@ class DrawingPage extends GetView<DrawingController> {
                     child: CommonInput(
                       controller: controller.balanceController,
                       keyboardType:
-                          TextInputType.numberWithOptions(decimal: true),
+                      TextInputType.numberWithOptions(decimal: true),
                       style: TextStyle(
                         color: Color(0xff111111),
                         fontSize: 26.sp,
@@ -290,14 +293,16 @@ class DrawingPage extends GetView<DrawingController> {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  Text(
-                    Get.arguments["balance"],
-                    style: TextStyle(
-                      color: Color(0xff434446),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  Obx(() {
+                    return Text(
+                      controller.model.value?.balance ?? "",
+                      style: TextStyle(
+                        color: Color(0xff434446),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    );
+                  }),
                 ],
               ),
             ],

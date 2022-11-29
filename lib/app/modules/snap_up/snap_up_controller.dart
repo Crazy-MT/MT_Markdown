@@ -29,10 +29,10 @@ class SnapUpController extends GetxController {
 
   var images = [
     'assets/images/snup_banner_4.png',
-    Assets.imagesSnupBanner,
-    Assets.imagesSnupBanner1,
-    Assets.imagesSnupBanner2,
-    Assets.imagesSnupBanner3
+    // Assets.imagesSnupBanner,
+    // Assets.imagesSnupBanner1,
+    // Assets.imagesSnupBanner2,
+    // Assets.imagesSnupBanner3
   ];
   final currentTimeFromNet = DateTime.now().millisecondsSinceEpoch.obs;
 

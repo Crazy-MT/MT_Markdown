@@ -37,32 +37,30 @@ class SnapUpPage extends GetView<SnapUpController> {
               Assets.imagesAppBarBg,
               fit: BoxFit.cover,
             ),
-          )
-      ),
+          )),
       body: Obx(
-            () =>
-            FTStatusPage(
-              type: controller.pageStatus.value,
-              errorMsg: controller.errorMsg.value,
-              enablePullUp: true,
-              enablePullDown: true,
-              controller: controller.refreshController,
-              onRefresh: () {
-                controller.getSnapUpList();
-              },
-              onLoading: () {
-                controller.getSnapUpList(isRefresh: false);
-              },
-              builder: (BuildContext context) {
-                return CustomScrollView(
-                  slivers: [
-                    _buildHeaderContainer(),
-                    _buildListDivider(),
-                    _buildSnapUpList(),
-                  ],
-                );
-              },
-            ),
+        () => FTStatusPage(
+          type: controller.pageStatus.value,
+          errorMsg: controller.errorMsg.value,
+          enablePullUp: true,
+          enablePullDown: true,
+          controller: controller.refreshController,
+          onRefresh: () {
+            controller.getSnapUpList();
+          },
+          onLoading: () {
+            controller.getSnapUpList(isRefresh: false);
+          },
+          builder: (BuildContext context) {
+            return CustomScrollView(
+              slivers: [
+                _buildHeaderContainer(),
+                _buildListDivider(),
+                _buildSnapUpList(),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -125,15 +123,16 @@ class SnapUpPage extends GetView<SnapUpController> {
                 itemCount: controller.images.length,
                 itemBuilder: (BuildContext context, int index) {
                   final image = controller.images[index];
-                  return ClipRRect(borderRadius: BorderRadius.circular(10.w),
-                      child: Image.asset(image, fit: BoxFit.fitWidth,));
+                  return ClipRRect(
+                      borderRadius: BorderRadius.circular(10.w),
+                      child: Image.asset(
+                        image,
+                        fit: BoxFit.fitWidth,
+                      ));
                 },
                 pagination: SwiperPagination(
                     builder: DotSwiperPaginationBuilder(
-                        activeColor: AppColors.green,
-                        size: 6,
-                        activeSize: 6
-                    )),
+                        activeColor: AppColors.green, size: 6, activeSize: 6)),
               ),
             ),
             Container(
@@ -164,17 +163,15 @@ class SnapUpPage extends GetView<SnapUpController> {
                     SizedBox(
                       width: 13.w,
                     ),
-                    Obx(() {
-                      return Text(
-                        // "可提前${systemSetting.model.value?.buyingAdvanceTime ??
-                        //     20}分钟进入浏览",
-                        '平台免费提供珠宝鉴定、质保服务',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14.sp,
-                        ),
-                      );
-                    }),
+                    Text(
+                      // "可提前${systemSetting.model.value?.buyingAdvanceTime ??
+                      //     20}分钟进入浏览",
+                      '平台免费提供珠宝鉴定、质保服务',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.sp,
+                      ),
+                    ),
                     Expanded(child: SizedBox()),
                   ],
                 ),
@@ -215,7 +212,7 @@ class SnapUpPage extends GetView<SnapUpController> {
         padding: EdgeInsets.symmetric(horizontal: 15.w),
         sliver: SliverList(
           delegate: SliverChildBuilderDelegate(
-                (content, index) {
+            (content, index) {
               return _buildSnapUpItem(index);
             },
             childCount: controller.snapUpList.length,
@@ -228,9 +225,7 @@ class SnapUpPage extends GetView<SnapUpController> {
   _buildSnapUpItem(index) {
     Item item = controller.snapUpList[index];
     ImageProvider image = AssetImage(Assets.iconsSnapBg1);
-    if (Uri
-        .parse(item.imageUrl ?? "")
-        .isAbsolute) {
+    if (Uri.parse(item.imageUrl ?? "").isAbsolute) {
       image = CachedNetworkImageProvider(item.imageUrl!);
     }
 
@@ -283,18 +278,19 @@ class SnapUpPage extends GetView<SnapUpController> {
                 width: 165.w,
                 height: 30.w,
                 decoration: BoxDecoration(
-                  // color: Color(0xFF050505),
+                    // color: Color(0xFF050505),
                     image: DecorationImage(
-                      image: AssetImage(
-                        Assets.iconsSnapOpen,
-                      ),
-                      fit: BoxFit.fill,
-                    )),
+                  image: AssetImage(
+                    Assets.iconsSnapOpen,
+                  ),
+                  fit: BoxFit.fill,
+                )),
                 alignment: Alignment.center,
                 child: Obx(() {
                   return Text(
                     item.statusText(
-                        controller.currentTimeFromNet.value)["text"] ?? "",
+                            controller.currentTimeFromNet.value)["text"] ??
+                        "",
                     style: TextStyle(
                       fontSize: 14.sp,
                       color: AppColors.green,

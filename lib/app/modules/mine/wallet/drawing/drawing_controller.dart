@@ -4,6 +4,8 @@ import 'package:code_zero/app/modules/mine/collection_settings/collection_settin
 import 'package:code_zero/app/modules/mine/collection_settings/model/user_bank_card_model.dart';
 import 'package:code_zero/app/modules/mine/collection_settings/model/user_wechat_model.dart';
 import 'package:code_zero/app/modules/mine/wallet/drawing/drawing_apis.dart';
+import 'package:code_zero/app/modules/mine/wallet/model/walle_model.dart';
+import 'package:code_zero/app/modules/mine/wallet/wallet_apis.dart';
 import 'package:code_zero/app/modules/mine/wallet/wallet_controller.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/user_helper.dart';
@@ -27,6 +29,7 @@ class DrawingController extends GetxController with GetSingleTickerProviderState
   TabController? tabController;
   List<String> tabList = ['提取余额', '提取红包奖励'];
   RxInt currentIndex = 0.obs;
+  Rx<WalletModel?> model = Rx<WalletModel?>(null);
 
   @override
   void onInit() {
@@ -35,6 +38,7 @@ class DrawingController extends GetxController with GetSingleTickerProviderState
   }
 
   initData() {
+    getStatistics();
     pageStatus.value = FTStatusPageType.success;
     tabController = TabController(
       length: tabList.length,
@@ -131,12 +135,31 @@ class DrawingController extends GetxController with GetSingleTickerProviderState
   }
 */
 
+  Future<void> getStatistics() async {
+    ResultData<WalletModel>? _result = await LRequest.instance.request<WalletModel>(
+        url: WalletApis.ASSETS,
+        queryParameters: {
+          "user-id": userHelper.userInfo.value?.id
+        },
+        t: WalletModel(),
+        requestType: RequestType.GET,
+        errorBack: (errorCode, errorMsg, expMsg) {
+          Utils.showToastMsg("获取资产统计失败：${errorCode == -1 ? expMsg : errorMsg}");
+          errorLog("获取资产统计失败：$errorMsg,${errorCode == -1 ? expMsg : errorMsg}");
+        },
+        onSuccess: (rest) {
+          model.value = rest.value;
+        }
+    );
+  }
+
+
   Future<void> createBalance() async {
     if(method.value.isEmpty) {
       Utils.showToastMsg('请选择提现方式');
       return;
     }
-    if(Get.arguments["balance"] == 0) {
+    if(model.value?.balance == 0) {
       Utils.showToastMsg('可提现金额为 0');
       return;
     }
@@ -169,7 +192,7 @@ class DrawingController extends GetxController with GetSingleTickerProviderState
 
   Future<void> createRedBalance() async {
 
-    if(Get.arguments["redEnvelopeAmount"] == 0) {
+    if(model.value?.redEnvelopeAmount == 0) {
       Utils.showToastMsg('可提现金额为 0');
       return;
     }

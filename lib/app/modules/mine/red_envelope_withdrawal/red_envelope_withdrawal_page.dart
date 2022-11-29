@@ -242,13 +242,13 @@ class RedEnvelopeWithdrawalPage
   }
 
   _buildStep() {
-    var currentStep = 3;
+    // var currentStep = 3;
     return Obx(() {
       if (controller.task.value?.taskItemList == null) {
         return Container();
       }
       return customStepper.CustomStepper(
-        currentStep: currentStep,
+        // currentStep: currentStep,
         controlsBuilder:
             (BuildContext context, customStepper.ControlsDetails details) {
           return Row(
@@ -291,7 +291,7 @@ class RedEnvelopeWithdrawalPage
                   child: Text(
                     e.isCompleted == 1 ? '已完成' : '去完成',
                     style: e.isCompleted == 1 ? TextStyle(
-                      color: S.colors.text_dark,
+                      color: e.isCompleted == 1 ? S.colors.white : S.colors.text_dark,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w500,
                     ) : TextStyle(

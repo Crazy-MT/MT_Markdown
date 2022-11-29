@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../routes/app_routes.dart';
+
 class _RedBagDialog extends StatefulWidget {
   final VoidCallback? onConfirm;
   final String? newRedEnvelopeAmount;
@@ -109,7 +111,7 @@ class _RedBagDialogState extends State<_RedBagDialog>
                                           style: TextStyle(
                                               color: Color(0xffEA2C0D),
                                               fontSize: 18.sp))
-                                    ]))
+                                    ])),
                               ],
                             ),
                           ],
@@ -124,7 +126,14 @@ class _RedBagDialogState extends State<_RedBagDialog>
                       width: 260.w,
                       // height: 433.w,
                     ),
-                  )
+                  ),
+                  Positioned(
+                      bottom: 33.w,
+                      child: SafeTapWidget(
+                          onTap: () {
+                            Get.toNamed(RoutesID.WALLET_PAGE);
+                          },
+                          child: Image.asset('assets/icons/check_red.png', width: 224.w,)))
                 ],
               ),
             ),
