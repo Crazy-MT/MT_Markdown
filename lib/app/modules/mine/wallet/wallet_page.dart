@@ -85,7 +85,7 @@ class WalletPage extends GetView<WalletController> {
     return GestureDetector(
       onTap: () {
         if (index == 0) {
-          // 余额提现
+          // 红包提现
           Get.toNamed(RoutesID.DRAWING_PAGE, arguments: {"balance": controller.model.value?.balance, "redEnvelopeAmount": controller.model.value?.redEnvelopeAmount});
         } else {
           // 提现记录

@@ -49,6 +49,7 @@ dependencies:
 #  flutter_image_editor: ^1.2.0
   image_editor: any
   image: any
+  dotted_border: 2.0.0+3
   flutter:
     sdk: flutter
   flutter_localizations:

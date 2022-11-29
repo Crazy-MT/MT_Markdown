@@ -21,7 +21,7 @@ class DrawingPage extends GetView<DrawingController> {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       appBar: CommonAppBar(
-        titleText: "余额提现",
+        titleText: "红包提现",
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

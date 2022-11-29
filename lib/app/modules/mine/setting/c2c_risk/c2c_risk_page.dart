@@ -14,7 +14,7 @@ class C2cRiskPage extends GetView<C2cRiskController> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CommonAppBar(
-        titleText: "C2C个人支付风险提示",
+        titleText: "平台社区公约",
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

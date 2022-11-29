@@ -52,28 +52,28 @@ class SettingController extends GetxController {
       ),
     );*/
     menuList.add(_MenuItem(
-        title: "C2C个人支付风险提示",
+        title: "平台社区公约",
         onClick: () {
           Get.toNamed(RoutesID.C2C_RISK_PAGE);
         }));
     menuList.add(_MenuItem(
-        title: "委托寄售服务协议",
+        title: "平台社区管理规范（试行）",
         onClick: () {
           Get.toNamed(
             RoutesID.LOCAL_HTML_PAGE,
             arguments: {
-              "page_title": "委托寄售服务协议",
+              "page_title": "平台社区管理规范（实行）",
               "html_file": "assets/html/sell_policy.html",
             },
           );
         }));
     menuList.add(_MenuItem(
-      title: "用户须知",
+      title: "用户协议",
       onClick: () {
         Get.toNamed(
           RoutesID.LOCAL_HTML_PAGE,
           arguments: {
-            "page_title": "用户须知",
+            "page_title": "用户协议",
             "html_file": PlatformUtils.isWeb
                 ? "assets/html/user_instructions_web.html"
                 : "assets/html/user_instructions.html",

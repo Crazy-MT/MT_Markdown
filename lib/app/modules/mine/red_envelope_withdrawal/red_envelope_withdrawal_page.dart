@@ -58,14 +58,20 @@ class RedEnvelopeWithdrawalPage
   }
 
   _buildTitle() {
-    return RichText(
-        text: TextSpan(children: [
-          TextSpan(
-              text: '尊敬的用户，截止',
-              style: TextStyle(color: S.colors.white, fontSize: 12.sp)),
-          TextSpan(text: controller.task.value?.expiredAt ?? "", style: TextStyle(color: S.colors.white, fontSize: 12.sp)),
-          TextSpan(text: '您参与任务情况如下：', style: TextStyle(color: S.colors.white, fontSize: 12.sp))
-        ]));
+    return Obx(() {
+      return RichText(
+          text: TextSpan(children: [
+            TextSpan(
+                text: '尊敬的用户，截止',
+                style: TextStyle(color: S.colors.white, fontSize: 12.sp)),
+            TextSpan(
+                text: controller.task.value?.expiredAt ?? "",
+                style: TextStyle(color: S.colors.white, fontSize: 12.sp)),
+            TextSpan(
+                text: '您参与任务情况如下：',
+                style: TextStyle(color: S.colors.white, fontSize: 12.sp))
+          ]));
+    });
   }
 
   _buildTaskNum() {
@@ -201,8 +207,9 @@ class RedEnvelopeWithdrawalPage
             children: [
               TextSpan(
                   text:
-                  controller.task.value?.taskItemList?.length.toString() ??
-                      ""),
+                  ((controller.task.value?.completedOrderNum ?? 0) +
+                      (controller.task.value?.unfinishedOrderNum ?? 0))
+                      .toString()),
               TextSpan(text: '单，才能提现哦')
             ]),
       );
@@ -255,11 +262,16 @@ class RedEnvelopeWithdrawalPage
             children: <Widget>[],
           );
         },
-        steps: controller.task.value!.taskItemList!
+        steps: controller.task.value!.taskItemList!.reversed
             .map((e) =>
             customStepper.Step(
+              state: e.isCompleted == 1
+                  ? customStepper.StepState.complete
+                  : customStepper.StepState.indexed,
               icon: Image.asset(
-                e.isCompleted == 1
+                (e.desc?.contains('注册') ?? false)
+                    ? 'assets/icons/task_reg_suc.png'
+                    : e.isCompleted == 1
                     ? 'assets/icons/task_done.png'
                     : 'assets/icons/task_undone.png',
                 width: 40.w,
@@ -274,9 +286,9 @@ class RedEnvelopeWithdrawalPage
               ),
               action: SafeTapWidget(
                 onTap: () async {
-                  if(e.isCompleted == 0) {
+                  if (e.isCompleted == 0) {
                     await Get.offAllNamed(RoutesID.MAIN_TAB_PAGE,
-                        arguments: {'tabIndex': 2});
+                        arguments: {'tabIndex': 1});
                     controller.redEnvelopeTask();
                   }
                 },
@@ -285,16 +297,22 @@ class RedEnvelopeWithdrawalPage
                       top: 5.w, bottom: 5.w, left: 15.w, right: 15.w),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Color((0xFFFF746D)),
+                    color: e.isCompleted == 1
+                        ? Color(0xffF3F9FB)
+                        : Color((0xFFFF746D)),
                     borderRadius: BorderRadius.circular(22.w),
                   ),
                   child: Text(
                     e.isCompleted == 1 ? '已完成' : '去完成',
-                    style: e.isCompleted == 1 ? TextStyle(
-                      color: e.isCompleted == 1 ? S.colors.white : S.colors.text_dark,
+                    style: e.isCompleted == 1
+                        ? TextStyle(
+                      color: e.isCompleted == 1
+                          ? S.colors.text_dark
+                          : S.colors.white,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w500,
-                    ) : TextStyle(
+                    )
+                        : TextStyle(
                       color: Colors.white,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w500,
@@ -434,7 +452,7 @@ class RedEnvelopeWithdrawalPage
     return Obx(() {
       return SafeTapWidget(
         onTap: () {
-          if(controller.task.value?.isCompleted == 1) {
+          if (controller.task.value?.isCompleted == 1) {
             Get.toNamed(RoutesID.DRAWING_PAGE);
           }
         },
@@ -443,7 +461,8 @@ class RedEnvelopeWithdrawalPage
           height: 44.w,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Color((0xFFFF746D)).withOpacity(controller.task.value?.isCompleted == 1 ? 1 : 0.4),
+            color: Color((0xFFFF746D))
+                .withOpacity(controller.task.value?.isCompleted == 1 ? 1 : 0.4),
             borderRadius: BorderRadius.circular(22.w),
           ),
           child: Text(

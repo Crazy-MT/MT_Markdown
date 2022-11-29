@@ -145,7 +145,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
             t: RedEnvelope(),
             requestType: RequestType.GET,
             queryParameters: {'userId': userHelper.userInfo.value?.id},
-            isShowLoading: true,
+            isShowLoading: false,
             errorBack: (errorCode, errorMsg, expMsg) {
               lLog('MTMTMT HomeController.checkRedEnvelope ${errorMsg} ');
             },

@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'package:code_zero/utils/log_utils.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -346,11 +348,21 @@ class _CustomStepperState extends State<CustomStepper> with TickerProviderStateM
     return Theme.of(context).brightness == Brightness.dark;
   }
 
-  Widget _buildLine(bool visible) {
-    return Container(
-      width: visible ? 1.0 : 0.0,
+  Widget _buildLine(bool visible, bool isComplete) {
+    return !visible ? Container(
+      width: visible ? 0.0 : 0.0,
       height: 16.0,
-      color: Colors.grey.shade400,
+      // color: Colors.grey.shade400,
+    ) : DottedBorder(
+      dashPattern: [5, 4],
+      strokeWidth: visible ? 2.0 : 0.0,
+      padding: EdgeInsets.all(0),
+      color: isComplete ? Color((0xFFFF746D)) :Colors.grey.shade400,
+      child: Container(
+        width: visible ? 0.0 : 0.0,
+        height: 16.0,
+        // color: Colors.grey.shade400,
+      ),
     );
   }
 
@@ -598,10 +610,10 @@ class _CustomStepperState extends State<CustomStepper> with TickerProviderStateM
             children: <Widget>[
               // Line parts are always added in order for the ink splash to
               // flood the tips of the connector lines.
-              _buildLine(!_isFirst(index)),
+              _buildLine(!_isFirst(index), widget.steps[index].state == StepState.complete),
               // _buildIcon(index),
               widget.steps[index].icon,
-              _buildLine(!_isLast(index)),
+              _buildLine(!_isLast(index), (widget.steps[index].state == StepState.complete || (_isLast(index + 1) ? true : false))),
             ],
           ),
           Expanded(
