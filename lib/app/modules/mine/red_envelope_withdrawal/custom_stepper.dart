@@ -613,7 +613,7 @@ class _CustomStepperState extends State<CustomStepper> with TickerProviderStateM
               _buildLine(!_isFirst(index), widget.steps[index].state == StepState.complete),
               // _buildIcon(index),
               widget.steps[index].icon,
-              _buildLine(!_isLast(index), (widget.steps[index].state == StepState.complete || (_isLast(index + 1) ? true : false))),
+              _buildLine(!_isLast(index), (widget.steps[index].state == StepState.complete || (_isLast(index + 1) ? true : (widget.steps[index+1].state == StepState.complete)))),
             ],
           ),
           Expanded(
