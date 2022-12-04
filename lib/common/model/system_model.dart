@@ -28,6 +28,7 @@ class SystemSettingModel extends ConvertInterface{
   int? auditSwitch; // 审核开关：0->关闭、1->开启
   String? fromUserReward;
   String? toUserReward;
+  int? inviteSwitch; // 拉新开关：0->否、1->是
 
   SystemSettingModel(
       {this.id,
@@ -56,6 +57,7 @@ class SystemSettingModel extends ConvertInterface{
         this.paymentBank,
         this.updatedAt,
         this.hotline,
+        this.inviteSwitch,
       this.auditSwitch});
 
   SystemSettingModel.fromJson(Map<String, dynamic> json) {
@@ -86,6 +88,7 @@ class SystemSettingModel extends ConvertInterface{
     hotline = json['hotline'];
     auditSwitch = json['auditSwitch'];
     posterUrl = json['posterUrl'];
+    inviteSwitch = json['inviteSwitch'];
   }
 
   Map<String, dynamic> toJson() {
@@ -116,6 +119,7 @@ class SystemSettingModel extends ConvertInterface{
     data['posterUrl'] = this.posterUrl;
     data['fromUserReward'] = this.fromUserReward;
     data['toUserReward'] = this.toUserReward;
+    data['inviteSwitch'] = this.inviteSwitch;
     return data;
   }
 

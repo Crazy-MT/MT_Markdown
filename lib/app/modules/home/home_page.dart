@@ -6,6 +6,7 @@ import 'package:code_zero/common/S.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/system_setting.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,8 @@ class HomePage extends GetView<HomeController> {
             ),
           )),
       backgroundColor: AppColors.page_bg,
-      body: Obx(() => Stack(
+      body: Obx(() =>
+          Stack(
             children: [
               FTStatusPage(
                 type: controller.pageStatus.value,
@@ -84,24 +86,30 @@ class HomePage extends GetView<HomeController> {
               ),
               // 红包提取
               Positioned(
-                child: SafeTapWidget(
-                  onTap: () {
-                    if(controller.isNewUser.value) {
-                      Get.toNamed(RoutesID.RED_ENVELOPE_WITHDRAWAL_PAGE);
-                    } else {
-                      Get.toNamed(RoutesID.RED_ENVELOPE_REWARD_PAGE);
-                    }
-                  },
-                  child: SizeTransition(
-                      sizeFactor: controller.slideAnimation!,
-                      axis: Axis.vertical,
-                      axisAlignment: -1,
-                      /// -1 代表 从头（此处即顶部）开始
-                      child: Image.asset(
-                        "assets/icons/red_bag.png",
-                        width: 32.w,
-                      )),
-                ),
+                child: Obx(() {
+                  return Visibility(
+                    visible: systemSetting.model.value?.inviteSwitch == 1,
+                    child: SafeTapWidget(
+                      onTap: () {
+                        if (controller.isNewUser.value) {
+                          Get.toNamed(RoutesID.RED_ENVELOPE_WITHDRAWAL_PAGE);
+                        } else {
+                          Get.toNamed(RoutesID.RED_ENVELOPE_REWARD_PAGE);
+                        }
+                      },
+                      child: SizeTransition(
+                          sizeFactor: controller.slideAnimation!,
+                          axis: Axis.vertical,
+                          axisAlignment: -1,
+
+                          /// -1 代表 从头（此处即顶部）开始
+                          child: Image.asset(
+                            "assets/icons/red_bag.png",
+                            width: 32.w,
+                          )),
+                    ),
+                  );
+                }),
                 bottom: 50.w,
                 right: 25.w,
               ),
@@ -451,7 +459,7 @@ class HomePage extends GetView<HomeController> {
                   child: CachedNetworkImage(
                     imageUrl: item.thumbnails?.firstWhere(
                             (element) => element.isNotEmpty,
-                            orElse: () => "") ??
+                        orElse: () => "") ??
                         '',
                     width: 165.w,
                     height: 210.w,

@@ -1,10 +1,10 @@
 cd ..
 rm -rf ./build/ios/ipa/code_zero.ipa
-rm -rf ./build/app/outputs/flutter-apk/app-release.apk
-rm -rf ./build/app/outputs/flutter-apk/app-debug.apk
+#rm -rf ./build/app/outputs/flutter-apk/app-release.apk
+#rm -rf ./build/app/outputs/flutter-apk/app-debug.apk
 
-fvm flutter build apk --debug
-./package/pgyer_upload.sh -k 98e445172e8942aece1d0eac22f0270e ./build/app/outputs/flutter-apk/app-debug.apk
+#fvm flutter build apk --debug
+#./package/pgyer_upload.sh -k 98e445172e8942aece1d0eac22f0270e ./build/app/outputs/flutter-apk/app-debug.apk
 
 fvm flutter build ipa --release --export-options-plist=./package/ExportOptions.plist
 
