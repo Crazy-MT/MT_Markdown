@@ -7,6 +7,7 @@ import 'package:code_zero/common/components/common_app_bar.dart';
 import 'package:date_format/date_format.dart' as time;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../generated/assets/flutter_assets.dart';
 import 'red_envelope_reward_controller.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:flutter/material.dart';
@@ -100,6 +101,12 @@ class RedEnvelopeRewardPage extends GetView<RedEnvelopeRewardController> {
               width: 36.w,
               height: 36.w,
               fit: BoxFit.cover,
+              errorWidget: (_, __, ___) {
+                return Image.asset(Assets.iconsAvatarPlaceholder);
+              },
+              placeholder: (_, __) {
+                return Image.asset(Assets.iconsAvatarPlaceholder);
+              },
             ),
           ),
           SizedBox(

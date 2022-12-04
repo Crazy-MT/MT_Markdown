@@ -31,7 +31,7 @@ class RedEnvelopeWithdrawalController extends GetxController {
             errorBack: (errorCode, errorMsg, expMsg) {
               lLog(
                   'MTMTMT RedEnvelopeWithdrawalController.checkRedEnvelope ${errorCode} ');
-              showToast('获取失败: $errorMsg $expMsg');
+              showToast('获取失败: $errorMsg');
             },
             onSuccess: (rest) async {
               lLog(
