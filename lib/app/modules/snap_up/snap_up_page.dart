@@ -253,52 +253,52 @@ class SnapUpPage extends GetView<SnapUpController> {
               padding: EdgeInsets.all(10.w),
               child: SnapUpTitle(name: item.name ?? ""),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 10.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(Assets.iconsSnapTime),
-                  Text(
-                    "开放时间",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13.sp,
-                    ),
-                  ),
-                  Image.asset(
-                    Assets.iconsSnapTime,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 15.w),
-              child: Container(
-                width: 165.w,
-                height: 30.w,
-                decoration: BoxDecoration(
-                    // color: Color(0xFF050505),
-                    image: DecorationImage(
-                  image: AssetImage(
-                    Assets.iconsSnapOpen,
-                  ),
-                  fit: BoxFit.fill,
-                )),
-                alignment: Alignment.center,
-                child: Obx(() {
-                  return Text(
-                    item.statusText(
-                            controller.currentTimeFromNet.value)["text"] ??
-                        "",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      color: AppColors.green,
-                    ),
-                  );
-                }),
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.only(top: 10.w),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Image.asset(Assets.iconsSnapTime),
+            //       Text(
+            //         "开放时间",
+            //         style: TextStyle(
+            //           color: Colors.white,
+            //           fontSize: 13.sp,
+            //         ),
+            //       ),
+            //       Image.asset(
+            //         Assets.iconsSnapTime,
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // Padding(
+            //   padding: EdgeInsets.only(top: 15.w),
+            //   child: Container(
+            //     width: 165.w,
+            //     height: 30.w,
+            //     decoration: BoxDecoration(
+            //         // color: Color(0xFF050505),
+            //         image: DecorationImage(
+            //       image: AssetImage(
+            //         Assets.iconsSnapOpen,
+            //       ),
+            //       fit: BoxFit.fill,
+            //     )),
+            //     alignment: Alignment.center,
+            //     child: Obx(() {
+            //       return Text(
+            //         item.statusText(
+            //                 controller.currentTimeFromNet.value)["text"] ??
+            //             "",
+            //         style: TextStyle(
+            //           fontSize: 14.sp,
+            //           color: AppColors.green,
+            //         ),
+            //       );
+            //     }),
+            //   ),
+            // ),
           ],
         ),
       ),

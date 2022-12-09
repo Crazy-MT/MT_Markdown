@@ -133,7 +133,10 @@ class _RedBagDialogState extends State<_RedBagDialog>
                           onTap: () {
                             Get.toNamed(RoutesID.WALLET_PAGE);
                           },
-                          child: Image.asset('assets/icons/check_red.png', width: 224.w,)))
+                          child: Image.asset(
+                            'assets/icons/check_red.png',
+                            width: 224.w,
+                          )))
                 ],
               ),
             ),
@@ -161,9 +164,9 @@ showRedBagDialog({
   VoidCallback? onConfirm,
 }) {
   Get.dialog(
-    _RedBagDialog(
-      newRedEnvelopeAmount: newRedEnvelopeAmount,
-      onConfirm: onConfirm,
-    ),
-  );
+      _RedBagDialog(
+        newRedEnvelopeAmount: newRedEnvelopeAmount,
+        onConfirm: onConfirm,
+      ),
+      barrierDismissible: false);
 }

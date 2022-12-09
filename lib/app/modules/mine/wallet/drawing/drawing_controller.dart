@@ -22,7 +22,7 @@ class DrawingController extends GetxController with GetSingleTickerProviderState
   final pageName = 'Drawing'.obs;
   final errorMsg = "".obs;
   final pageStatus = FTStatusPageType.loading.obs;
-  final method = "".obs;
+  // final method = "".obs;
   // int chooseMethod = 0;
   TextEditingController balanceController = new TextEditingController();
   TextEditingController balanceRedController = new TextEditingController();
@@ -155,10 +155,10 @@ class DrawingController extends GetxController with GetSingleTickerProviderState
 
 
   Future<void> createBalance() async {
-    if(method.value.isEmpty) {
-      Utils.showToastMsg('请选择提现方式');
-      return;
-    }
+    // if(method.value.isEmpty) {
+    //   Utils.showToastMsg('请选择提现方式');
+    //   return;
+    // }
     if(model.value?.balance == 0) {
       Utils.showToastMsg('可提现金额为 0');
       return;

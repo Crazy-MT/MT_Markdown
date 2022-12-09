@@ -68,19 +68,24 @@ class HomePage extends GetView<HomeController> {
               ),
               // 推荐有礼
               Positioned(
-                child: SafeTapWidget(
-                  onTap: () {
-                    Get.toNamed(RoutesID.RECOMMENDED_COURTEOUSLY_PAGE);
-                  },
-                  child: Container(
-                    width: 50.w,
-                    height: 50.w,
-                    child: ScaleTransition(
-                        scale: controller.scaleAnimation!,
-                        child: Image.asset(
-                            "assets/icons/recommend_courteously.png")),
-                  ),
-                ),
+                child: Obx(() {
+                  return Visibility(
+                    visible: (systemSetting.model.value?.inviteSwitch ?? 1) == 1,
+                    child: SafeTapWidget(
+                      onTap: () {
+                        Get.toNamed(RoutesID.RECOMMENDED_COURTEOUSLY_PAGE);
+                      },
+                      child: Container(
+                        width: 50.w,
+                        height: 50.w,
+                        child: ScaleTransition(
+                            scale: controller.scaleAnimation!,
+                            child: Image.asset(
+                                "assets/icons/recommend_courteously.png")),
+                      ),
+                    ),
+                  );
+                }),
                 bottom: 110.w,
                 right: 15.w,
               ),
@@ -88,7 +93,7 @@ class HomePage extends GetView<HomeController> {
               Positioned(
                 child: Obx(() {
                   return Visibility(
-                    visible: systemSetting.model.value?.inviteSwitch == 1,
+                    visible: (systemSetting.model.value?.inviteSwitch ?? 1) == 1,
                     child: SafeTapWidget(
                       onTap: () {
                         if (controller.isNewUser.value) {

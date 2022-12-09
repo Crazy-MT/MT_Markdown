@@ -62,7 +62,7 @@ class SettingController extends GetxController {
           Get.toNamed(
             RoutesID.LOCAL_HTML_PAGE,
             arguments: {
-              "page_title": "平台社区管理规范（实行）",
+              "page_title": "平台社区管理规范（试行）",
               "html_file": "assets/html/sell_policy.html",
             },
           );
