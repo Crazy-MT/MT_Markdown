@@ -8,8 +8,9 @@ class WalletModel extends ConvertInterface {
   String? commissionWeek;   //近7日收益
   String? tranTotalPrice;	//订单总额
   String? redEnvelopeAmount; // 红包金额
+  String? completedRedEnvelopeAmount; // 可提现金额
   int? tranTotalCount;	//订单数
-  WalletModel({this.points, this.balance, this.commission, this.commissionToday, this.commissionWeek, this.tranTotalCount, this.tranTotalPrice, this.redEnvelopeAmount});
+  WalletModel({this.points, this.balance, this.commission, this.commissionToday, this.commissionWeek, this.tranTotalCount, this.tranTotalPrice, this.redEnvelopeAmount, this.completedRedEnvelopeAmount});
 
   WalletModel.fromJson(Map<String, dynamic> json) {
     points = json['points'];
@@ -20,6 +21,7 @@ class WalletModel extends ConvertInterface {
     tranTotalPrice = json['tranTotalPrice'];
     tranTotalCount = json['tranTotalCount'];
     redEnvelopeAmount =  json['redEnvelopeAmount'];
+    completedRedEnvelopeAmount = json['completedRedEnvelopeAmount'];
   }
 
   Map<String, dynamic> toJson() {
@@ -32,6 +34,7 @@ class WalletModel extends ConvertInterface {
     data['tranTotalPrice'] = this.tranTotalPrice;
     data['tranTotalCount'] = this.tranTotalCount;
     data['redEnvelopeAmount'] = this.redEnvelopeAmount;
+    data['completedRedEnvelopeAmount'] = this.completedRedEnvelopeAmount;
     return data;
   }
 

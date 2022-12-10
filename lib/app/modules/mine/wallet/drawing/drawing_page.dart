@@ -206,7 +206,7 @@ class DrawingPage extends GetView<DrawingController> {
                   ),
                   Obx(() {
                     return Text(
-                      controller.model.value?.redEnvelopeAmount ?? "0.00",
+                      controller.model.value?.completedRedEnvelopeAmount ?? "0.00",
                       style: TextStyle(
                         color: Color(0xff434446),
                         fontSize: 14.sp,

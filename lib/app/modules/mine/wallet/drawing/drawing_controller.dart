@@ -192,7 +192,7 @@ class DrawingController extends GetxController with GetSingleTickerProviderState
 
   Future<void> createRedBalance() async {
 
-    if(model.value?.redEnvelopeAmount == 0) {
+    if(model.value?.completedRedEnvelopeAmount == 0) {
       Utils.showToastMsg('可提现金额为 0');
       return;
     }
