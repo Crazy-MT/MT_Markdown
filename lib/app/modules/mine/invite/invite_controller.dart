@@ -14,6 +14,7 @@ import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluwx/fluwx.dart';
 import 'package:get/get.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -32,6 +33,18 @@ class InviteController extends GetxController {
     {'复制链接': Assets.imagesInviteCopyLink},
     {'生成海报': Assets.imagesInviteDownload},
   ];
+
+  @override
+  void onReady() {
+    super.onReady();
+    if(Get.arguments?['shareWechatSession'] ?? false) {
+      EasyLoading.show();
+      Future.delayed(Duration(seconds: 1), () {
+        EasyLoading.dismiss();
+        shareWechatSession();
+      });
+    }
+  }
 
   @override
   void onInit() {

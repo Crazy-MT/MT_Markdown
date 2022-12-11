@@ -5,6 +5,7 @@ import 'package:code_zero/common/components/status_page/status_page.dart';
 import 'package:code_zero/common/system_setting.dart';
 import 'package:code_zero/common/user_helper.dart';
 import 'package:code_zero/generated/assets/assets.dart';
+import 'package:code_zero/utils/platform_utils.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -26,7 +27,13 @@ class SnapUpController extends GetxController {
   int pageSize = 10;
   final RefreshController refreshController = new RefreshController();
 
-  var images = [Assets.imagesSnupBanner, Assets.imagesSnupBanner1, Assets.imagesSnupBanner2, Assets.imagesSnupBanner3];
+  var images = [
+    'assets/images/snup_banner_4.png',
+    // Assets.imagesSnupBanner,
+    // Assets.imagesSnupBanner1,
+    // Assets.imagesSnupBanner2,
+    // Assets.imagesSnupBanner3
+  ];
   final currentTimeFromNet = DateTime.now().millisecondsSinceEpoch.obs;
 
   @override
@@ -43,10 +50,11 @@ class SnapUpController extends GetxController {
 
   getSnapUpList({bool isRefresh = true}) async {
     await getNetTime();
-    if(isRefresh) {
+    if (isRefresh) {
       currentPage = 1;
     }
-    ResultData<SessionModel>? _result = await LRequest.instance.request<SessionModel>(
+    ResultData<SessionModel>? _result = await LRequest.instance.request<
+            SessionModel>(
         url: SnapApis.LIST,
         t: SessionModel(),
         isShowLoading: false,
@@ -63,13 +71,13 @@ class SnapUpController extends GetxController {
         },
         onSuccess: (result) {
           var model = result.value;
-          if(model == null || model.items == null) {
+          if (model == null || model.items == null) {
             refreshController.refreshCompleted();
             refreshController.loadComplete();
             return;
           }
 
-          if(isRefresh) {
+          if (isRefresh) {
             snapUpList.value = [];
           }
           currentPage++;
@@ -78,7 +86,7 @@ class SnapUpController extends GetxController {
 
           refreshController.refreshCompleted();
           refreshController.loadComplete();
-          if(model.totalCount <= snapUpList.length) {
+          if (model.totalCount <= snapUpList.length) {
             refreshController.loadNoData();
           }
         });
@@ -92,24 +100,27 @@ class SnapUpController extends GetxController {
   }
 
   Future<void> snapClick(index) async {
-    if((userHelper.userInfo.value?.token ?? "").isEmpty) {
+    if ((userHelper.userInfo.value?.token ?? "").isEmpty) {
       Utils.showToastMsg('请先登录');
       return;
     }
     await getNetTime();
 
-    String toastText = snapUpList[index].statusText(currentTimeFromNet.value)["toast_text"] ?? "";
-    if(toastText.isEmpty) {
+    String toastText =
+        snapUpList[index].statusText(currentTimeFromNet.value)["toast_text"] ??
+            "";
+    if (toastText.isEmpty) {
       // snapUpList[index].startTime = "15:19";
       // snapUpList[index].endTime = "15:45";
 
-
-      if((userHelper.userInfo.value?.hasSignature ?? 0) == 0) {
+      if ((userHelper.userInfo.value?.hasSignature ?? 0) == 0) {
         Get.toNamed(
           RoutesID.LOCAL_HTML_PAGE,
           arguments: {
             "page_title": "用户注册协议",
-            "html_file": "assets/html/user_registration_protocol.html",
+            "html_file": PlatformUtils.isWeb
+                ? "assets/html/user_registration_protocol_web.html"
+                : "assets/html/user_registration_protocol.html",
             "bottom_widget": SignatureInAgreement(),
           },
         );
@@ -130,15 +141,13 @@ class SnapUpController extends GetxController {
   Future<void> getNetTime() async {
     /// http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp
     EasyLoading.show();
-    try{
+    try {
       Map? _result = await LRequest.instance.requestGet(
-        url: 'http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp',);
-      lLog('MTMTMT SnapUpController.getNetTime ${_result['data']['t']} ');
-      lLog('MTMTMT SnapUpController.getNetTime ${DateTime.fromMillisecondsSinceEpoch(int.parse(_result['data']['t']))} ');
-
+        url:
+            'http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp',
+      );
       currentTimeFromNet.value = int.parse(_result['data']['t']);
-
-    } catch(e) {
+    } catch (e) {
       currentTimeFromNet.value = DateTime.now().millisecondsSinceEpoch;
     }
     EasyLoading.dismiss();

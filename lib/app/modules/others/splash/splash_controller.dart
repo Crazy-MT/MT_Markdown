@@ -77,8 +77,9 @@ class SplashController extends GetxController {
                     RoutesID.LOCAL_HTML_PAGE,
                     arguments: {
                       "page_title": "用户注册协议",
-                      "html_file":
-                          "assets/html/user_registration_protocol.html",
+                      "html_file": PlatformUtils.isWeb
+                          ? "assets/html/user_registration_protocol_web.html"
+                          : "assets/html/user_registration_protocol.html",
                     },
                   );
                 }),
@@ -92,7 +93,9 @@ class SplashController extends GetxController {
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   Get.toNamed(
-                    PlatformUtils.isWeb ? RoutesID.LOCAL_HTML_PAGE :RoutesID.LOCAL_WEBVIEW_PAGE,
+                    PlatformUtils.isWeb
+                        ? RoutesID.LOCAL_HTML_PAGE
+                        : RoutesID.LOCAL_WEBVIEW_PAGE,
                     arguments: {
                       "page_title": "用户隐私政策",
                       "html_file": "assets/html/privacy_policy_1.html",

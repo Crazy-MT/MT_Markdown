@@ -88,6 +88,12 @@ import '../modules/others/login/auth_check/auth_check_binding.dart';
 import '../modules/others/login/auth_check/auth_check_page.dart';
 import '../modules/mine/order/self_order_detail/self_order_detail_binding.dart';
 import '../modules/mine/order/self_order_detail/self_order_detail_page.dart';
+import '../modules/home/recommended_courteously/recommended_courteously_binding.dart';
+import '../modules/home/recommended_courteously/recommended_courteously_page.dart';
+import '../modules/mine/red_envelope_withdrawal/red_envelope_withdrawal_binding.dart';
+import '../modules/mine/red_envelope_withdrawal/red_envelope_withdrawal_page.dart';
+import '../modules/mine/red_envelope_reward/red_envelope_reward_binding.dart';
+import '../modules/mine/red_envelope_reward/red_envelope_reward_page.dart';
 
 class AppPages {
   AppPages._();
@@ -95,6 +101,30 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // red_envelope_reward
+    GetPage(
+      middlewares: [EnsureAuthMiddleware()],
+      name: RoutesID.RED_ENVELOPE_REWARD_PAGE,
+      page: () => const RedEnvelopeRewardPage(),
+      binding: RedEnvelopeRewardBinding(),
+    ),
+
+    // red_envelope_withdrawal
+    GetPage(
+      middlewares: [EnsureAuthMiddleware()],
+      name: RoutesID.RED_ENVELOPE_WITHDRAWAL_PAGE,
+      page: () => const RedEnvelopeWithdrawalPage(),
+      binding: RedEnvelopeWithdrawalBinding(),
+    ),
+
+    // recommended_courteously
+    GetPage(
+      middlewares: [EnsureAuthMiddleware()],
+      name: RoutesID.RECOMMENDED_COURTEOUSLY_PAGE,
+      page: () => const RecommendedCourteouslyPage(),
+      binding: RecommendedCourteouslyBinding(),
+    ),
+
     // self_order_detail
     GetPage(
       name: RoutesID.SELF_ORDER_DETAIL_PAGE,

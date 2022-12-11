@@ -6,6 +6,7 @@ import 'package:code_zero/common/S.dart';
 import 'package:code_zero/common/colors.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
+import 'package:code_zero/common/system_setting.dart';
 import 'package:code_zero/generated/assets/flutter_assets.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +23,9 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: true,
             title: Text('首页'),
@@ -32,10 +33,10 @@ class HomePage extends GetView<HomeController> {
               Assets.imagesAppBarBg,
               fit: BoxFit.cover,
             ),
-          )
-      ),
+          )),
       backgroundColor: AppColors.page_bg,
-      body: Obx(() => Stack(
+      body: Obx(() =>
+          Stack(
             children: [
               FTStatusPage(
                 type: controller.pageStatus.value,
@@ -65,6 +66,58 @@ class HomePage extends GetView<HomeController> {
                   );
                 },
               ),
+              // 推荐有礼
+              Positioned(
+                child: Obx(() {
+                  return Visibility(
+                    visible: (systemSetting.model.value?.inviteSwitch ?? 1) == 1,
+                    child: SafeTapWidget(
+                      onTap: () {
+                        Get.toNamed(RoutesID.RECOMMENDED_COURTEOUSLY_PAGE);
+                      },
+                      child: Container(
+                        width: 50.w,
+                        height: 50.w,
+                        child: ScaleTransition(
+                            scale: controller.scaleAnimation!,
+                            child: Image.asset(
+                                "assets/icons/recommend_courteously.png")),
+                      ),
+                    ),
+                  );
+                }),
+                bottom: 110.w,
+                right: 15.w,
+              ),
+              // 红包提取
+              Positioned(
+                child: Obx(() {
+                  return Visibility(
+                    visible: (systemSetting.model.value?.inviteSwitch ?? 1) == 1,
+                    child: SafeTapWidget(
+                      onTap: () {
+                        if (controller.isNewUser.value) {
+                          Get.toNamed(RoutesID.RED_ENVELOPE_WITHDRAWAL_PAGE);
+                        } else {
+                          Get.toNamed(RoutesID.RED_ENVELOPE_REWARD_PAGE);
+                        }
+                      },
+                      child: SizeTransition(
+                          sizeFactor: controller.slideAnimation!,
+                          axis: Axis.vertical,
+                          axisAlignment: -1,
+
+                          /// -1 代表 从头（此处即顶部）开始
+                          child: Image.asset(
+                            "assets/icons/red_bag.png",
+                            width: 32.w,
+                          )),
+                    ),
+                  );
+                }),
+                bottom: 50.w,
+                right: 25.w,
+              ),
               if (controller.showScrollToTop.value)
                 Positioned(
                   child: SafeTapWidget(
@@ -79,25 +132,9 @@ class HomePage extends GetView<HomeController> {
                   ),
                   bottom: 15.w,
                   right: 15.w,
-                )
+                ),
             ],
           )),
-    );
-  }
-
-  _buildSliverAppBar() {
-    return SliverAppBar(
-      pinned: true,
-      expandedHeight: 48.w,
-      backgroundColor: Colors.transparent,
-      flexibleSpace: FlexibleSpaceBar(
-        centerTitle: true,
-        title: Text('首页'),
-        background: Image.asset(
-          Assets.imagesAppBarBg,
-          fit: BoxFit.cover,
-        ),
-      ),
     );
   }
 
@@ -404,6 +441,11 @@ class HomePage extends GetView<HomeController> {
     CommodityItem item = controller.homeList[index];
     return SafeTapWidget(
       onTap: () {
+        /*Get.toNamed(RoutesID.PHOTO_VIEW_PAGE, arguments: {
+          "url": item.thumbnails?.firstWhere(
+                  (element) => element.isNotEmpty,
+              orElse: () => "") ?? ""
+        });*/
         Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
           "from": RoutesID.HOME_PAGE,
           "good": item,
@@ -422,7 +464,7 @@ class HomePage extends GetView<HomeController> {
                   child: CachedNetworkImage(
                     imageUrl: item.thumbnails?.firstWhere(
                             (element) => element.isNotEmpty,
-                            orElse: () => "") ??
+                        orElse: () => "") ??
                         '',
                     width: 165.w,
                     height: 210.w,

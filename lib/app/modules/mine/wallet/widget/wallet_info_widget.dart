@@ -64,11 +64,17 @@ class WalletInfoWidget extends StatelessWidget {
                         color: Color(0xff111111).withOpacity(0.5),
                         fontSize: 13.sp,
                         fontWeight: FontWeight.w400)),
-                Text('积分',
-                    style: TextStyle(
-                        color: Color(0xff111111).withOpacity(0.5),
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w400)),
+                Row(
+                  children: [
+                    Image.asset('assets/icons/red_env.png', width: 12.5.w,),
+                    SizedBox(width: 5.w,),
+                    Text('红包奖励',
+                        style: TextStyle(
+                            color: Color(0xff111111).withOpacity(0.5),
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w400)),
+                  ],
+                ),
               ],
             ),
             SizedBox(height: 4.w),
@@ -80,7 +86,7 @@ class WalletInfoWidget extends StatelessWidget {
                         color: Color(0xff111111),
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w500)),
-                Text(walletModel?.points ?? "",
+                Text(walletModel?.redEnvelopeAmount ?? "0.00",
                     style: TextStyle(
                         color: Color(0xff111111),
                         fontSize: 18.sp,

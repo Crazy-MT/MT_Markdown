@@ -14,6 +14,7 @@ import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/convert_interface.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/platform_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/gestures.dart';
@@ -90,7 +91,7 @@ class BuyerOrderController extends GetxController
     }
 
     Map<String, dynamic>? queryParameters = {};
-    if(tabInfo.tradeState == -1) {
+    if (tabInfo.tradeState == -1) {
       queryParameters = {
         "to-user-id": userHelper.userInfo.value?.id,
         "page": tabInfo.currentPage,
@@ -98,7 +99,7 @@ class BuyerOrderController extends GetxController
         "trade-state-list": '0,1,2,3,5,6,7',
       };
     }
-    if(tabInfo.tradeState == 0 || tabInfo.tradeState == 3) {
+    if (tabInfo.tradeState == 0 || tabInfo.tradeState == 3) {
       queryParameters = {
         "to-user-id": userHelper.userInfo.value?.id,
         "page": tabInfo.currentPage,
@@ -107,7 +108,7 @@ class BuyerOrderController extends GetxController
       };
     }
 
-    if(tabInfo.tradeState == 1) {
+    if (tabInfo.tradeState == 1) {
       queryParameters = {
         "to-user-id": userHelper.userInfo.value?.id,
         "page": tabInfo.currentPage,
@@ -116,8 +117,8 @@ class BuyerOrderController extends GetxController
       };
     }
 
-    ResultData<OrderListModel>? _result = await LRequest.instance.request<
-        OrderListModel>(
+    ResultData<OrderListModel>? _result =
+        await LRequest.instance.request<OrderListModel>(
       url: SnapApis.ORDER_LIST,
       queryParameters: queryParameters,
       isShowLoading: false,
@@ -130,14 +131,16 @@ class BuyerOrderController extends GetxController
       },
     );
     if (_result?.value != null) {
-      lLog('MTMTMT BuyerOrderController.getOrder ${tabInfo.orderList.value.length} ');
-      if(isRefresh) {
+      lLog(
+          'MTMTMT BuyerOrderController.getOrder ${tabInfo.orderList.value.length} ');
+      if (isRefresh) {
         tabInfo.orderList.clear();
       }
       isRefresh
           ? tabInfo.orderList.value = _result?.value?.items ?? []
           : tabInfo.orderList.addAll(_result?.value?.items ?? []);
-      lLog('MTMTMT BuyerOrderController.getOrder ${tabInfo.orderList.value.length} ');
+      lLog(
+          'MTMTMT BuyerOrderController.getOrder ${tabInfo.orderList.value.length} ');
       tabInfo.orderList.refresh();
     }
 
@@ -163,9 +166,7 @@ class BuyerOrderController extends GetxController
   Future<void> cancelOrder(int id) async {
     ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
         url: SnapApis.CANCEL_ORDER,
-        data: {
-          "id": id
-        },
+        data: {"id": id},
         t: DataModel(),
         requestType: RequestType.POST,
         errorBack: (errorCode, errorMsg, expMsg) {
@@ -176,16 +177,13 @@ class BuyerOrderController extends GetxController
           // print('MTMTMT BuyerOrderController.cancelOrder ${rest} ');
           Utils.showToastMsg("取消订单成功");
           initAllData();
-        }
-    );
+        });
   }
 
   Future<void> confirmOrder(int id) async {
     ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
         url: SnapApis.CONFIRM_ORDER,
-        data: {
-          "id": id
-        },
+        data: {"id": id},
         t: DataModel(),
         requestType: RequestType.POST,
         errorBack: (errorCode, errorMsg, expMsg) {
@@ -197,8 +195,7 @@ class BuyerOrderController extends GetxController
           Utils.showToastMsg("确认支付成功");
           tabController?.index = 2;
           initAllData();
-        }
-    );
+        });
   }
 
   // 选择图片并上传
@@ -206,42 +203,44 @@ class BuyerOrderController extends GetxController
     final ImagePicker _picker = ImagePicker();
     // Pick an image
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if(image == null) {
+    if (image == null) {
       return;
     }
-    CroppedFile? croppedFile = await ImageCropper().cropImage(
-      sourcePath: image.path,
-      compressQuality: 50,
-      aspectRatioPresets: [
-        // CropAspectRatioPreset.square,
-        // CropAspectRatioPreset.ratio3x2,
-        CropAspectRatioPreset.original,
-        // CropAspectRatioPreset.ratio4x3,
-        // CropAspectRatioPreset.ratio16x9
-      ],
-      uiSettings: [
-        AndroidUiSettings(
-            toolbarTitle: '裁剪图片',
-            toolbarColor: AppColors.green,
-            toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.square,
-            lockAspectRatio: true),
-        IOSUiSettings(
-          title: '裁剪图片',
-        ),
-        WebUiSettings(
-          context: Get.context!,
-        ),
-      ],
-    );
-    String tradeUrl = await uploadFile(value: await croppedFile?.readAsBytes());
+    String tradeUrl = "";
+    if (PlatformUtils.isWeb) {
+      tradeUrl = await uploadFile(value: await image.readAsBytes());
+    } else {
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
+        sourcePath: image.path,
+        compressQuality: 50,
+        aspectRatioPresets: [
+          // CropAspectRatioPreset.square,
+          // CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          // CropAspectRatioPreset.ratio4x3,
+          // CropAspectRatioPreset.ratio16x9
+        ],
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: '裁剪图片',
+              toolbarColor: AppColors.green,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.square,
+              lockAspectRatio: true),
+          IOSUiSettings(
+            title: '裁剪图片',
+          ),
+          WebUiSettings(
+            context: Get.context!,
+          ),
+        ],
+      );
 
+      tradeUrl = await uploadFile(value: await croppedFile?.readAsBytes());
+    }
     ResultData<DataModel>? _result = await LRequest.instance.request<DataModel>(
         url: SnapApis.UPDATE_TRADE_URL_ORDER,
-        data: {
-          "id": id,
-          "tradeUrl": tradeUrl
-        },
+        data: {"id": id, "tradeUrl": tradeUrl},
         t: DataModel(),
         requestType: RequestType.POST,
         errorBack: (errorCode, errorMsg, expMsg) {
@@ -252,8 +251,7 @@ class BuyerOrderController extends GetxController
           // print('MTMTMT BuyerOrderController.cancelOrder ${rest} ');
           Utils.showToastMsg("上传支付凭证成功");
           initAllData();
-        }
-    );
+        });
   }
 
   void tihuo(id) {
@@ -261,7 +259,7 @@ class BuyerOrderController extends GetxController
       onConfirm: () async {
         ///提货
         ResultData<DataModel>? _result = await LRequest.instance.request<
-            DataModel>(
+                DataModel>(
             url: SnapApis.PICK_UP_COMMODITY,
             data: {
               "id": id,
@@ -275,8 +273,7 @@ class BuyerOrderController extends GetxController
             onSuccess: (rest) {
               Utils.showToastMsg("提货成功");
               initAllData();
-            }
-        );
+            });
       },
       content: "确定提货吗？",
     );
@@ -288,55 +285,54 @@ class BuyerOrderController extends GetxController
       showConfirmDialog(
         singleText: '知道了',
         onSingle: () async {},
-        content: "委托上架时间为${systemSetting.model.value
-            ?.shelfStartTime}--${systemSetting.model.value?.shelfEndTime}",
+        content:
+            "委托上架时间为${systemSetting.model.value?.shelfStartTime}--${systemSetting.model.value?.shelfEndTime}",
       );
       return;
     }
 
     showConfirmDialog(
-      title: "委托寄卖",
-      cancelText: "暂不使用",
-      onConfirm: () async {
-        Get.toNamed(RoutesID.ORDER_SEND_SELL_PAGE, arguments: {'item': item});
-      },
-      contentWidget: RichText(
-        text: TextSpan(
-          text: "请你务必认真阅读、充分理解“委托寄卖”各条款，包括但不限于:为了向你提供数据、分享等服务所要获叹的权限信息。你可以阅读",
-          style: TextStyle(
-            color: Color(0xFF434446),
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w400,
+        title: "委托寄卖",
+        cancelText: "暂不使用",
+        onConfirm: () async {
+          Get.toNamed(RoutesID.ORDER_SEND_SELL_PAGE, arguments: {'item': item});
+        },
+        contentWidget: RichText(
+          text: TextSpan(
+            text: "请你务必认真阅读、充分理解“委托寄卖”各条款，包括但不限于:为了向你提供数据、分享等服务所要获叹的权限信息。你可以阅读",
+            style: TextStyle(
+              color: Color(0xFF434446),
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w400,
+            ),
+            children: [
+              TextSpan(
+                  text: "《委托寄卖》",
+                  style: TextStyle(
+                    color: Color(0xFF1BDB8A),
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      Get.toNamed(
+                        RoutesID.LOCAL_HTML_PAGE,
+                        arguments: {
+                          "page_title": "委托寄售服务协议",
+                          "html_file": "assets/html/sell_policy.html",
+                        },
+                      );
+                    }),
+              TextSpan(
+                  text: "了解详细信息。如您同意，请点击同意开始接受我们的服务",
+                  style: TextStyle(
+                    color: Color(0xFF434446),
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                  ))
+            ],
           ),
-          children: [
-            TextSpan(
-                text: "《委托寄卖》",
-                style: TextStyle(
-                  color: Color(0xFF1BDB8A),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    Get.toNamed(
-                      RoutesID.LOCAL_HTML_PAGE,
-                      arguments: {
-                        "page_title": "委托寄售服务协议",
-                        "html_file": "assets/html/sell_policy.html",
-                      },
-                    );
-                  }),
-            TextSpan(
-                text: "了解详细信息。如您同意，请点击同意开始接受我们的服务",
-                style: TextStyle(
-                  color: Color(0xFF434446),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                ))
-          ],
-        ),
-      )
-    );
+        ));
   }
 
   /// 可上架时间判断
@@ -362,15 +358,16 @@ class BuyerOrderController extends GetxController
 
   String getTradeState(tradeState) {
     lLog('MTMTMT BuyerOrderController.getTradeState ${tabController?.index} ');
-    if(tabController?.index == 3) {
+    if (tabController?.index == 3) {
       return "待上架";
     }
-    if(tabController?.index == 2) {
+    if (tabController?.index == 2) {
       return "待卖方确认收款";
     }
-    if(tabController?.index == 1) {
+    if (tabController?.index == 1) {
       return "待付款";
     }
+
     /// 0->待付款、
     // 1->待收款、
     // 2->已付款、
@@ -402,5 +399,4 @@ class BuyerOrderController extends GetxController
     }
     return "其它方式";
   }
-
 }

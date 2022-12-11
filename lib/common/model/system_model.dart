@@ -26,9 +26,14 @@ class SystemSettingModel extends ConvertInterface{
   String? sponsoredLinks;
   String? posterUrl;
   int? auditSwitch; // 审核开关：0->关闭、1->开启
+  String? fromUserReward;
+  String? toUserReward;
+  int? inviteSwitch; // 拉新开关：0->否、1->是
 
   SystemSettingModel(
       {this.id,
+        this.fromUserReward,
+        this.toUserReward,
         this.charge,
         this.posterUrl,
         this.openCommission,
@@ -52,10 +57,13 @@ class SystemSettingModel extends ConvertInterface{
         this.paymentBank,
         this.updatedAt,
         this.hotline,
+        this.inviteSwitch,
       this.auditSwitch});
 
   SystemSettingModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    toUserReward = json['toUserReward'];
+    fromUserReward = json['fromUserReward'];
     charge = json['charge'];
     openCommission = json['openCommission'];
     firstCommissionRate = json['firstCommissionRate'];
@@ -80,6 +88,7 @@ class SystemSettingModel extends ConvertInterface{
     hotline = json['hotline'];
     auditSwitch = json['auditSwitch'];
     posterUrl = json['posterUrl'];
+    inviteSwitch = json['inviteSwitch'];
   }
 
   Map<String, dynamic> toJson() {
@@ -108,6 +117,9 @@ class SystemSettingModel extends ConvertInterface{
     data['buyingAdvanceTime'] = this.buyingAdvanceTime;
     data['auditSwitch'] = this.auditSwitch;
     data['posterUrl'] = this.posterUrl;
+    data['fromUserReward'] = this.fromUserReward;
+    data['toUserReward'] = this.toUserReward;
+    data['inviteSwitch'] = this.inviteSwitch;
     return data;
   }
 

@@ -15,6 +15,7 @@ import 'package:code_zero/network/base_model.dart';
 import 'package:code_zero/network/l_request.dart';
 import 'package:code_zero/network/upload_util.dart';
 import 'package:code_zero/utils/log_utils.dart';
+import 'package:code_zero/utils/platform_utils.dart';
 import 'package:code_zero/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -465,6 +466,16 @@ class CollectionSettingsController extends GetxController
     // Pick an image
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image == null) {
+      return;
+    }
+    if(PlatformUtils.isWeb) {
+      if (isFromWechat) {
+        wechatQrImg.value =
+        await uploadFile(value: await image.readAsBytes());
+      } else {
+        aliPayQrImg.value =
+        await uploadFile(value: await image.readAsBytes());
+      }
       return;
     }
     CroppedFile? croppedFile = await ImageCropper().cropImage(

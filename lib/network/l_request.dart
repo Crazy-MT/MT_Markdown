@@ -142,7 +142,7 @@ class LRequest {
 
       if (baseModel.code != 0) {
         errorBack?.call(baseModel.code ?? -1, baseModel.message ?? "UnknownMsg",
-            "baseModel.code is not 0,this value is ${baseModel.code}");
+            "ErrorCode:${baseModel.code}");
         if (isShowLoading) {
           EasyLoading.dismiss();
         }
@@ -174,15 +174,12 @@ class LRequest {
         EasyLoading.dismiss();
       }
       // print(e);
-      debugLog((e.response?.statusCode ?? -1).toString() + e.toString());
-      errorLog(e.toString());
-      if (e.response != null && e.response?.data?["code"] == 20001) {
-        userOutLoginError();
-        return null;
-      }
+      // debugLog((e.response?.statusCode ?? -1).toString() + e.toString());
+      // errorLog(e.toString());
+      lLog('MTMTMT LRequest.request ${e} ');
+
       if (errorBack != null) {
-        errorBack(e.response?.statusCode ?? -1,
-            e.response?.data?["message"] ?? "", "网络错误");
+        errorBack(e.response?.statusCode ?? -1, e.toString(), "网络错误");
       } else {
         handleError(e.response?.statusCode ?? -1, e.message, isShowErrorToast);
       }

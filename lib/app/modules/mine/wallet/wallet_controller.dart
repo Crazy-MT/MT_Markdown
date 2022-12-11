@@ -49,7 +49,7 @@ class WalletController extends GetxController {
 
 
   initMenuList() {
-    menuList.add(_WalletItem(image: Assets.imagesWalletBalance, title: '余额提现'));
+    menuList.add(_WalletItem(image: Assets.imagesWalletBalance, title: '红包提现'));
     menuList.add(_WalletItem(image: Assets.imagesWalletRecord, title: '提现记录'));
   }
 

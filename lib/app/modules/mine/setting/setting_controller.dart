@@ -42,7 +42,7 @@ class SettingController extends GetxController {
     ));
     // menuList.add(_MenuItem(title: "支付密码管理", showDivider: false));
 
-     /*menuList.add(
+    /*menuList.add(
       _MenuItem(
         title: "申诉反馈",
         showTopDivider: false,
@@ -52,29 +52,31 @@ class SettingController extends GetxController {
       ),
     );*/
     menuList.add(_MenuItem(
-        title: "C2C个人支付风险提示",
+        title: "平台社区公约",
         onClick: () {
           Get.toNamed(RoutesID.C2C_RISK_PAGE);
         }));
     menuList.add(_MenuItem(
-        title: "委托寄售服务协议",
+        title: "平台社区管理规范（试行）",
         onClick: () {
           Get.toNamed(
             RoutesID.LOCAL_HTML_PAGE,
             arguments: {
-              "page_title": "委托寄售服务协议",
+              "page_title": "平台社区管理规范（试行）",
               "html_file": "assets/html/sell_policy.html",
             },
           );
         }));
     menuList.add(_MenuItem(
-      title: "用户须知",
+      title: "用户协议",
       onClick: () {
         Get.toNamed(
           RoutesID.LOCAL_HTML_PAGE,
           arguments: {
-            "page_title": "用户须知",
-            "html_file": "assets/html/user_instructions.html",
+            "page_title": "用户协议",
+            "html_file": PlatformUtils.isWeb
+                ? "assets/html/user_instructions_web.html"
+                : "assets/html/user_instructions.html",
           },
         );
       },
@@ -84,7 +86,9 @@ class SettingController extends GetxController {
         title: "用户隐私政策",
         onClick: () {
           Get.toNamed(
-            PlatformUtils.isWeb ? RoutesID.LOCAL_HTML_PAGE :RoutesID.LOCAL_WEBVIEW_PAGE,
+            PlatformUtils.isWeb
+                ? RoutesID.LOCAL_HTML_PAGE
+                : RoutesID.LOCAL_WEBVIEW_PAGE,
             arguments: {
               "page_title": "用户隐私政策",
               "html_file": "assets/html/privacy_policy_1.html",
@@ -102,7 +106,6 @@ class SettingController extends GetxController {
             content: "确认注销账号吗?",
             confirmTextColor: Colors.white,
             onConfirm: () async {
-
               showConfirmDialog(
                 content: "注销账号后，您的所有的订单和个人信息将被系统清除，不可逆转，你确定吗？",
                 confirmTextColor: Colors.white,
@@ -151,6 +154,7 @@ class SettingController extends GetxController {
 
   @override
   void onClose() {}
+
   void setPageName(String newName) {
     pageName.value = newName;
   }
