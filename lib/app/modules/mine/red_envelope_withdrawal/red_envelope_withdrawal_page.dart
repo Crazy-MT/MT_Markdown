@@ -239,11 +239,14 @@ class RedEnvelopeWithdrawalPage
         child: Container(
           width: double.infinity,
           color: S.colors.white,
-          child: Column(
-            children: [
-              _buildStep(),
-              _buildToWithdrawal(),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _buildStep(),
+                _buildToWithdrawal(),
+                SizedBox(height: 30.w,)
+              ],
+            ),
           ),
         ));
   }
@@ -255,6 +258,7 @@ class RedEnvelopeWithdrawalPage
         return Container();
       }
       return customStepper.CustomStepper(
+        physics: NeverScrollableScrollPhysics(),
         // currentStep: currentStep,
         controlsBuilder:
             (BuildContext context, customStepper.ControlsDetails details) {
