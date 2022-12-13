@@ -35,8 +35,7 @@ class HomePage extends GetView<HomeController> {
             ),
           )),
       backgroundColor: AppColors.page_bg,
-      body: Obx(() =>
-          Stack(
+      body: Obx(() => Stack(
             children: [
               FTStatusPage(
                 type: controller.pageStatus.value,
@@ -70,7 +69,8 @@ class HomePage extends GetView<HomeController> {
               Positioned(
                 child: Obx(() {
                   return Visibility(
-                    visible: (systemSetting.model.value?.inviteSwitch ?? 1) == 1,
+                    visible:
+                        (systemSetting.model.value?.inviteSwitch ?? 1) == 1,
                     child: SafeTapWidget(
                       onTap: () {
                         Get.toNamed(RoutesID.RECOMMENDED_COURTEOUSLY_PAGE);
@@ -93,7 +93,8 @@ class HomePage extends GetView<HomeController> {
               Positioned(
                 child: Obx(() {
                   return Visibility(
-                    visible: (systemSetting.model.value?.inviteSwitch ?? 1) == 1,
+                    visible:
+                        (systemSetting.model.value?.inviteSwitch ?? 1) == 1,
                     child: SafeTapWidget(
                       onTap: () {
                         if (controller.isNewUser.value) {
@@ -340,6 +341,39 @@ class HomePage extends GetView<HomeController> {
                 children: [
                   SafeTapWidget(
                     onTap: () {
+
+                    },
+                    child: Container(
+                      width: 167.w,
+                      height: 95.w,
+                      decoration: BoxDecoration(
+                        color: AppColors.bg_gray,
+                        borderRadius: BorderRadius.circular(8.w),
+                      ),
+                      child: Stack(
+                        alignment: AlignmentDirectional.center,
+                        children: [
+                          Image.asset(
+                            Assets.imagesHome3,
+                            fit: BoxFit.cover,
+                          ),
+                          Container(
+                            // width: 50.w,
+                            // height: 50.w,
+                            child: ScaleTransition(
+                                scale: controller.scaleAnimation!,
+                                child: Image.asset(
+                                    "assets/images/home_4.png")),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.w,
+                  ),
+                  SafeTapWidget(
+                    onTap: () {
                       if (controller.advList.length >= 3) {
                         Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
                           "from": RoutesID.HOME_PAGE,
@@ -358,33 +392,6 @@ class HomePage extends GetView<HomeController> {
                       ),
                       child: Image.asset(
                         Assets.imagesHome2,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.w,
-                  ),
-                  SafeTapWidget(
-                    onTap: () {
-                      if (controller.advList.length >= 2) {
-                        Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
-                          "from": RoutesID.HOME_PAGE,
-                          "good": controller.advList[1],
-                          // "startTime": Get.arguments['startTime'],
-                          // "endTime": Get.arguments['endTime'],
-                        });
-                      }
-                    },
-                    child: Container(
-                      width: 167.w,
-                      height: 95.w,
-                      decoration: BoxDecoration(
-                        color: AppColors.bg_gray,
-                        borderRadius: BorderRadius.circular(8.w),
-                      ),
-                      child: Image.asset(
-                        Assets.imagesHome3,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -464,7 +471,7 @@ class HomePage extends GetView<HomeController> {
                   child: CachedNetworkImage(
                     imageUrl: item.thumbnails?.firstWhere(
                             (element) => element.isNotEmpty,
-                        orElse: () => "") ??
+                            orElse: () => "") ??
                         '',
                     width: 165.w,
                     height: 210.w,
