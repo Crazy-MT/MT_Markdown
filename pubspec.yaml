@@ -69,12 +69,17 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+  fonts:
+    - family: TabTitle
+      fonts:
+        - asset: fonts/tab_title.ttf
   assets:
     - assets/html/
     - assets/icons/
     - assets/images/
     - assets/images/dialog_bg/
     - assets/images/shopping_cart/
+    - assets/images/activity/
   uses-material-design: true
 
 flutter_assets:

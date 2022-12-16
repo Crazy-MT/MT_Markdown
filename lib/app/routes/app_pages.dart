@@ -94,6 +94,8 @@ import '../modules/mine/red_envelope_withdrawal/red_envelope_withdrawal_binding.
 import '../modules/mine/red_envelope_withdrawal/red_envelope_withdrawal_page.dart';
 import '../modules/mine/red_envelope_reward/red_envelope_reward_binding.dart';
 import '../modules/mine/red_envelope_reward/red_envelope_reward_page.dart';
+import '../modules/home/activity/activity_binding.dart';
+import '../modules/home/activity/activity_page.dart';
 
 class AppPages {
   AppPages._();
@@ -101,6 +103,13 @@ class AppPages {
   static final routes = _routes;
 
   static final List<GetPage> _routes = [
+    // activity
+    GetPage(
+      name: RoutesID.ACTIVITY_PAGE,
+      page: () => const ActivityPage(),
+      binding: ActivityBinding(),
+    ),
+
     // red_envelope_reward
     GetPage(
       middlewares: [EnsureAuthMiddleware()],

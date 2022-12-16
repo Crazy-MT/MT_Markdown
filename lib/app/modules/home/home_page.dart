@@ -341,7 +341,7 @@ class HomePage extends GetView<HomeController> {
                 children: [
                   SafeTapWidget(
                     onTap: () {
-
+                      Get.toNamed(RoutesID.ACTIVITY_PAGE);
                     },
                     child: Container(
                       width: 167.w,
