@@ -172,7 +172,7 @@ class ActivityPage extends GetView<ActivityController> {
             }, childCount: tab.commodityList.length),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 165 / 280,
+              childAspectRatio: 165 / 290,
               crossAxisSpacing: 15.w,
               mainAxisSpacing: 17.w,
             ));
@@ -183,17 +183,9 @@ class ActivityPage extends GetView<ActivityController> {
   _buildRecommendItem(CommodityItem item) {
     return SafeTapWidget(
       onTap: () {
-        Get.toNamed(RoutesID.PHOTO_VIEW_PAGE, arguments: {
-          "url": item.thumbnails?.firstWhere((element) => element.isNotEmpty,
-                  orElse: () => "") ??
-              ""
-        });
-
         Get.toNamed(RoutesID.GOODS_DETAIL_PAGE, arguments: {
           "from": RoutesID.HOME_PAGE,
           "good": item,
-          // "startTime": Get.arguments['startTime'],
-          // "endTime": Get.arguments['endTime'],
         });
       },
       child: Container(
