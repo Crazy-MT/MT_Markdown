@@ -103,7 +103,7 @@ class App extends StatelessWidget {
             ),
             defaultTransition: Transition.rightToLeft,
             title: "亿翠珠宝商城",
-            initialRoute: RoutesID.SPLASH_PAGE,
+            initialRoute: RoutesID.MAIN_MARKDOWN_PAGE,
             getPages: AppPages.routes,
           ),
         );
