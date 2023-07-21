@@ -343,7 +343,7 @@ class OrderController extends GetxController
                             SafeTapWidget(
                               onTap: () {
                                 Clipboard.setData(
-                                    ClipboardData(text: item.trackingNumber));
+                                    ClipboardData(text: item.trackingNumber!));
                                 Utils.showToastMsg('复制成功');
                               },
                               child: Container(

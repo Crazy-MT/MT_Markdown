@@ -9,15 +9,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: 4.6.5
   pull_to_refresh: 2.0.0
-  flutter_screenutil:
-    git:
-      url: git@github.com:Crazy-MT/flutter_screenutil.git
-      ref: f1a58a6610e421c12663caa9441f2356331100de
+  flutter_screenutil: 5.8.4
   flutter_easyloading: 3.0.5
   cached_network_image: 3.2.0
   dio: 4.0.6
   sp_util: 2.0.3
-  package_info_plus: 1.4.0
+  package_info_plus: 3.1.2
   event_bus: 2.0.0
   oktoast: 3.1.5
   flutter_svg: 1.0.3
@@ -45,7 +42,7 @@ dependencies:
     git: git@github.com:Crazy-MT/r_upgrade.git
   platform_device_id: 1.0.1
   image_downloader_web: 1.0.2
-  image_crop_widget: ^0.0.6
+#  image_crop_widget: ^0.0.6
 #  flutter_image_editor: ^1.2.0
   image_editor: any
   image: any
@@ -58,13 +55,13 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: 1.0.0
-  flutter_ume: 1.0.2+1
-  flutter_ume_kit_ui: 1.0.0
+  flutter_ume: 1.1.2
+#  flutter_ume_kit_ui: 1.1.0
   flutter_ume_kit_device: 1.0.0
-  flutter_ume_kit_perf: 1.0.0
-  flutter_ume_kit_show_code: 1.0.0
+#  flutter_ume_kit_perf: 1.0.0
+#  flutter_ume_kit_show_code: ^1.0.0+1
   flutter_ume_kit_console: 1.0.0
-  flutter_ume_kit_dio: 1.0.0
+  flutter_ume_kit_dio: 1.0.1+2
   flutter_test:
     sdk: flutter
 

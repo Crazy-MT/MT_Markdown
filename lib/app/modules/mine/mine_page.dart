@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badge;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code_zero/app/routes/app_routes.dart';
 import 'package:code_zero/common/components/safe_tap_widget.dart';
@@ -720,7 +720,7 @@ class MinePage extends GetView<MineController> {
               ? Obx(() {
                   lLog(
                       'MTMTMT MinePage.buildItem ${userHelper.isShowBadge.value} ');
-                  return Badge(
+                  return badge.Badge(
                     elevation: 0,
                     badgeContent: Text(
                       count.toString(),

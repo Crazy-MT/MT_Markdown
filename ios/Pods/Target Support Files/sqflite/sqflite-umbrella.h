@@ -10,6 +10,9 @@
 #endif
 #endif
 
+#import "SqfliteCursor.h"
+#import "SqfliteDatabase.h"
+#import "SqfliteImport.h"
 #import "SqfliteOperation.h"
 #import "SqflitePlugin.h"
 
