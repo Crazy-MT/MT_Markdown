@@ -1,9 +1,16 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:code_zero/app/modules/markdown/markdown_page.dart';
+import 'package:code_zero/app/modules/markdown/menu/bean/MenuInfo.dart';
 import 'package:code_zero/app/modules/markdown/menu/menu.dart';
 import 'package:code_zero/app/modules/markdown/router.dart';
+import 'package:code_zero/common/sp_const.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:cross_file/cross_file.dart';
 import 'package:desktop_drop/desktop_drop.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sp_util/sp_util.dart';
 
 import 'main_markdown_controller.dart';
 import 'package:code_zero/common/components/status_page/status_page.dart';
@@ -17,20 +24,21 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(
-            () =>
-            FTStatusPage(
-              type: controller.pageStatus.value,
-              errorMsg: controller.errorMsg.value,
-              builder: (BuildContext context) {
-                return Scaffold(
-                  appBar: controller.isMobile
-                      ? AppBar(
-                    title: Text(
-                      '"Text"',
-                    ),
-                    backgroundColor: Colors.black,
-                    actions: [
-                      /*IconButton(
+        () => FTStatusPage(
+          type: controller.pageStatus.value,
+          errorMsg: controller.errorMsg.value,
+          builder: (BuildContext context) {
+            return Scaffold(
+              appBar: controller.isMobile
+                  ? AppBar(
+                      title: Obx(() {
+                        return Text(
+                          controller.selectInfo.value?.name ?? "",
+                        );
+                      }),
+                      backgroundColor: Colors.black,
+                      actions: [
+                        /*IconButton(
                       onPressed: () => rootStore.dispatch(new ChangeLanguage()),
                       icon: Text(rootStore.state.language == 'en' ? '中' : 'En')),
                   IconButton(
@@ -41,24 +49,24 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
                             : Icons.brightness_2_outlined,
                         size: 15,
                       )),*/
-                    ],
-                  )
-                      : null,
-                  body: Row(
-                    children: [
-                      if (!controller.isMobile) leftLayout(),
-                      buildDragLine(),
-                      Expanded(child: rightLayout()),
-                    ],
-                  ),
-                  drawer: controller.isMobile
-                      ? Drawer(
-                    child: leftLayout(),
-                  )
-                      : null,
-                );
-              },
-            ),
+                      ],
+                    )
+                  : null,
+              body: Row(
+                children: [
+                  if (!controller.isMobile) leftLayout(),
+                  buildDragLine(),
+                  Expanded(child: rightLayout()),
+                ],
+              ),
+              drawer: controller.isMobile
+                  ? Drawer(
+                      child: leftLayout(),
+                    )
+                  : null,
+            );
+          },
+        ),
       ),
     );
   }
@@ -68,8 +76,10 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
       onDragDone: (detail) async {
         controller.list.add(detail.files);
 
-        debugPrint('onDragDone:');
         for (final file in detail.files) {
+          MenuInfo info = MenuInfo(file.name, file.path);
+          controller.menuInfos.add(info);
+          await chooseInfo(info);
           debugPrint('  ${file.path} ${file.name}'
               '  ${await file.lastModified()}'
               '  ${await file.length()}'
@@ -92,14 +102,14 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
       },
       child: Obx(() {
         return SizedBox(
-          width: controller.isCollapsed.value ? 45 : controller.leftLayoutWidth
-              .value,
+          width: controller.isCollapsed.value
+              ? 45
+              : controller.leftLayoutWidth.value,
           child: Obx(() {
             return Menu(
               router: RouterEnum.readme.path,
               isCollapsed: controller.isCollapsed.value && !controller.isMobile,
               onUnCollapsed: () {
-                print("MTMTMT ${controller.isCollapsed.value}");
                 controller.isCollapsed.value = false;
               },
               onCollapsed: () {
@@ -109,6 +119,11 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
                 }
                 controller.isCollapsed.value = true;
               },
+              menuInfos: controller.menuInfos.cast<MenuInfo>().toList(),
+              selectName: controller.selectInfo.value?.name,
+              onSelect: (MenuInfo info) async {
+                chooseInfo(info);
+              },
             );
           }),
         );
@@ -116,8 +131,22 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
     );
   }
 
+  Future<void> chooseInfo(MenuInfo info) async {
+    controller.selectInfo.value = info;
+    controller.mdData.value =
+        await File(controller.selectInfo.value!.path!).readAsString();
+    // (await SharedPreferences.getInstance())
+    //     .setString(SpConst.SELECT_INFO, json.encode(info.toJson()));
+
+    List<String> infos = [];
+    controller.menuInfos.forEach((element) {
+      infos.add(json.encode(element.toJson()));
+    });
+
+    (await SharedPreferences.getInstance()).setStringList(SpConst.SELECT_INFO, infos);
+  }
+
   Widget buildDragLine() {
-    lLog('MTMTMT MainMarkdownPage.buildDragLine ${controller.isCollapsed} ');
     Widget line = VerticalDivider(width: 4);
     if (controller.isCollapsed.value) return line;
     return GestureDetector(
@@ -125,11 +154,9 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
       onHorizontalDragEnd: (e) {},
       onHorizontalDragUpdate: (e) {
         final delta = e.delta;
-        final width = delta.dx + controller.leftLayoutWidth
-            .value;
+        final width = delta.dx + controller.leftLayoutWidth.value;
         if (width >= 220 && width <= 400) {
-          controller.leftLayoutWidth
-              .value = width;
+          controller.leftLayoutWidth.value = width;
         }
       },
       child: MouseRegion(
@@ -139,7 +166,10 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
     );
   }
 
-  Widget rightLayout() =>
-      MarkdownPage(
-          assetsPath: 'assets/demo_zh.md', key: Key('assets/demo_zh.md'));
+  Widget rightLayout() => Obx(() {
+        return MarkdownPage(
+            assetsPath: controller.selectInfo.value?.path,
+            markdownData: controller.mdData.value,
+            key: Key('assets/demo_zh.md'));
+      });
 }

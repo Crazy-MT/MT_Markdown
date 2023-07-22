@@ -1,6 +1,13 @@
+import 'dart:ffi';
+import 'dart:io';
+
+import 'package:code_zero/app/modules/markdown/main_markdown/main_markdown_controller.dart';
+import 'package:code_zero/app/modules/markdown/menu/bean/MenuInfo.dart';
 import 'package:code_zero/app/modules/markdown/menu/navigation_item.dart';
 import 'package:code_zero/app/modules/markdown/router.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/platform_detector/platform_detector.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -8,29 +15,37 @@ class Menu extends StatelessWidget {
   final bool isCollapsed;
   final VoidCallback? onCollapsed;
   final VoidCallback? onUnCollapsed;
+  final Function(MenuInfo info)? onSelect;
   final String router;
+  final List<MenuInfo>? menuInfos;
+  final String? selectName;
 
   const Menu({
     Key? key,
     this.isCollapsed = false,
     this.onCollapsed,
     this.onUnCollapsed,
+    this.onSelect,
     this.router = '',
+    this.menuInfos,
+    this.selectName = '',
   }) : super(key: key);
 
   bool get isMobile => PlatformDetector.isAllMobile;
 
   @override
   Widget build(BuildContext context) {
+    lLog('MTMTMT Menu.build ${menuInfos?.length} ${selectName}');
     return Padding(
       padding: EdgeInsets.only(left: 2),
       child: Column(
         children: [
+          buildMenuButton(),
           Expanded(
             child: ListView(
-              children: [
-                buildMenuButton(),
-                NavItem(
+              children: menuInfos!.map((e) => buildMenu(e.name, e.path, onSelect)).toList()/*[
+
+                *//*NavItem(
                   title: 'README.md',
                   trailing: '📚',
                   isCollapsed: isCollapsed,
@@ -70,8 +85,8 @@ class Menu extends StatelessWidget {
                     // GoRouter.of(context).go(RouterEnum.sample_html.path);
                     if (isMobile) Navigator.of(context).pop();
                   },
-                ),
-              ],
+                ),*//*
+              ]*/,
             ),
           ),
           if (!isMobile)
@@ -83,6 +98,17 @@ class Menu extends StatelessWidget {
             )
         ],
       ),
+    );
+  }
+
+  Widget buildMenu(title, path, Function(MenuInfo info)? select) {
+    return NavItem(
+      title: title,
+      isSelected: isSelected(title),
+      isCollapsed: isCollapsed,
+      onTap: () {
+        select?.call(MenuInfo(title, path));
+      },
     );
   }
 
@@ -100,7 +126,11 @@ class Menu extends StatelessWidget {
       child: Row(
         children: [
           FlutterLogo(),
-          Expanded(child: Center(child: Text('Markdown', style: TextStyle(fontWeight: FontWeight.bold)))),
+          Expanded(child: Center(child: InkWell(
+              onTap: () {
+                openFilePicker();
+              },
+              child: Text('Markdown', style: TextStyle(fontWeight: FontWeight.bold))))),
           InkWell(
             child: Icon(Icons.keyboard_double_arrow_left),
             onTap: onCollapsed,
@@ -109,6 +139,25 @@ class Menu extends StatelessWidget {
       ),
     );
   }
+
+  void openFilePicker() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['md'],
+      );
+      if (result != null) {
+        var filePath = result.files.single.path ?? "";
+        var fileName = filePath.substring(
+            filePath.lastIndexOf("/") + 1, filePath.lastIndexOf("."));
+        File file = File(filePath);
+        print('MTMTMT  ${fileName} ');
+        var inputText = await file.readAsString();
+      }
+    } catch (e) {
+    }
+  }
+
 
 /*
   Widget buildThemeButton(BuildContext context) {
@@ -151,5 +200,5 @@ class Menu extends StatelessWidget {
   }
 */
 
-  bool isSelected(RouterEnum routerEnum) => router == routerEnum.path;
+  bool isSelected(String routerEnum) => selectName == routerEnum;
 }

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:code_zero/app/modules/markdown/custom_node.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/platform_detector/platform_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,26 +31,28 @@ class _MarkdownPageState extends State<MarkdownPage> {
 
   @override
   void initState() {
-    if (widget.assetsPath != null) {
+    /*if (widget.assetsPath != null) {
       loadData(widget.assetsPath!);
     } else {
       this.data = widget.markdownData!;
-    }
+    }*/
     super.initState();
   }
 
-  void loadData(String assetsPath) {
+  /*void loadData(String assetsPath) {
     if (dataMap[isEnglish] != null) {
       data = dataMap[isEnglish]!;
       refresh();
       return;
     }
-    rootBundle.loadString(assetsPath).then((data) {
-      dataMap[isEnglish] = data;
-      this.data = data;
-      refresh();
-    });
-  }
+    Future.delayed(Duration(seconds: 10))
+        .then((value) => File(assetsPath).readAsString().then((data) {
+              lLog('MTMTMT _MarkdownPageState.loadData ${data} ');
+              dataMap[isEnglish] = data;
+              this.data = data;
+              refresh();
+            }));
+  }*/
 
   @override
   void dispose() {
@@ -62,7 +67,7 @@ class _MarkdownPageState extends State<MarkdownPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: data == null
+      body: widget.markdownData == null
           ? Center(child: CircularProgressIndicator())
           : (isMobile ? buildMobileBody() : buildWebBody()),
       floatingActionButton: widget.assetsPath != null
@@ -86,7 +91,7 @@ class _MarkdownPageState extends State<MarkdownPage> {
     return Container(
       margin: EdgeInsets.all(10.0),
       child: MarkdownWidget(
-          data: data!,
+          data: widget.markdownData!,
           config: MarkdownConfig.defaultConfig,
           tocController: controller,
           markdownGeneratorConfig: MarkdownGeneratorConfig(

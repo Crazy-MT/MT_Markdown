@@ -4,7 +4,7 @@ class NavItem extends StatelessWidget {
   final bool isSelected;
   final bool isCollapsed;
   final String title;
-  final String trailing;
+  // final String trailing;
   final VoidCallback? onTap;
 
   const NavItem({
@@ -12,7 +12,7 @@ class NavItem extends StatelessWidget {
     this.isSelected = false,
     this.isCollapsed = false,
     this.title = '',
-    this.trailing = '',
+    // this.trailing = '',
     this.onTap,
   }) : super(key: key);
 
@@ -40,7 +40,7 @@ class NavItem extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text('$trailing $title', style: _buildTextStyle()),
+        Text('$title', style: _buildTextStyle()),
         Spacer(),
         Icon(Icons.chevron_right, color: Color(0xffbbbab7))
       ],
@@ -51,7 +51,7 @@ class NavItem extends StatelessWidget {
         height: 24,
         child: Tooltip(
           message: title,
-          child: Text(trailing, style: _buildTextStyle()),
+          child: Text("trailing", style: _buildTextStyle()),
         ),
       );
 

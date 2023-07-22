@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "summary": "iOS and macOS implementation of the shared_preferences plugin.",
   "description": "Wraps NSUserDefaults, providing a persistent store for simple key-value pairs.",
-  "homepage": "https://github.com/flutter/plugins/tree/main/packages/shared_preferences/shared_preferences_foundation",
+  "homepage": "https://github.com/flutter/packages/tree/main/packages/shared_preferences/shared_preferences_foundation",
   "license": {
     "type": "BSD",
     "file": "../LICENSE"
@@ -12,7 +12,7 @@
     "Flutter Team": "flutter-dev@googlegroups.com"
   },
   "source": {
-    "http": "https://github.com/flutter/plugins/tree/main/packages/shared_preferences/shared_preferences_foundation"
+    "http": "https://github.com/flutter/packages/tree/main/packages/shared_preferences/shared_preferences_foundation"
   },
   "source_files": "Classes/**/*",
   "ios": {
@@ -30,8 +30,8 @@
     }
   },
   "platforms": {
-    "ios": "9.0",
-    "osx": "10.11"
+    "ios": "11.0",
+    "osx": "10.14"
   },
   "pod_target_xcconfig": {
     "DEFINES_MODULE": "YES"
