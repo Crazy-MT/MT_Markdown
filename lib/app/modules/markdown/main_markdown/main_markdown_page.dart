@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:code_zero/app/modules/markdown/edit_markdown_page.dart';
 import 'package:code_zero/app/modules/markdown/markdown_page.dart';
 import 'package:code_zero/app/modules/markdown/menu/bean/MenuInfo.dart';
 import 'package:code_zero/app/modules/markdown/menu/menu.dart';
@@ -167,9 +168,10 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
   }
 
   Widget rightLayout() => Obx(() {
-        return MarkdownPage(
+    return EditMarkdownPage(controller: TextEditingController(text: controller.mdData.value),);
+        /*return MarkdownPage(
             assetsPath: controller.selectInfo.value?.path,
             markdownData: controller.mdData.value,
-            key: Key('assets/demo_zh.md'));
+            key: Key('assets/demo_zh.md'));*/
       });
 }
