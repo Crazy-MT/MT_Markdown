@@ -1,11 +1,15 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
+import 'dart:io';
+
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:code_zero/app/modules/markdown/custom_node.dart';
+import 'package:code_zero/common/common.dart';
 import 'package:code_zero/utils/platform_detector/platform_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:markdown_widget/markdown_widget.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'markdown_page.dart';
@@ -15,8 +19,10 @@ class EditMarkdownPage extends StatefulWidget {
   final TextEditingController? controller;
 
   final String title;
+  final String filePath;
 
-  const EditMarkdownPage({Key? key, this.controller, required this.title})
+  const EditMarkdownPage(
+      {Key? key, this.controller, required this.title, required this.filePath})
       : super(key: key);
 
   @override
@@ -26,6 +32,7 @@ class EditMarkdownPage extends StatefulWidget {
 class _EditMarkdownPageState extends State<EditMarkdownPage> {
   bool isMobileDisplaying = false;
   bool isPreview = false;
+  bool isTaped = false;
 
   bool get isMobile => PlatformDetector.isAllMobile;
 
@@ -40,6 +47,12 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
       });
     }*/
     super.initState();
+
+    eventBus.on().listen((event) {
+        if(event == "save") {
+          saveFile(widget.filePath);
+        }
+    });
   }
 
   @override
@@ -67,6 +80,34 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
                     isMobileDisplaying
                         ? Icons.remove_red_eye_outlined
                         : Icons.remove_red_eye,
+                    size: 20,
+                  ),
+                ),
+              ),
+              Positioned(
+                right: 50,
+                top: 0,
+                bottom: 0,
+                child: GestureDetector(
+                  onTapUp: (_) {
+                    setState(() {
+                      isTaped = false;
+                    });
+                  },
+                  onTapDown: (_) {
+                    setState(() {
+                      isTaped = true;
+                      saveFile(widget.filePath);
+                    });
+                  },
+                  onTapCancel: () {
+                    setState(() {
+                      isTaped = false;
+                    });
+                  },
+                  child: Icon(
+                    isTaped ? Icons.save_as : Icons.save,
+                    size: 20,
                   ),
                 ),
               )
@@ -157,6 +198,17 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
 
   void refresh() {
     if (mounted) setState(() {});
+  }
+
+  Future saveFile(String filePath) async {
+    File file = File(filePath);
+    try {
+      await file.writeAsString(widget.controller?.text ?? "").then(
+            (value) => showToast("保存成功"),
+          );
+    } catch (_) {
+      showToast("保存失败");
+    }
   }
 
   @override

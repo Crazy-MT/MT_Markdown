@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:code_zero/app/modules/markdown/main_markdown/main_markdown_controller.dart';
 import 'package:code_zero/app/modules/markdown/menu/bean/MenuInfo.dart';
+import 'package:code_zero/common/common.dart';
 import 'package:code_zero/utils/platform_utils.dart';
 import 'package:cross_file/cross_file.dart';
 import 'package:file_picker/file_picker.dart';
@@ -121,6 +122,7 @@ class App extends StatelessWidget {
                 PlatformMenuItem(
                   onSelected: () {
                     // _handleMenuSelection(MenuSelection.showMessage);
+                    eventBus.fire("save");
                   },
                   shortcut: const CharacterActivator('s'),
                   label: '保存',

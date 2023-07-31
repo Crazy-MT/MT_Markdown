@@ -147,6 +147,7 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
   Widget rightLayout() => Obx(() {
         return EditMarkdownPage(
           title: controller.selectInfo.value?.name ?? "",
+          filePath: controller.selectInfo.value?.path ?? "",
           controller: TextEditingController(text: controller.mdData.value),
         );
         /*return MarkdownPage(
