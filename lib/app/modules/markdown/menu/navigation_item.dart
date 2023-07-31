@@ -19,7 +19,7 @@ class NavItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
       child: InkWell(
         hoverColor: Color(0xffebebea),
         borderRadius: BorderRadius.circular(4),
@@ -41,7 +41,7 @@ class NavItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text('$title', style: _buildTextStyle()),
-        Spacer(),
+        // Spacer(),
         // Icon(Icons.chevron_right, color: Color(0xffbbbab7))
       ],
     );

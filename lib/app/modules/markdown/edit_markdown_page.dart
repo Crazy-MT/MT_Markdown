@@ -1,5 +1,6 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:code_zero/app/modules/markdown/custom_node.dart';
 import 'package:code_zero/utils/platform_detector/platform_detector.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,10 @@ class EditMarkdownPage extends StatefulWidget {
   // final String initialData;
   final TextEditingController? controller;
 
-  const EditMarkdownPage({Key? key, this.controller}) : super(key: key);
+  final String title;
+
+  const EditMarkdownPage({Key? key, this.controller, required this.title})
+      : super(key: key);
 
   @override
   _EditMarkdownPageState createState() => _EditMarkdownPageState();
@@ -21,6 +25,7 @@ class EditMarkdownPage extends StatefulWidget {
 
 class _EditMarkdownPageState extends State<EditMarkdownPage> {
   bool isMobileDisplaying = false;
+  bool isPreview = false;
 
   bool get isMobile => PlatformDetector.isAllMobile;
 
@@ -37,12 +42,39 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: buildDisplay(),
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            height: 40,
+            child: Stack(children: [
+              Center(child: Text(widget.title)),
+              Positioned(
+                right: 10,
+                top: 0,
+                bottom: 0,
+                child: IconButton(
+                  hoverColor: Colors.transparent,
+                  onPressed: () {
+                    setState(() {
+                      isMobileDisplaying = !isMobileDisplaying;
+                    });
+                  },
+                  icon: Icon(
+                    isMobileDisplaying
+                        ? Icons.remove_red_eye_outlined
+                        : Icons.remove_red_eye,
+                  ),
+                ),
+              )
+            ]),
+          ),
+          Expanded(child: buildDisplay()),
+        ],
+      ),
       floatingActionButton: isMobile
           ? FloatingActionButton(
               onPressed: () {
@@ -60,7 +92,8 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
   }
 
   Widget buildDisplay() {
-    if (isMobileDisplaying) return MarkdownPage(markdownData: widget.controller?.text);
+    if (isMobileDisplaying)
+      return MarkdownPage(markdownData: widget.controller?.text);
     return buildEditor();
   }
 
@@ -75,14 +108,17 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
       children: <Widget>[
         Expanded(child: buildEditText()),
         Expanded(
-          child: MarkdownWidget(
-            data:  widget.controller?.text ?? "",
-            config: MarkdownConfig.defaultConfig,
-            markdownGeneratorConfig: MarkdownGeneratorConfig(
-                generators: [],
-                inlineSyntaxList: [],
-                textGenerator: (node, config, visitor) =>
-                    CustomTextNode(node.textContent, config, visitor)),
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 4),
+            child: MarkdownWidget(
+              data: widget.controller?.text ?? "",
+              config: MarkdownConfig.defaultConfig,
+              markdownGeneratorConfig: MarkdownGeneratorConfig(
+                  generators: [],
+                  inlineSyntaxList: [],
+                  textGenerator: (node, config, visitor) =>
+                      CustomTextNode(node.textContent, config, visitor)),
+            ),
           ),
         ),
       ],
@@ -91,14 +127,15 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
 
   Widget buildEditText() {
     return Container(
-      margin: EdgeInsets.all(20),
-      padding: EdgeInsets.all(5),
+      margin: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(30)),
-        border: Border.all(
-          color: Colors.black,
-          width: 3,
-        ),
+        // borderRadius: BorderRadius.all(Radius.circular(30)),
+        border: Border(
+            right: BorderSide(
+          color: Colors.grey,
+          width: 1,
+        )),
       ),
       child: TextFormField(
         expands: true,

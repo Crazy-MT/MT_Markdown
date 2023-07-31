@@ -24,7 +24,7 @@ class MainMarkdownController extends GetxController {
   bool get isMobile => PlatformDetector.isAllMobile;
 
   int selectIndex = 0;
-  final leftLayoutWidth = 220.0.obs;
+  final leftLayoutWidth = 140.0.obs;
   final isCollapsed = false.obs;
   RxList<MenuInfo> menuInfos =
       RxList<MenuInfo>(); // MenuInfo('1.md', '/Users/mt/Desktop/1.md')

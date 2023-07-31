@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:code_zero/app/modules/markdown/main_markdown/main_markdown_controller.dart';
 import 'package:code_zero/app/modules/markdown/menu/bean/MenuInfo.dart';
 import 'package:code_zero/utils/platform_utils.dart';
@@ -39,7 +40,7 @@ void main() {
         statusBarIconBrightness: Brightness.light);
     SystemChrome.setSystemUIOverlayStyle(style);
   }
-  if (kDebugMode) {
+  /*if (kDebugMode) {
     PluginManager.instance
       ..register(DioInspector(dio: LRequest.dio))
       // ..register(WidgetInfoInspector())
@@ -58,7 +59,16 @@ void main() {
     runApp(UMEWidget(child: App(), enable: true));
   } else {
     runApp(App());
-  }
+  }*/
+  runApp(App());
+
+  doWhenWindowReady(() {
+    const initialSize = Size(1280, 700);
+    appWindow.minSize = initialSize;
+    appWindow.size = initialSize;
+    appWindow.alignment = Alignment.center;
+    appWindow.show();
+  });
   // }, (error, stackTrace) {
   //   errorLog(error.toString());
   // });

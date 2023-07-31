@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:code_zero/app/modules/markdown/edit_markdown_page.dart';
 import 'package:code_zero/app/modules/markdown/markdown_page.dart';
 import 'package:code_zero/app/modules/markdown/menu/bean/MenuInfo.dart';
@@ -24,49 +25,51 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(
-        () => FTStatusPage(
-          type: controller.pageStatus.value,
-          errorMsg: controller.errorMsg.value,
-          builder: (BuildContext context) {
-            return Scaffold(
-              appBar: controller.isMobile
-                  ? AppBar(
-                      title: Obx(() {
-                        return Text(
-                          controller.selectInfo.value?.name ?? "",
-                        );
-                      }),
-                      backgroundColor: Colors.black,
-                      actions: [
-                        /*IconButton(
-                        onPressed: () => rootStore.dispatch(new ChangeLanguage()),
-                        icon: Text(rootStore.state.language == 'en' ? '中' : 'En')),
-                    IconButton(
-                        onPressed: () => rootStore.dispatch(new ChangeThemeEvent()),
-                        icon: Icon(
-                          isDark
-                              ? Icons.brightness_5_outlined
-                              : Icons.brightness_2_outlined,
-                          size: 15,
-                        )),*/
-                      ],
-                    )
-                  : null,
-              body: Row(
-                children: [
-                  if (!controller.isMobile) leftLayout(),
-                  buildDragLine(),
-                  Expanded(child: rightLayout()),
-                ],
-              ),
-              drawer: controller.isMobile
-                  ? Drawer(
-                      child: leftLayout(),
-                    )
-                  : null,
-            );
-          },
+      body: MoveWindow(
+        child: Obx(
+          () => FTStatusPage(
+            type: controller.pageStatus.value,
+            errorMsg: controller.errorMsg.value,
+            builder: (BuildContext context) {
+              return Scaffold(
+                appBar: controller.isMobile
+                    ? AppBar(
+                        title: Obx(() {
+                          return Text(
+                            controller.selectInfo.value?.name ?? "",
+                          );
+                        }),
+                        backgroundColor: Colors.black,
+                        actions: [
+                          /*IconButton(
+                          onPressed: () => rootStore.dispatch(new ChangeLanguage()),
+                          icon: Text(rootStore.state.language == 'en' ? '中' : 'En')),
+                      IconButton(
+                          onPressed: () => rootStore.dispatch(new ChangeThemeEvent()),
+                          icon: Icon(
+                            isDark
+                                ? Icons.brightness_5_outlined
+                                : Icons.brightness_2_outlined,
+                            size: 15,
+                          )),*/
+                        ],
+                      )
+                    : null,
+                body: Row(
+                  children: [
+                    if (!controller.isMobile) leftLayout(),
+                    buildDragLine(),
+                    Expanded(child: rightLayout()),
+                  ],
+                ),
+                drawer: controller.isMobile
+                    ? Drawer(
+                        child: leftLayout(),
+                      )
+                    : null,
+              );
+            },
+          ),
         ),
       ),
     );
@@ -143,6 +146,7 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
 
   Widget rightLayout() => Obx(() {
         return EditMarkdownPage(
+          title: controller.selectInfo.value?.name ?? "",
           controller: TextEditingController(text: controller.mdData.value),
         );
         /*return MarkdownPage(
