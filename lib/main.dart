@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:code_zero/app/modules/markdown/main_markdown/main_markdown_controller.dart';
 import 'package:code_zero/app/modules/markdown/menu/bean/MenuInfo.dart';
 import 'package:code_zero/common/common.dart';
+import 'package:code_zero/common/sp_const.dart';
 import 'package:code_zero/utils/platform_utils.dart';
 import 'package:cross_file/cross_file.dart';
 import 'package:file_picker/file_picker.dart';
@@ -16,6 +18,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/routes/app_pages.dart';
 import 'app/routes/app_routes.dart';
@@ -74,9 +77,23 @@ void main() {
   //   errorLog(error.toString());
   // });
 }
-
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+
+  List<String>? selectInfo;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getMenuItems();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +150,15 @@ class App extends StatelessWidget {
               members: <PlatformMenuItem>[
                 PlatformMenu(
                   label: '最近',
-                  menus: <PlatformMenuItem>[
+                  menus: selectInfo?.map((element) {
+                    return PlatformMenuItem(
+                      label: MenuInfo.fromJson(json.decode(element)).name ?? "",
+                      // shortcut: const SingleActivator(LogicalKeyboardKey.digit1, meta: true),
+                      onSelected: () {
+                        // Handle the item selection here
+                      },
+                    );
+                  }).toList() ?? [] /*<PlatformMenuItem>[
                     PlatformMenuItem(
                       label: 'I am not throwing away my shot.',
                       shortcut: const SingleActivator(LogicalKeyboardKey.digit1,
@@ -146,7 +171,7 @@ class App extends StatelessWidget {
                     ),
                     PlatformMenuItem(
                       label:
-                          "There's a million things I haven't done, but just you wait.",
+                      "There's a million things I haven't done, but just you wait.",
                       shortcut: const SingleActivator(LogicalKeyboardKey.digit2,
                           meta: true),
                       onSelected: () {
@@ -156,7 +181,7 @@ class App extends StatelessWidget {
                         // });
                       },
                     ),
-                  ],
+                  ],*/
                 ),
               ],
             ),
@@ -244,6 +269,27 @@ class App extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _getMenuItems() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    selectInfo = prefs.getStringList(SpConst.SELECT_INFO);
+    setState(() {
+
+    });
+    /*if (selectInfo != null) {
+      return selectInfo!.map((element) {
+        return PlatformMenuItem(
+          label: element,
+          shortcut: const SingleActivator(LogicalKeyboardKey.digit1, meta: true),
+          onSelected: () {
+            // Handle the item selection here
+          },
+        );
+      }).toList();
+    } else {
+      return [];
+    }*/
   }
 }
 
