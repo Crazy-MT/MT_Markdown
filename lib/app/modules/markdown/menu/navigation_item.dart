@@ -42,7 +42,7 @@ class NavItem extends StatelessWidget {
       children: [
         Text('$title', style: _buildTextStyle()),
         Spacer(),
-        Icon(Icons.chevron_right, color: Color(0xffbbbab7))
+        // Icon(Icons.chevron_right, color: Color(0xffbbbab7))
       ],
     );
   }
@@ -51,7 +51,7 @@ class NavItem extends StatelessWidget {
         height: 24,
         child: Tooltip(
           message: title,
-          child: Text("trailing", style: _buildTextStyle()),
+          child: Text(title, style: _buildTextStyle()),
         ),
       );
 

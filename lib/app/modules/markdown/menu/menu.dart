@@ -35,12 +35,11 @@ class Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    lLog('MTMTMT Menu.build ${menuInfos?.length} ${selectName}');
     return Padding(
       padding: EdgeInsets.only(left: 2),
       child: Column(
         children: [
-          buildMenuButton(),
+          // buildMenuButton(),
           Expanded(
             child: ListView(
               children: menuInfos!.map((e) => buildMenu(e.name, e.path, onSelect)).toList()/*[
@@ -126,38 +125,18 @@ class Menu extends StatelessWidget {
       child: Row(
         children: [
           FlutterLogo(),
-          Expanded(child: Center(child: InkWell(
-              onTap: () {
-                openFilePicker();
-              },
-              child: Text('Markdown', style: TextStyle(fontWeight: FontWeight.bold))))),
-          InkWell(
-            child: Icon(Icons.keyboard_double_arrow_left),
-            onTap: onCollapsed,
+          Expanded(child: Center(child: Text('Markdown', style: TextStyle(fontWeight: FontWeight.bold)))),
+          Visibility(
+            visible: false,
+            child: InkWell(
+              child: Icon(Icons.keyboard_double_arrow_left),
+              onTap: onCollapsed,
+            ),
           )
         ],
       ),
     );
   }
-
-  void openFilePicker() async {
-    try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['md'],
-      );
-      if (result != null) {
-        var filePath = result.files.single.path ?? "";
-        var fileName = filePath.substring(
-            filePath.lastIndexOf("/") + 1, filePath.lastIndexOf("."));
-        File file = File(filePath);
-        print('MTMTMT  ${fileName} ');
-        var inputText = await file.readAsString();
-      }
-    } catch (e) {
-    }
-  }
-
 
 /*
   Widget buildThemeButton(BuildContext context) {

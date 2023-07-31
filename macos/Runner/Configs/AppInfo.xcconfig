@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = code_zero
+PRODUCT_NAME = Markdown
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.chuancui.codeZero
+PRODUCT_BUNDLE_IDENTIFIER = com.mt.markdown
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2022 com.chuancui. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2022 com.mt. All rights reserved.

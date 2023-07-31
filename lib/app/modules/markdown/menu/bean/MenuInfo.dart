@@ -23,4 +23,12 @@ class MenuInfo extends ConvertInterface{
     data['path'] = this.path;
     return data;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is MenuInfo && runtimeType == other.runtimeType && name == other.name && path == other.path;
+
+  @override
+  int get hashCode => name.hashCode ^ path.hashCode;
 }

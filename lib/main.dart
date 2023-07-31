@@ -1,6 +1,10 @@
+import 'dart:io';
 
-
+import 'package:code_zero/app/modules/markdown/main_markdown/main_markdown_controller.dart';
+import 'package:code_zero/app/modules/markdown/menu/bean/MenuInfo.dart';
 import 'package:code_zero/utils/platform_utils.dart';
+import 'package:cross_file/cross_file.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,36 +29,36 @@ import 'package:flutter_ume_kit_dio/flutter_ume_kit_dio.dart'; // Dio 网络请�
 
 void main() {
   // runZonedGuarded(() {
-    if (PlatformUtils.isAndroid) {
-      SystemUiOverlayStyle style = const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
+  if (PlatformUtils.isAndroid) {
+    SystemUiOverlayStyle style = const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
 
-          ///这是设置状态栏的图标和字体的颜色
-          ///Brightness.light  一般都是显示为白色
-          ///Brightness.dark 一般都是显示为黑色
-          statusBarIconBrightness: Brightness.light);
-      SystemChrome.setSystemUIOverlayStyle(style);
-    }
-    if (kDebugMode) {
-      PluginManager.instance
-        ..register(DioInspector(dio: LRequest.dio))
-        // ..register(WidgetInfoInspector())
-        // ..register(WidgetDetailInspector())
-        // ..register(ColorSucker())
-        // ..register(AlignRuler())
-        // ..register(ColorPicker())
-        // ..register(TouchIndicator())
-        // ..register(Performance())
-        // ..register(ShowCode())
-        // ..register(MemoryInfoPage())
-        ..register(CpuInfoPage())
-        ..register(DeviceInfoPanel())
-        ..register(Console());
-      // flutter_ume 0.3.0 版本之后
-      runApp(UMEWidget(child: App(), enable: true));
-    } else {
-      runApp(App());
-    }
+        ///这是设置状态栏的图标和字体的颜色
+        ///Brightness.light  一般都是显示为白色
+        ///Brightness.dark 一般都是显示为黑色
+        statusBarIconBrightness: Brightness.light);
+    SystemChrome.setSystemUIOverlayStyle(style);
+  }
+  if (kDebugMode) {
+    PluginManager.instance
+      ..register(DioInspector(dio: LRequest.dio))
+      // ..register(WidgetInfoInspector())
+      // ..register(WidgetDetailInspector())
+      // ..register(ColorSucker())
+      // ..register(AlignRuler())
+      // ..register(ColorPicker())
+      // ..register(TouchIndicator())
+      // ..register(Performance())
+      // ..register(ShowCode())
+      // ..register(MemoryInfoPage())
+      ..register(CpuInfoPage())
+      ..register(DeviceInfoPanel())
+      ..register(Console());
+    // flutter_ume 0.3.0 版本之后
+    runApp(UMEWidget(child: App(), enable: true));
+  } else {
+    runApp(App());
+  }
   // }, (error, stackTrace) {
   //   errorLog(error.toString());
   // });
@@ -65,51 +69,186 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      scaleByHeight: PlatformUtils.isWeb,
-      designSize: const Size(375, 812),
-      builder: (context, widget) {
-        return OKToast(
-          dismissOtherOnShow: true,
-          child: GetMaterialApp(
-            localizationsDelegates: [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-              RefreshLocalizations.delegate
-            ],
-            supportedLocales: [
-              Locale('zh', ''),
-              Locale('en', ''),
-            ],
-            theme: ThemeData(
-              splashColor: Colors.transparent, // 点击时的高亮效果设置为透明
-              highlightColor: Colors.transparent, // 长按时的扩散效果设置为透明
-              scaffoldBackgroundColor: Colors.white,
+    return PlatformMenuBar(
+      menus: <PlatformMenuItem>[
+        PlatformMenu(
+          label: 'Markdown',
+          menus: <PlatformMenuItem>[
+            PlatformMenuItemGroup(
+              members: <PlatformMenuItem>[
+                PlatformMenuItem(
+                  label: '关于',
+                  onSelected: () {
+                    // _handleMenuSelection(MenuSelection.about);
+                  },
+                ),
+              ],
             ),
-            debugShowCheckedModeBanner: false,
-            builder: EasyLoading.init(
-              builder: (BuildContext context, Widget? child) {
-                return MediaQuery(
-                  child: GestureDetector(
-                    onTap: () {
-                      hideKeyboard(context);
-                    },
-                    child: child,
-                  ),
-                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                );
-              },
+            if (PlatformProvidedMenuItem.hasMenu(
+                PlatformProvidedMenuItemType.quit))
+              const PlatformProvidedMenuItem(
+                  type: PlatformProvidedMenuItemType.quit),
+          ],
+        ),
+        PlatformMenu(
+          label: '文件',
+          menus: <PlatformMenuItem>[
+            PlatformMenuItemGroup(
+              members: <PlatformMenuItem>[
+                PlatformMenuItem(
+                  label: '新建',
+                  onSelected: () {
+                    // _handleMenuSelection(MenuSelection.about);
+                  },
+                ),
+                PlatformMenuItem(
+                  onSelected: () {
+                    openFilePicker();
+                  },
+                  shortcut: const CharacterActivator('m'),
+                  label: '打开',
+                ),
+                PlatformMenuItem(
+                  onSelected: () {
+                    // _handleMenuSelection(MenuSelection.showMessage);
+                  },
+                  shortcut: const CharacterActivator('s'),
+                  label: '保存',
+                )
+              ],
             ),
-            defaultTransition: Transition.rightToLeft,
-            title: "亿翠珠宝商城",
-            initialRoute: RoutesID.MAIN_MARKDOWN_PAGE,
-            getPages: AppPages.routes,
-          ),
-        );
-      },
+            PlatformMenuItemGroup(
+              members: <PlatformMenuItem>[
+                PlatformMenu(
+                  label: '最近',
+                  menus: <PlatformMenuItem>[
+                    PlatformMenuItem(
+                      label: 'I am not throwing away my shot.',
+                      shortcut: const SingleActivator(LogicalKeyboardKey.digit1,
+                          meta: true),
+                      onSelected: () {
+                        // setState(() {
+                        //   _message = 'I am not throwing away my shot.';
+                        // });
+                      },
+                    ),
+                    PlatformMenuItem(
+                      label:
+                          "There's a million things I haven't done, but just you wait.",
+                      shortcut: const SingleActivator(LogicalKeyboardKey.digit2,
+                          meta: true),
+                      onSelected: () {
+                        // setState(() {
+                        //   _message =
+                        //   "There's a million things I haven't done, but just you wait.";
+                        // });
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+        PlatformMenu(
+          label: '视图',
+          menus: <PlatformMenuItem>[
+            PlatformMenuItemGroup(
+              members: <PlatformMenuItem>[
+                PlatformMenuItem(
+                  label: '编辑',
+                  onSelected: () {
+                    // _handleMenuSelection(MenuSelection.about);
+                  },
+                ),
+                PlatformMenuItem(
+                  label: '预览',
+                  onSelected: () {
+                    // _handleMenuSelection(MenuSelection.about);
+                  },
+                )
+              ],
+            ),
+          ],
+        ),
+        PlatformMenu(
+          label: '帮助',
+          menus: <PlatformMenuItem>[
+            PlatformMenuItemGroup(
+              members: <PlatformMenuItem>[
+                PlatformMenuItem(
+                  label: 'Github',
+                  onSelected: () {
+                    // _handleMenuSelection(MenuSelection.about);
+                  },
+                ),
+              ],
+            ),
+          ],
+        )
+      ],
+      child: ScreenUtilInit(
+        scaleByHeight: PlatformUtils.isWeb,
+        designSize: const Size(720, 1080),
+        builder: (context, widget) {
+          return OKToast(
+            dismissOtherOnShow: true,
+            child: GetMaterialApp(
+              localizationsDelegates: [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+                RefreshLocalizations.delegate
+              ],
+              supportedLocales: [
+                Locale('zh', ''),
+                Locale('en', ''),
+              ],
+              theme: ThemeData(
+                splashColor: Colors.transparent, // 点击时的高亮效果设置为透明
+                highlightColor: Colors.transparent, // 长按时的扩散效果设置为透明
+                scaffoldBackgroundColor: Colors.white,
+              ),
+              debugShowCheckedModeBanner: false,
+              builder: EasyLoading.init(
+                builder: (BuildContext context, Widget? child) {
+                  return MediaQuery(
+                    child: GestureDetector(
+                      onTap: () {
+                        hideKeyboard(context);
+                      },
+                      child: child,
+                    ),
+                    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                  );
+                },
+              ),
+              defaultTransition: Transition.rightToLeft,
+              title: "MT-Markdown",
+              initialRoute: RoutesID.MAIN_MARKDOWN_PAGE,
+              getPages: AppPages.routes,
+            ),
+          );
+        },
+      ),
     );
   }
+}
+
+void openFilePicker() async {
+  try {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['md'],
+    );
+    if (result != null) {
+      var filePath = result.files.single.path ?? "";
+      XFile file = XFile(filePath);
+      lLog('MTMTMT openFilePicker ${filePath} ${result}');
+
+      Get.find<MainMarkdownController>().addFile(file);
+    }
+  } catch (e) {}
 }
 
 void hideKeyboard(BuildContext context) {

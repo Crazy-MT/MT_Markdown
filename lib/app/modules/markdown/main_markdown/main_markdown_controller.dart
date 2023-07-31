@@ -31,7 +31,7 @@ class MainMarkdownController extends GetxController {
   Rx<MenuInfo?> selectInfo = Rx<MenuInfo?>(null);
   final mdData = ''.obs;
 
-  final RxList list = [].obs;
+  // final RxList list = [].obs;
   Offset? offset;
   bool dragging = false;
 
@@ -42,12 +42,14 @@ class MainMarkdownController extends GetxController {
   }
 
   initData() async {
-    // menuInfos.add(MenuInfo("name", "assets/demo_zh.md"));
-    List<String>? selectInfoSp = (await SharedPreferences.getInstance()).getStringList(SpConst.SELECT_INFO);
-    if ((selectInfoSp?.isNotEmpty ?? false) && (selectInfoSp?.length ?? 0) > 0) {
+    List<String>? selectInfoSp = (await SharedPreferences.getInstance())
+        .getStringList(SpConst.SELECT_INFO);
+    if ((selectInfoSp?.isNotEmpty ?? false) &&
+        (selectInfoSp?.length ?? 0) > 0) {
       selectInfoSp?.forEach((element) {
         menuInfos.add(MenuInfo.fromJson(json.decode(element)));
       });
+      menuInfos.value = Set<MenuInfo>.from(menuInfos).toList();
     }
     if (menuInfos.isNotEmpty) {
       selectInfo.value = menuInfos.first;
@@ -85,5 +87,42 @@ class MainMarkdownController extends GetxController {
 
   void setPageName(String newName) {
     pageName.value = newName;
+  }
+
+  Future<void> addFile(XFile file) async {
+
+    // 去掉 /Users/ 前面的 /Volumes/Macintosh HD
+    String target = '/Users/'; // The target substring to find
+    String filePath = file.path;
+    int startIndex = file.path.indexOf(target);
+    if (startIndex != -1) {
+      filePath = file.path.substring(startIndex);
+      print(filePath); // Output: /Users/mt/Desktop/2.md
+    } else {
+      print("Substring not found");
+    }
+
+    MenuInfo info = MenuInfo(file.name, filePath);
+    menuInfos.add(info);
+    menuInfos.value = Set<MenuInfo>.from(menuInfos).toList();
+
+    await chooseInfo(info);
+    debugPrint('MTMTMT  ${file.path} ${file.name}'
+        '  ${await file.lastModified()}'
+        '  ${await file.length()}'
+        '  ${file.mimeType}');
+  }
+
+  Future<void> chooseInfo(MenuInfo info) async {
+    selectInfo.value = info;
+    mdData.value = await File(selectInfo.value!.path!).readAsString();
+
+    List<String> infos = [];
+    menuInfos.forEach((element) {
+      infos.add(json.encode(element.toJson()));
+    });
+
+    (await SharedPreferences.getInstance())
+        .setStringList(SpConst.SELECT_INFO, infos);
   }
 }

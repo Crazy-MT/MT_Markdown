@@ -40,16 +40,16 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
                       backgroundColor: Colors.black,
                       actions: [
                         /*IconButton(
-                      onPressed: () => rootStore.dispatch(new ChangeLanguage()),
-                      icon: Text(rootStore.state.language == 'en' ? '中' : 'En')),
-                  IconButton(
-                      onPressed: () => rootStore.dispatch(new ChangeThemeEvent()),
-                      icon: Icon(
-                        isDark
-                            ? Icons.brightness_5_outlined
-                            : Icons.brightness_2_outlined,
-                        size: 15,
-                      )),*/
+                        onPressed: () => rootStore.dispatch(new ChangeLanguage()),
+                        icon: Text(rootStore.state.language == 'en' ? '中' : 'En')),
+                    IconButton(
+                        onPressed: () => rootStore.dispatch(new ChangeThemeEvent()),
+                        icon: Icon(
+                          isDark
+                              ? Icons.brightness_5_outlined
+                              : Icons.brightness_2_outlined,
+                          size: 15,
+                        )),*/
                       ],
                     )
                   : null,
@@ -75,23 +75,12 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
   Widget leftLayout() {
     return DropTarget(
       onDragDone: (detail) async {
-        controller.list.add(detail.files);
-
         for (final file in detail.files) {
-          MenuInfo info = MenuInfo(file.name, file.path);
-          controller.menuInfos.add(info);
-          await chooseInfo(info);
-          debugPrint('  ${file.path} ${file.name}'
-              '  ${await file.lastModified()}'
-              '  ${await file.length()}'
-              '  ${file.mimeType}');
+          controller.addFile(file);
         }
       },
       onDragUpdated: (details) {
         controller.offset = details.localPosition;
-        /*setState(() {
-          offset = details.localPosition;
-        });*/
       },
       onDragEntered: (detail) {
         controller.dragging = true;
@@ -123,28 +112,13 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
               menuInfos: controller.menuInfos.cast<MenuInfo>().toList(),
               selectName: controller.selectInfo.value?.name,
               onSelect: (MenuInfo info) async {
-                chooseInfo(info);
+                controller.chooseInfo(info);
               },
             );
           }),
         );
       }),
     );
-  }
-
-  Future<void> chooseInfo(MenuInfo info) async {
-    controller.selectInfo.value = info;
-    controller.mdData.value =
-        await File(controller.selectInfo.value!.path!).readAsString();
-    // (await SharedPreferences.getInstance())
-    //     .setString(SpConst.SELECT_INFO, json.encode(info.toJson()));
-
-    List<String> infos = [];
-    controller.menuInfos.forEach((element) {
-      infos.add(json.encode(element.toJson()));
-    });
-
-    (await SharedPreferences.getInstance()).setStringList(SpConst.SELECT_INFO, infos);
   }
 
   Widget buildDragLine() {
@@ -168,7 +142,9 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
   }
 
   Widget rightLayout() => Obx(() {
-    return EditMarkdownPage(controller: TextEditingController(text: controller.mdData.value),);
+        return EditMarkdownPage(
+          controller: TextEditingController(text: controller.mdData.value),
+        );
         /*return MarkdownPage(
             assetsPath: controller.selectInfo.value?.path,
             markdownData: controller.mdData.value,
