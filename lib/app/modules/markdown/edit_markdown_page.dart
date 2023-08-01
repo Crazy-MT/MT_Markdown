@@ -10,6 +10,7 @@ import 'package:code_zero/common/common.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/platform_detector/platform_detector.dart';
 import 'package:cross_file/cross_file.dart';
+import 'package:date_format/date_format.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -63,10 +64,12 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
             showToast('保存失败');
             return;
           }
-          saveFile(result.path);
-          Get.find<MainMarkdownController>().modifyLast(path: result.path, lastModified: DateTime.now().toString());
+          await saveFile(result.path);
+          Get.find<MainMarkdownController>().modifyLast(path: result.path, lastModified: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
         } else {
-          saveFile(widget.filePath);
+          await saveFile(widget.filePath);
+          print('MTMTMT  } ');
+          Get.find<MainMarkdownController>().modifyLast(path: widget.filePath, lastModified: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
         }
       }
     });
@@ -202,9 +205,8 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
         controller: widget.controller,
         onChanged: (text) {
           if (widget.title == '未命名' && text.contains('\n')) {
-            lLog('MTMTMT _EditMarkdownPageState.buildEditText ${DateTime.now().toLocal().toString()} ');
             Get.find<MainMarkdownController>()
-                .modifyLast(name: text.split('\n').first + ".md", lastModified: DateTime.now().toLocal().toString());
+                .modifyLast(name: text.split('\n').first + ".md", lastModified: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
           }
           refresh();
         },

@@ -8,6 +8,7 @@ import 'package:code_zero/common/sp_const.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/platform_detector/platform_detector.dart';
 import 'package:cross_file/cross_file.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -77,7 +78,7 @@ class MainMarkdownController extends GetxController {
       print("Substring not found");
     }
 
-    MenuInfo info = MenuInfo(file.name, filePath, (await file.lastModified()).toString());
+    MenuInfo info = MenuInfo(file.name, filePath, formatDate((await file.lastModified()), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
     menuInfos.add(info);
     menuInfos.value = Set<MenuInfo>.from(menuInfos).toList();
 
@@ -113,8 +114,9 @@ class MainMarkdownController extends GetxController {
 
   void modifyLast({String? name, String? path, String? lastModified}) {
     menuInfos.removeLast();
-    chooseInfo(MenuInfo(
-        name ?? selectInfo.value?.name, path ?? selectInfo.value?.path ?? "", lastModified));
-    menuInfos.add(selectInfo.value!);
+    var info = MenuInfo(
+        name ?? selectInfo.value?.name, path ?? selectInfo.value?.path ?? "", lastModified);
+    menuInfos.add(info);
+    chooseInfo(info);
   }
 }
