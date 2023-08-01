@@ -90,7 +90,6 @@ class _AppState extends State<App> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getMenuItems();
   }
@@ -128,12 +127,13 @@ class _AppState extends State<App> {
                   onSelected: () {
                     // _handleMenuSelection(MenuSelection.about);
                   },
+                  shortcut: const SingleActivator(LogicalKeyboardKey.keyN, meta: true),
                 ),
                 PlatformMenuItem(
                   onSelected: () {
                     openFilePicker();
                   },
-                  shortcut: const CharacterActivator('m'),
+                  shortcut: const SingleActivator(LogicalKeyboardKey.keyO, meta: true),
                   label: '打开',
                 ),
                 PlatformMenuItem(
@@ -141,7 +141,8 @@ class _AppState extends State<App> {
                     // _handleMenuSelection(MenuSelection.showMessage);
                     eventBus.fire("save");
                   },
-                  shortcut: const CharacterActivator('s'),
+                  shortcut: const SingleActivator(LogicalKeyboardKey.keyS, meta: true),
+                  // shortcut: const CharacterActivator('s'),
                   label: '保存',
                 )
               ],
@@ -187,7 +188,7 @@ class _AppState extends State<App> {
             ),
           ],
         ),
-        PlatformMenu(
+/*        PlatformMenu(
           label: '视图',
           menus: <PlatformMenuItem>[
             PlatformMenuItemGroup(
@@ -207,7 +208,7 @@ class _AppState extends State<App> {
               ],
             ),
           ],
-        ),
+        ),*/
         PlatformMenu(
           label: '帮助',
           menus: <PlatformMenuItem>[
