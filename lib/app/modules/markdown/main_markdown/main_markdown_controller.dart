@@ -24,10 +24,9 @@ class MainMarkdownController extends GetxController {
   bool get isMobile => PlatformDetector.isAllMobile;
 
   int selectIndex = 0;
-  final leftLayoutWidth = 140.0.obs;
+  final leftLayoutWidth = 280.0.obs;
   final isCollapsed = false.obs;
-  RxList<MenuInfo> menuInfos =
-      RxList<MenuInfo>(); // MenuInfo('1.md', '/Users/mt/Desktop/1.md')
+  RxList<MenuInfo> menuInfos = RxList<MenuInfo>();
   Rx<MenuInfo?> selectInfo = Rx<MenuInfo?>(null);
   final mdData = ''.obs;
 
@@ -57,30 +56,6 @@ class MainMarkdownController extends GetxController {
       mdData.value = await File(selectInfo.value!.path!).readAsString();
     }
     pageStatus.value = FTStatusPageType.success;
-    /*File(selectInfo.value!.path).readAsString().then((data) {
-      mdData.value = data;
-      lLog('MTMTMT MainMarkdownController.initData ${data} ');
-    });*/
-    /*rootBundle.loadString("assets/demo_zh.md").then((data) {
-      lLog('MTMTMT MainMarkdownController.initData ${data} ');
-      mdData.value = data;
-    });*/
-    /*try {
-      Directory appDocumentsDirectory = await getApplicationDocumentsDirectory();
-      lLog('MTMTMT MainMarkdownController.initData ${appDocumentsDirectory.path} ');
-      String filePath = "${appDocumentsDirectory.path}/2.md";
-      File file = File(filePath);
-
-      if (file.existsSync()) {
-        String content = await file.readAsString();
-        print(content);
-        lLog('MTMTMT MainMarkdownController.initData ${content} ');
-      } else {
-        print("File not found: $filePath");
-      }
-    } catch (e) {
-      print("Error reading file: $e");
-    }*/
   }
 
   @override
@@ -114,7 +89,6 @@ class MainMarkdownController extends GetxController {
   }
 
   Future<void> chooseInfo(MenuInfo info) async {
-    lLog('MTMTMT MainMarkdownController.chooseInfo ${info.toJson()} ');
     selectInfo.value = info;
     if (selectInfo.value!.path!.isNotEmpty) {
       mdData.value = await File(selectInfo.value!.path!).readAsString();

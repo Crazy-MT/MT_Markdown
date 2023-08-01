@@ -201,7 +201,6 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
         textInputAction: TextInputAction.newline,
         controller: widget.controller,
         onChanged: (text) {
-          lLog('MTMTMT _EditMarkdownPageState.buildEditText ${text == '\n'} ');
           if (widget.title == '未命名' && text.contains('\n')) {
             Get.find<MainMarkdownController>()
                 .modifyLast(name: text.split('\n').first + ".md");

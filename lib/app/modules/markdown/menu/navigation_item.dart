@@ -19,31 +19,57 @@ class NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-      child: InkWell(
-        hoverColor: Color(0xffebebea),
+    return Container(
+      decoration: BoxDecoration(
+        color: isSelected ? Color(0xffe2e2e1) : null,
         borderRadius: BorderRadius.circular(4),
-        onTap: onTap,
-        child: Container(
-          decoration: BoxDecoration(
-            color: isSelected ? Color(0xffe2e2e1) : null,
-            borderRadius: BorderRadius.circular(4),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+        child: InkWell(
+          hoverColor: Color(0xffebebea),
+          borderRadius: BorderRadius.circular(4),
+          onTap: onTap,
+          child: Container(
+            // decoration: BoxDecoration(
+            //   color: isSelected ? Color(0xffe2e2e1) : null,
+            //   borderRadius: BorderRadius.circular(4),
+            // ),
+            padding: EdgeInsets.fromLTRB(10, 4, 10, 4),
+            child: isCollapsed ? collapsedWidget() : unCollapsedWidget(),
           ),
-          padding: EdgeInsets.fromLTRB(10, 4, 10, 4),
-          child: isCollapsed ? collapsedWidget() : unCollapsedWidget(),
         ),
       ),
     );
   }
 
   Widget unCollapsedWidget() {
-    return Text(
-      '$title',
-      style: _buildTextStyle(),
-      overflow: TextOverflow.ellipsis,
-      maxLines: 1,
-      softWrap: true,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '$title',
+          style: _buildTextStyle(),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          softWrap: true,
+        ),
+        SizedBox(height: 2,),
+        Text(
+          '$title',
+          style: TextStyle(
+            fontSize: 12,
+            height: 1.5,
+            fontWeight: FontWeight.normal,
+            color: Colors.grey
+          ),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          softWrap: true,
+        ),
+        // Divider(height: 10,),
+        // VerticalDivider(),
+      ],
     );
   }
 
@@ -64,7 +90,7 @@ class NavItem extends StatelessWidget {
     return TextStyle(
       fontSize: 14,
       height: 1.5,
-      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+      fontWeight: FontWeight.normal,
     );
   }
 }

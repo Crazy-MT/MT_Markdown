@@ -10,32 +10,23 @@ import 'dart:developer';
 
 import 'package:stack_trace/stack_trace.dart';
 
-Map _loggerColors = {
-  'd': '\x1B[0m',
-  'b': '\x1B[34m',
-  'w': '\x1B[37m',
-  'r': '\x1B[31m',
-  'g': '\x1B[32m',
-  'y': '\x1B[33m',
-  'c': '\x1B[36m',
-};
 lLog(
   String message, {
   bool needLogStack = false,
 }) {
-  log(_loggerColors['g'] + message + _loggerColors['d']);
+  log(message);
   if (needLogStack) {
     stackLog(prefixColor: 'g');
   }
 }
 
 errorLog(String message, {StackTrace? stackTrace}) {
-  log(_loggerColors['r'] + message + _loggerColors['d']);
+  log(message);
   stackLog(prefixColor: 'r', stackTrace: stackTrace);
 }
 
 debugLog(String message) {
-  log(_loggerColors['y'] + message + _loggerColors['d']);
+  log(message);
 }
 
 stackLog({prefixColor = 'b', StackTrace? stackTrace}) {
@@ -47,7 +38,7 @@ stackLog({prefixColor = 'b', StackTrace? stackTrace}) {
       hideCount++;
       continue;
     }
-    log("${_loggerColors[prefixColor]}所在文件：${frame.location},line:${frame.line},column:${frame.column}${_loggerColors['d']}");
+    log("所在文件：${frame.location},line:${frame.line},column:${frame.column}");
   }
-  log("${_loggerColors['y']} 隐藏了一共$hideCount个调用栈的输出 ${_loggerColors['d']}");
+  log("隐藏了一共$hideCount个调用栈的输出");
 }

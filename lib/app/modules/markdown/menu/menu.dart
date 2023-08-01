@@ -40,12 +40,29 @@ class Menu extends StatelessWidget {
       child: Column(
         children: [
           // buildMenuButton(),
-          SizedBox(height: 40,),
+          SizedBox(
+            height: 40,
+          ),
           Expanded(
-            child: ListView(
-              children: menuInfos!.map((e) => buildMenu(e.name, e.path, onSelect)).toList()/*[
+            child: ListView.separated(
+              itemBuilder: (_, index) {
+                // menuInfos!.map((e) => buildMenu(e.name, e.path, onSelect)).toList()
+                return buildMenu(
+                    menuInfos?[index].name, menuInfos?[index].path, onSelect);
+              },
+              separatorBuilder: (_, __) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+                  child: Divider(
+                    height: 2,
+                    thickness: 0.6,
+                  ),
+                );
+              },
+              itemCount: menuInfos?.length ?? 0
+              /*[
 
-                *//*NavItem(
+                */ /*NavItem(
                   title: 'README.md',
                   trailing: '📚',
                   isCollapsed: isCollapsed,
@@ -85,8 +102,9 @@ class Menu extends StatelessWidget {
                     // GoRouter.of(context).go(RouterEnum.sample_html.path);
                     if (isMobile) Navigator.of(context).pop();
                   },
-                ),*//*
-              ]*/,
+                ),*/ /*
+              ]*/
+              ,
             ),
           ),
           if (!isMobile)
@@ -126,7 +144,10 @@ class Menu extends StatelessWidget {
       child: Row(
         children: [
           FlutterLogo(),
-          Expanded(child: Center(child: Text('Markdown', style: TextStyle(fontWeight: FontWeight.bold)))),
+          Expanded(
+              child: Center(
+                  child: Text('Markdown',
+                      style: TextStyle(fontWeight: FontWeight.bold)))),
           Visibility(
             visible: false,
             child: InkWell(
