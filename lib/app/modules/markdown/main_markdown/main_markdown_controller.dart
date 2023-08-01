@@ -42,8 +42,9 @@ class MainMarkdownController extends GetxController {
   }
 
   initData() async {
-    List<String>? selectInfoSp = (await SharedPreferences.getInstance())
-        .getStringList(SpConst.SELECT_INFO);
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    // sp.remove(SpConst.SELECT_INFO);
+    List<String>? selectInfoSp = sp.getStringList(SpConst.SELECT_INFO);
     if ((selectInfoSp?.isNotEmpty ?? false) &&
         (selectInfoSp?.length ?? 0) > 0) {
       selectInfoSp?.forEach((element) {
@@ -90,7 +91,6 @@ class MainMarkdownController extends GetxController {
   }
 
   Future<void> addFile(XFile file) async {
-
     // 去掉 /Users/ 前面的 /Volumes/Macintosh HD
     String target = '/Users/'; // The target substring to find
     String filePath = file.path;
@@ -114,8 +114,13 @@ class MainMarkdownController extends GetxController {
   }
 
   Future<void> chooseInfo(MenuInfo info) async {
+    lLog('MTMTMT MainMarkdownController.chooseInfo ${info.toJson()} ');
     selectInfo.value = info;
-    mdData.value = await File(selectInfo.value!.path!).readAsString();
+    if (selectInfo.value!.path!.isNotEmpty) {
+      mdData.value = await File(selectInfo.value!.path!).readAsString();
+    } else {
+      mdData.value = '';
+    }
 
     List<String> infos = [];
     menuInfos.forEach((element) {
@@ -124,5 +129,18 @@ class MainMarkdownController extends GetxController {
 
     (await SharedPreferences.getInstance())
         .setStringList(SpConst.SELECT_INFO, infos);
+  }
+
+  void newPage() {
+    selectInfo.value = MenuInfo('未命名', '');
+    mdData.value = '';
+    menuInfos.add(selectInfo.value!);
+  }
+
+  void modifyLast({String? name, String? path}) {
+    menuInfos.removeLast();
+    chooseInfo(MenuInfo(
+        name ?? selectInfo.value?.name, path ?? selectInfo.value?.path ?? ""));
+    menuInfos.add(selectInfo.value!);
   }
 }

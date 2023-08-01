@@ -4,10 +4,16 @@ import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:code_zero/app/modules/markdown/custom_node.dart';
+import 'package:code_zero/app/modules/markdown/main_markdown/main_markdown_controller.dart';
+import 'package:code_zero/app/modules/markdown/menu/bean/MenuInfo.dart';
 import 'package:code_zero/common/common.dart';
+import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/platform_detector/platform_detector.dart';
+import 'package:cross_file/cross_file.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -48,10 +54,21 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
     }*/
     super.initState();
 
-    eventBus.on().listen((event) {
-        if(event == "save") {
+    eventBus.on().listen((event) async {
+      if (event == "save") {
+        if (widget.filePath.isEmpty) {
+          final FileSaveLocation? result =
+              await getSaveLocation(suggestedName: widget.title);
+          if (result == null) {
+            showToast('保存失败');
+            return;
+          }
+          saveFile(result.path);
+          Get.find<MainMarkdownController>().modifyLast(path: result.path);
+        } else {
           saveFile(widget.filePath);
         }
+      }
     });
   }
 
@@ -184,13 +201,18 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
         textInputAction: TextInputAction.newline,
         controller: widget.controller,
         onChanged: (text) {
+          lLog('MTMTMT _EditMarkdownPageState.buildEditText ${text == '\n'} ');
+          if (widget.title == '未命名' && text.contains('\n')) {
+            Get.find<MainMarkdownController>()
+                .modifyLast(name: text.split('\n').first + ".md");
+          }
           refresh();
         },
         style: TextStyle(textBaseline: TextBaseline.alphabetic),
         decoration: InputDecoration(
             contentPadding: EdgeInsets.all(10),
             border: InputBorder.none,
-            hintText: 'Input Here...',
+            hintText: widget.title == '未命名' ? '输入标题' : "",
             hintStyle: TextStyle(color: Colors.grey)),
       ),
     );

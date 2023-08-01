@@ -67,7 +67,7 @@ class Utils {
     if (sourceBytes != null) {
       if (PlatformUtils.isWeb) {
         const String fileName = 'invite.png';
-        final String? path = await getSavePath(suggestedName: fileName);
+        final String? path = (await getSaveLocation(suggestedName: fileName))?.path;
         if (path == null) {
           return;
         }

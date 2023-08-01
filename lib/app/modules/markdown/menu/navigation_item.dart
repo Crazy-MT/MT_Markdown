@@ -4,6 +4,7 @@ class NavItem extends StatelessWidget {
   final bool isSelected;
   final bool isCollapsed;
   final String title;
+
   // final String trailing;
   final VoidCallback? onTap;
 
@@ -37,13 +38,12 @@ class NavItem extends StatelessWidget {
   }
 
   Widget unCollapsedWidget() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text('$title', style: _buildTextStyle()),
-        // Spacer(),
-        // Icon(Icons.chevron_right, color: Color(0xffbbbab7))
-      ],
+    return Text(
+      '$title',
+      style: _buildTextStyle(),
+      overflow: TextOverflow.ellipsis,
+      maxLines: 1,
+      softWrap: true,
     );
   }
 
@@ -51,7 +51,12 @@ class NavItem extends StatelessWidget {
         height: 24,
         child: Tooltip(
           message: title,
-          child: Text(title, style: _buildTextStyle()),
+          child: Text(
+            title,
+            style: _buildTextStyle(),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
         ),
       );
 

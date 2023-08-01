@@ -126,6 +126,7 @@ class _AppState extends State<App> {
                   label: '新建',
                   onSelected: () {
                     // _handleMenuSelection(MenuSelection.about);
+                    Get.find<MainMarkdownController>().newPage();
                   },
                   shortcut: const SingleActivator(LogicalKeyboardKey.keyN, meta: true),
                 ),
