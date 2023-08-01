@@ -4,6 +4,7 @@ class NavItem extends StatelessWidget {
   final bool isSelected;
   final bool isCollapsed;
   final String title;
+  final String lastModified;
 
   // final String trailing;
   final VoidCallback? onTap;
@@ -13,6 +14,7 @@ class NavItem extends StatelessWidget {
     this.isSelected = false,
     this.isCollapsed = false,
     this.title = '',
+    this.lastModified = '',
     // this.trailing = '',
     this.onTap,
   }) : super(key: key);
@@ -56,7 +58,7 @@ class NavItem extends StatelessWidget {
         ),
         SizedBox(height: 2,),
         Text(
-          '$title',
+          '$lastModified',
           style: TextStyle(
             fontSize: 12,
             height: 1.5,

@@ -48,7 +48,7 @@ class Menu extends StatelessWidget {
               itemBuilder: (_, index) {
                 // menuInfos!.map((e) => buildMenu(e.name, e.path, onSelect)).toList()
                 return buildMenu(
-                    menuInfos?[index].name, menuInfos?[index].path, onSelect);
+                    menuInfos?[index].name, menuInfos?[index].path, menuInfos?[index].lastModified, onSelect);
               },
               separatorBuilder: (_, __) {
                 return Padding(
@@ -119,13 +119,14 @@ class Menu extends StatelessWidget {
     );
   }
 
-  Widget buildMenu(title, path, Function(MenuInfo info)? select) {
+  Widget buildMenu(title, path, lastModified, Function(MenuInfo info)? select) {
     return NavItem(
       title: title,
       isSelected: isSelected(title),
       isCollapsed: isCollapsed,
+      lastModified: lastModified,
       onTap: () {
-        select?.call(MenuInfo(title, path));
+        select?.call(MenuInfo(title, path, lastModified));
       },
     );
   }

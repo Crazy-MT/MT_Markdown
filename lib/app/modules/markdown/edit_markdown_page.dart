@@ -64,7 +64,7 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
             return;
           }
           saveFile(result.path);
-          Get.find<MainMarkdownController>().modifyLast(path: result.path);
+          Get.find<MainMarkdownController>().modifyLast(path: result.path, lastModified: DateTime.now().toString());
         } else {
           saveFile(widget.filePath);
         }
@@ -202,8 +202,9 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
         controller: widget.controller,
         onChanged: (text) {
           if (widget.title == '未命名' && text.contains('\n')) {
+            lLog('MTMTMT _EditMarkdownPageState.buildEditText ${DateTime.now().toLocal().toString()} ');
             Get.find<MainMarkdownController>()
-                .modifyLast(name: text.split('\n').first + ".md");
+                .modifyLast(name: text.split('\n').first + ".md", lastModified: DateTime.now().toLocal().toString());
           }
           refresh();
         },

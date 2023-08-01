@@ -77,7 +77,7 @@ class MainMarkdownController extends GetxController {
       print("Substring not found");
     }
 
-    MenuInfo info = MenuInfo(file.name, filePath);
+    MenuInfo info = MenuInfo(file.name, filePath, (await file.lastModified()).toString());
     menuInfos.add(info);
     menuInfos.value = Set<MenuInfo>.from(menuInfos).toList();
 
@@ -106,15 +106,15 @@ class MainMarkdownController extends GetxController {
   }
 
   void newPage() {
-    selectInfo.value = MenuInfo('未命名', '');
+    selectInfo.value = MenuInfo('未命名', '', '');
     mdData.value = '';
     menuInfos.add(selectInfo.value!);
   }
 
-  void modifyLast({String? name, String? path}) {
+  void modifyLast({String? name, String? path, String? lastModified}) {
     menuInfos.removeLast();
     chooseInfo(MenuInfo(
-        name ?? selectInfo.value?.name, path ?? selectInfo.value?.path ?? ""));
+        name ?? selectInfo.value?.name, path ?? selectInfo.value?.path ?? "", lastModified));
     menuInfos.add(selectInfo.value!);
   }
 }
