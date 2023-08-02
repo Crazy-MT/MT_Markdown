@@ -214,7 +214,7 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
         decoration: InputDecoration(
             contentPadding: EdgeInsets.all(10),
             border: InputBorder.none,
-            hintText: widget.title == '未命名' ? '输入标题' : "",
+            hintText: widget.title == '未命名' ? '输入标题' : "输入正文",
             hintStyle: TextStyle(color: Colors.grey)),
       ),
     );

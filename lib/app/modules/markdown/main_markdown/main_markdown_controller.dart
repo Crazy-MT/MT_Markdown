@@ -51,10 +51,16 @@ class MainMarkdownController extends GetxController {
         menuInfos.add(MenuInfo.fromJson(json.decode(element)));
       });
       menuInfos.value = Set<MenuInfo>.from(menuInfos).toList();
+    } else {
+      newPage();
     }
     if (menuInfos.isNotEmpty) {
       selectInfo.value = menuInfos.first;
-      mdData.value = await File(selectInfo.value!.path!).readAsString();
+      try{
+        mdData.value = await File(selectInfo.value!.path!).readAsString();
+      } catch(e) {
+
+      }
     }
     pageStatus.value = FTStatusPageType.success;
   }
