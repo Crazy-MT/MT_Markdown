@@ -65,10 +65,12 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
             return;
           }
           await saveFile(result.path);
-          Get.find<MainMarkdownController>().modifyLast(path: result.path, lastModified: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
+          XFile xFile = XFile(result.path);
+          lLog('MTMTMT _EditMarkdownPageState.initState ${xFile.name} ');
+          Get.find<MainMarkdownController>().modifyLast(name: xFile.name, path: result.path, lastModified: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
+          // widget.controller?.text = "";
         } else {
           await saveFile(widget.filePath);
-          print('MTMTMT  } ');
           Get.find<MainMarkdownController>().modifyLast(path: widget.filePath, lastModified: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
         }
       }

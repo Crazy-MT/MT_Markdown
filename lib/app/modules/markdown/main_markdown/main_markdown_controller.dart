@@ -125,4 +125,9 @@ class MainMarkdownController extends GetxController {
     menuInfos.add(info);
     chooseInfo(info);
   }
+
+  void removeThis(MenuInfo menuInfo) {
+    menuInfos.remove(menuInfo);
+    chooseInfo(menuInfos.first);
+  }
 }

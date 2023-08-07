@@ -7,8 +7,10 @@ import 'package:code_zero/app/modules/markdown/menu/navigation_item.dart';
 import 'package:code_zero/app/modules/markdown/router.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/platform_detector/platform_detector.dart';
+import 'package:contextmenu/contextmenu.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Menu extends StatelessWidget {
@@ -120,14 +122,25 @@ class Menu extends StatelessWidget {
   }
 
   Widget buildMenu(title, path, lastModified, Function(MenuInfo info)? select) {
-    return NavItem(
-      title: title,
-      isSelected: isSelected(title),
-      isCollapsed: isCollapsed,
-      lastModified: lastModified,
-      onTap: () {
-        select?.call(MenuInfo(title, path, lastModified));
-      },
+    return ContextMenuArea(
+      builder: (context) => [
+        ListTile(
+          title: Text('删除'),
+          onTap: () {
+            lLog('MTMTMT Menu.buildMenu ${title} ');
+            Get.find<MainMarkdownController>().removeThis(MenuInfo(title, path, lastModified));
+          },
+        )
+      ],
+      child: NavItem(
+        title: title,
+        isSelected: isSelected(title),
+        isCollapsed: isCollapsed,
+        lastModified: lastModified,
+        onTap: () {
+          select?.call(MenuInfo(title, path, lastModified));
+        },
+      ),
     );
   }
 
