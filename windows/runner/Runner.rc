@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.chuancui" "\0"
-            VALUE "FileDescription", "code_zero" "\0"
+            VALUE "FileDescription", "mt_markdown" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "code_zero" "\0"
+            VALUE "InternalName", "mt_markdown" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.chuancui. All rights reserved." "\0"
-            VALUE "OriginalFilename", "code_zero.exe" "\0"
-            VALUE "ProductName", "code_zero" "\0"
+            VALUE "OriginalFilename", "mt_markdown.exe" "\0"
+            VALUE "ProductName", "mt_markdown" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

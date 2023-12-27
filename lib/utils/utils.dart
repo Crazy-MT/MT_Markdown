@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:code_zero/common/components/confirm_dialog.dart';
-import 'package:code_zero/utils/log_utils.dart';
-import 'package:code_zero/utils/platform_utils.dart';
+import 'package:mt_markdown/common/components/confirm_dialog.dart';
+import 'package:mt_markdown/utils/log_utils.dart';
+import 'package:mt_markdown/utils/platform_utils.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

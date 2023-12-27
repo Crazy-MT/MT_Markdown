@@ -1,7 +1,7 @@
-name: code_zero
+name: mt_markdown
 version: 1.0.8+1
 publish_to: none
-description: A new Flutter project.
+description: A Markdown Editor
 environment:
   sdk: ">=2.16.2 <3.0.0"
 
@@ -73,13 +73,7 @@ flutter:
       fonts:
         - asset: fonts/tab_title.ttf
   assets:
-    - assets/icons/
-    - assets/images/
-    - assets/images/dialog_bg/
-    - assets/images/shopping_cart/
-    - assets/images/activity/
     - assets/
-    - assets/script_medias/
   uses-material-design: true
 
 flutter_assets:

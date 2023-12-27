@@ -1,4 +1,4 @@
-import 'package:code_zero/network/convert_interface.dart';
+import 'package:mt_markdown/network/convert_interface.dart';
 
 class MenuInfo extends ConvertInterface{
   String? name;

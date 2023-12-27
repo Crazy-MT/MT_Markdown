@@ -1,8 +1,8 @@
-import 'package:code_zero/app/modules/markdown/main_markdown/main_markdown_controller.dart';
-import 'package:code_zero/app/modules/markdown/menu/bean/MenuInfo.dart';
-import 'package:code_zero/app/modules/markdown/menu/navigation_item.dart';
-import 'package:code_zero/utils/log_utils.dart';
-import 'package:code_zero/utils/platform_detector/platform_detector.dart';
+import 'package:mt_markdown/app/modules/markdown/main_markdown/main_markdown_controller.dart';
+import 'package:mt_markdown/app/modules/markdown/menu/bean/MenuInfo.dart';
+import 'package:mt_markdown/app/modules/markdown/menu/navigation_item.dart';
+import 'package:mt_markdown/utils/log_utils.dart';
+import 'package:mt_markdown/utils/platform_detector/platform_detector.dart';
 import 'package:contextmenu/contextmenu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -119,7 +119,7 @@ class Menu extends StatelessWidget {
     return ContextMenuArea(
       builder: (context) => [
         ListTile(
-          title: Text('删除'),
+          title: Text('删除（不会删除文件）'),
           onTap: () {
             lLog('MTMTMT Menu.buildMenu ${title} ');
             Get.find<MainMarkdownController>().removeThis(MenuInfo(title, path, lastModified));

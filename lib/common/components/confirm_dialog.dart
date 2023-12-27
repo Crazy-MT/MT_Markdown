@@ -1,4 +1,4 @@
-import 'package:code_zero/common/colors.dart';
+import 'package:mt_markdown/common/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

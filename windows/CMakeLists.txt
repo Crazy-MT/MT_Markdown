@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(code_zero LANGUAGES CXX)
+project(mt_markdown LANGUAGES CXX)
 
-set(BINARY_NAME "code_zero")
+set(BINARY_NAME "mt_markdown")
 
 cmake_policy(SET CMP0063 NEW)
 

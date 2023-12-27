@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:code_zero/utils/log_utils.dart';
-import 'package:code_zero/utils/platform_utils.dart';
+import 'package:mt_markdown/utils/log_utils.dart';
+import 'package:mt_markdown/utils/platform_utils.dart';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';

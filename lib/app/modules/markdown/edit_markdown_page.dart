@@ -2,11 +2,11 @@
 
 import 'dart:io';
 
-import 'package:code_zero/app/modules/markdown/custom_node.dart';
-import 'package:code_zero/app/modules/markdown/main_markdown/main_markdown_controller.dart';
-import 'package:code_zero/common/common.dart';
-import 'package:code_zero/utils/log_utils.dart';
-import 'package:code_zero/utils/platform_detector/platform_detector.dart';
+import 'package:mt_markdown/app/modules/markdown/custom_node.dart';
+import 'package:mt_markdown/app/modules/markdown/main_markdown/main_markdown_controller.dart';
+import 'package:mt_markdown/common/common.dart';
+import 'package:mt_markdown/utils/log_utils.dart';
+import 'package:mt_markdown/utils/platform_detector/platform_detector.dart';
 import 'package:cross_file/cross_file.dart';
 import 'package:date_format/date_format.dart';
 import 'package:file_selector/file_selector.dart';

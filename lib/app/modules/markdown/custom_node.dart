@@ -1,4 +1,4 @@
-import 'package:code_zero/app/modules/markdown/html_support.dart';
+import 'package:mt_markdown/app/modules/markdown/html_support.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:markdown/markdown.dart' as m;
 

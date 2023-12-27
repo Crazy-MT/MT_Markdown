@@ -1,5 +1,5 @@
-import 'package:code_zero/app/modules/markdown/custom_node.dart';
-import 'package:code_zero/utils/platform_detector/platform_detector.dart';
+import 'package:mt_markdown/app/modules/markdown/custom_node.dart';
+import 'package:mt_markdown/utils/platform_detector/platform_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:markdown_widget/config/toc.dart';
