@@ -11,7 +11,7 @@ dependencies:
   pull_to_refresh: 2.0.0
   flutter_screenutil: 5.8.4
   flutter_easyloading: 3.0.5
-  cached_network_image: 3.2.0
+  cached_network_image: 3.3.0
   dio: 4.0.6
   sp_util: 2.0.3
   package_info_plus: 3.1.2
@@ -37,9 +37,6 @@ dependencies:
   webview_flutter: 3.0.4
   card_swiper: 2.0.4
   photo_view: 0.14.0
-  fluwx: 3.9.2
-  r_upgrade: #0.4.0 #https://github.com/rhymelph/r_upgrade/blob/master/README_CN.md
-    git: git@github.com:Crazy-MT/r_upgrade.git
   platform_device_id: 1.0.1
   image_downloader_web: 1.0.2
 #  image_crop_widget: ^0.0.6
@@ -53,7 +50,7 @@ dependencies:
     sdk: flutter
   universal_platform: 1.0.0+1
 
-  desktop_drop: ^0.4.1
+  desktop_drop: ^0.4.4
 
   cross_file: ^0.3.2
   markdown_widget: 2.2.0
@@ -67,13 +64,6 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: 1.0.0
-  flutter_ume: 1.1.2
-#  flutter_ume_kit_ui: 1.1.0
-  flutter_ume_kit_device: 1.0.0
-#  flutter_ume_kit_perf: 1.0.0
-#  flutter_ume_kit_show_code: ^1.0.0+1
-  flutter_ume_kit_console: 1.0.0
-  flutter_ume_kit_dio: 1.0.1+2
   flutter_test:
     sdk: flutter
 
@@ -83,7 +73,6 @@ flutter:
       fonts:
         - asset: fonts/tab_title.ttf
   assets:
-    - assets/html/
     - assets/icons/
     - assets/images/
     - assets/images/dialog_bg/

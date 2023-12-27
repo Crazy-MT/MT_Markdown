@@ -2,10 +2,8 @@
 
 import 'dart:io';
 
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:code_zero/app/modules/markdown/custom_node.dart';
 import 'package:code_zero/app/modules/markdown/main_markdown/main_markdown_controller.dart';
-import 'package:code_zero/app/modules/markdown/menu/bean/MenuInfo.dart';
 import 'package:code_zero/common/common.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/platform_detector/platform_detector.dart';
@@ -73,6 +71,13 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
           await saveFile(widget.filePath);
           Get.find<MainMarkdownController>().modifyLast(path: widget.filePath, lastModified: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
         }
+      }
+
+      if (event == "search") {
+        lLog('MTMTMT _EditMarkdownPageState.initState search} ');
+        setState(() {
+          widget.controller?.text = '### nihao';
+        });
       }
     });
   }

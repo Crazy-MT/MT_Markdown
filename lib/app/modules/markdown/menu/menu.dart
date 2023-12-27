@@ -1,17 +1,11 @@
-import 'dart:ffi';
-import 'dart:io';
-
 import 'package:code_zero/app/modules/markdown/main_markdown/main_markdown_controller.dart';
 import 'package:code_zero/app/modules/markdown/menu/bean/MenuInfo.dart';
 import 'package:code_zero/app/modules/markdown/menu/navigation_item.dart';
-import 'package:code_zero/app/modules/markdown/router.dart';
 import 'package:code_zero/utils/log_utils.dart';
 import 'package:code_zero/utils/platform_detector/platform_detector.dart';
 import 'package:contextmenu/contextmenu.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Menu extends StatelessWidget {
   final bool isCollapsed;

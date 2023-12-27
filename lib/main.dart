@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:code_zero/app/modules/markdown/main_markdown/main_markdown_controller.dart';
@@ -22,15 +21,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/routes/app_pages.dart';
 import 'app/routes/app_routes.dart';
-import 'network/l_request.dart';
 import 'utils/log_utils.dart';
-import 'package:flutter_ume/flutter_ume.dart'; // UME 框架
-// import 'package:flutter_ume_kit_ui/flutter_ume_kit_ui.dart'; // UI 插件包
-// import 'package:flutter_ume_kit_perf/flutter_ume_kit_perf.dart'; // 性能插件包
-// import 'package:flutter_ume_kit_show_code/flutter_ume_kit_show_code.dart'; // 代码查看插件包
-import 'package:flutter_ume_kit_device/flutter_ume_kit_device.dart'; // 设备信息插件包
-import 'package:flutter_ume_kit_console/flutter_ume_kit_console.dart'; // debugPrint 插件包
-import 'package:flutter_ume_kit_dio/flutter_ume_kit_dio.dart'; // Dio 网络请求调试工具
 
 void main() {
   // runZonedGuarded(() {
@@ -44,26 +35,6 @@ void main() {
         statusBarIconBrightness: Brightness.light);
     SystemChrome.setSystemUIOverlayStyle(style);
   }
-  /*if (kDebugMode) {
-    PluginManager.instance
-      ..register(DioInspector(dio: LRequest.dio))
-      // ..register(WidgetInfoInspector())
-      // ..register(WidgetDetailInspector())
-      // ..register(ColorSucker())
-      // ..register(AlignRuler())
-      // ..register(ColorPicker())
-      // ..register(TouchIndicator())
-      // ..register(Performance())
-      // ..register(ShowCode())
-      // ..register(MemoryInfoPage())
-      ..register(CpuInfoPage())
-      ..register(DeviceInfoPanel())
-      ..register(Console());
-    // flutter_ume 0.3.0 版本之后
-    runApp(UMEWidget(child: App(), enable: true));
-  } else {
-    runApp(App());
-  }*/
   runApp(App());
 
   doWhenWindowReady(() {
@@ -145,6 +116,15 @@ class _AppState extends State<App> {
                   shortcut: const SingleActivator(LogicalKeyboardKey.keyS, meta: true),
                   // shortcut: const CharacterActivator('s'),
                   label: '保存',
+                ),
+                PlatformMenuItem(
+                  onSelected: () {
+                    // _handleMenuSelection(MenuSelection.showMessage);
+                    eventBus.fire("search");
+                  },
+                  shortcut: const SingleActivator(LogicalKeyboardKey.keyF, meta: true),
+                  // shortcut: const CharacterActivator('s'),
+                  label: '查找',
                 )
               ],
             ),
