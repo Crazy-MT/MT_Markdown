@@ -61,6 +61,8 @@ dependencies:
   event_bus_plus: 0.6.1
   contextmenu: ^3.0.0
 
+  re_editor: ^0.0.3
+
 
 dev_dependencies:
   flutter_lints: 1.0.0

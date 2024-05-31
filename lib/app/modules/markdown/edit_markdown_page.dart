@@ -15,13 +15,17 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:re_editor/re_editor.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'editor_large_text.dart';
 import 'markdown_page.dart';
+import 'package:flutter_highlight/themes/a11y-light.dart';
 
 class EditMarkdownPage extends StatefulWidget {
   // final String initialData;
   final TextEditingController? controller;
+
 
   final String title;
   final String filePath;
@@ -35,11 +39,13 @@ class EditMarkdownPage extends StatefulWidget {
 }
 
 class _EditMarkdownPageState extends State<EditMarkdownPage> {
-  bool isMobileDisplaying = false;
-  bool isPreview = false;
+  bool isPreviewDisplaying = false;
   bool isTaped = false;
+  ScrollController _scrollController = ScrollController();
+  double _scrollProgress = 0.0;
 
-  bool get isMobile => PlatformDetector.isAllMobile;
+  var _tocController = TocController();
+  bool get isMobile => PlatformDetector.isAllMobile; // mobile or web-android/web-iOS
 
   @override
   void initState() {
@@ -52,6 +58,8 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
       });
     }*/
     super.initState();
+
+    _scrollController.addListener(_updateScrollProgress);
 
     eventBus.on().listen((event) async {
       if (event == "save") {
@@ -75,10 +83,18 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
 
       if (event == "search") {
         lLog('MTMTMT _EditMarkdownPageState.initState search} ');
-        setState(() {
+        /*setState(() {
           widget.controller?.text = '### nihao';
-        });
+        });*/
       }
+    });
+  }
+
+  void _updateScrollProgress() {
+    setState(() {
+      _scrollProgress = _scrollController.offset / _scrollController.position.maxScrollExtent;
+      int toc = (_tocController.tocList.length * _scrollProgress).toInt();
+      _tocController.jumpToIndex(_tocController.tocList[toc].widgetIndex);
     });
   }
 
@@ -100,11 +116,11 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
                   hoverColor: Colors.transparent,
                   onPressed: () {
                     setState(() {
-                      isMobileDisplaying = !isMobileDisplaying;
+                      isPreviewDisplaying = !isPreviewDisplaying;
                     });
                   },
                   icon: Icon(
-                    isMobileDisplaying
+                    isPreviewDisplaying
                         ? Icons.remove_red_eye_outlined
                         : Icons.remove_red_eye,
                     size: 20,
@@ -146,11 +162,11 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
       floatingActionButton: isMobile
           ? FloatingActionButton(
               onPressed: () {
-                isMobileDisplaying = !isMobileDisplaying;
+                isPreviewDisplaying = !isPreviewDisplaying;
                 refresh();
               },
               child: Icon(
-                isMobileDisplaying
+                isPreviewDisplaying
                     ? Icons.remove_red_eye_outlined
                     : Icons.remove_red_eye,
               ),
@@ -160,18 +176,19 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
   }
 
   Widget buildDisplay() {
-    if (isMobileDisplaying)
+    // preview
+    if (isPreviewDisplaying)
       return MarkdownPage(markdownData: widget.controller?.text);
     return buildEditor();
   }
 
-  Widget buildEditor() => isMobile ? buildMobileBody() : buildWebBody();
+  Widget buildEditor() => isMobile ? buildMobileBody() : buildClientBody();
 
   Widget buildMobileBody() {
     return buildEditText();
   }
 
-  Widget buildWebBody() {
+  Widget buildClientBody() {
     return Row(
       children: <Widget>[
         Expanded(child: buildEditText()),
@@ -179,8 +196,11 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 4),
             child: MarkdownWidget(
+              tocController: _tocController,
               data: widget.controller?.text ?? "",
-              config: MarkdownConfig.defaultConfig,
+              config: MarkdownConfig(configs: [
+                PreConfig(theme: a11yLightTheme),
+              ]),
               markdownGeneratorConfig: MarkdownGeneratorConfig(
                   generators: [],
                   inlineSyntaxList: [],
@@ -205,24 +225,34 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
           width: 1,
         )),
       ),
-      child: TextFormField(
-        expands: true,
-        maxLines: null,
-        textInputAction: TextInputAction.newline,
-        controller: widget.controller,
-        onChanged: (text) {
-          if (widget.title == '未命名' && text.contains('\n')) {
-            Get.find<MainMarkdownController>()
-                .modifyLast(name: text.split('\n').first + ".md", lastModified: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
+      // child: LargeTextEditor(),
+      child: NotificationListener<ScrollNotification>(
+        onNotification: (notification) {
+          if (notification is ScrollUpdateNotification && notification.depth == 0) {
+            _updateScrollProgress();
           }
-          refresh();
+          return false;
         },
-        style: TextStyle(textBaseline: TextBaseline.alphabetic),
-        decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(10),
-            border: InputBorder.none,
-            hintText: widget.title == '未命名' ? '输入标题' : "输入正文",
-            hintStyle: TextStyle(color: Colors.grey)),
+        child: TextFormField(
+          scrollController: _scrollController,
+          expands: true,
+          maxLines: null,
+          textInputAction: TextInputAction.newline,
+          controller: widget.controller,
+          onChanged: (text) {
+            if (widget.title == '未命名' && text.contains('\n')) {
+              Get.find<MainMarkdownController>()
+                  .modifyLast(name: text.split('\n').first + ".md", lastModified: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
+            }
+            refresh();
+          },
+          style: TextStyle(textBaseline: TextBaseline.alphabetic),
+          decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(10),
+              border: InputBorder.none,
+              hintText: widget.title == '未命名' ? '输入标题' : "输入正文",
+              hintStyle: TextStyle(color: Colors.grey)),
+        ),
       ),
     );
   }
@@ -246,6 +276,8 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
   void dispose() {
     super.dispose();
     widget.controller?.dispose();
+
+    _scrollController.dispose();
   }
 }
 
