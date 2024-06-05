@@ -40,7 +40,7 @@ class EditMarkdownPage extends StatefulWidget {
 class _EditMarkdownPageState extends State<EditMarkdownPage> {
   bool isPreviewDisplaying = false;
   bool isTaped = false;
-  ScrollController _scrollController = ScrollController();
+  CodeScrollController _scrollController = CodeScrollController();
   double _scrollProgress = 0.0;
 
   var _tocController = TocController();
@@ -69,16 +69,15 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
         style: TextStyle(backgroundColor: Colors.yellow, color: Colors.black),
       ));
       startIndex = index + query.length;
-      widget.controller?.selection = TextSelection(
-          baseOffset: startIndex,
-          extentOffset: index
-      );
+      widget.controller?.selection =
+          TextSelection(baseOffset: startIndex, extentOffset: index);
     }
     _highlightedTextSpans.add(TextSpan(
       text: content.substring(startIndex),
       style: TextStyle(color: Colors.black),
     ));
-    lLog('MTMTMT _EditMarkdownPageState._search ${_highlightedTextSpans.length} ');
+    lLog(
+        'MTMTMT _EditMarkdownPageState._search ${_highlightedTextSpans.length} ');
     setState(() {});
   }
 
@@ -94,7 +93,8 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
     }*/
     super.initState();
 
-    _scrollController.addListener(_updateScrollProgress);
+    _scrollController.verticalScroller.addListener(_updateScrollProgress);
+
 
     eventBus.on().listen((event) async {
       if (event == "save") {
@@ -136,7 +136,7 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
   void _updateScrollProgress() {
     setState(() {
       _scrollProgress =
-          _scrollController.offset / _scrollController.position.maxScrollExtent;
+          _scrollController.verticalScroller.offset / _scrollController.verticalScroller.position.maxScrollExtent;
       int toc = (_tocController.tocList.length * _scrollProgress).toInt();
       if (toc < _tocController.tocList.length) {
         _tocController.jumpToIndex(_tocController.tocList[toc].widgetIndex);
@@ -272,53 +272,27 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
         )),
       ),
       // child: LargeTextEditor(),
-      child: Stack(
-        children: [
-          NotificationListener<ScrollNotification>(
-            onNotification: (notification) {
-              if (notification is ScrollUpdateNotification &&
-                  notification.depth == 0) {
-                _updateScrollProgress();
-              }
-              return false;
-            },
-            child: TextFormField(
-              scrollController: _scrollController,
-              expands: true,
-              maxLines: null,
-              textInputAction: TextInputAction.newline,
-              controller: widget.controller,
-              onChanged: (text) {
-                if (widget.title == '未命名' && text.contains('\n')) {
-                  Get.find<MainMarkdownController>().modifyLast(
-                      name: text.split('\n').first + ".md",
-                      lastModified: formatDate(DateTime.now(),
-                          [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
-                }
-                refresh();
-              },
-              style: TextStyle(textBaseline: TextBaseline.alphabetic),
-              decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(10),
-                  border: InputBorder.none,
-                  hintText: widget.title == '未命名' ? '输入标题' : "输入正文",
-                  hintStyle: TextStyle(color: Colors.grey)),
-            ),
-          ),
-          Positioned.fill(
-            child: IgnorePointer(
-              child: Container(
-                // color: Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                child: RichText(
-                  text: TextSpan(
-                    children: _highlightedTextSpans,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+      child: NotificationListener<ScrollNotification>(
+        onNotification: (notification) {
+          if (notification is ScrollUpdateNotification && notification.depth == 0) {
+            _updateScrollProgress();
+          }
+          return false;
+        },
+        child: LargeTextEditor(
+          data: widget.controller?.text ?? "",
+          onChanged: (text) {
+            if (widget.title == '未命名' && text.contains('\n')) {
+              Get.find<MainMarkdownController>().modifyLast(
+                  name: text.split('\n').first + ".md",
+                  lastModified: formatDate(DateTime.now(),
+                      [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
+            }
+            widget.controller?.text = text;
+            refresh();
+          },
+          scrollController: _scrollController,
+        ),
       ),
     );
   }
