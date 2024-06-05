@@ -26,7 +26,6 @@ class EditMarkdownPage extends StatefulWidget {
   // final String initialData;
   final TextEditingController? controller;
 
-
   final String title;
   final String filePath;
 
@@ -45,7 +44,43 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
   double _scrollProgress = 0.0;
 
   var _tocController = TocController();
-  bool get isMobile => PlatformDetector.isAllMobile; // mobile or web-android/web-iOS
+
+  bool get isMobile =>
+      PlatformDetector.isAllMobile; // mobile or web-android/web-iOS
+
+  TextEditingController _searchController = TextEditingController();
+  List<TextSpan> _highlightedTextSpans = [];
+
+  void _search(String query) {
+    String content = widget.controller?.text ?? "";
+    _highlightedTextSpans.clear();
+
+    int startIndex = 0;
+    while (startIndex < content.length) {
+      int index = content.indexOf(query, startIndex);
+      if (index == -1) break;
+
+      _highlightedTextSpans.add(TextSpan(
+        text: content.substring(startIndex, index),
+        style: TextStyle(color: Colors.black),
+      ));
+      _highlightedTextSpans.add(TextSpan(
+        text: query,
+        style: TextStyle(backgroundColor: Colors.yellow, color: Colors.black),
+      ));
+      startIndex = index + query.length;
+      widget.controller?.selection = TextSelection(
+          baseOffset: startIndex,
+          extentOffset: index
+      );
+    }
+    _highlightedTextSpans.add(TextSpan(
+      text: content.substring(startIndex),
+      style: TextStyle(color: Colors.black),
+    ));
+    lLog('MTMTMT _EditMarkdownPageState._search ${_highlightedTextSpans.length} ');
+    setState(() {});
+  }
 
   @override
   void initState() {
@@ -73,11 +108,18 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
           await saveFile(result.path);
           XFile xFile = XFile(result.path);
           lLog('MTMTMT _EditMarkdownPageState.initState ${xFile.name} ');
-          Get.find<MainMarkdownController>().modifyLast(name: xFile.name, path: result.path, lastModified: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
+          Get.find<MainMarkdownController>().modifyLast(
+              name: xFile.name,
+              path: result.path,
+              lastModified: formatDate(DateTime.now(),
+                  [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
           // widget.controller?.text = "";
         } else {
           await saveFile(widget.filePath);
-          Get.find<MainMarkdownController>().modifyLast(path: widget.filePath, lastModified: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
+          Get.find<MainMarkdownController>().modifyLast(
+              path: widget.filePath,
+              lastModified: formatDate(DateTime.now(),
+                  [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
         }
       }
 
@@ -86,15 +128,19 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
         /*setState(() {
           widget.controller?.text = '### nihao';
         });*/
+        _search("down");
       }
     });
   }
 
   void _updateScrollProgress() {
     setState(() {
-      _scrollProgress = _scrollController.offset / _scrollController.position.maxScrollExtent;
+      _scrollProgress =
+          _scrollController.offset / _scrollController.position.maxScrollExtent;
       int toc = (_tocController.tocList.length * _scrollProgress).toInt();
-      _tocController.jumpToIndex(_tocController.tocList[toc].widgetIndex);
+      if (toc < _tocController.tocList.length) {
+        _tocController.jumpToIndex(_tocController.tocList[toc].widgetIndex);
+      }
     });
   }
 
@@ -226,33 +272,53 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
         )),
       ),
       // child: LargeTextEditor(),
-      child: NotificationListener<ScrollNotification>(
-        onNotification: (notification) {
-          if (notification is ScrollUpdateNotification && notification.depth == 0) {
-            _updateScrollProgress();
-          }
-          return false;
-        },
-        child: TextFormField(
-          scrollController: _scrollController,
-          expands: true,
-          maxLines: null,
-          textInputAction: TextInputAction.newline,
-          controller: widget.controller,
-          onChanged: (text) {
-            if (widget.title == '未命名' && text.contains('\n')) {
-              Get.find<MainMarkdownController>()
-                  .modifyLast(name: text.split('\n').first + ".md", lastModified: formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
-            }
-            refresh();
-          },
-          style: TextStyle(textBaseline: TextBaseline.alphabetic),
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(10),
-              border: InputBorder.none,
-              hintText: widget.title == '未命名' ? '输入标题' : "输入正文",
-              hintStyle: TextStyle(color: Colors.grey)),
-        ),
+      child: Stack(
+        children: [
+          NotificationListener<ScrollNotification>(
+            onNotification: (notification) {
+              if (notification is ScrollUpdateNotification &&
+                  notification.depth == 0) {
+                _updateScrollProgress();
+              }
+              return false;
+            },
+            child: TextFormField(
+              scrollController: _scrollController,
+              expands: true,
+              maxLines: null,
+              textInputAction: TextInputAction.newline,
+              controller: widget.controller,
+              onChanged: (text) {
+                if (widget.title == '未命名' && text.contains('\n')) {
+                  Get.find<MainMarkdownController>().modifyLast(
+                      name: text.split('\n').first + ".md",
+                      lastModified: formatDate(DateTime.now(),
+                          [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss]));
+                }
+                refresh();
+              },
+              style: TextStyle(textBaseline: TextBaseline.alphabetic),
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(10),
+                  border: InputBorder.none,
+                  hintText: widget.title == '未命名' ? '输入标题' : "输入正文",
+                  hintStyle: TextStyle(color: Colors.grey)),
+            ),
+          ),
+          Positioned.fill(
+            child: IgnorePointer(
+              child: Container(
+                // color: Colors.white,
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                child: RichText(
+                  text: TextSpan(
+                    children: _highlightedTextSpans,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
