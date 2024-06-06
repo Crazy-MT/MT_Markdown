@@ -117,6 +117,7 @@ class _AppState extends State<App> {
                   // shortcut: const CharacterActivator('s'),
                   label: '保存',
                 ),
+/*
                 PlatformMenuItem(
                   onSelected: () {
                     // _handleMenuSelection(MenuSelection.showMessage);
@@ -126,6 +127,7 @@ class _AppState extends State<App> {
                   // shortcut: const CharacterActivator('s'),
                   label: '查找',
                 )
+*/
               ],
             ),
             PlatformMenuItemGroup(

@@ -11,6 +11,7 @@ import 'package:mt_markdown/common/sp_const.dart';
 import 'package:mt_markdown/utils/log_utils.dart';
 import 'package:cross_file/cross_file.dart';
 import 'package:desktop_drop/desktop_drop.dart';
+import 'package:re_editor/re_editor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sp_util/sp_util.dart';
 
@@ -145,7 +146,10 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
   }
 
   Widget rightLayout() => Obx(() {
+    CodeLineEditingController codeLineEditingController = CodeLineEditingController();
+    codeLineEditingController.text = controller.mdData.value;
         return EditMarkdownPage(
+          codeLineEditingController: codeLineEditingController,
           title: controller.selectInfo.value?.name ?? "",
           filePath: controller.selectInfo.value?.path ?? "",
           controller: TextEditingController(text: controller.mdData.value),

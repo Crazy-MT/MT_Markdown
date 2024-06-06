@@ -23,14 +23,18 @@ import 'markdown_page.dart';
 import 'package:flutter_highlight/themes/a11y-light.dart';
 
 class EditMarkdownPage extends StatefulWidget {
-  // final String initialData;
   final TextEditingController? controller;
+  final CodeLineEditingController? codeLineEditingController;
 
   final String title;
   final String filePath;
 
   const EditMarkdownPage(
-      {Key? key, this.controller, required this.title, required this.filePath})
+      {Key? key,
+      this.controller,
+      required this.title,
+      required this.filePath,
+      required this.codeLineEditingController})
       : super(key: key);
 
   @override
@@ -51,6 +55,7 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
   TextEditingController _searchController = TextEditingController();
   List<TextSpan> _highlightedTextSpans = [];
 
+/*
   void _search(String query) {
     String content = widget.controller?.text ?? "";
     _highlightedTextSpans.clear();
@@ -80,6 +85,7 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
         'MTMTMT _EditMarkdownPageState._search ${_highlightedTextSpans.length} ');
     setState(() {});
   }
+*/
 
   @override
   void initState() {
@@ -94,7 +100,6 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
     super.initState();
 
     _scrollController.verticalScroller.addListener(_updateScrollProgress);
-
 
     eventBus.on().listen((event) async {
       if (event == "save") {
@@ -123,20 +128,20 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
         }
       }
 
-      if (event == "search") {
+      /*if (event == "search") {
         lLog('MTMTMT _EditMarkdownPageState.initState search} ');
-        /*setState(() {
+        *//*setState(() {
           widget.controller?.text = '### nihao';
-        });*/
-        _search("down");
-      }
+        });*//*
+        // _search("down");
+      }*/
     });
   }
 
   void _updateScrollProgress() {
     setState(() {
-      _scrollProgress =
-          _scrollController.verticalScroller.offset / _scrollController.verticalScroller.position.maxScrollExtent;
+      _scrollProgress = _scrollController.verticalScroller.offset /
+          _scrollController.verticalScroller.position.maxScrollExtent;
       int toc = (_tocController.tocList.length * _scrollProgress).toInt();
       if (toc < _tocController.tocList.length) {
         _tocController.jumpToIndex(_tocController.tocList[toc].widgetIndex);
@@ -274,12 +279,14 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
       // child: LargeTextEditor(),
       child: NotificationListener<ScrollNotification>(
         onNotification: (notification) {
-          if (notification is ScrollUpdateNotification && notification.depth == 0) {
+          if (notification is ScrollUpdateNotification &&
+              notification.depth == 0) {
             _updateScrollProgress();
           }
           return false;
         },
         child: LargeTextEditor(
+          codeLineEditingController: widget.codeLineEditingController,
           data: widget.controller?.text ?? "",
           onChanged: (text) {
             if (widget.title == '未命名' && text.contains('\n')) {

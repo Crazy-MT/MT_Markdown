@@ -10,9 +10,11 @@ class LargeTextEditor extends StatefulWidget {
   final String data;
   final ValueChanged<String>? onChanged;
   final CodeScrollController? scrollController;
+  final CodeLineEditingController? codeLineEditingController;
 
   const LargeTextEditor({
     required this.data,
+    required this.codeLineEditingController,
     this.onChanged,
     this.scrollController
   });
@@ -22,11 +24,19 @@ class LargeTextEditor extends StatefulWidget {
 }
 
 class _LargeTextEditorState extends State<LargeTextEditor> {
-  final CodeLineEditingController _controller = CodeLineEditingController();
+  // final CodeLineEditingController _controller = CodeLineEditingController();
+
+  @override
+  void didUpdateWidget(covariant LargeTextEditor oldWidget) {
+    // _controller.text = widget.data;
+    super.didUpdateWidget(oldWidget);
+
+    lLog('MTMTMT _LargeTextEditorState.didUpdateWidget } ');
+
+  }
 
   @override
   void initState() {
-    _controller.text = widget.data;
     super.initState();
   }
 
@@ -37,10 +47,12 @@ class _LargeTextEditorState extends State<LargeTextEditor> {
       style: CodeEditorStyle(
         fontSize: 18,
       ),
-      controller: _controller,
+      controller: widget.codeLineEditingController,
       wordWrap: true,
       onChanged: (text) {
-        widget.onChanged?.call(_controller.text);
+        if (widget.data != widget.codeLineEditingController?.text) {
+          widget.onChanged?.call(widget.codeLineEditingController?.text ?? "");
+        }
       },
       indicatorBuilder:
           (context, editingController, chunkController, notifier) {
