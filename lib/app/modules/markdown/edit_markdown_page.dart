@@ -311,7 +311,7 @@ class _EditMarkdownPageState extends State<EditMarkdownPage> {
   Future saveFile(String filePath) async {
     File file = File(filePath);
     try {
-      await file.writeAsString(widget.controller?.text ?? "").then(
+      await file.writeAsString(widget.codeLineEditingController?.text ?? "").then(
             (value) => showToast("保存成功"),
           );
     } catch (_) {

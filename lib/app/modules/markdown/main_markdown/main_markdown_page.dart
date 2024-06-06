@@ -146,10 +146,9 @@ class MainMarkdownPage extends GetView<MainMarkdownController> {
   }
 
   Widget rightLayout() => Obx(() {
-    CodeLineEditingController codeLineEditingController = CodeLineEditingController();
-    codeLineEditingController.text = controller.mdData.value;
+        controller.codeLineEditingController.text = controller.mdData.value;
         return EditMarkdownPage(
-          codeLineEditingController: codeLineEditingController,
+          codeLineEditingController: controller.codeLineEditingController,
           title: controller.selectInfo.value?.name ?? "",
           filePath: controller.selectInfo.value?.path ?? "",
           controller: TextEditingController(text: controller.mdData.value),

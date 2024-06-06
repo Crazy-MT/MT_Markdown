@@ -119,7 +119,7 @@ class Menu extends StatelessWidget {
     return ContextMenuArea(
       builder: (context) => [
         ListTile(
-          title: Text('删除（不会删除文件）'),
+          title: Text('移除文档'),
           onTap: () {
             lLog('MTMTMT Menu.buildMenu ${title} ');
             Get.find<MainMarkdownController>().removeThis(MenuInfo(title, path, lastModified));

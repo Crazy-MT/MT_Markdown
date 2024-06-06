@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mt_markdown/app/modules/markdown/shortcuts_activators_builder.dart';
 import 'package:mt_markdown/utils/log_utils.dart';
 import 'package:re_editor/re_editor.dart';
 
@@ -31,7 +32,7 @@ class _LargeTextEditorState extends State<LargeTextEditor> {
     // _controller.text = widget.data;
     super.didUpdateWidget(oldWidget);
 
-    lLog('MTMTMT _LargeTextEditorState.didUpdateWidget } ');
+    // lLog('MTMTMT _LargeTextEditorState.didUpdateWidget } ');
 
   }
 
@@ -69,6 +70,7 @@ class _LargeTextEditorState extends State<LargeTextEditor> {
       },
       findBuilder: (context, controller, readOnly) =>
           CodeFindPanelView(controller: controller, readOnly: readOnly),
+      shortcutsActivatorsBuilder: const ShortcutsActivatorsBuilder(),
       // toolbarController: const ContextMenuControllerImpl(),
       // sperator: Container(width: 1, color: Colors.blue),
     );

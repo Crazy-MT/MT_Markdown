@@ -14,6 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mt_markdown/common/components/status_page/status_page.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:re_editor/re_editor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sp_util/sp_util.dart';
 
@@ -30,6 +31,7 @@ class MainMarkdownController extends GetxController {
   RxList<MenuInfo> menuInfos = RxList<MenuInfo>();
   Rx<MenuInfo?> selectInfo = Rx<MenuInfo?>(null);
   final mdData = ''.obs;
+  CodeLineEditingController codeLineEditingController = CodeLineEditingController();
 
   // final RxList list = [].obs;
   Offset? offset;
@@ -95,12 +97,14 @@ class MainMarkdownController extends GetxController {
         '  ${file.mimeType}');
   }
 
-  Future<void> chooseInfo(MenuInfo info) async {
+  Future<void> chooseInfo(MenuInfo info, {isModify = false}) async {
     selectInfo.value = info;
-    if (selectInfo.value!.path!.isNotEmpty) {
-      mdData.value = await File(selectInfo.value!.path!).readAsString();
-    } else {
-      mdData.value = '';
+    if (!isModify) {
+      if (selectInfo.value!.path!.isNotEmpty) {
+        mdData.value = await File(selectInfo.value!.path!).readAsString();
+      } else {
+        mdData.value = '';
+      }
     }
 
     List<String> infos = [];
@@ -123,7 +127,7 @@ class MainMarkdownController extends GetxController {
     var info = MenuInfo(
         name ?? selectInfo.value?.name, path ?? selectInfo.value?.path ?? "", lastModified);
     menuInfos.add(info);
-    chooseInfo(info);
+    chooseInfo(info, isModify: true);
   }
 
   void removeThis(MenuInfo menuInfo) {
