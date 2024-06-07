@@ -35,7 +35,19 @@ void main() {
         statusBarIconBrightness: Brightness.light);
     SystemChrome.setSystemUIOverlayStyle(style);
   }
+
+  if (!PlatformUtils.isMacOS) {
+    doWhenWindowReady(() {
+      const initialSize = Size(1280, 700);
+      appWindow.minSize = initialSize;
+      appWindow.size = initialSize;
+      appWindow.alignment = Alignment.center;
+      appWindow.show();
+    });
+  }
+
   runApp(App());
+
   const MethodChannel _channel = MethodChannel('com.example.myapp/openFile');
   _channel.setMethodCallHandler((MethodCall call) async {
     print('Opened file: ');
@@ -47,17 +59,6 @@ void main() {
       }
     }
   });
-
-/*  doWhenWindowReady(() {
-    const initialSize = Size(1280, 700);
-    appWindow.minSize = initialSize;
-    appWindow.size = initialSize;
-    appWindow.alignment = Alignment.center;
-    appWindow.show();
-  });*/
-  // }, (error, stackTrace) {
-  //   errorLog(error.toString());
-  // });
 }
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
