@@ -36,6 +36,17 @@ void main() {
     SystemChrome.setSystemUIOverlayStyle(style);
   }
   runApp(App());
+  const MethodChannel _channel = MethodChannel('com.example.myapp/openFile');
+  _channel.setMethodCallHandler((MethodCall call) async {
+    print('Opened file: ');
+    if (call.method == 'openFile') {
+      List<dynamic> paths = call.arguments;
+      for (var path in paths) {
+        print('Opened file: $path');
+        // 在这里处理打开的文件路径
+      }
+    }
+  });
 
   doWhenWindowReady(() {
     const initialSize = Size(1280, 700);
