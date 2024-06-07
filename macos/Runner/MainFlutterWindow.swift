@@ -2,7 +2,7 @@ import Cocoa
 import FlutterMacOS
 import bitsdojo_window_macos // Add this line
 
-class MainFlutterWindow: BitsdojoWindow {
+class MainFlutterWindow: NSWindow {
   override func awakeFromNib() {
     let flutterViewController = FlutterViewController.init()
     let windowFrame = self.frame
@@ -13,7 +13,7 @@ class MainFlutterWindow: BitsdojoWindow {
 
     super.awakeFromNib()
   }
-    override func bitsdojo_window_configure() -> UInt {
+    /* override func bitsdojo_window_configure() -> UInt {
       return BDW_CUSTOM_FRAME | BDW_HIDE_ON_STARTUP
-    }
+    } */
 }

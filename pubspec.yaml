@@ -14,7 +14,7 @@ dependencies:
   cached_network_image: 3.3.0
   dio: 4.0.6
   sp_util: 2.0.3
-  package_info_plus: 3.1.2
+  package_info_plus: 5.0.1
   event_bus: 2.0.0
   oktoast: 3.1.5
   flutter_svg: 1.0.3
@@ -41,7 +41,7 @@ dependencies:
   image_downloader_web: 1.0.2
 #  image_crop_widget: ^0.0.6
 #  flutter_image_editor: ^1.2.0
-  image_editor: any
+#  image_editor: any
   image: any
   dotted_border: 2.0.0+3
   flutter:
@@ -57,7 +57,7 @@ dependencies:
 
   file_picker: ^5.2.7
   shared_preferences: 2.1.1
-  bitsdojo_window: 0.1.5
+  bitsdojo_window: 0.1.6
   event_bus_plus: 0.6.1
   contextmenu: ^3.0.0
 
