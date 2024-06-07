@@ -59,9 +59,12 @@ dependencies:
   shared_preferences: 2.1.1
   bitsdojo_window: 0.1.6
   event_bus_plus: 0.6.1
-  contextmenu: ^3.0.0
 
   re_editor: ^0.3.0
+
+  animations: ^2.0.1
+  after_layout: ^1.1.0
+
 
 
 dev_dependencies:

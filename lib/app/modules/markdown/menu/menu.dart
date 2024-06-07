@@ -3,9 +3,10 @@ import 'package:mt_markdown/app/modules/markdown/menu/bean/MenuInfo.dart';
 import 'package:mt_markdown/app/modules/markdown/menu/navigation_item.dart';
 import 'package:mt_markdown/utils/log_utils.dart';
 import 'package:mt_markdown/utils/platform_detector/platform_detector.dart';
-import 'package:contextmenu/contextmenu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../widget/context_menu_area.dart';
 
 class Menu extends StatelessWidget {
   final bool isCollapsed;
@@ -43,12 +44,13 @@ class Menu extends StatelessWidget {
             child: ListView.separated(
               itemBuilder: (_, index) {
                 // menuInfos!.map((e) => buildMenu(e.name, e.path, onSelect)).toList()
-                return buildMenu(
-                    menuInfos?[index].name, menuInfos?[index].path, menuInfos?[index].lastModified, onSelect);
+                return buildMenu(menuInfos?[index].name, menuInfos?[index].path,
+                    menuInfos?[index].lastModified, onSelect);
               },
               separatorBuilder: (_, __) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
                   child: Divider(
                     height: 2,
                     thickness: 0.6,
@@ -117,12 +119,19 @@ class Menu extends StatelessWidget {
 
   Widget buildMenu(title, path, lastModified, Function(MenuInfo info)? select) {
     return ContextMenuArea(
+      width: 200,
       builder: (context) => [
         ListTile(
+          dense: true,
+            selectedTileColor: Colors.white,
+          // contentPadding: EdgeInsets.all(0),
+          // hoverColor: Color.fromRGBO(90, 150, 255, 1),
           title: Text('移除文档'),
           onTap: () {
             lLog('MTMTMT Menu.buildMenu ${title} ');
-            Get.find<MainMarkdownController>().removeThis(MenuInfo(title, path, lastModified));
+            Get.find<MainMarkdownController>()
+                .removeThis(MenuInfo(title, path, lastModified));
+            Navigator.of(context).pop();
           },
         )
       ],

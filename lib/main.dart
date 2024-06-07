@@ -55,6 +55,7 @@ void main() {
       List<dynamic> paths = call.arguments;
       for (var path in paths) {
         print('Opened file: $path');
+        Get.find<MainMarkdownController>().addFile(XFile(path));
         // 在这里处理打开的文件路径
       }
     }
